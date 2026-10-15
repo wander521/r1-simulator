@@ -1,0 +1,39 @@
+/* Reference arm annotations, adapted only to the R1 joint anchors. */
+.r1-app .r1-joint-callouts{pointer-events:none}
+.r1-app .r1-joint-chip{pointer-events:auto;min-width:88px;max-width:calc(50% - 16px);font-variant-numeric:tabular-nums}
+.r1-app .r1-joint-header{width:100%;min-height:14px;margin:0;padding:0;border:0;border-radius:3px;background:none;color:inherit;box-shadow:none;font:inherit;cursor:pointer;text-align:start}
+.r1-app .r1-joint-header:hover,.r1-app .r1-joint-header:active{background:none;box-shadow:none}
+.r1-app .r1-joint-chip.is-open .r1-joint-header,.r1-app .r1-joint-chip:focus-within .r1-joint-header{margin-bottom:4px}
+.r1-app .r1-joint-header .callout-name{font-size:11px}
+.r1-app .r1-joint-header strong{font-size:11px}
+.r1-app .r1-joint-chip.is-open,.r1-app .r1-joint-chip:focus-within{width:218px}
+.r1-app .r1-joint-chip:focus-within:not(.is-open){width:max-content;padding:5px 7px}
+.r1-app .r1-joint-chip:focus-within:not(.is-open) .r1-joint-header{margin-bottom:0}
+.r1-app .r1-joint-chip:focus-within:not(.is-open) .callout-body,.r1-app .r1-joint-chip:focus-within:not(.is-open) .target-readout{display:none}
+.r1-app .r1-joint-chip input[type=range]{display:block;min-height:28px;margin:0;cursor:pointer;touch-action:pan-y}
+.r1-app .r1-joint-chip input[type=range]:disabled{cursor:not-allowed;opacity:.5}
+.r1-app .r1-joint-slider-legend{display:flex;justify-content:space-between;gap:8px;max-width:100%;color:#a7c8d4;font-size:10px;line-height:1.4;overflow-wrap:anywhere}
+.r1-app .r1-joint-limits{min-width:0;text-align:right;font-variant-numeric:tabular-nums}
+.r1-app .r1-joint-lines{z-index:0}
+.r1-app .r1-joint-chip{z-index:3}
+.r1-app .r1-joint-telemetry{display:grid;gap:10px}
+.r1-app .r1-joint-telemetry .control-card-heading{margin-bottom:0}
+.r1-app .r1-joint-units{color:#96b9c9;font-size:11px;white-space:nowrap}
+.r1-app .r1-joint-rms{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0;color:#a7c8d4;font-size:11px}
+.r1-app .r1-joint-rms strong{color:#d8f7ff;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.r1-app .r1-joint-torque-bars{gap:6px}
+.r1-app .r1-joint-torque-bars .torque-row{grid-template-columns:27px minmax(0,1fr) 81px;min-height:15px;font-size:11px;color:#a7c8d4}
+.r1-app .r1-joint-chart>span{color:#a7c8d4;font-size:11px}
+.r1-app .r1-joint-chart canvas{height:88px;max-width:100%}
+.r1-app .r1-joint-chart-legend{display:flex;justify-content:space-between;gap:6px;font-size:11px;font-variant-numeric:tabular-nums}
+@media(max-width:800px){
+  .r1-app .r1-joint-chip{min-width:76px;max-width:calc(50% - 12px)}
+  .r1-app .r1-joint-header{min-height:14px}
+  .r1-app .r1-joint-header .actual{min-width:5.5ch}
+  .r1-app .r1-joint-chip.is-open .target-readout,.r1-app .r1-joint-chip:focus-within .target-readout{display:inline}
+  .r1-app .r1-joint-chip:focus-within:not(.is-open){padding:4px 6px}
+  .r1-app .r1-joint-chip:focus-within:not(.is-open) .target-readout{display:none}
+  .r1-app .r1-joint-slider-legend{display:block;font-size:10px}
+  .r1-app .r1-joint-limits{display:block;text-align:start}
+}
+@media(prefers-reduced-motion:reduce){.r1-app .r1-joint-chip{transition:none}}

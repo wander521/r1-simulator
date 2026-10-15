@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>R1 &#21452;&#33218;&#25235;&#21462; &middot; &#26412;&#22320;&#25968;&#23383;&#23402;&#29983;</title>
 <link rel="stylesheet" href="../Rebot_Arm_AGV/assets/index-B74gtmCa.css">
-<link rel="stylesheet" href="./r1-reference.css?v=20261015-3">
+<link rel="stylesheet" href="./r1-reference.css?v=20261015-6">
+<link rel="stylesheet" href="./r1-joint-ui.css?v=20261015-6">
 <script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
 </head>
 <body>
@@ -14,7 +15,7 @@
 <div class="loading-ring"></div>
 <p class="loading-title">正在构建 R1 本地数字孪生</p>
 <p class="loading-text" id="loading-text">正在加载…</p>
-<div class="loading-progress">
+<div class="loading-progress" role="progressbar" aria-label="场景加载进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
 <div class="loading-progress-track"><div class="loading-progress-fill" id="loading-progress-fill"></div></div>
 <span class="loading-progress-value" id="loading-progress-value">0%</span>
 </div>
@@ -67,7 +68,7 @@
 <p class="control-hint">&#21452;&#33218;&#20808;&#23637;&#24320;&#65292;&#36527;&#24178;&#21069;&#20542;&#19979;&#36466;&#65307;&#36873;&#23450;&#19968;&#20391;&#30340;&#24179;&#34892;&#22841;&#29226;&#25235;&#21462;&#26041;&#22359;&#24182;&#24402;&#20301;&#12290;</p>
 <div class="vision-targets"><button class="vision-target active" type="button" aria-pressed="true"><i class="target-blue"></i><span>&#38738;&#33394;&#26041;&#22359;</span></button></div>
 <div class="grasp-actions">
-<button id="start-grasp" type="button">▶ 开始抓取</button><button id="start-stack" type="button" hidden>▲ 堆叠</button><button id="cancel-grasp" type="button" disabled>停止</button>
+<button id="start-grasp" type="button">▶ 归位</button><button id="start-stack" type="button" hidden>▲ 叠叠乐</button><button id="cancel-grasp" type="button" disabled>停止</button>
 </div>
 <div class="grasp-progress-row">
 <progress id="grasp-progress" max="1" value="0"></progress><output id="grasp-progress-value">0%</output>
@@ -85,7 +86,7 @@
 <span>夹持力</span><strong id="grasp-force">0.0 N</strong>
 </div>
 <div>
-<span>均方根误差</span><strong id="rms-error">0.0 mrad</strong>
+<span>腕部位置误差</span><strong id="rms-error">— mm</strong>
 </div>
 </div>
 <div class="torque-bars" id="torque-bars"></div>
@@ -94,6 +95,6 @@
 </div>
 <div class="telemetry-chart">
 <span>关节误差曲线 · rad</span><canvas id="error-chart" width="276" height="88"></canvas>
-</div></section></aside></main><script type="module" src="./r1-app.mjs?v=20261015-5"></script>
+</div></section></aside></main><script type="module" src="./r1-app.mjs?v=20261015-8"></script>
 </body>
 </html>

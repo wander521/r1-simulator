@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
-    "test": "node work/test-r1-grasp.mjs"
+    "test": "node work/test-r1-dynamics.mjs && node work/test-r1-dynamic-grasp.mjs",
+    "test:repeat": "node work/test-r1-dynamic-grasp.mjs --repeat=3",
+    "test:legacy": "node work/test-r1-grasp.mjs",
+    "build:physics": "node work/build-r1-dynamics.mjs"
   }
 }
