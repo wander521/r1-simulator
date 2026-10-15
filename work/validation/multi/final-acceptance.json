@@ -24,12 +24,12 @@
   },
   "maxG1C5IllegalPenetrationM": 0,
   "reportHashes": {
-    "work/validation/multi/coordinator-final.json": "3b6bb0cee2ad79ded15064fa5e357be192998a931cab88091db751e40fcfa64a",
-    "work/validation/multi/physical-final.json": "0e8a86adff925ea66c1abd9fd267b1d4ccd2bcb93fd1d0fb948b16c660f46e3a",
     "work/validation/multi/stack-final.json": "e49adf12b2cb83400edb673d14cd93cd48142743af47799073356c12222e7d79",
-    "work/validation/multi/ui-static-final.json": "dd1bd5508475042d8ed256969b44da67dc3767e0916ccf3b6f57087394e9e65b",
-    "work/validation/multi/pages-final.json": "d96694a870d5fc4a671519a498ae5b050014a100dd3d15aede7743853ebe165b",
-    "work/validation/multi/r1-gripper-final.json": "2284deda7ef727689ab60613c1639b4b9678628b46efc333dbf312026e6d2c73"
+    "work/validation/multi/physical-final.json": "0e8a86adff925ea66c1abd9fd267b1d4ccd2bcb93fd1d0fb948b16c660f46e3a",
+    "work/validation/multi/r1-gripper-final.json": "2284deda7ef727689ab60613c1639b4b9678628b46efc333dbf312026e6d2c73",
+    "work/validation/multi/ui-static-final.json": "4b7a695ccc9f41203b8090e38be1d0f6d998bf433de2926bff74f32445ca4335",
+    "work/validation/multi/pages-final.json": "44e4a9e2504aa350c8171ad15e98b6ac738cb403d9a5b72291836418f4001f22",
+    "work/validation/multi/coordinator-final.json": "3b6bb0cee2ad79ded15064fa5e357be192998a931cab88091db751e40fcfa64a"
   },
   "sourceHashes": {
     "work/test-multi-coordinator.mjs": "8c8d2c6aade66b6b5d6f1c0e166bbaf816c383aa1fd870fad29cddeb0c274bb6",
@@ -65,7 +65,7 @@
     "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
     "work/test-multi-r1-gripper.mjs": "2c93ead0bd3dcb33b1a9f32540c53771c1f7c2d831d401c52cbd0266ec551744",
     "work/test-multi-ui.mjs": "237cd8ba51ae39911144b89c976c0b929dc36dc75405805d2515d2f35497e499",
-    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/index.html": "4cd10b6c4a9b72c5c622253f939b341260cf10b57e04b4adfb2bc709fbbe0fd0",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
     "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
     "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
@@ -137,7 +137,7 @@
     "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
     "dist/index.html": "54fbaaad13e88f3dce82715c813a762676d795e7c3c660f11c29039bd3c911df",
     "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557",
-    "dist/multi/pipe-layout.mjs": "78a9eb02bd8893db2f1c573ede63d527ee426647d93ab25868bf09859af6291c",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
     "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
     "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",
     "dist/r1/assets/meshes/left_arm_base_link.STL": "50c9cb62e64318590dac0a27bc537dc1241cb25df242777ccd5d477cba918c1c",

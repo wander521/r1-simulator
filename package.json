@@ -8,7 +8,7 @@
     "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
     "test": "npm run test:multi && npm run test:pipes && npm run test:models",
     "test:multi": "node work/test-multi-coordinator.mjs && node work/test-multi-ui.mjs && node work/test-multi-r1-gripper.mjs && node work/test-multi-physical.mjs && node work/test-multi-stack.mjs",
-    "test:pipes": "node work/test-pipe-ui.mjs && node work/test-multi-pipes.mjs",
+    "test:pipes": "node work/test-pipe-scatter.mjs && node work/test-pipe-ui.mjs && node work/test-multi-pipes.mjs",
     "test:pipes:quick": "node work/test-multi-pipes.mjs --quick",
     "test:models": "node work/test-r1-dynamics.mjs && node work/test-g1-dynamics.mjs && node work/test-c5-dynamics.mjs && node work/test-c5-visuals.mjs",
     "test:c5": "node work/test-c5-dynamics.mjs && node work/test-c5-visuals.mjs && node work/test-c5-opening-safety.mjs && node work/test-c5-manual-motion.mjs && node work/test-c5-dynamic-grasp.mjs",

@@ -55,3 +55,4 @@ work/validation/multi-pipes/*
 !work/validation/multi-pipes/verifier-final.json
 !work/validation/multi-pipes/design-detector.json
 !work/validation/multi-pipes/finish-review.md
+!work/validation/multi-pipes/scatter-final.json

@@ -1084,7 +1084,7 @@
   "sourceFrozen": true,
   "sourceHashes": {
     "work/test-multi-ui.mjs": "237cd8ba51ae39911144b89c976c0b929dc36dc75405805d2515d2f35497e499",
-    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/index.html": "4cd10b6c4a9b72c5c622253f939b341260cf10b57e04b4adfb2bc709fbbe0fd0",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
     "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
     "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",

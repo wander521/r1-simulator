@@ -2005,13 +2005,13 @@
   "sourceFrozen": true,
   "sourceHashes": {
     "work/test-pipe-ui.mjs": "acfc7653a6f42cb93bcd563099b0fb40b46399f53bab0803994e249172123342",
-    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/index.html": "4cd10b6c4a9b72c5c622253f939b341260cf10b57e04b4adfb2bc709fbbe0fd0",
     "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
     "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
     "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
-    "dist/multi/pipe-layout.mjs": "78a9eb02bd8893db2f1c573ede63d527ee426647d93ab25868bf09859af6291c",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
     "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557"
   },
   "errors": []

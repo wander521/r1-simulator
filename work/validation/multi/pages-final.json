@@ -1,6 +1,6 @@
 {
   "pass": true,
-  "generatedAt": "2026-10-15T16:52:50.069Z",
+  "generatedAt": "2026-10-15T23:17:11.266Z",
   "checks": 16,
   "results": [
     {
@@ -139,13 +139,13 @@
     },
     {
       "from": "multi/index.html",
-      "specifier": "./styles.css?v=20261016-pipes-2",
+      "specifier": "./styles.css?v=20261016-scatter-1",
       "kind": "html-resource",
       "to": "multi/styles.css"
     },
     {
       "from": "multi/index.html",
-      "specifier": "./app.mjs?v=20261016-pipes-2",
+      "specifier": "./app.mjs?v=20261016-scatter-1",
       "kind": "html-resource",
       "to": "multi/app.mjs"
     },
@@ -1373,9 +1373,9 @@
     "dist/index.html": "54fbaaad13e88f3dce82715c813a762676d795e7c3c660f11c29039bd3c911df",
     "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
-    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/index.html": "4cd10b6c4a9b72c5c622253f939b341260cf10b57e04b4adfb2bc709fbbe0fd0",
     "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557",
-    "dist/multi/pipe-layout.mjs": "78a9eb02bd8893db2f1c573ede63d527ee426647d93ab25868bf09859af6291c",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
     "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
     "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
