@@ -15,6 +15,9 @@ import * as C5 from '../c5/c5-profile.mjs';
 import {tcpPose as r1TCP} from '../r1/grasp-kinematics.mjs';
 import {tcpPose as g1TCP} from '../g1/grasp-kinematics.mjs';
 import {tcpPose as c5TCP} from '../c5/grasp-kinematics.mjs';
+import {generatePipeLayout,normalizePipeSeed} from './pipe-layout.mjs';
+import {buildPipeScene} from './pipe-model.mjs';
+import {pipeControllerClass,pipeDynamicsClass} from './pipe-controller.mjs';
 
 const url=path=>new URL(path,import.meta.url).href;
 export const ROBOT_CONFIGS=Object.freeze({
@@ -100,9 +103,33 @@ function taskTargets(config,group){
   });
 }
 
+function pipeTargets(layout,config,group){
+  for(const target of layout.targets){
+    const geometry=new THREE.CylinderGeometry(target.halfX,target.halfX,target.h*2,32),material=new THREE.MeshStandardMaterial({color:target.color,metalness:.15,roughness:.35});
+    const mesh=new THREE.Mesh(geometry,material),visualMesh=mesh.clone();mesh.position.copy(target.start);visualMesh.position.copy(target.start);visualMesh.castShadow=true;visualMesh.receiveShadow=true;
+    Object.assign(visualMesh.userData,{taskId:target.id,robotId:config.id});visualMesh.name=`${config.id}-${target.id}-task-object`;group.add(visualMesh);Object.assign(target,{mesh,visualMesh});
+  }
+  for(const bin of layout.bins){
+    const zone=new THREE.Group();zone.name=`${config.id}-${bin.id}-pipe-placement-frame`;zone.position.copy(bin.center);group.add(zone);
+    const material=new THREE.MeshStandardMaterial({color:bin.color,emissive:bin.color,emissiveIntensity:.3,transparent:true,opacity:.86});
+    for(const [x,z,width,depth]of [[0,-bin.halfZ,bin.halfX*2,.005],[0,bin.halfZ,bin.halfX*2,.005],[-bin.halfX,0,.005,bin.halfZ*2],[bin.halfX,0,.005,bin.halfZ*2]]){
+      const bar=new THREE.Mesh(new THREE.BoxGeometry(width,.002,depth),material);bar.position.set(x,0,z);zone.add(bar);
+    }
+    bin.zone=zone;for(const target of layout.targets.filter(t=>t.colorKey===bin.id))target.zone=zone;
+  }
+  return layout.targets;
+}
+
+function disposeTaskTargets(targets){
+  const geometries=new Set(),materials=new Set(),nodes=new Set();
+  for(const target of targets)for(const node of [target.mesh,target.visualMesh,target.zone])if(node)nodes.add(node);
+  for(const root of nodes){root.removeFromParent();root.traverse(node=>{if(node.geometry)geometries.add(node.geometry);for(const material of(Array.isArray(node.material)?node.material:[node.material]))if(material)materials.add(material);});}
+  geometries.forEach(geometry=>geometry.dispose());materials.forEach(material=>material.dispose());
+}
+
 export function objectExtents(target,quaternion){
   const m=new THREE.Matrix4().makeRotationFromQuaternion(quaternion).elements;
-  if(target.id==='yellow')return [0,1,2].map(k=>.02*Math.sqrt(Math.max(0,1-m[4+k]*m[4+k]))+target.h*Math.abs(m[4+k]));
+  if(target.id==='yellow'||target.shape==='cylinder')return [0,1,2].map(k=>target.halfX*Math.sqrt(Math.max(0,1-m[4+k]*m[4+k]))+target.h*Math.abs(m[4+k]));
   return [0,1,2].map(k=>Math.abs(m[k])*target.halfX+Math.abs(m[4+k])*target.h+Math.abs(m[8+k])*target.halfZ);
 }
 
@@ -121,34 +148,65 @@ function progressOf(controller){
  * Only an independent URDF clone is translated for display. Physics and actual
  * contacts remain identical to the validated single-robot applications.
  */
-export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null}){
+export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null}){
   const config=configFor(id);
   if(robot.parent)throw new Error('物理机器人必须保留独立局部坐标，不能挂到可视场景');
   const group=new THREE.Group();group.name=`${id}-station`;group.position.fromArray(offset);
-  const targets=taskTargets(config,group),dynamics=new config.Dynamics(api,model,data,robot);
-  const controller=new config.Controller(api,model,data,robot,targets,dynamics);
+  let targets=taskTargets(config,group),dynamics=new config.Dynamics(api,model,data,robot);
+  let controller=new config.Controller(api,model,data,robot,targets,dynamics),taskMode='legacy',pipeLayout=null;
   visualRobot??=robot.clone(true);group.add(visualRobot);visualRobot.name=`${id}-visible-robot`;
   const sourceNodes=[],displayNodes=[];
   if(!visualRobot.setJointValues){robot.traverse(node=>sourceNodes.push(node));visualRobot.traverse(node=>displayNodes.push(node));if(sourceNodes.length!==displayNodes.length)throw new Error('可视镜像结构与物理机器人不匹配');}
   let disposed=false;
   const runtime={
     id,config,api,model,data,robot,visualRobot,group,targets,controller,dynamics,ready:true,
-    solidMeshes:targets.map(target=>target.visualMesh),
+    get taskMode(){return taskMode;},
+    get solidMeshes(){return targets.map(target=>target.visualMesh);},
     get selected(){return controller.selected;},get running(){return controller.running;},get arm(){return controller.arm;},
     get cameraLink(){return visualRobot.getObjectByName(config.gripperLink(controller.arm));},
     get snapshot(){
       const measurement=controller.measure();
-      return {id,label:config.label,state:controller.state,running:controller.running,task:controller.task,
+      return {id,label:config.label,state:controller.state,running:controller.running,task:taskMode==='pipes'?'pipes':controller.task,
         selected:controller.selected,arm:controller.arm,message:controller.message,progress:progressOf(controller),
         time:controller.time,physicsTime:data.time,evidence:{...controller.evidence},history:[...controller.history],
         force:measurement.force,forces:[...measurement.forces],contactCount:measurement.count,
         distance:measurement.distance,wristError:controller.wristError(),planError:controller.planError||null,
         objects:targets.map(target=>{const pose=controller.objectPose(target.id);return {id:target.id,position:pose.position.toArray(),quaternion:pose.quaternion.toArray(),
           worldPosition:runtime.localToWorld(pose.position).toArray()};}),
-        telemetry:dynamics.telemetry(controller.arm),offset:group.position.toArray()};
+        telemetry:dynamics.telemetry(controller.arm),offset:group.position.toArray(),
+        classification:taskMode==='pipes'?{...controller.classification,items:controller.classification.items.map(item=>({...item})),armSequence:[...controller.classification.armSequence],queue:[...controller.classification.queue],
+          bins:controller.classification.bins.map(bin=>({id:bin.id,colorKey:bin.colorKey,label:bin.label,color:bin.color,center:bin.center.toArray(),halfX:bin.halfX,halfZ:bin.halfZ,slots:bin.slots.map(slot=>slot.toArray())}))}:null};
+    },
+    configureTask(task,{seed}={}){
+      if(disposed||controller.running)return{ok:false,reason:'任务执行中不能切换工作台'};
+      const mode=task==='pipes'?'pipes':'legacy';
+      if(mode===taskMode){runtime.reset({seed:mode==='pipes'?seed??pipeLayout.seed:undefined});return{ok:true,task:mode,seed:pipeLayout?.seed};}
+      if(!sourceXml)return{ok:false,reason:'缺少原始物理场景，不能切换任务'};
+      let nextModel,nextData,nextDynamics,nextTargets;
+      const vfs=new api.MjVFS();
+      try{
+        const layout=mode==='pipes'?generatePipeLayout(config,{seed:seed??1}):null;
+        nextModel=api.MjModel.from_xml_string(layout?buildPipeScene(sourceXml,layout):sourceXml,vfs);nextData=new api.MjData(nextModel);
+        nextTargets=layout?pipeTargets(layout,config,group):taskTargets(config,group);
+        const Dynamics=layout?pipeDynamicsClass(config.Dynamics,{robotId:id}):config.Dynamics;
+        nextDynamics=new Dynamics(api,nextModel,nextData,robot);
+        const Controller=layout?pipeControllerClass(config.Controller,{robotId:id}):config.Controller;
+        const nextController=new Controller(api,nextModel,nextData,robot,nextTargets,nextDynamics);
+        if(layout)nextController.setLayout(layout);nextController.arm=config.defaultArm;
+        disposeTaskTargets(targets);dynamics.dispose?.();data.delete();model.delete();
+        model=nextModel;data=nextData;dynamics=nextDynamics;controller=nextController;targets=nextTargets;taskMode=mode;pipeLayout=layout;
+        Object.assign(runtime,{model,data,dynamics,controller,targets});runtime.syncVisuals();
+        return{ok:true,task:mode,seed:layout?.seed};
+      }catch(error){if(nextTargets)disposeTaskTargets(nextTargets);nextDynamics?.dispose?.();nextData?.delete();nextModel?.delete();dynamics.syncRobot();return{ok:false,reason:error.message};}
+      finally{vfs.delete();}
     },
     start({objectId=controller.selected||'blue',task='sort',arm=config.defaultArm,observerYaw=-.8,reducedMotion=false}={}){
       if(disposed||controller.running)return false;
+      if(task==='pipes'){
+        if(taskMode!=='pipes'){controller.message='请先切换到圆管分类工作台';return false;}
+        const accepted=controller.startClassification();runtime.syncVisuals();return accepted;
+      }
+      if(taskMode!=='legacy'){controller.message='请先切换到对应的标准抓取工作台';return false;}
       if(!targets.some(target=>target.id===objectId)){controller.message='请选择有效的桌面物体';return false;}
       const side=id==='c5'?'left':arm;if(!['left','right'].includes(side))return false;
       const accepted=task==='stack'?controller.startStack(side,{observerYaw,reducedMotion}):controller.start(side,objectId);
@@ -165,9 +223,16 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
       }else controller.stop();
       runtime.syncVisuals();
     },
-    reset(){if(disposed)return;controller.reset();runtime.syncVisuals();},
+    reset({seed}={}){
+      if(disposed)return;
+      if(taskMode==='pipes'){
+        const layout=generatePipeLayout(config,{seed:seed??normalizePipeSeed(pipeLayout.seed+1)});
+        for(const target of targets){const source=layout.targets.find(t=>t.id===target.id);target.start.copy(source.start);target.drop.copy(source.drop);target.rotation.copy(source.rotation);}
+        layout.targets=targets;pipeLayout=layout;controller.setLayout(layout);
+      }else controller.reset();runtime.syncVisuals();
+    },
     select(objectId){if(disposed||controller.running||!targets.some(target=>target.id===objectId))return false;controller.selected=objectId;return true;},
-    setArm(arm){if(disposed||controller.running||!['left','right'].includes(arm))return false;if(id==='c5')return arm==='left';if(controller.selectArm&&!controller.selectArm(arm))return false;controller.arm=arm;return true;},
+    setArm(arm){if(disposed||controller.running||taskMode==='pipes'||!['left','right'].includes(arm))return false;if(id==='c5')return arm==='left';if(controller.selectArm&&!controller.selectArm(arm))return false;controller.arm=arm;return true;},
     step(dt=.001){if(disposed)return;if(Math.abs(dt-.001)>1e-10)throw new Error('机器人需要使用统一的 1 ms 物理时钟');controller.step(dt);},
     syncVisuals(){
       if(disposed)return;
@@ -187,6 +252,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     tcpWorld(){return runtime.localToWorld(config.tcp(robot,controller.arm).position);},
     moveObject(objectId,position,quaternion){
       if(disposed||controller.running)return false;
+      if(taskMode==='pipes'&&controller.classification.started){controller.message='请先复位或重新随机摆放，再编辑圆管';return false;}
       const target=targets.find(item=>item.id===objectId);if(!target)return false;
       const q=quaternion?.clone()||target.mesh.quaternion.clone();
       if(![position.x,position.y,position.z,q.x,q.y,q.z,q.w].every(Number.isFinite)||Math.abs(q.lengthSq()-1)>.0001)return false;
@@ -211,7 +277,7 @@ export async function createRobotRuntime({id,api,offset=[0,0,0],onProgress}={}){
     fetch(config.xml).then(async response=>{if(!response.ok)throw new Error(`${config.label} 物理场景加载失败（${response.status}）`);return response.text();})]);
   const vfs=new physics.MjVFS();let model,data;
   try{model=physics.MjModel.from_xml_string(xml,vfs);data=new physics.MjData(model);
-    const runtime=createRobotRuntimeFromParts({id,api:physics,model,data,robot,offset});
+    const runtime=createRobotRuntimeFromParts({id,api:physics,model,data,robot,offset,sourceXml:xml});
     onProgress?.({id,part:'ready',value:1,label:`${config.label} 已就绪`});return runtime;
   }catch(error){data?.delete();model?.delete();throw error;}finally{vfs.delete();}
 }

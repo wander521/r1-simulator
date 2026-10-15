@@ -1,7 +1,7 @@
 {
   "pass": true,
-  "startedAt": "2026-10-15T12:30:12.963Z",
-  "wallSeconds": 36.26848600000143,
+  "startedAt": "2026-10-15T16:29:27.795Z",
+  "wallSeconds": 36.55323645800352,
   "cases": 2,
   "physicalStacks": 3,
   "physicallyGraspedStackItems": 9,
@@ -19,7 +19,7 @@
     {
       "name": "three-way-simultaneous-blue-red-yellow-stack",
       "pass": true,
-      "wallSeconds": 28.63761287498474,
+      "wallSeconds": 28.945761959016323,
       "start": {
         "ok": true,
         "runIds": [
@@ -1001,7 +1001,7 @@
     {
       "name": "stop-three-way-stack-after-real-lifts-never-reports-completion",
       "pass": true,
-      "wallSeconds": 5.728699165999889,
+      "wallSeconds": 5.73331075000763,
       "start": {
         "ok": true,
         "runIds": [
@@ -1446,8 +1446,8 @@
     "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
     "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
     "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
-    "dist/multi/robot-runtime.mjs": "f05b529175f5fe0500b07cda3f2d08696f197f1fc85f756999df3e9b14b45a93",
-    "dist/multi/coordinator.mjs": "e386ed0a89f16c5ae5fc56419331efa48c970b5cb7913f363aa5061c770af7b6",
+    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
     "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
     "dist/r1/grasp-kinematics.mjs": "8aabe6ae5d1664c04421aa72f70c2ce68fd95fbf7acce33bb207f87edf656893",

@@ -1,6 +1,6 @@
 {
   "pass": true,
-  "generatedAt": "2026-10-15T12:34:56.894Z",
+  "generatedAt": "2026-10-15T16:52:50.069Z",
   "checks": 16,
   "results": [
     {
@@ -30,7 +30,7 @@
     {
       "name": "Complete multi browser module graph resolves under local and GitHub project bases",
       "pass": true,
-      "modules": 31
+      "modules": 34
     },
     {
       "name": "Literal dynamic URDFLoader import is included in the checked module graph",
@@ -72,7 +72,7 @@
     {
       "name": "All inspected source and asset bytes stayed frozen during the check",
       "pass": true,
-      "files": 138
+      "files": 141
     }
   ],
   "scope": "Static publication and path integrity only. No browser, rendered-pixel, pointer/touch, runtime loading, physics, grasp, or synchronization acceptance is claimed. JavaScript templates and computed non-literal resources are not statically interpreted; the known import.meta.url helper is checked through every literal call argument.",
@@ -80,7 +80,7 @@
     "http://127.0.0.1:4173/",
     "https://wander521.github.io/r1-simulator/"
   ],
-  "moduleCount": 31,
+  "moduleCount": 34,
   "modules": [
     "c5/c5-3ds.mjs",
     "c5/c5-dynamics.mjs",
@@ -96,6 +96,9 @@
     "g1/grasp-kinematics.mjs",
     "multi/app.mjs",
     "multi/coordinator.mjs",
+    "multi/pipe-controller.mjs",
+    "multi/pipe-layout.mjs",
+    "multi/pipe-model.mjs",
     "multi/presentation.mjs",
     "multi/r1-safe-dynamics.mjs",
     "multi/robot-runtime.mjs",
@@ -114,7 +117,7 @@
     "vendor/three.core.min.js",
     "vendor/three.module.min.js"
   ],
-  "resourceEdges": 183,
+  "resourceEdges": 192,
   "edges": [
     {
       "from": "index.html",
@@ -136,13 +139,13 @@
     },
     {
       "from": "multi/index.html",
-      "specifier": "./styles.css?v=20261015-multi-2",
+      "specifier": "./styles.css?v=20261016-pipes-2",
       "kind": "html-resource",
       "to": "multi/styles.css"
     },
     {
       "from": "multi/index.html",
-      "specifier": "./app.mjs?v=20261015-multi-2",
+      "specifier": "./app.mjs?v=20261016-pipes-2",
       "kind": "html-resource",
       "to": "multi/app.mjs"
     },
@@ -431,6 +434,24 @@
     },
     {
       "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-layout.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-model.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-controller.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
       "specifier": "../vendor/URDFLoader.js",
       "kind": "dynamic-import",
       "to": "vendor/URDFLoader.js"
@@ -590,6 +611,42 @@
       "specifier": "./c5-profile.mjs",
       "kind": "static-import",
       "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/pipe-layout.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/pipe-model.mjs",
+      "specifier": "./pipe-layout.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-controller.mjs"
     },
     {
       "from": "vendor/URDFLoader.js",
@@ -1226,7 +1283,7 @@
     "c5": 19
   },
   "wasmBytes": 10125422,
-  "checkedFiles": 138,
+  "checkedFiles": 141,
   "checkedDirectories": [
     "multi/",
     "r1/assets"
@@ -1314,12 +1371,15 @@
     "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
     "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
     "dist/index.html": "54fbaaad13e88f3dce82715c813a762676d795e7c3c660f11c29039bd3c911df",
-    "dist/multi/app.mjs": "1ce460b6647e5a7255fc8265f298f9dc384421f63679fb795410bbcf03f5c318",
-    "dist/multi/coordinator.mjs": "e386ed0a89f16c5ae5fc56419331efa48c970b5cb7913f363aa5061c770af7b6",
-    "dist/multi/index.html": "66c04b967a263119bd3ee94088d97dbec83d336c3e59aeee6fbbf6c99b9de36e",
-    "dist/multi/presentation.mjs": "65f4ebf3ab8fe2e07751912bdabafdf56e8c18d555d0effeac62e9899e05f3e0",
+    "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
+    "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
+    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557",
+    "dist/multi/pipe-layout.mjs": "78a9eb02bd8893db2f1c573ede63d527ee426647d93ab25868bf09859af6291c",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
-    "dist/multi/robot-runtime.mjs": "f05b529175f5fe0500b07cda3f2d08696f197f1fc85f756999df3e9b14b45a93",
+    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
     "dist/multi/workcell.mjs": "1f0705ed7763e558bd582555ea3cf2090446f328def6ece3ef75f13d7185e8e9",
     "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",

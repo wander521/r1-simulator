@@ -23,7 +23,7 @@ camera.position.set(7,3,1); orbit.target.set(.4,.8,0); orbit.update();
 const stations=new Map(), visions=new Map(), histories=new Map(), loadStates=new Map();
 const objectNames={red:'红色方块',blue:'蓝色长方块',yellow:'黄色圆柱'};
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let coordinator, selectedObject='blue', preparing=false, drag=null, notice='', showCameras=true;
+let coordinator, selectedObject='blue', preparing=false, drag=null, notice='', showCameras=true, currentTask='sort';
 let lastFrame=0, accumulator=0, lastUI=0, lastFeed=0, lastStatus='', physicsSteps=0;
 const frameTimes=[], renderTimes=[];
 const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
@@ -46,6 +46,17 @@ for (const config of Object.values(ROBOT_CONFIGS)) {
 
 function status(message){notice=message; updateUI();}
 function focused(){return stations.get(coordinator?.focusId);}
+function pipeTask(){return $('#task-mode').value==='pipes';}
+function clearHistories(){for(const history of histories.values())history.force.length=history.torque.length=0;}
+async function configureTask(task,{randomize=false}={}){
+  if(!coordinator||coordinator.running||preparing)return;
+  endDrag();preparing=true;notice=task==='pipes'?'正在准备随机圆管与分类工作区…':'正在恢复原工作台…';updateUI();
+  await new Promise(requestAnimationFrame);
+  const result=coordinator.configureTask(task,task==='pipes'?{seed:crypto.getRandomValues(new Uint32Array(1))[0]}:{});
+  if(result.ok){currentTask=task;selectedObject=task==='pipes'?focused().selected:'blue';clearHistories();notice='';fitView();}
+  else{$('#task-mode').value=currentTask;notice=result.reason;}
+  preparing=false;lastFrame=performance.now();accumulator=0;lastFeed=0;updateUI();
+}
 function fitView(ids=coordinator?.selectedIds??[...stations.keys()]) {
   const bounds=new THREE.Box3();
   for (const id of ids) {const station=stations.get(id);if(station){station.group.updateMatrixWorld(true);bounds.union(new THREE.Box3().setFromObject(station.group));}}
@@ -65,6 +76,12 @@ function setFocus(id) {
 function selectObject(id) {
   if(!coordinator||coordinator.running||preparing)return;
   selectedObject=id;
+  if(pipeTask()){
+    const station=focused(),target=station?.targets.find(item=>item.id===id);
+    if(!target||station.controller.classification?.started)return;
+    station.select(id);notice=`已选择${target.label}；开始执行时仍会自动分类全部 8 个圆柱。`;
+    updateUI();return;
+  }
   for(const robotId of coordinator.selectedIds)stations.get(robotId).select(id);
   notice=`已选择${objectNames[id]}；拖动物体仅调整当前工作台，开始时各机器人抓取各自的${objectNames[id]}`;
   updateUI();
@@ -85,6 +102,7 @@ $('#arm-select').addEventListener('change',()=>{const runtime=focused();if(runti
 $('#fit-view').addEventListener('click',()=>fitView());
 $('#focus-view').addEventListener('click',()=>fitView([coordinator?.focusId]));
 $('#toggle-cameras').addEventListener('click',()=>{showCameras=!showCameras;$('#camera-feeds').hidden=!showCameras;$('#toggle-cameras').textContent=showCameras?'隐藏画面':'显示画面';$('#toggle-cameras').setAttribute('aria-pressed',String(showCameras));});
+$('#randomize-pipes').addEventListener('click',()=>configureTask('pipes',{randomize:true}));
 $('#start').addEventListener('click',async()=>{
   if(!coordinator||coordinator.running||preparing)return;
   endDrag();preparing=true;notice='正在共同检查抓取路径；检查通过后同时开始…';updateUI();
@@ -95,9 +113,9 @@ $('#start').addEventListener('click',async()=>{
 });
 $('#stop').addEventListener('click',()=>{endDrag();coordinator?.stop();notice='';updateUI();});
 $('#reset').addEventListener('click',()=>{
-  endDrag();coordinator?.reset();selectedObject='blue';
-  for(const station of stations.values())station.select('blue');
-  for(const history of histories.values())history.force.length=history.torque.length=0;
+  endDrag();coordinator?.reset();selectedObject=pipeTask()?focused().selected:'blue';
+  if(!pipeTask())for(const station of stations.values())station.select('blue');
+  clearHistories();
   accumulator=0;lastFrame=performance.now();notice='';updateUI();
 });
 
@@ -110,6 +128,7 @@ function down(event) {
   const hit=raycaster.intersectObjects(coordinator.selectedIds.flatMap(id=>stations.get(id).solidMeshes),false)[0];
   if(!hit)return; // Empty-space gestures belong exclusively to OrbitControls.
   const station=stations.get(hit.object.userData.robotId), target=station.targets.find(item=>item.id===hit.object.userData.taskId);
+  if(pipeTask()&&station.controller.classification?.started)return;
   setFocus(station.id);selectObject(target.id);
   const world=station.localToWorld(target.mesh.position),plane=new THREE.Plane(new THREE.Vector3(0,1,0),-world.y);
   const point=raycaster.ray.intersectPlane(plane,new THREE.Vector3());if(!point)return;
@@ -139,7 +158,8 @@ window.addEventListener('keydown',event=>{
   if(event.code==='Escape'){endDrag();return;}
   if(!coordinator||coordinator.running||preparing||event.target.closest('input,select,textarea,button,a')||event.ctrlKey||event.metaKey||event.altKey)return;
   const change={KeyW:[.012,0],KeyS:[-.012,0],KeyA:[0,-.012],KeyD:[0,.012]}[event.code];if(!change)return;
-  const station=focused(), target=station?.targets.find(item=>item.id===selectedObject);if(!target)return;
+  const station=focused(), target=station?.targets.find(item=>item.id===(pipeTask()?station.selected:selectedObject));if(!target)return;
+  if(pipeTask()&&station.controller.classification?.started)return;
   event.preventDefault();station.moveObject(target.id,target.mesh.position.clone().add(new THREE.Vector3(change[0],0,change[1])));
 });
 
@@ -151,22 +171,26 @@ function drawChart(element,values,colors,{signed=false,minMax=1}={}) {
 }
 function updateUI() {
   if(!coordinator)return;
-  const busy=coordinator.running||preparing, selected=coordinator.selectedIds, focus=focused();
+  const busy=coordinator.running||preparing, selected=coordinator.selectedIds, focus=focused(),pipes=pipeTask();
+  const needsNewBatch=pipes&&selected.some(id=>stations.get(id).controller.classification?.started);
   $('#selected-count').textContent=`${selected.length} 台`;
   for(const input of document.querySelectorAll('input[data-robot]')){input.checked=selected.includes(input.dataset.robot);input.disabled=busy||!stations.has(input.dataset.robot);}
   $('#select-all').disabled=busy||!stations.size;
-  $('#start').disabled=busy||!selected.length;$('#start').textContent=preparing?'检查路径中…':`${$('#task-mode').value==='stack'?'开始叠放':'开始抓取'} · ${selected.length} 台`;
+  $('#start').disabled=busy||!selected.length||needsNewBatch;$('#start').textContent=preparing?'准备任务中…':needsNewBatch&&!busy?'请先重新随机摆放':`${pipes?'开始执行':$('#task-mode').value==='stack'?'开始叠放':'开始抓取'} · ${selected.length} 台`;
   $('#stop').disabled=!coordinator.running;$('#reset').disabled=preparing||!stations.size;
   $('#task-mode').disabled=busy;for(const button of document.querySelectorAll('[data-object]')){button.disabled=busy||$('#task-mode').value==='stack';button.setAttribute('aria-pressed',String(button.dataset.object===selectedObject));}
+  $('.object-options').hidden=pipes;$('#pipe-task-info').hidden=!pipes;$('#randomize-pipes').hidden=!pipes;$('#randomize-pipes').disabled=busy||!stations.size;
+  $('#reset').textContent=pipes?'复位并重新随机摆放':'复位全部工作台';
   const selectionKey=selected.join(',');if($('#focus-robot').dataset.selection!==selectionKey){$('#focus-robot').replaceChildren(...selected.map(id=>{const option=document.createElement('option');option.value=id;option.textContent=ROBOT_CONFIGS[id].label;return option;}));$('#focus-robot').dataset.selection=selectionKey;}
   $('#focus-robot').value=coordinator.focusId;$('#focus-robot').disabled=!focus;
-  $('#arm-field').hidden=focus?.id==='c5';$('#arm-select').disabled=busy;$('#arm-select').value=focus?.arm??'right';
-  $('#focus-hint').textContent=focus?`当前：${focus.config.label}。拖动只修改该工作台；切换观察不改变参与选择。`:'请先选择已就绪的机器人。';
+  $('#arm-field').hidden=pipes||focus?.id==='c5';$('#arm-select').disabled=busy||pipes;$('#arm-select').value=focus?.arm??'right';
+  $('#focus-hint').textContent=focus?`当前：${focus.config.label}。${pipes?(focus.id==='c5'?'单臂自动分类。':'左右臂自动交替。'):''}${pipes&&focus.controller.classification?.started?'本批次已锁定；复位或重新随机后可开启新批次。':'拖动只修改该工作台；切换观察不改变参与选择。'}`:'请先选择已就绪的机器人。';
   $('#scene-summary').textContent=`${selected.map(id=>ROBOT_CONFIGS[id].shortLabel).join(' / ')} · ${selected.length>1?'同步抓取工作站':'单机器人工作站'}`;
   for(const [id,station] of stations){const snapshot=station.snapshot,row=$(`.result-row[data-robot="${id}"]`),included=selected.includes(id),progress=taskProgress({...snapshot,itemIndex:station.controller.itemIndex});row.dataset.state=snapshot.state;
     row.querySelector('[data-focus]').disabled=!included;row.querySelector('output').textContent=included?(STAGE_NAMES[snapshot.state]??'执行中'):'未参与';
     row.querySelector('progress').value=included?progress:0;row.querySelector('.result-track span').textContent=`${Math.round((included?progress:0)*100)}%`;
-    row.querySelector('.result-note').textContent=['failed','stopped'].includes(snapshot.state)?snapshot.message:'';
+    const classification=snapshot.classification;
+    row.querySelector('.result-note').textContent=['failed','stopped'].includes(snapshot.state)?snapshot.message:classification?`已归类 ${classification.completed} / ${classification.total} 个${snapshot.running?` · ${id==='c5'?'单臂':snapshot.arm==='left'?'左臂':'右臂'}执行中`:''}`:'';
     $(`.station-tag[data-focus="${id}"]`).setAttribute('aria-pressed',String(id===coordinator.focusId));
   }
   const message=notice||coordinator.message;if(message!==lastStatus){$('#status').textContent=message;lastStatus=message;}
@@ -181,7 +205,7 @@ function updateUI() {
   $('#single-link').href=`../${focus.id}/`;$('#single-link').textContent=`打开 ${focus.config.shortLabel} 独立控制页`;
   contactMarkers.forEach((marker,index)=>{const contact=m.contacts[index];marker.visible=Boolean(contact&&contact.force>.015);if(contact){marker.position.copy(focus.localToWorld(contact.position));marker.scale.setScalar(1+Math.min(contact.force,5)*.15);}});
 }
-$('#task-mode').addEventListener('change',()=>{notice='';updateUI();});
+$('#task-mode').addEventListener('change',()=>configureTask($('#task-mode').value));
 
 function project(point){const p=point.clone().project(camera);return {x:(p.x+1)*viewport.clientWidth/2,y:(1-p.y)*viewport.clientHeight/2,visible:p.z>-1&&p.z<1&&Math.abs(p.x)<1&&Math.abs(p.y)<1};}
 function updateLabels(){

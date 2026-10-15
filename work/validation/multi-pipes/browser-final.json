@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "scope": "Root-agent native IAB input and read-only production diagnostics; not an executable pixel regression or hardware certification",
+  "url": "http://127.0.0.1:4173/multi/",
+  "moduleVersion": "20261016-pipes-2",
+  "sourceBinding": "The page was reloaded after the production freeze; hashes below describe that frozen local build. Independent numerical acceptance is recorded separately.",
+  "sourceHashes": {
+    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
+    "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
+    "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
+    "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
+    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557",
+    "dist/multi/pipe-layout.mjs": "78a9eb02bd8893db2f1c573ede63d527ee426647d93ab25868bf09859af6291c",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645"
+  },
+  "captures": {
+    "rounds": 2,
+    "desktop": {"width":1280,"height":720,"inspectedInline":true,"scrollWidth":1280},
+    "mobile": {"width":390,"height":844,"fullPage":true,"inspectedInline":true,"scrollWidth":390,"sceneHeight":489.515625},
+    "savedPaths": [],
+    "limitation": "The documented native screenshot API returned image bytes for inline inspection without a filesystem-export API. No saved capture or independent pixel approval is claimed; the independent finish review records recapture. No unsupported browser/OS export workaround was used."
+  },
+  "checks": [
+    {"name":"all three stations load", "observed":true, "objectsPerStation":[8,8,8],"detail":"Each table visibly has red/yellow cylinders and two far-side frames; all original robot models are loaded."},
+    {"name":"native task selector", "observed":true,"detail":"圆管分类 shows the 4+4 near/far explanation and hides manual execution-arm and single-object choices."},
+    {"name":"new random batch", "observed":true,"beforeSeed":2033693260,"afterSeed":2577096563,"detail":"All three retain eight cylinders and start/drop layout is refreshed; source seed and first-object positions changed."},
+    {"name":"native participant selection", "observed":true,"selections":[["c5"],["r1","c5"],["r1","g1","c5"]],"startLabels":["开始执行 · 1 台","开始执行 · 2 台","开始执行 · 3 台"]},
+    {"name":"native simultaneous start", "observed":true,"detail":"One native start click accepted all three; start and participant editing were locked, stop remained enabled."},
+    {"name":"camera orbit during classification", "observed":true,"cameraBefore":[7.859648672691403,3.338274807372254,0.8788143801703255],"cameraAfter":[7.201403388161692,4.234877852939454,2.3072251722630974],"detail":"Native blank-space mouse drag changed the camera; orbit remained enabled and classification continued."},
+    {"name":"observation independent of participants", "observed":true,"detail":"C5 and R1 focus/close-up views were switched while all three remained selected and running."},
+    {"name":"native all-eight completion", "observed":true,"detail":"Read-only production diagnostics confirmed 8/8 verified for every robot; desktop and mobile result rows displayed 100% and 已归类 8 / 8 个."},
+    {"name":"consumed batch cannot silently restart", "observed":true,"startDisabled":true,"startLabel":"请先重新随机摆放"},
+    {"name":"camera feeds", "observed":true,"detail":"The worktable view shows the real eight cylinders in their final color frames; the gripper view renders the actual robot geometry."},
+    {"name":"desktop and mobile composition", "observed":true,"detail":"No horizontal overflow; the desktop primary action is within the 720px viewport (y647–689), and mobile stacks the complete control flow below the scene."},
+    {"name":"page console warnings/errors", "observed":true,"entries":[]}
+  ],
+  "threeWayClassification": {
+    "seed":2577096563,
+    "startTick":30228,
+    "startTimes":{"r1":30.22800000001396,"g1":30.22800000001396,"c5":30.22800000001396},
+    "observedAfterCompletionTime":295.48599999992456,
+    "robots":[
+      {"id":"r1","state":"complete","completed":8,"verified":true,"stableSeconds":3.00999999999998,"arms":["right","left","right","left","right","left","right","left"],"dualAll":true,"minLiftM":0.12947817257222904,"maxPlacementErrorM":0.002070628330322172,"allFinalStable":true},
+      {"id":"g1","state":"complete","completed":8,"verified":true,"stableSeconds":3.00999999999998,"arms":["right","left","right","left","right","left","right","left"],"dualAll":true,"minLiftM":0.1094544359045736,"maxPlacementErrorM":0.0002809315355494096,"allFinalStable":true},
+      {"id":"c5","state":"complete","completed":8,"verified":true,"stableSeconds":3.00999999999998,"arms":["left","left","left","left","left","left","left","left"],"dualAll":true,"minLiftM":0.1379177499923787,"maxPlacementErrorM":0.00045290588166487205,"allFinalStable":true}
+    ],
+    "frameSample":{"averageMs":8.32583333333314,"averageWorkMs":5.904166668156782,"backlogSeconds":0.0006999999976395194},
+    "frameScope":"One local post-completion observation, not a cross-device performance guarantee; planning and active physics can take longer."
+  },
+  "remainingUnverified":[
+    "Independent review of persisted screenshots (native filesystem export unavailable)",
+    "Physical touch hardware, other browser engines and complete assistive-technology coverage",
+    "Real-robot balance, calibration or operational safety",
+    "GitHub-hosted revision until a separately confirmed successful deployment"
+  ]
+}

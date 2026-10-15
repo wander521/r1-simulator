@@ -46,3 +46,12 @@ work/validation/multi/*
 !work/validation/multi/r1-gripper-final.json
 !work/validation/multi/stack-final.json
 !work/validation/multi/verifier-checks-final.json
+# Pipe-task release evidence only; leave failed/quick tuning probes local.
+work/validation/multi-pipes/*
+!work/validation/multi-pipes/physical-final.json
+!work/validation/multi-pipes/ui-final.json
+!work/validation/multi-pipes/browser-final.json
+!work/validation/multi-pipes/acceptance-final.json
+!work/validation/multi-pipes/verifier-final.json
+!work/validation/multi-pipes/design-detector.json
+!work/validation/multi-pipes/finish-review.md

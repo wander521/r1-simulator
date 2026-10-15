@@ -39,7 +39,7 @@
   "sourceHashes": {
     "work/test-multi-r1-gripper.mjs": "2c93ead0bd3dcb33b1a9f32540c53771c1f7c2d831d401c52cbd0266ec551744",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
-    "dist/multi/robot-runtime.mjs": "f05b529175f5fe0500b07cda3f2d08696f197f1fc85f756999df3e9b14b45a93",
+    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
     "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
     "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
     "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",

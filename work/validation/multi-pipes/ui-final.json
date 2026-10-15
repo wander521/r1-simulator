@@ -1,0 +1,2018 @@
+{
+  "pass": true,
+  "scope": "Static HTML/application wiring, extracted source-function fixtures, pure task presentation and orchestration contracts. No browser rendering, real pointer/touch, camera-pixel or physical-contact claims.",
+  "limitations": [
+    "UI source checks and narrow source-function fixtures do not replace a real DOM/accessibility/native-input or rendered desktop/mobile inspection.",
+    "Coordinator station fixtures verify calls, clocks, cancellation and aggregate state only; their counters do not prove physical sorting or arm trajectories.",
+    "Cylinder layout/collision/reachability, alternating real arm execution, stable bin support and non-teleporting transport require the separate production MuJoCo acceptance suite."
+  ],
+  "total": 46,
+  "passed": 46,
+  "checks": [
+    {
+      "name": "The native unified task select includes the Chinese pipe-classification option",
+      "pass": true
+    },
+    {
+      "name": "Task instructions specify eight cylinders, exact colors/counts and near/far table regions",
+      "pass": true
+    },
+    {
+      "name": "Pipe mode hides manual arm and legacy single-object choices but preserves them for other tasks",
+      "pass": true
+    },
+    {
+      "name": "Randomize/task/participant controls lock while preparing or running, not observation focus",
+      "pass": true
+    },
+    {
+      "name": "Rendered pipe progress text includes per-station item counts and automatic active-arm detail",
+      "pass": true
+    },
+    {
+      "name": "Start forwards the selected unified task without requiring a legacy color object ID",
+      "pass": true
+    },
+    {
+      "name": "Actual source task configuration forwards cryptographic random seed and resets UI clocks after preparation",
+      "pass": true
+    },
+    {
+      "name": "Standard non-pipe task changes do not request a random pipe seed",
+      "pass": true
+    },
+    {
+      "name": "Entering pipe mode randomizes the layout even without pressing the separate randomize action",
+      "pass": true
+    },
+    {
+      "name": "Preparing/running task configuration cannot rebuild or randomize a station",
+      "pass": true
+    },
+    {
+      "name": "Failed preparation restores the task picker and leaves the original selected object/history intact",
+      "pass": true
+    },
+    {
+      "name": "Actual pipe selection affects only the focused station and still classifies all eight objects",
+      "pass": true
+    },
+    {
+      "name": "Legacy color selection remains shared; preparing and active pipe runs reject editing",
+      "pass": true
+    },
+    {
+      "name": "Stopped/finished pipe batches reject object selection without changing recorded item progress",
+      "pass": true
+    },
+    {
+      "name": "The actual pointer-down source refuses dragging a started pipe batch before focus, selection or capture changes",
+      "pass": true
+    },
+    {
+      "name": "Start-button source disables consumed selected batches with explicit new-randomization guidance",
+      "pass": true
+    },
+    {
+      "name": "Pointer and keyboard pipe editing remain station-local; empty-space orbit stays separate",
+      "pass": true
+    },
+    {
+      "name": "Reset preserves pipe mode, delegates to every station and exposes rerandomization in Chinese",
+      "pass": true
+    },
+    {
+      "name": "Configuring pipes updates every ready station, including hidden ones, with the exact requested seed",
+      "pass": true
+    },
+    {
+      "name": "Explicit seed zero remains reproducible rather than falling through to an implicit default",
+      "pass": true
+    },
+    {
+      "name": "Unknown task and active-run reconfiguration are rejected before any new station mutation",
+      "pass": true
+    },
+    {
+      "name": "A partial scene-preparation failure restores every ready station to the previous task atomically",
+      "pass": true
+    },
+    {
+      "name": "Unsupported and unavailable stations never produce a partially configured pipe task",
+      "pass": true
+    },
+    {
+      "name": "Pipe task starts only selected r1 at one shared tick",
+      "pass": true
+    },
+    {
+      "name": "Pipe task starts only selected g1 at one shared tick",
+      "pass": true
+    },
+    {
+      "name": "Pipe task starts only selected c5 at one shared tick",
+      "pass": true
+    },
+    {
+      "name": "Pipe task starts only selected r1+g1 at one shared tick",
+      "pass": true
+    },
+    {
+      "name": "Pipe task starts only selected g1+c5 at one shared tick",
+      "pass": true
+    },
+    {
+      "name": "Pipe task starts only selected r1+g1+c5 at one shared tick",
+      "pass": true
+    },
+    {
+      "name": "Clock mismatch and invalid/empty participation prevent every pipe start",
+      "pass": true
+    },
+    {
+      "name": "Rejected pipe planning cancels all attempted stations without resetting or teleporting objects",
+      "pass": true
+    },
+    {
+      "name": "Every ready world keeps the identical 1 ms clock while the selected pipe queue runs",
+      "pass": true
+    },
+    {
+      "name": "Stop cancels selected tasks without a reset and reset restores all pipe stations without changing participants",
+      "pass": true
+    },
+    {
+      "name": "A consumed pipe batch cannot restart after stop or erase completed counters until reset/new configuration",
+      "pass": true
+    },
+    {
+      "name": "Pipe batch-restart preflight stops before any station dispatch when only a later selected station is consumed",
+      "pass": true
+    },
+    {
+      "name": "A failed or stopped station cannot be aggregated as all-robot pipe-classification success",
+      "pass": true
+    },
+    {
+      "name": "r1: the production queue dispatches eight automatic arms without a manual arm choice",
+      "pass": true,
+      "detail": {
+        "dispatchOnly": true,
+        "armSequence": [
+          "right",
+          "left",
+          "right",
+          "left",
+          "right",
+          "left",
+          "right",
+          "left"
+        ]
+      }
+    },
+    {
+      "name": "g1: the production queue dispatches eight automatic arms without a manual arm choice",
+      "pass": true,
+      "detail": {
+        "dispatchOnly": true,
+        "armSequence": [
+          "right",
+          "left",
+          "right",
+          "left",
+          "right",
+          "left",
+          "right",
+          "left"
+        ]
+      }
+    },
+    {
+      "name": "c5: the production queue dispatches eight automatic arms without a manual arm choice",
+      "pass": true,
+      "detail": {
+        "dispatchOnly": true,
+        "armSequence": [
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left",
+          "left"
+        ]
+      }
+    },
+    {
+      "name": "r1: production batch-start guard preserves stopped queue evidence until an explicit reset",
+      "pass": true
+    },
+    {
+      "name": "g1: production batch-start guard preserves stopped queue evidence until an explicit reset",
+      "pass": true
+    },
+    {
+      "name": "c5: production batch-start guard preserves stopped queue evidence until an explicit reset",
+      "pass": true
+    },
+    {
+      "name": "r1: all eight pipe milestones progress monotonically through final stability verification",
+      "pass": true,
+      "detail": {
+        "milestones": 98
+      }
+    },
+    {
+      "name": "g1: all eight pipe milestones progress monotonically through final stability verification",
+      "pass": true,
+      "detail": {
+        "milestones": 162
+      }
+    },
+    {
+      "name": "c5: all eight pipe milestones progress monotonically through final stability verification",
+      "pass": true,
+      "detail": {
+        "milestones": 82
+      }
+    },
+    {
+      "name": "The final pipe-settle milestone has a Chinese label and never reports premature 100 percent",
+      "pass": true
+    }
+  ],
+  "contractTraces": {
+    "r1": {
+      "startTick": 17,
+      "startTimes": {
+        "r1": 0.017000000000000008
+      }
+    },
+    "g1": {
+      "startTick": 17,
+      "startTimes": {
+        "g1": 0.017000000000000008
+      }
+    },
+    "c5": {
+      "startTick": 17,
+      "startTimes": {
+        "c5": 0.017000000000000008
+      }
+    },
+    "r1+g1": {
+      "startTick": 17,
+      "startTimes": {
+        "r1": 0.017000000000000008,
+        "g1": 0.017000000000000008
+      }
+    },
+    "g1+c5": {
+      "startTick": 17,
+      "startTimes": {
+        "g1": 0.017000000000000008,
+        "c5": 0.017000000000000008
+      }
+    },
+    "r1+g1+c5": {
+      "startTick": 17,
+      "startTimes": {
+        "r1": 0.017000000000000008,
+        "g1": 0.017000000000000008,
+        "c5": 0.017000000000000008
+      }
+    }
+  },
+  "progressTraces": {
+    "r1": [
+      {
+        "state": "spread",
+        "completed": 0,
+        "value": 0.005208333333333333
+      },
+      {
+        "state": "crouch",
+        "completed": 0,
+        "value": 0.015625
+      },
+      {
+        "state": "approach",
+        "completed": 0,
+        "value": 0.026041666666666668
+      },
+      {
+        "state": "descend",
+        "completed": 0,
+        "value": 0.036458333333333336
+      },
+      {
+        "state": "closing",
+        "completed": 0,
+        "value": 0.046875
+      },
+      {
+        "state": "lift",
+        "completed": 0,
+        "value": 0.057291666666666664
+      },
+      {
+        "state": "transfer",
+        "completed": 0,
+        "value": 0.06770833333333333
+      },
+      {
+        "state": "place",
+        "completed": 0,
+        "value": 0.078125
+      },
+      {
+        "state": "release",
+        "completed": 0,
+        "value": 0.08854166666666667
+      },
+      {
+        "state": "retreat",
+        "completed": 0,
+        "value": 0.09895833333333333
+      },
+      {
+        "state": "settling",
+        "completed": 0,
+        "value": 0.109375
+      },
+      {
+        "state": "return",
+        "completed": 0,
+        "value": 0.11979166666666667
+      },
+      {
+        "state": "spread",
+        "completed": 1,
+        "value": 0.13020833333333334
+      },
+      {
+        "state": "crouch",
+        "completed": 1,
+        "value": 0.140625
+      },
+      {
+        "state": "approach",
+        "completed": 1,
+        "value": 0.15104166666666666
+      },
+      {
+        "state": "descend",
+        "completed": 1,
+        "value": 0.16145833333333334
+      },
+      {
+        "state": "closing",
+        "completed": 1,
+        "value": 0.171875
+      },
+      {
+        "state": "lift",
+        "completed": 1,
+        "value": 0.18229166666666666
+      },
+      {
+        "state": "transfer",
+        "completed": 1,
+        "value": 0.19270833333333331
+      },
+      {
+        "state": "place",
+        "completed": 1,
+        "value": 0.203125
+      },
+      {
+        "state": "release",
+        "completed": 1,
+        "value": 0.21354166666666669
+      },
+      {
+        "state": "retreat",
+        "completed": 1,
+        "value": 0.22395833333333331
+      },
+      {
+        "state": "settling",
+        "completed": 1,
+        "value": 0.234375
+      },
+      {
+        "state": "return",
+        "completed": 1,
+        "value": 0.24479166666666669
+      },
+      {
+        "state": "spread",
+        "completed": 2,
+        "value": 0.2552083333333333
+      },
+      {
+        "state": "crouch",
+        "completed": 2,
+        "value": 0.265625
+      },
+      {
+        "state": "approach",
+        "completed": 2,
+        "value": 0.2760416666666667
+      },
+      {
+        "state": "descend",
+        "completed": 2,
+        "value": 0.2864583333333333
+      },
+      {
+        "state": "closing",
+        "completed": 2,
+        "value": 0.296875
+      },
+      {
+        "state": "lift",
+        "completed": 2,
+        "value": 0.3072916666666667
+      },
+      {
+        "state": "transfer",
+        "completed": 2,
+        "value": 0.3177083333333333
+      },
+      {
+        "state": "place",
+        "completed": 2,
+        "value": 0.328125
+      },
+      {
+        "state": "release",
+        "completed": 2,
+        "value": 0.3385416666666667
+      },
+      {
+        "state": "retreat",
+        "completed": 2,
+        "value": 0.3489583333333333
+      },
+      {
+        "state": "settling",
+        "completed": 2,
+        "value": 0.359375
+      },
+      {
+        "state": "return",
+        "completed": 2,
+        "value": 0.3697916666666667
+      },
+      {
+        "state": "spread",
+        "completed": 3,
+        "value": 0.3802083333333333
+      },
+      {
+        "state": "crouch",
+        "completed": 3,
+        "value": 0.390625
+      },
+      {
+        "state": "approach",
+        "completed": 3,
+        "value": 0.4010416666666667
+      },
+      {
+        "state": "descend",
+        "completed": 3,
+        "value": 0.4114583333333333
+      },
+      {
+        "state": "closing",
+        "completed": 3,
+        "value": 0.421875
+      },
+      {
+        "state": "lift",
+        "completed": 3,
+        "value": 0.4322916666666667
+      },
+      {
+        "state": "transfer",
+        "completed": 3,
+        "value": 0.4427083333333333
+      },
+      {
+        "state": "place",
+        "completed": 3,
+        "value": 0.453125
+      },
+      {
+        "state": "release",
+        "completed": 3,
+        "value": 0.4635416666666667
+      },
+      {
+        "state": "retreat",
+        "completed": 3,
+        "value": 0.4739583333333333
+      },
+      {
+        "state": "settling",
+        "completed": 3,
+        "value": 0.484375
+      },
+      {
+        "state": "return",
+        "completed": 3,
+        "value": 0.4947916666666667
+      },
+      {
+        "state": "spread",
+        "completed": 4,
+        "value": 0.5052083333333334
+      },
+      {
+        "state": "crouch",
+        "completed": 4,
+        "value": 0.515625
+      },
+      {
+        "state": "approach",
+        "completed": 4,
+        "value": 0.5260416666666666
+      },
+      {
+        "state": "descend",
+        "completed": 4,
+        "value": 0.5364583333333334
+      },
+      {
+        "state": "closing",
+        "completed": 4,
+        "value": 0.546875
+      },
+      {
+        "state": "lift",
+        "completed": 4,
+        "value": 0.5572916666666666
+      },
+      {
+        "state": "transfer",
+        "completed": 4,
+        "value": 0.5677083333333334
+      },
+      {
+        "state": "place",
+        "completed": 4,
+        "value": 0.578125
+      },
+      {
+        "state": "release",
+        "completed": 4,
+        "value": 0.5885416666666666
+      },
+      {
+        "state": "retreat",
+        "completed": 4,
+        "value": 0.5989583333333334
+      },
+      {
+        "state": "settling",
+        "completed": 4,
+        "value": 0.609375
+      },
+      {
+        "state": "return",
+        "completed": 4,
+        "value": 0.6197916666666666
+      },
+      {
+        "state": "spread",
+        "completed": 5,
+        "value": 0.6302083333333334
+      },
+      {
+        "state": "crouch",
+        "completed": 5,
+        "value": 0.640625
+      },
+      {
+        "state": "approach",
+        "completed": 5,
+        "value": 0.6510416666666666
+      },
+      {
+        "state": "descend",
+        "completed": 5,
+        "value": 0.6614583333333334
+      },
+      {
+        "state": "closing",
+        "completed": 5,
+        "value": 0.671875
+      },
+      {
+        "state": "lift",
+        "completed": 5,
+        "value": 0.6822916666666666
+      },
+      {
+        "state": "transfer",
+        "completed": 5,
+        "value": 0.6927083333333334
+      },
+      {
+        "state": "place",
+        "completed": 5,
+        "value": 0.703125
+      },
+      {
+        "state": "release",
+        "completed": 5,
+        "value": 0.7135416666666666
+      },
+      {
+        "state": "retreat",
+        "completed": 5,
+        "value": 0.7239583333333334
+      },
+      {
+        "state": "settling",
+        "completed": 5,
+        "value": 0.734375
+      },
+      {
+        "state": "return",
+        "completed": 5,
+        "value": 0.7447916666666666
+      },
+      {
+        "state": "spread",
+        "completed": 6,
+        "value": 0.7552083333333334
+      },
+      {
+        "state": "crouch",
+        "completed": 6,
+        "value": 0.765625
+      },
+      {
+        "state": "approach",
+        "completed": 6,
+        "value": 0.7760416666666666
+      },
+      {
+        "state": "descend",
+        "completed": 6,
+        "value": 0.7864583333333334
+      },
+      {
+        "state": "closing",
+        "completed": 6,
+        "value": 0.796875
+      },
+      {
+        "state": "lift",
+        "completed": 6,
+        "value": 0.8072916666666666
+      },
+      {
+        "state": "transfer",
+        "completed": 6,
+        "value": 0.8177083333333334
+      },
+      {
+        "state": "place",
+        "completed": 6,
+        "value": 0.828125
+      },
+      {
+        "state": "release",
+        "completed": 6,
+        "value": 0.8385416666666666
+      },
+      {
+        "state": "retreat",
+        "completed": 6,
+        "value": 0.8489583333333334
+      },
+      {
+        "state": "settling",
+        "completed": 6,
+        "value": 0.859375
+      },
+      {
+        "state": "return",
+        "completed": 6,
+        "value": 0.8697916666666666
+      },
+      {
+        "state": "spread",
+        "completed": 7,
+        "value": 0.8802083333333334
+      },
+      {
+        "state": "crouch",
+        "completed": 7,
+        "value": 0.890625
+      },
+      {
+        "state": "approach",
+        "completed": 7,
+        "value": 0.9010416666666666
+      },
+      {
+        "state": "descend",
+        "completed": 7,
+        "value": 0.9114583333333334
+      },
+      {
+        "state": "closing",
+        "completed": 7,
+        "value": 0.921875
+      },
+      {
+        "state": "lift",
+        "completed": 7,
+        "value": 0.9322916666666666
+      },
+      {
+        "state": "transfer",
+        "completed": 7,
+        "value": 0.9427083333333334
+      },
+      {
+        "state": "place",
+        "completed": 7,
+        "value": 0.953125
+      },
+      {
+        "state": "release",
+        "completed": 7,
+        "value": 0.9635416666666666
+      },
+      {
+        "state": "retreat",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "settling",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "return",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "pipe_settle",
+        "completed": 8,
+        "value": 0.98
+      },
+      {
+        "state": "complete",
+        "completed": 8,
+        "value": 1
+      }
+    ],
+    "g1": [
+      {
+        "state": "spread",
+        "completed": 0,
+        "value": 0.003125
+      },
+      {
+        "state": "raise",
+        "completed": 0,
+        "value": 0.009375
+      },
+      {
+        "state": "ready",
+        "completed": 0,
+        "value": 0.015625
+      },
+      {
+        "state": "recenter",
+        "completed": 0,
+        "value": 0.021875
+      },
+      {
+        "state": "align",
+        "completed": 0,
+        "value": 0.028125
+      },
+      {
+        "state": "approach",
+        "completed": 0,
+        "value": 0.034375
+      },
+      {
+        "state": "descend",
+        "completed": 0,
+        "value": 0.040625
+      },
+      {
+        "state": "closing",
+        "completed": 0,
+        "value": 0.046875
+      },
+      {
+        "state": "lift",
+        "completed": 0,
+        "value": 0.053125
+      },
+      {
+        "state": "transfer",
+        "completed": 0,
+        "value": 0.059375
+      },
+      {
+        "state": "place",
+        "completed": 0,
+        "value": 0.065625
+      },
+      {
+        "state": "release",
+        "completed": 0,
+        "value": 0.071875
+      },
+      {
+        "state": "retreat",
+        "completed": 0,
+        "value": 0.078125
+      },
+      {
+        "state": "settling",
+        "completed": 0,
+        "value": 0.084375
+      },
+      {
+        "state": "return_clear",
+        "completed": 0,
+        "value": 0.090625
+      },
+      {
+        "state": "return_align",
+        "completed": 0,
+        "value": 0.096875
+      },
+      {
+        "state": "return_fold",
+        "completed": 0,
+        "value": 0.103125
+      },
+      {
+        "state": "return_wide",
+        "completed": 0,
+        "value": 0.109375
+      },
+      {
+        "state": "return",
+        "completed": 0,
+        "value": 0.115625
+      },
+      {
+        "state": "return_center",
+        "completed": 0,
+        "value": 0.121875
+      },
+      {
+        "state": "spread",
+        "completed": 1,
+        "value": 0.128125
+      },
+      {
+        "state": "raise",
+        "completed": 1,
+        "value": 0.134375
+      },
+      {
+        "state": "ready",
+        "completed": 1,
+        "value": 0.140625
+      },
+      {
+        "state": "recenter",
+        "completed": 1,
+        "value": 0.146875
+      },
+      {
+        "state": "align",
+        "completed": 1,
+        "value": 0.153125
+      },
+      {
+        "state": "approach",
+        "completed": 1,
+        "value": 0.159375
+      },
+      {
+        "state": "descend",
+        "completed": 1,
+        "value": 0.165625
+      },
+      {
+        "state": "closing",
+        "completed": 1,
+        "value": 0.171875
+      },
+      {
+        "state": "lift",
+        "completed": 1,
+        "value": 0.178125
+      },
+      {
+        "state": "transfer",
+        "completed": 1,
+        "value": 0.184375
+      },
+      {
+        "state": "place",
+        "completed": 1,
+        "value": 0.190625
+      },
+      {
+        "state": "release",
+        "completed": 1,
+        "value": 0.196875
+      },
+      {
+        "state": "retreat",
+        "completed": 1,
+        "value": 0.203125
+      },
+      {
+        "state": "settling",
+        "completed": 1,
+        "value": 0.209375
+      },
+      {
+        "state": "return_clear",
+        "completed": 1,
+        "value": 0.215625
+      },
+      {
+        "state": "return_align",
+        "completed": 1,
+        "value": 0.221875
+      },
+      {
+        "state": "return_fold",
+        "completed": 1,
+        "value": 0.228125
+      },
+      {
+        "state": "return_wide",
+        "completed": 1,
+        "value": 0.234375
+      },
+      {
+        "state": "return",
+        "completed": 1,
+        "value": 0.240625
+      },
+      {
+        "state": "return_center",
+        "completed": 1,
+        "value": 0.246875
+      },
+      {
+        "state": "spread",
+        "completed": 2,
+        "value": 0.253125
+      },
+      {
+        "state": "raise",
+        "completed": 2,
+        "value": 0.259375
+      },
+      {
+        "state": "ready",
+        "completed": 2,
+        "value": 0.265625
+      },
+      {
+        "state": "recenter",
+        "completed": 2,
+        "value": 0.271875
+      },
+      {
+        "state": "align",
+        "completed": 2,
+        "value": 0.278125
+      },
+      {
+        "state": "approach",
+        "completed": 2,
+        "value": 0.284375
+      },
+      {
+        "state": "descend",
+        "completed": 2,
+        "value": 0.290625
+      },
+      {
+        "state": "closing",
+        "completed": 2,
+        "value": 0.296875
+      },
+      {
+        "state": "lift",
+        "completed": 2,
+        "value": 0.303125
+      },
+      {
+        "state": "transfer",
+        "completed": 2,
+        "value": 0.309375
+      },
+      {
+        "state": "place",
+        "completed": 2,
+        "value": 0.315625
+      },
+      {
+        "state": "release",
+        "completed": 2,
+        "value": 0.321875
+      },
+      {
+        "state": "retreat",
+        "completed": 2,
+        "value": 0.328125
+      },
+      {
+        "state": "settling",
+        "completed": 2,
+        "value": 0.334375
+      },
+      {
+        "state": "return_clear",
+        "completed": 2,
+        "value": 0.340625
+      },
+      {
+        "state": "return_align",
+        "completed": 2,
+        "value": 0.346875
+      },
+      {
+        "state": "return_fold",
+        "completed": 2,
+        "value": 0.353125
+      },
+      {
+        "state": "return_wide",
+        "completed": 2,
+        "value": 0.359375
+      },
+      {
+        "state": "return",
+        "completed": 2,
+        "value": 0.365625
+      },
+      {
+        "state": "return_center",
+        "completed": 2,
+        "value": 0.371875
+      },
+      {
+        "state": "spread",
+        "completed": 3,
+        "value": 0.378125
+      },
+      {
+        "state": "raise",
+        "completed": 3,
+        "value": 0.384375
+      },
+      {
+        "state": "ready",
+        "completed": 3,
+        "value": 0.390625
+      },
+      {
+        "state": "recenter",
+        "completed": 3,
+        "value": 0.396875
+      },
+      {
+        "state": "align",
+        "completed": 3,
+        "value": 0.403125
+      },
+      {
+        "state": "approach",
+        "completed": 3,
+        "value": 0.409375
+      },
+      {
+        "state": "descend",
+        "completed": 3,
+        "value": 0.415625
+      },
+      {
+        "state": "closing",
+        "completed": 3,
+        "value": 0.421875
+      },
+      {
+        "state": "lift",
+        "completed": 3,
+        "value": 0.428125
+      },
+      {
+        "state": "transfer",
+        "completed": 3,
+        "value": 0.434375
+      },
+      {
+        "state": "place",
+        "completed": 3,
+        "value": 0.440625
+      },
+      {
+        "state": "release",
+        "completed": 3,
+        "value": 0.446875
+      },
+      {
+        "state": "retreat",
+        "completed": 3,
+        "value": 0.453125
+      },
+      {
+        "state": "settling",
+        "completed": 3,
+        "value": 0.459375
+      },
+      {
+        "state": "return_clear",
+        "completed": 3,
+        "value": 0.465625
+      },
+      {
+        "state": "return_align",
+        "completed": 3,
+        "value": 0.471875
+      },
+      {
+        "state": "return_fold",
+        "completed": 3,
+        "value": 0.478125
+      },
+      {
+        "state": "return_wide",
+        "completed": 3,
+        "value": 0.484375
+      },
+      {
+        "state": "return",
+        "completed": 3,
+        "value": 0.490625
+      },
+      {
+        "state": "return_center",
+        "completed": 3,
+        "value": 0.496875
+      },
+      {
+        "state": "spread",
+        "completed": 4,
+        "value": 0.503125
+      },
+      {
+        "state": "raise",
+        "completed": 4,
+        "value": 0.509375
+      },
+      {
+        "state": "ready",
+        "completed": 4,
+        "value": 0.515625
+      },
+      {
+        "state": "recenter",
+        "completed": 4,
+        "value": 0.521875
+      },
+      {
+        "state": "align",
+        "completed": 4,
+        "value": 0.528125
+      },
+      {
+        "state": "approach",
+        "completed": 4,
+        "value": 0.534375
+      },
+      {
+        "state": "descend",
+        "completed": 4,
+        "value": 0.540625
+      },
+      {
+        "state": "closing",
+        "completed": 4,
+        "value": 0.546875
+      },
+      {
+        "state": "lift",
+        "completed": 4,
+        "value": 0.553125
+      },
+      {
+        "state": "transfer",
+        "completed": 4,
+        "value": 0.559375
+      },
+      {
+        "state": "place",
+        "completed": 4,
+        "value": 0.565625
+      },
+      {
+        "state": "release",
+        "completed": 4,
+        "value": 0.571875
+      },
+      {
+        "state": "retreat",
+        "completed": 4,
+        "value": 0.578125
+      },
+      {
+        "state": "settling",
+        "completed": 4,
+        "value": 0.584375
+      },
+      {
+        "state": "return_clear",
+        "completed": 4,
+        "value": 0.590625
+      },
+      {
+        "state": "return_align",
+        "completed": 4,
+        "value": 0.596875
+      },
+      {
+        "state": "return_fold",
+        "completed": 4,
+        "value": 0.603125
+      },
+      {
+        "state": "return_wide",
+        "completed": 4,
+        "value": 0.609375
+      },
+      {
+        "state": "return",
+        "completed": 4,
+        "value": 0.615625
+      },
+      {
+        "state": "return_center",
+        "completed": 4,
+        "value": 0.621875
+      },
+      {
+        "state": "spread",
+        "completed": 5,
+        "value": 0.628125
+      },
+      {
+        "state": "raise",
+        "completed": 5,
+        "value": 0.634375
+      },
+      {
+        "state": "ready",
+        "completed": 5,
+        "value": 0.640625
+      },
+      {
+        "state": "recenter",
+        "completed": 5,
+        "value": 0.646875
+      },
+      {
+        "state": "align",
+        "completed": 5,
+        "value": 0.653125
+      },
+      {
+        "state": "approach",
+        "completed": 5,
+        "value": 0.659375
+      },
+      {
+        "state": "descend",
+        "completed": 5,
+        "value": 0.665625
+      },
+      {
+        "state": "closing",
+        "completed": 5,
+        "value": 0.671875
+      },
+      {
+        "state": "lift",
+        "completed": 5,
+        "value": 0.678125
+      },
+      {
+        "state": "transfer",
+        "completed": 5,
+        "value": 0.684375
+      },
+      {
+        "state": "place",
+        "completed": 5,
+        "value": 0.690625
+      },
+      {
+        "state": "release",
+        "completed": 5,
+        "value": 0.696875
+      },
+      {
+        "state": "retreat",
+        "completed": 5,
+        "value": 0.703125
+      },
+      {
+        "state": "settling",
+        "completed": 5,
+        "value": 0.709375
+      },
+      {
+        "state": "return_clear",
+        "completed": 5,
+        "value": 0.715625
+      },
+      {
+        "state": "return_align",
+        "completed": 5,
+        "value": 0.721875
+      },
+      {
+        "state": "return_fold",
+        "completed": 5,
+        "value": 0.728125
+      },
+      {
+        "state": "return_wide",
+        "completed": 5,
+        "value": 0.734375
+      },
+      {
+        "state": "return",
+        "completed": 5,
+        "value": 0.740625
+      },
+      {
+        "state": "return_center",
+        "completed": 5,
+        "value": 0.746875
+      },
+      {
+        "state": "spread",
+        "completed": 6,
+        "value": 0.753125
+      },
+      {
+        "state": "raise",
+        "completed": 6,
+        "value": 0.759375
+      },
+      {
+        "state": "ready",
+        "completed": 6,
+        "value": 0.765625
+      },
+      {
+        "state": "recenter",
+        "completed": 6,
+        "value": 0.771875
+      },
+      {
+        "state": "align",
+        "completed": 6,
+        "value": 0.778125
+      },
+      {
+        "state": "approach",
+        "completed": 6,
+        "value": 0.784375
+      },
+      {
+        "state": "descend",
+        "completed": 6,
+        "value": 0.790625
+      },
+      {
+        "state": "closing",
+        "completed": 6,
+        "value": 0.796875
+      },
+      {
+        "state": "lift",
+        "completed": 6,
+        "value": 0.803125
+      },
+      {
+        "state": "transfer",
+        "completed": 6,
+        "value": 0.809375
+      },
+      {
+        "state": "place",
+        "completed": 6,
+        "value": 0.815625
+      },
+      {
+        "state": "release",
+        "completed": 6,
+        "value": 0.821875
+      },
+      {
+        "state": "retreat",
+        "completed": 6,
+        "value": 0.828125
+      },
+      {
+        "state": "settling",
+        "completed": 6,
+        "value": 0.834375
+      },
+      {
+        "state": "return_clear",
+        "completed": 6,
+        "value": 0.840625
+      },
+      {
+        "state": "return_align",
+        "completed": 6,
+        "value": 0.846875
+      },
+      {
+        "state": "return_fold",
+        "completed": 6,
+        "value": 0.853125
+      },
+      {
+        "state": "return_wide",
+        "completed": 6,
+        "value": 0.859375
+      },
+      {
+        "state": "return",
+        "completed": 6,
+        "value": 0.865625
+      },
+      {
+        "state": "return_center",
+        "completed": 6,
+        "value": 0.871875
+      },
+      {
+        "state": "spread",
+        "completed": 7,
+        "value": 0.878125
+      },
+      {
+        "state": "raise",
+        "completed": 7,
+        "value": 0.884375
+      },
+      {
+        "state": "ready",
+        "completed": 7,
+        "value": 0.890625
+      },
+      {
+        "state": "recenter",
+        "completed": 7,
+        "value": 0.896875
+      },
+      {
+        "state": "align",
+        "completed": 7,
+        "value": 0.903125
+      },
+      {
+        "state": "approach",
+        "completed": 7,
+        "value": 0.909375
+      },
+      {
+        "state": "descend",
+        "completed": 7,
+        "value": 0.915625
+      },
+      {
+        "state": "closing",
+        "completed": 7,
+        "value": 0.921875
+      },
+      {
+        "state": "lift",
+        "completed": 7,
+        "value": 0.928125
+      },
+      {
+        "state": "transfer",
+        "completed": 7,
+        "value": 0.934375
+      },
+      {
+        "state": "place",
+        "completed": 7,
+        "value": 0.940625
+      },
+      {
+        "state": "release",
+        "completed": 7,
+        "value": 0.946875
+      },
+      {
+        "state": "retreat",
+        "completed": 7,
+        "value": 0.953125
+      },
+      {
+        "state": "settling",
+        "completed": 7,
+        "value": 0.959375
+      },
+      {
+        "state": "return_clear",
+        "completed": 7,
+        "value": 0.965625
+      },
+      {
+        "state": "return_align",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "return_fold",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "return_wide",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "return",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "return_center",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "pipe_settle",
+        "completed": 8,
+        "value": 0.98
+      },
+      {
+        "state": "complete",
+        "completed": 8,
+        "value": 1
+      }
+    ],
+    "c5": [
+      {
+        "state": "approach",
+        "completed": 0,
+        "value": 0.00625
+      },
+      {
+        "state": "descend",
+        "completed": 0,
+        "value": 0.01875
+      },
+      {
+        "state": "closing",
+        "completed": 0,
+        "value": 0.03125
+      },
+      {
+        "state": "lift",
+        "completed": 0,
+        "value": 0.04375
+      },
+      {
+        "state": "transfer",
+        "completed": 0,
+        "value": 0.05625
+      },
+      {
+        "state": "place",
+        "completed": 0,
+        "value": 0.06875
+      },
+      {
+        "state": "release",
+        "completed": 0,
+        "value": 0.08125
+      },
+      {
+        "state": "retreat",
+        "completed": 0,
+        "value": 0.09375
+      },
+      {
+        "state": "settling",
+        "completed": 0,
+        "value": 0.10625
+      },
+      {
+        "state": "return",
+        "completed": 0,
+        "value": 0.11875
+      },
+      {
+        "state": "approach",
+        "completed": 1,
+        "value": 0.13125
+      },
+      {
+        "state": "descend",
+        "completed": 1,
+        "value": 0.14375
+      },
+      {
+        "state": "closing",
+        "completed": 1,
+        "value": 0.15625
+      },
+      {
+        "state": "lift",
+        "completed": 1,
+        "value": 0.16875
+      },
+      {
+        "state": "transfer",
+        "completed": 1,
+        "value": 0.18125
+      },
+      {
+        "state": "place",
+        "completed": 1,
+        "value": 0.19375
+      },
+      {
+        "state": "release",
+        "completed": 1,
+        "value": 0.20625
+      },
+      {
+        "state": "retreat",
+        "completed": 1,
+        "value": 0.21875
+      },
+      {
+        "state": "settling",
+        "completed": 1,
+        "value": 0.23125
+      },
+      {
+        "state": "return",
+        "completed": 1,
+        "value": 0.24375
+      },
+      {
+        "state": "approach",
+        "completed": 2,
+        "value": 0.25625
+      },
+      {
+        "state": "descend",
+        "completed": 2,
+        "value": 0.26875
+      },
+      {
+        "state": "closing",
+        "completed": 2,
+        "value": 0.28125
+      },
+      {
+        "state": "lift",
+        "completed": 2,
+        "value": 0.29375
+      },
+      {
+        "state": "transfer",
+        "completed": 2,
+        "value": 0.30625
+      },
+      {
+        "state": "place",
+        "completed": 2,
+        "value": 0.31875
+      },
+      {
+        "state": "release",
+        "completed": 2,
+        "value": 0.33125
+      },
+      {
+        "state": "retreat",
+        "completed": 2,
+        "value": 0.34375
+      },
+      {
+        "state": "settling",
+        "completed": 2,
+        "value": 0.35625
+      },
+      {
+        "state": "return",
+        "completed": 2,
+        "value": 0.36875
+      },
+      {
+        "state": "approach",
+        "completed": 3,
+        "value": 0.38125
+      },
+      {
+        "state": "descend",
+        "completed": 3,
+        "value": 0.39375
+      },
+      {
+        "state": "closing",
+        "completed": 3,
+        "value": 0.40625
+      },
+      {
+        "state": "lift",
+        "completed": 3,
+        "value": 0.41875
+      },
+      {
+        "state": "transfer",
+        "completed": 3,
+        "value": 0.43125
+      },
+      {
+        "state": "place",
+        "completed": 3,
+        "value": 0.44375
+      },
+      {
+        "state": "release",
+        "completed": 3,
+        "value": 0.45625
+      },
+      {
+        "state": "retreat",
+        "completed": 3,
+        "value": 0.46875
+      },
+      {
+        "state": "settling",
+        "completed": 3,
+        "value": 0.48125
+      },
+      {
+        "state": "return",
+        "completed": 3,
+        "value": 0.49375
+      },
+      {
+        "state": "approach",
+        "completed": 4,
+        "value": 0.50625
+      },
+      {
+        "state": "descend",
+        "completed": 4,
+        "value": 0.51875
+      },
+      {
+        "state": "closing",
+        "completed": 4,
+        "value": 0.53125
+      },
+      {
+        "state": "lift",
+        "completed": 4,
+        "value": 0.54375
+      },
+      {
+        "state": "transfer",
+        "completed": 4,
+        "value": 0.55625
+      },
+      {
+        "state": "place",
+        "completed": 4,
+        "value": 0.56875
+      },
+      {
+        "state": "release",
+        "completed": 4,
+        "value": 0.58125
+      },
+      {
+        "state": "retreat",
+        "completed": 4,
+        "value": 0.59375
+      },
+      {
+        "state": "settling",
+        "completed": 4,
+        "value": 0.60625
+      },
+      {
+        "state": "return",
+        "completed": 4,
+        "value": 0.61875
+      },
+      {
+        "state": "approach",
+        "completed": 5,
+        "value": 0.63125
+      },
+      {
+        "state": "descend",
+        "completed": 5,
+        "value": 0.64375
+      },
+      {
+        "state": "closing",
+        "completed": 5,
+        "value": 0.65625
+      },
+      {
+        "state": "lift",
+        "completed": 5,
+        "value": 0.66875
+      },
+      {
+        "state": "transfer",
+        "completed": 5,
+        "value": 0.68125
+      },
+      {
+        "state": "place",
+        "completed": 5,
+        "value": 0.69375
+      },
+      {
+        "state": "release",
+        "completed": 5,
+        "value": 0.70625
+      },
+      {
+        "state": "retreat",
+        "completed": 5,
+        "value": 0.71875
+      },
+      {
+        "state": "settling",
+        "completed": 5,
+        "value": 0.73125
+      },
+      {
+        "state": "return",
+        "completed": 5,
+        "value": 0.74375
+      },
+      {
+        "state": "approach",
+        "completed": 6,
+        "value": 0.75625
+      },
+      {
+        "state": "descend",
+        "completed": 6,
+        "value": 0.76875
+      },
+      {
+        "state": "closing",
+        "completed": 6,
+        "value": 0.78125
+      },
+      {
+        "state": "lift",
+        "completed": 6,
+        "value": 0.79375
+      },
+      {
+        "state": "transfer",
+        "completed": 6,
+        "value": 0.80625
+      },
+      {
+        "state": "place",
+        "completed": 6,
+        "value": 0.81875
+      },
+      {
+        "state": "release",
+        "completed": 6,
+        "value": 0.83125
+      },
+      {
+        "state": "retreat",
+        "completed": 6,
+        "value": 0.84375
+      },
+      {
+        "state": "settling",
+        "completed": 6,
+        "value": 0.85625
+      },
+      {
+        "state": "return",
+        "completed": 6,
+        "value": 0.86875
+      },
+      {
+        "state": "approach",
+        "completed": 7,
+        "value": 0.88125
+      },
+      {
+        "state": "descend",
+        "completed": 7,
+        "value": 0.89375
+      },
+      {
+        "state": "closing",
+        "completed": 7,
+        "value": 0.90625
+      },
+      {
+        "state": "lift",
+        "completed": 7,
+        "value": 0.91875
+      },
+      {
+        "state": "transfer",
+        "completed": 7,
+        "value": 0.93125
+      },
+      {
+        "state": "place",
+        "completed": 7,
+        "value": 0.94375
+      },
+      {
+        "state": "release",
+        "completed": 7,
+        "value": 0.95625
+      },
+      {
+        "state": "retreat",
+        "completed": 7,
+        "value": 0.96875
+      },
+      {
+        "state": "settling",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "return",
+        "completed": 7,
+        "value": 0.97
+      },
+      {
+        "state": "pipe_settle",
+        "completed": 8,
+        "value": 0.98
+      },
+      {
+        "state": "complete",
+        "completed": 8,
+        "value": 1
+      }
+    ]
+  },
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-pipe-ui.mjs": "acfc7653a6f42cb93bcd563099b0fb40b46399f53bab0803994e249172123342",
+    "dist/multi/index.html": "9b1c39e3081f6d81fe5f53de538107b5176b99e08a85ad7f1bd4b3a3b9434b63",
+    "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
+    "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
+    "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
+    "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
+    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/pipe-layout.mjs": "78a9eb02bd8893db2f1c573ede63d527ee426647d93ab25868bf09859af6291c",
+    "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557"
+  },
+  "errors": []
+}

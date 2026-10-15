@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>多机器人抓取仿真 · R1 / G1 / C5</title>
-  <link rel="stylesheet" href="./styles.css?v=20261015-multi-2">
+  <link rel="stylesheet" href="./styles.css?v=20261016-pipes-2">
   <script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
 </head>
 <body>
@@ -25,13 +25,18 @@
       <p class="hint">可单选或多选；选中的机器人在同一时刻开始，各自操作桌面物体。</p>
     </fieldset>
     <section class="task-controls" aria-labelledby="task-heading"><h2 id="task-heading">统一抓取任务</h2>
-      <label class="field-row" for="task-mode">任务<select id="task-mode" disabled><option value="sort">放入同色框</option><option value="stack">蓝 → 红 → 黄叠放</option></select></label>
+      <label class="field-row" for="task-mode">任务<select id="task-mode" disabled><option value="sort">放入同色框</option><option value="stack">蓝 → 红 → 黄叠放</option><option value="pipes">圆管分类</option></select></label>
+      <div id="pipe-task-info" class="pipe-task-info" hidden>
+        <p class="hint">近侧随机摆放：黄色圆柱 4 个、红色圆柱 4 个。逐件放入远侧同色方框，每台完成 8 个。</p>
+        <p class="hint">R1 / G1 自动交替左右臂；C5 使用单臂。</p>
+      </div>
       <div class="object-options" role="group" aria-label="共同抓取的物体">
         <button type="button" data-object="red" aria-pressed="false" disabled><i class="swatch red"></i>红色方块</button>
         <button type="button" data-object="blue" aria-pressed="true" disabled><i class="swatch blue"></i>蓝色长方块</button>
         <button type="button" data-object="yellow" aria-pressed="false" disabled><i class="swatch yellow"></i>黄色圆柱</button>
       </div>
       <div class="primary-actions"><button id="start" class="primary" type="button" disabled>开始抓取 · 3 台</button><button id="stop" type="button" disabled>全部停止</button></div>
+      <button id="randomize-pipes" class="reset-button" type="button" hidden disabled>重新随机摆放</button>
       <button id="reset" class="reset-button" type="button" disabled>复位全部工作台</button>
     </section>
     <section class="station-results" aria-labelledby="result-heading"><h2 id="result-heading">各机器人进度</h2><div id="results"></div></section>
@@ -50,6 +55,6 @@
     <footer>浏览器物理仿真 · 每台独立工作台<br>不用于实机控制或安全认证</footer>
   </aside>
 </main>
-<script type="module" src="./app.mjs?v=20261015-multi-2"></script>
+<script type="module" src="./app.mjs?v=20261016-pipes-2"></script>
 </body>
 </html>
