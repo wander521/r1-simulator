@@ -1,0 +1,51 @@
+#main-view{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.g1-callout{position:absolute;left:20px;top:18px;padding:6px 10px;border:1px solid #7ce5ff;border-radius:7px;background:#061b2cc9;color:#d8f8ff;font:600 12px ui-monospace,monospace}.object-edit-hud{display:block}.loading-overlay.is-hidden{opacity:0;pointer-events:none}.drag-cluster{display:none}.g1-app .panel{overflow-y:auto}.g1-app .viewport{min-height:100vh}
+.g1-app .callouts,.g1-app .object-edit-hud{pointer-events:none}
+.g1-app #main-view{cursor:grab}.g1-app .object-dragging #main-view{cursor:grabbing}
+.g1-app .drag-cluster.active{display:flex;position:absolute;pointer-events:none}.g1-app .drag-marker,.g1-app .gripper-fab{pointer-events:auto}
+.g1-app .g1-joint-guide{position:absolute;padding:9px 12px;border:1px solid var(--joint-color);border-radius:12px;color:var(--joint-color);background:#051324;font-size:13px;font-variant-numeric:tabular-nums}
+.g1-app .camera-feed-grid.is-column{grid-template-columns:1fr}.g1-app [hidden]{display:none!important}
+.g1-app button:focus-visible,.g1-app select:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}
+.g1-app .object-edit-hud{max-width:min(420px,calc(100% - 28px))}
+.g1-app .camera-layout-switch button,.g1-app .camera-model-switch,.g1-app .camera-power-switch,.g1-app .telemetry-chart>span,.g1-app .camera-feed-heading,.g1-app .camera-mode-badge,.g1-app .feature-badge{font-size:11px}
+.g1-app .vision-target span,.g1-app .grasp-stage,.g1-app .grasp-progress-row output,.g1-app .telemetry-metrics span,.g1-app .telemetry-metrics strong,.g1-app #toggle-contact-visuals,.g1-app .object-edit-hud-heading span,.g1-app .object-edit-hud p{font-size:11px}
+@media(max-width:900px){.g1-app{display:flex;flex-direction:column;height:auto;overflow:visible}.g1-app .viewport{min-height:58svh;height:58svh;flex:none}.g1-app .panel{width:100%;max-height:none;overflow:visible}.g1-app .object-edit-hud{font-size:12px;padding:10px;bottom:12px;left:12px}.g1-app .g1-callout{top:12px;left:12px;font-size:11px}.g1-app .object-edit-hud p{font-size:12px}.g1-app .g1-joint-guide{font-size:11px;padding:6px}body:has(.g1-app){overflow:auto;height:auto}}
+
+/* Reference arm annotations, adapted to G1's seven-axis joint anchors. */
+.g1-app .g1-joint-callouts{pointer-events:none}
+.g1-app .g1-joint-chip{pointer-events:auto;min-width:88px;max-width:calc(50% - 16px);font-variant-numeric:tabular-nums}
+.g1-app .g1-joint-header{width:100%;min-height:14px;margin:0;padding:0;border:0;border-radius:3px;background:none;color:inherit;box-shadow:none;font:inherit;cursor:pointer;text-align:start}
+.g1-app .g1-joint-header:hover,.g1-app .g1-joint-header:active{background:none;box-shadow:none}
+.g1-app .g1-joint-chip.is-open .g1-joint-header,.g1-app .g1-joint-chip:focus-within .g1-joint-header{margin-bottom:4px}
+.g1-app .g1-joint-header .callout-name{font-size:11px}
+.g1-app .g1-joint-header strong{font-size:11px}
+.g1-app .g1-joint-chip.is-open,.g1-app .g1-joint-chip:focus-within{width:218px}
+.g1-app .g1-joint-chip:focus-within:not(.is-open){width:max-content;padding:5px 7px}
+.g1-app .g1-joint-chip:focus-within:not(.is-open) .g1-joint-header{margin-bottom:0}
+.g1-app .g1-joint-chip:focus-within:not(.is-open) .callout-body,.g1-app .g1-joint-chip:focus-within:not(.is-open) .target-readout{display:none}
+.g1-app .g1-joint-chip input[type=range]{display:block;min-height:28px;margin:0;cursor:pointer;touch-action:pan-y}
+.g1-app .g1-joint-chip input[type=range]:disabled{cursor:not-allowed;opacity:.5}
+.g1-app .g1-joint-slider-legend{display:flex;justify-content:space-between;gap:8px;max-width:100%;color:#a7c8d4;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+.g1-app .g1-joint-limits{min-width:0;text-align:right;font-variant-numeric:tabular-nums}
+.g1-app .g1-joint-lines{z-index:0}
+.g1-app .g1-joint-chip{z-index:3}
+.g1-app .g1-joint-telemetry{display:grid;gap:10px}
+.g1-app .g1-joint-telemetry .control-card-heading{margin-bottom:0}
+.g1-app .g1-joint-units{color:#96b9c9;font-size:11px;white-space:nowrap}
+.g1-app .g1-joint-rms{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0;color:#a7c8d4;font-size:11px}
+.g1-app .g1-joint-rms strong{color:#d8f7ff;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.g1-app .g1-joint-torque-bars{gap:6px}
+.g1-app .g1-joint-torque-bars .torque-row{grid-template-columns:27px minmax(0,1fr) 81px;min-height:15px;font-size:11px;color:#a7c8d4}
+.g1-app .g1-joint-chart>span{color:#a7c8d4;font-size:11px}
+.g1-app .g1-joint-chart canvas{height:88px;max-width:100%}
+.g1-app .g1-joint-chart-legend{display:flex;justify-content:space-between;gap:6px;font-size:11px;font-variant-numeric:tabular-nums}
+@media(max-width:900px){
+  .g1-app .g1-joint-chip{min-width:76px;max-width:calc(50% - 12px)}
+  .g1-app .g1-joint-header{min-height:14px}
+  .g1-app .g1-joint-header .actual{min-width:5.5ch}
+  .g1-app .g1-joint-chip.is-open .target-readout,.g1-app .g1-joint-chip:focus-within .target-readout{display:inline}
+  .g1-app .g1-joint-chip:focus-within:not(.is-open){padding:4px 6px}
+  .g1-app .g1-joint-chip:focus-within:not(.is-open) .target-readout{display:none}
+  .g1-app .g1-joint-slider-legend{display:block;font-size:11px}
+  .g1-app .g1-joint-limits{display:block;text-align:start}
+}
+@media(prefers-reduced-motion:reduce){.g1-app .g1-joint-chip{transition:none}}

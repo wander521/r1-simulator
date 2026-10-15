@@ -9,3 +9,14 @@ __pycache__/
 !.env.example
 coverage/
 outputs/*
+# Keep final source-bound G1 evidence; intermediate probes are reproducible
+# local development output, not release acceptance records.
+work/validation/g1/*
+!work/validation/g1/final-single.jsonl
+!work/validation/g1/final-repeat.jsonl
+!work/validation/g1/opening-safety-final.json
+!work/validation/g1/finger-limit-physics-kv20.json
+!work/validation/g1/photo-camera-material-check.json
+!work/validation/g1/final-acceptance.json
+!work/validation/g1/ui-browser-availability.json
+!work/validation/g1/PHOTO-VISUAL-CHANGES.md

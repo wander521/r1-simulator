@@ -1,0 +1,388 @@
+{
+  "repository": "lerobot/unitree-g1-mujoco",
+  "revision": "68459ed68f6f68e1f661091dfcb6ebce44681aec",
+  "requestedURDF": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/main/assets/g1_29dof_with_dex1_1.urdf",
+  "urdfUnmodified": true,
+  "unitreeLicenseRevision": "5994d4faef0a9cadd3287f8de0199a67eeb2a259",
+  "unitreeAVPRevision": "817fb00c63cde15e5f24a0f8fa08e1e33ed89d3b",
+  "files": [
+    {
+      "path": "dex1_1/meshes/Dex1_base_link.STL",
+      "bytes": 2824984,
+      "sha256": "03f1cb02f94d6b280953f6c5a10da2eab6220ea5c301408d3c4decca66c8cdad",
+      "gitObjectSHA1": "054f3a9f02891b2441b025ede6c701825cda3cee",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/dex1_1/meshes/Dex1_base_link.STL?download=true",
+      "sourcePath": "assets/dex1_1/meshes/Dex1_base_link.STL"
+    },
+    {
+      "path": "dex1_1/meshes/dex1_col_1.stl",
+      "bytes": 75884,
+      "sha256": "5edf010f581635fcb4a79fe20cda65a96c95138112ab91d7e79629980f535c92",
+      "gitObjectSHA1": "7066aa69ca07ffc5ec9e4b6f7bc3fbbdeb589f0d",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/dex1_1/meshes/dex1_col_1.stl?download=true",
+      "sourcePath": "assets/dex1_1/meshes/dex1_col_1.stl"
+    },
+    {
+      "path": "dex1_1/meshes/dex1_col_2.stl",
+      "bytes": 72884,
+      "sha256": "0d791ffb8b438bc4a5fd937eab383db4daa62685a73982e852cc559623036ba9",
+      "gitObjectSHA1": "fb49684490facc26bf2ad773ecec7cb50aec84c8",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/dex1_1/meshes/dex1_col_2.stl?download=true",
+      "sourcePath": "assets/dex1_1/meshes/dex1_col_2.stl"
+    },
+    {
+      "path": "dex1_1/meshes/Dex1_finger_link_1.STL",
+      "bytes": 313884,
+      "sha256": "7cd2ff199556e3955547a34c75ed9ea777fb7d704fc98e7318d0f67e4aaedf5a",
+      "gitObjectSHA1": "5c191a8c15c5294233c5f0f698f7376b0cf0d77f",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/dex1_1/meshes/Dex1_finger_link_1.STL?download=true",
+      "sourcePath": "assets/dex1_1/meshes/Dex1_finger_link_1.STL"
+    },
+    {
+      "path": "dex1_1/meshes/Dex1_finger_link_2.STL",
+      "bytes": 313884,
+      "sha256": "e8297ce8184c64d34d70cd9d6c7b583fba6a3adae2075523e97fb956ada65eb3",
+      "gitObjectSHA1": "66e501f16cd67eb03ef0426a97a9de66591d8f74",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/dex1_1/meshes/Dex1_finger_link_2.STL?download=true",
+      "sourcePath": "assets/dex1_1/meshes/Dex1_finger_link_2.STL"
+    },
+    {
+      "path": "g1_29dof_with_dex1_1.urdf",
+      "bytes": 39614,
+      "sha256": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+      "gitObjectSHA1": "eb12c1ee5281f65b8df79c478b47021a8f6de7c8",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/g1_29dof_with_dex1_1.urdf?download=true",
+      "sourcePath": "assets/g1_29dof_with_dex1_1.urdf"
+    },
+    {
+      "path": "licenses/Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "gitObjectSHA1": null,
+      "gitObjectKind": null,
+      "source": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sourcePath": "LICENSE"
+    },
+    {
+      "path": "licenses/Unitree-AVP-Apache-Notice.txt",
+      "bytes": 1151,
+      "sha256": "63762ccebdb836cf2bae6b1ae0de526e7499dbf45e554c790ebc45942cce3e36",
+      "gitObjectSHA1": null,
+      "gitObjectKind": null,
+      "source": "https://raw.githubusercontent.com/unitreerobotics/avp_teleoperate/817fb00c63cde15e5f24a0f8fa08e1e33ed89d3b/LICENSE",
+      "sourcePath": "LICENSE"
+    },
+    {
+      "path": "licenses/Unitree-BSD-3-Clause.txt",
+      "bytes": 1558,
+      "sha256": "84aac59fd3246e3ddc49d1387644e8fcf43b0def4f0b9fe687f372e90446df2d",
+      "gitObjectSHA1": null,
+      "gitObjectKind": null,
+      "source": "https://raw.githubusercontent.com/unitreerobotics/unitree_ros/5994d4faef0a9cadd3287f8de0199a67eeb2a259/LICENSE",
+      "sourcePath": "LICENSE"
+    },
+    {
+      "path": "meshes/head_link.STL",
+      "bytes": 932784,
+      "sha256": "005fb67fbd3eff94aa8bf4a6e83238174e9f91b6721f7111594322f223724411",
+      "gitObjectSHA1": "401f822751c33dab53c6cee77eb62890aca5cd8f",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/head_link.STL?download=true",
+      "sourcePath": "assets/meshes/head_link.STL"
+    },
+    {
+      "path": "meshes/left_ankle_pitch_link.STL",
+      "bytes": 71184,
+      "sha256": "d49e3abc6f5b12e532062cd575b87b5ef40cd2a3fc18f54a1ca5bba4f773d51d",
+      "gitObjectSHA1": "69de8490184afc698f633e34bb74e65351bd4689",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_ankle_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_ankle_pitch_link.STL"
+    },
+    {
+      "path": "meshes/left_ankle_roll_link.STL",
+      "bytes": 653384,
+      "sha256": "c4092af943141d4d9f74232f3cfa345afc6565f46a077793b8ae0e68b39dc33f",
+      "gitObjectSHA1": "cb69f65c6a8059fc6720cb393540f579b4d0c26e",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_ankle_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_ankle_roll_link.STL"
+    },
+    {
+      "path": "meshes/left_elbow_link.STL",
+      "bytes": 88784,
+      "sha256": "fa752198accd104d5c4c3a01382e45165b944fbbc5acce085059223324e5bed3",
+      "gitObjectSHA1": "1a96d99ba469960173129084ab6dd3bf8a732a71",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_elbow_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_elbow_link.STL"
+    },
+    {
+      "path": "meshes/left_hip_pitch_link.STL",
+      "bytes": 181684,
+      "sha256": "4725168105ee768ee31638ef22b53f6be2d7641bfd7cfefe803488d884776fa4",
+      "gitObjectSHA1": "4cf7475bf6bbaef47d5b3f7644a34c73b3d64037",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_hip_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_hip_pitch_link.STL"
+    },
+    {
+      "path": "meshes/left_hip_roll_link.STL",
+      "bytes": 192184,
+      "sha256": "91f25922ee8a7c3152790051bebad17b4d9cd243569c38fe340285ff93a97acf",
+      "gitObjectSHA1": "585f6040c38571177d55519417a0f46ca7b29381",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_hip_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_hip_roll_link.STL"
+    },
+    {
+      "path": "meshes/left_hip_yaw_link.STL",
+      "bytes": 296284,
+      "sha256": "a16d88aa6ddac8083aa7ad55ed317bea44b1fa003d314fba88965b7ed0f3b55b",
+      "gitObjectSHA1": "b46a74134f90c568cbdfb8484eeb83a0503b4504",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_hip_yaw_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_hip_yaw_link.STL"
+    },
+    {
+      "path": "meshes/left_knee_link.STL",
+      "bytes": 854884,
+      "sha256": "8d92b9e3d3a636761150bb8025e32514c4602b91c7028d523ee42b3e632de477",
+      "gitObjectSHA1": "2dcf84e4018ab9e4cff48cecdafe433601c48480",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_knee_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_knee_link.STL"
+    },
+    {
+      "path": "meshes/left_shoulder_pitch_link.STL",
+      "bytes": 176784,
+      "sha256": "f0d1cfd02fcf0d42f95e678eeca33da3afbcc366ffba5c052847773ec4f31d52",
+      "gitObjectSHA1": "926d9807f1cbf6ad0d41170904785eb30427c848",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_shoulder_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_shoulder_pitch_link.STL"
+    },
+    {
+      "path": "meshes/left_shoulder_roll_link.STL",
+      "bytes": 400284,
+      "sha256": "fb9df21687773522598dc384f1a2945c7519f11cbc8bd372a49170316d6eee88",
+      "gitObjectSHA1": "4c6840b93ea15d1ba7b4dac0f18f94655867cab7",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_shoulder_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_shoulder_roll_link.STL"
+    },
+    {
+      "path": "meshes/left_shoulder_yaw_link.STL",
+      "bytes": 249184,
+      "sha256": "1aa97e9748e924336567992181f78c7cd0652fd52a4afcca3df6b2ef6f9e712e",
+      "gitObjectSHA1": "89b0e0661275ed832c674a46893239ad2e5bef85",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_shoulder_yaw_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_shoulder_yaw_link.STL"
+    },
+    {
+      "path": "meshes/left_wrist_pitch_link.STL",
+      "bytes": 85984,
+      "sha256": "b251d8e05047f695d0f536cd78c11973cfa4e78d08cfe82759336cc3471de3a9",
+      "gitObjectSHA1": "82cc224a8e41251d879502f9809e31d0988ec7f9",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_wrist_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_wrist_pitch_link.STL"
+    },
+    {
+      "path": "meshes/left_wrist_roll_link.STL",
+      "bytes": 356184,
+      "sha256": "edc387c9a0ba8c2237e9b296d32531426fabeb6f53e58df45c76106bca74148c",
+      "gitObjectSHA1": "2097ca3e5bbc0af985d150e5dcda4d8ba9bcf43f",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_wrist_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_wrist_roll_link.STL"
+    },
+    {
+      "path": "meshes/left_wrist_yaw_link.STL",
+      "bytes": 318684,
+      "sha256": "83f8fb3a726bf9613d65dd14f0f447cb918c3c95b3938042a0c9c09749267d3b",
+      "gitObjectSHA1": "692f4b07105fa0ec4ffd989dc60be9b2a33ac9c3",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/left_wrist_yaw_link.STL?download=true",
+      "sourcePath": "assets/meshes/left_wrist_yaw_link.STL"
+    },
+    {
+      "path": "meshes/logo_link.STL",
+      "bytes": 243384,
+      "sha256": "8571a0a19bc4916fa55f91449f51d5fdefd751000054865a842449429d5f155b",
+      "gitObjectSHA1": "6c25961c594c714ada9d32e922250d326c121f4a",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/logo_link.STL?download=true",
+      "sourcePath": "assets/meshes/logo_link.STL"
+    },
+    {
+      "path": "meshes/pelvis_contour_link.STL",
+      "bytes": 1805184,
+      "sha256": "5cc5c2c7a312329e3feeb2b03d3fc09fc29705bd01864f6767e51be959662420",
+      "gitObjectSHA1": "8025bc070cd65550f345e9e97bc44a8ff9740dea",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/pelvis_contour_link.STL?download=true",
+      "sourcePath": "assets/meshes/pelvis_contour_link.STL"
+    },
+    {
+      "path": "meshes/pelvis.STL",
+      "bytes": 1060884,
+      "sha256": "5ba6bbc888e630550140d3c26763f10206da8c8bd30ed886b8ede41c61f57a31",
+      "gitObjectSHA1": "f98a88dbf6c7698791ba694e16cbcc180c40663c",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/pelvis.STL?download=true",
+      "sourcePath": "assets/meshes/pelvis.STL"
+    },
+    {
+      "path": "meshes/right_ankle_pitch_link.STL",
+      "bytes": 71184,
+      "sha256": "15be426539ec1be70246d4d82a168806db64a41301af8b35c197a33348c787a9",
+      "gitObjectSHA1": "e77d8a2fe1e5d56fac049833d254d6ffa4f6b350",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_ankle_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_ankle_pitch_link.STL"
+    },
+    {
+      "path": "meshes/right_ankle_roll_link.STL",
+      "bytes": 653784,
+      "sha256": "4b66222ea56653e627711b56d0a8949b4920da5df091da0ceb343f54e884e3a5",
+      "gitObjectSHA1": "3c38507b9060eda2c40e5e2bb1b174ef5bda0390",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_ankle_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_ankle_roll_link.STL"
+    },
+    {
+      "path": "meshes/right_elbow_link.STL",
+      "bytes": 88784,
+      "sha256": "1be925d7aa268bb8fddf5362b9173066890c7d32092c05638608126e59d1e2ab",
+      "gitObjectSHA1": "f259e3812efb9985d6463c04d3e8a4b53793a699",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_elbow_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_elbow_link.STL"
+    },
+    {
+      "path": "meshes/right_hip_pitch_link.STL",
+      "bytes": 181284,
+      "sha256": "e4f3c99d7f4a7d34eadbef9461fc66e3486cb5442db1ec50c86317d459f1a9c6",
+      "gitObjectSHA1": "064085fca108bfc2a5a365403ceb6cdac4d5cd5f",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_hip_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_hip_pitch_link.STL"
+    },
+    {
+      "path": "meshes/right_hip_roll_link.STL",
+      "bytes": 192684,
+      "sha256": "4c254ef66a356f492947f360dd931965477b631e3fcc841f91ccc46d945d54f6",
+      "gitObjectSHA1": "6544025eeb7dc7d09da549746ae28272e5bcf224",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_hip_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_hip_roll_link.STL"
+    },
+    {
+      "path": "meshes/right_hip_yaw_link.STL",
+      "bytes": 296284,
+      "sha256": "e479c2936ca2057e9eb2f7dff6c189b7419d7b8484dea0b298cbb36a2a6aa668",
+      "gitObjectSHA1": "0ad7bee36419f85b490debe929957c6932df393f",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_hip_yaw_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_hip_yaw_link.STL"
+    },
+    {
+      "path": "meshes/right_knee_link.STL",
+      "bytes": 852284,
+      "sha256": "63c4008449c9bbe701a6e2b557b7a252e90cf3a5abcf54cee46862b9a69f8ec8",
+      "gitObjectSHA1": "65e8a708a7e86f1f242cd32e8959a560ea66c2d7",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_knee_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_knee_link.STL"
+    },
+    {
+      "path": "meshes/right_shoulder_pitch_link.STL",
+      "bytes": 176784,
+      "sha256": "24cdb387e0128dfe602770a81c56cdce3a0181d34d039a11d1aaf8819b7b8c02",
+      "gitObjectSHA1": "48a1c46009929341f2c312966acf81c3c733d7ec",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_shoulder_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_shoulder_pitch_link.STL"
+    },
+    {
+      "path": "meshes/right_shoulder_roll_link.STL",
+      "bytes": 401884,
+      "sha256": "962b97c48f9ce9e8399f45dd9522e0865d19aa9fd299406b2d475a8fc4a53e81",
+      "gitObjectSHA1": "2a5d22f9e17a986ec8c958a6ff7668d65878a907",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_shoulder_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_shoulder_roll_link.STL"
+    },
+    {
+      "path": "meshes/right_shoulder_yaw_link.STL",
+      "bytes": 249984,
+      "sha256": "a0b76489271da0c72461a344c9ffb0f0c6e64f019ea5014c1624886c442a2fe5",
+      "gitObjectSHA1": "0882a567fc1a11f0cf821182154551058b0517f3",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_shoulder_yaw_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_shoulder_yaw_link.STL"
+    },
+    {
+      "path": "meshes/right_wrist_pitch_link.STL",
+      "bytes": 79584,
+      "sha256": "d22f8f3b3127f15a63e5be1ee273cd5075786c3142f1c3d9f76cbf43d2a26477",
+      "gitObjectSHA1": "da194543c40df9d492abb0553c06cc614a78caae",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_wrist_pitch_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_wrist_pitch_link.STL"
+    },
+    {
+      "path": "meshes/right_wrist_roll_link.STL",
+      "bytes": 356084,
+      "sha256": "a7ee9212ff5b94d6cb7f52bb1bbf3f352194d5b598acff74f4c77d340c5b344f",
+      "gitObjectSHA1": "77d23a77ad6ab659884db4d540e0bd9fd0675d0f",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_wrist_roll_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_wrist_roll_link.STL"
+    },
+    {
+      "path": "meshes/right_wrist_yaw_link.STL",
+      "bytes": 341484,
+      "sha256": "bc9dece2d12509707e0057ba2e48df8f3d56db0c79410212963a25e8a50f61a6",
+      "gitObjectSHA1": "77edbb4135bb5b9b64357a0226431fd665d794b2",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/right_wrist_yaw_link.STL?download=true",
+      "sourcePath": "assets/meshes/right_wrist_yaw_link.STL"
+    },
+    {
+      "path": "meshes/torso_link_rev_1_0.STL",
+      "bytes": 2570584,
+      "sha256": "11ddb46f2098efbbd8816b1d65893632d8e78be936376c7cdcd6771899ccc723",
+      "gitObjectSHA1": "836b9923b3edac7a1c06ecd2f11bfbbc0dedf7e0",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/torso_link_rev_1_0.STL?download=true",
+      "sourcePath": "assets/meshes/torso_link_rev_1_0.STL"
+    },
+    {
+      "path": "meshes/waist_roll_link_rev_1_0.STL",
+      "bytes": 85884,
+      "sha256": "b67c347a05abc3e8ddae600d98a082bee273bb39f8e651647708b0a7140a8a97",
+      "gitObjectSHA1": "a64f330c592582dc31cdf38f4d08cfff06681c5f",
+      "gitObjectKind": "blob",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/waist_roll_link_rev_1_0.STL?download=true",
+      "sourcePath": "assets/meshes/waist_roll_link_rev_1_0.STL"
+    },
+    {
+      "path": "meshes/waist_yaw_link_rev_1_0.STL",
+      "bytes": 619984,
+      "sha256": "ec6db442b11f25eed898b5add07940c85d804f300de24dcbd264ccd8be7d554c",
+      "gitObjectSHA1": "dc628fbdda04129fda29140243d148cbd2c81c83",
+      "gitObjectKind": "lfs-pointer",
+      "source": "https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/68459ed68f6f68e1f661091dfcb6ebce44681aec/assets/meshes/waist_yaw_link_rev_1_0.STL?download=true",
+      "sourcePath": "assets/meshes/waist_yaw_link_rev_1_0.STL"
+    }
+  ]
+}

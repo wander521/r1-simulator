@@ -1,0 +1,1648 @@
+{
+  "note": "Static geometry/material checks only. The new +Z single-lens photo-guided mount supersedes earlier R1-derived wrist-camera projection artifacts. No rendered-image, occlusion, reflection or touch claim.",
+  "cameraReference": "codex-clipboard-b580ef28-743c-4683-bde9-c6cb5e142c6c.jpg",
+  "materialReference": "codex-clipboard-19ee4959-8e0b-4e75-81b1-c8e74cc5b223.png",
+  "cameraConfiguration": {
+    "lensPosition": [
+      0.06,
+      0,
+      0.06
+    ],
+    "targetPosition": [
+      0.12,
+      0,
+      0
+    ],
+    "fov": 76
+  },
+  "visualMeshes": 39,
+  "uniqueMeshFiles": 36,
+  "materialReport": {
+    "meshCount": 39,
+    "links": {
+      "pelvis_contour_link": {
+        "triangles": 36102,
+        "finishes": {
+          "graphite": 36102
+        }
+      },
+      "left_ankle_roll_link": {
+        "triangles": 13066,
+        "finishes": {
+          "foot": 13066
+        }
+      },
+      "left_ankle_pitch_link": {
+        "triangles": 1422,
+        "finishes": {
+          "silver": 1422
+        }
+      },
+      "left_knee_link": {
+        "triangles": 17096,
+        "finishes": {
+          "silver": 17096
+        }
+      },
+      "left_hip_yaw_link": {
+        "triangles": 5924,
+        "finishes": {
+          "silver": 5924
+        }
+      },
+      "left_hip_roll_link": {
+        "triangles": 3842,
+        "finishes": {
+          "shell": 3842
+        }
+      },
+      "left_hip_pitch_link": {
+        "triangles": 3632,
+        "finishes": {
+          "graphite": 3632
+        }
+      },
+      "right_ankle_roll_link": {
+        "triangles": 13074,
+        "finishes": {
+          "foot": 13074
+        }
+      },
+      "right_ankle_pitch_link": {
+        "triangles": 1422,
+        "finishes": {
+          "silver": 1422
+        }
+      },
+      "right_knee_link": {
+        "triangles": 17044,
+        "finishes": {
+          "silver": 17044
+        }
+      },
+      "right_hip_yaw_link": {
+        "triangles": 5924,
+        "finishes": {
+          "silver": 5924
+        }
+      },
+      "right_hip_roll_link": {
+        "triangles": 3852,
+        "finishes": {
+          "shell": 3852
+        }
+      },
+      "right_hip_pitch_link": {
+        "triangles": 3624,
+        "finishes": {
+          "graphite": 3624
+        }
+      },
+      "logo_link": {
+        "triangles": 4866,
+        "finishes": {
+          "badge": 4866
+        }
+      },
+      "head_link": {
+        "triangles": 18654,
+        "finishes": {
+          "headShell": 4704,
+          "graphite": 7563,
+          "face": 4757,
+          "lens": 1630
+        }
+      },
+      "left_dex1_finger_link_1": {
+        "triangles": 6276,
+        "finishes": {
+          "gripper": 6276
+        }
+      },
+      "left_dex1_finger_link_2": {
+        "triangles": 6276,
+        "finishes": {
+          "gripper": 6276
+        }
+      },
+      "left_dex1_base_link": {
+        "triangles": 56498,
+        "finishes": {
+          "gripper": 56498
+        }
+      },
+      "left_wrist_yaw_link": {
+        "triangles": 6372,
+        "finishes": {
+          "silver": 6372
+        }
+      },
+      "left_wrist_pitch_link": {
+        "triangles": 1718,
+        "finishes": {
+          "silver": 1718
+        }
+      },
+      "left_wrist_roll_link": {
+        "triangles": 7122,
+        "finishes": {
+          "silver": 7122
+        }
+      },
+      "left_elbow_link": {
+        "triangles": 1774,
+        "finishes": {
+          "shell": 1774
+        }
+      },
+      "left_shoulder_yaw_link": {
+        "triangles": 4982,
+        "finishes": {
+          "silver": 4982
+        }
+      },
+      "left_shoulder_roll_link": {
+        "triangles": 8004,
+        "finishes": {
+          "silver": 8004
+        }
+      },
+      "left_shoulder_pitch_link": {
+        "triangles": 3534,
+        "finishes": {
+          "shell": 3534
+        }
+      },
+      "right_dex1_finger_link_1": {
+        "triangles": 6276,
+        "finishes": {
+          "gripper": 6276
+        }
+      },
+      "right_dex1_finger_link_2": {
+        "triangles": 6276,
+        "finishes": {
+          "gripper": 6276
+        }
+      },
+      "right_dex1_base_link": {
+        "triangles": 56498,
+        "finishes": {
+          "gripper": 56498
+        }
+      },
+      "right_wrist_yaw_link": {
+        "triangles": 6828,
+        "finishes": {
+          "silver": 6828
+        }
+      },
+      "right_wrist_pitch_link": {
+        "triangles": 1590,
+        "finishes": {
+          "silver": 1590
+        }
+      },
+      "right_wrist_roll_link": {
+        "triangles": 7120,
+        "finishes": {
+          "silver": 7120
+        }
+      },
+      "right_elbow_link": {
+        "triangles": 1774,
+        "finishes": {
+          "shell": 1774
+        }
+      },
+      "right_shoulder_yaw_link": {
+        "triangles": 4998,
+        "finishes": {
+          "silver": 4998
+        }
+      },
+      "right_shoulder_roll_link": {
+        "triangles": 8036,
+        "finishes": {
+          "silver": 8036
+        }
+      },
+      "right_shoulder_pitch_link": {
+        "triangles": 3534,
+        "finishes": {
+          "shell": 3534
+        }
+      },
+      "torso_link": {
+        "triangles": 51410,
+        "finishes": {
+          "shell": 51410
+        }
+      },
+      "waist_roll_link": {
+        "triangles": 1716,
+        "finishes": {
+          "graphite": 1716
+        }
+      },
+      "waist_yaw_link": {
+        "triangles": 12398,
+        "finishes": {
+          "graphite": 12398
+        }
+      },
+      "pelvis": {
+        "triangles": 21216,
+        "finishes": {
+          "graphite": 21216
+        }
+      }
+    },
+    "unmappedLinks": [],
+    "head": {
+      "triangles": 18654,
+      "area": 0.09879490133058128,
+      "finishes": {
+        "headShell": {
+          "triangles": 4704,
+          "area": 0.03621054128378642,
+          "areaFraction": 0.3665223690301687
+        },
+        "graphite": {
+          "triangles": 7563,
+          "area": 0.03872128572983153,
+          "areaFraction": 0.3919360737075368
+        },
+        "face": {
+          "triangles": 4757,
+          "area": 0.018340082023608525,
+          "areaFraction": 0.18563794058804814
+        },
+        "lens": {
+          "triangles": 1630,
+          "area": 0.005522992293355123,
+          "areaFraction": 0.055903616674249555
+        }
+      }
+    }
+  },
+  "finishes": {
+    "shell": {
+      "color": 13357268,
+      "metalness": 0.38,
+      "roughness": 0.41,
+      "envMapIntensity": 0.72
+    },
+    "silver": {
+      "color": 10792373,
+      "metalness": 0.64,
+      "roughness": 0.36,
+      "envMapIntensity": 0.78
+    },
+    "headShell": {
+      "color": 6582653,
+      "metalness": 0.52,
+      "roughness": 0.39,
+      "envMapIntensity": 0.66
+    },
+    "graphite": {
+      "color": 2699834,
+      "metalness": 0.32,
+      "roughness": 0.45,
+      "envMapIntensity": 0.58
+    },
+    "face": {
+      "color": 1383717,
+      "metalness": 0.18,
+      "roughness": 0.42,
+      "envMapIntensity": 0.52
+    },
+    "lens": {
+      "color": 528150,
+      "metalness": 0.18,
+      "roughness": 0.2,
+      "envMapIntensity": 0.48
+    },
+    "foot": {
+      "color": 1317665,
+      "metalness": 0.08,
+      "roughness": 0.72,
+      "envMapIntensity": 0.42
+    },
+    "gripper": {
+      "color": 1778216,
+      "metalness": 0.24,
+      "roughness": 0.49,
+      "envMapIntensity": 0.55
+    },
+    "badge": {
+      "color": 6911872,
+      "metalness": 0.73,
+      "roughness": 0.28,
+      "envMapIntensity": 0.72
+    }
+  },
+  "headProfile": {
+    "sourceBounds": {
+      "min": [
+        -0.0663562194,
+        -0.0777746066,
+        0.324795872
+      ],
+      "max": [
+        0.0739840269,
+        0.0778166428,
+        0.5305725932
+      ]
+    },
+    "neckTop": 0.3895,
+    "centerZ": 0.451,
+    "halfHeight": 0.069,
+    "halfWidth": 0.064,
+    "rearRejectX": 0.025
+  },
+  "geometryUnchanged": [
+    {
+      "name": "pelvis",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "pelvis_contour_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_hip_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_hip_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_hip_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_knee_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_ankle_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_ankle_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_hip_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_hip_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_hip_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_knee_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_ankle_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_ankle_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "waist_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "waist_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "torso_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "logo_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "head_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_shoulder_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_shoulder_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_shoulder_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_elbow_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_wrist_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_wrist_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_wrist_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_shoulder_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_shoulder_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_shoulder_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_elbow_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_wrist_roll_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_wrist_pitch_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_wrist_yaw_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_dex1_base_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_dex1_finger_link_1",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "left_dex1_finger_link_2",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_dex1_base_link",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_dex1_finger_link_1",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    },
+    {
+      "name": "right_dex1_finger_link_2",
+      "sourceBytes": true,
+      "positions": true,
+      "normals": true
+    }
+  ],
+  "mainFrustums": [
+    {
+      "window": [
+        1280,
+        720
+      ],
+      "scene": [
+        970,
+        720
+      ],
+      "vertices": 1325310,
+      "clipped": 0
+    },
+    {
+      "window": [
+        390,
+        844
+      ],
+      "scene": [
+        390,
+        489.52
+      ],
+      "vertices": 1325310,
+      "clipped": 0
+    }
+  ],
+  "wristChecks": [
+    {
+      "side": "right",
+      "q": -0.02,
+      "cameraLocal": [
+        0.05999999999999983,
+        2.7755575615628914e-17,
+        0.059999999999999984
+      ],
+      "fov": 76,
+      "groups": [
+        {
+          "name": "TCP",
+          "points": 1,
+          "clipped": 0,
+          "minNDC": [
+            0,
+            0,
+            0.8128885024855753
+          ],
+          "maxNDC": [
+            0,
+            0,
+            0.8128885024855753
+          ]
+        },
+        {
+          "name": "right_dex1_finger_link_1 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            0.02748028845638646,
+            -0.2999511288835648,
+            0.7626980294067495
+          ],
+          "maxNDC": [
+            0.27002244969014344,
+            0.23288754760477018,
+            0.8459851892655127
+          ]
+        },
+        {
+          "name": "right_dex1_finger_link_2 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            -0.27002244969014266,
+            -0.29995112888356573,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            -0.02748028845638643,
+            0.23288754760476993,
+            0.8459913961197663
+          ]
+        },
+        {
+          "name": "red at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.4072749334410174,
+            -0.4799781120724054,
+            0.6996608353620283
+          ],
+          "maxNDC": [
+            0.4072749334410178,
+            0.47997811207240487,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "blue at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.28961773044694555,
+            -0.5097112694574222,
+            0.6996608353620286
+          ],
+          "maxNDC": [
+            0.28961773044694605,
+            0.4535226255802253,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "yellow at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.3669143544513671,
+            -0.46728027841969727,
+            0.6955805590692876
+          ],
+          "maxNDC": [
+            0.36691435445136805,
+            0.5164676761480841,
+            0.8651824049723539
+          ]
+        },
+        {
+          "name": "red at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.14900302442964047,
+            -0.895959142535156,
+            0.8911352643189204
+          ],
+          "maxNDC": [
+            0.14900302442964017,
+            -0.435180154945647,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "blue at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.10595770626107769,
+            -0.9217686651596261,
+            0.8911352643189204
+          ],
+          "maxNDC": [
+            0.10595770626107735,
+            -0.4233269989743643,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "yellow at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.13309638347745664,
+            -0.8799598721327418,
+            0.8905937642370289
+          ],
+          "maxNDC": [
+            0.13309638347745648,
+            -0.4406356438697482,
+            0.9250961005359368
+          ]
+        }
+      ],
+      "lensAndCameraSeparation": 1.1102230246251565e-16,
+      "assemblyQuaternionNorm": 1,
+      "mountBounds": {
+        "min": [
+          0.02750000014156084,
+          -0.014499999582767495,
+          0.030999999986961464
+        ],
+        "max": [
+          0.0677781744185376,
+          0.014499999582767495,
+          0.086516505100554
+        ]
+      }
+    },
+    {
+      "side": "right",
+      "q": 0,
+      "cameraLocal": [
+        0.05999999999999983,
+        2.7755575615628914e-17,
+        0.059999999999999984
+      ],
+      "fov": 76,
+      "groups": [
+        {
+          "name": "TCP",
+          "points": 1,
+          "clipped": 0,
+          "minNDC": [
+            0,
+            0,
+            0.8128885024855753
+          ],
+          "maxNDC": [
+            0,
+            0,
+            0.8128885024855753
+          ]
+        },
+        {
+          "name": "right_dex1_finger_link_1 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            0.21443365148283544,
+            -0.29995112888356407,
+            0.7626980294067495
+          ],
+          "maxNDC": [
+            0.5552123775087676,
+            0.23288754760476993,
+            0.8459851892655127
+          ]
+        },
+        {
+          "name": "right_dex1_finger_link_2 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            -0.5552123775087676,
+            -0.29995112888356523,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            -0.2144336514828351,
+            0.23288754760477004,
+            0.8459913961197663
+          ]
+        },
+        {
+          "name": "red at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.4072749334410174,
+            -0.4799781120724054,
+            0.6996608353620283
+          ],
+          "maxNDC": [
+            0.4072749334410178,
+            0.47997811207240487,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "blue at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.28961773044694555,
+            -0.5097112694574222,
+            0.6996608353620286
+          ],
+          "maxNDC": [
+            0.28961773044694605,
+            0.4535226255802253,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "yellow at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.3669143544513671,
+            -0.46728027841969727,
+            0.6955805590692876
+          ],
+          "maxNDC": [
+            0.36691435445136805,
+            0.5164676761480841,
+            0.8651824049723539
+          ]
+        },
+        {
+          "name": "red at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.14900302442964047,
+            -0.895959142535156,
+            0.8911352643189204
+          ],
+          "maxNDC": [
+            0.14900302442964017,
+            -0.435180154945647,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "blue at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.10595770626107769,
+            -0.9217686651596261,
+            0.8911352643189204
+          ],
+          "maxNDC": [
+            0.10595770626107735,
+            -0.4233269989743643,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "yellow at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.13309638347745664,
+            -0.8799598721327418,
+            0.8905937642370289
+          ],
+          "maxNDC": [
+            0.13309638347745648,
+            -0.4406356438697482,
+            0.9250961005359368
+          ]
+        }
+      ],
+      "lensAndCameraSeparation": 1.1102230246251565e-16,
+      "assemblyQuaternionNorm": 1,
+      "mountBounds": {
+        "min": [
+          0.02750000014156084,
+          -0.014499999582767495,
+          0.030999999986961464
+        ],
+        "max": [
+          0.0677781744185376,
+          0.014499999582767495,
+          0.086516505100554
+        ]
+      }
+    },
+    {
+      "side": "right",
+      "q": 0.0245,
+      "cameraLocal": [
+        0.05999999999999983,
+        2.7755575615628914e-17,
+        0.059999999999999984
+      ],
+      "fov": 76,
+      "groups": [
+        {
+          "name": "TCP",
+          "points": 1,
+          "clipped": 0,
+          "minNDC": [
+            0,
+            0,
+            0.8128885024855753
+          ],
+          "maxNDC": [
+            0,
+            0,
+            0.8128885024855753
+          ]
+        },
+        {
+          "name": "right_dex1_finger_link_1 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            0.4434396416384793,
+            -0.29995112888356384,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            0.9045700390865826,
+            0.23288754760477004,
+            0.8459851892655128
+          ]
+        },
+        {
+          "name": "right_dex1_finger_link_2 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            -0.9045700390865835,
+            -0.29995112888356595,
+            0.7626980294067495
+          ],
+          "maxNDC": [
+            -0.4434396416384794,
+            0.23288754760476993,
+            0.8459913961197661
+          ]
+        },
+        {
+          "name": "red at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.4072749334410174,
+            -0.4799781120724054,
+            0.6996608353620283
+          ],
+          "maxNDC": [
+            0.4072749334410178,
+            0.47997811207240487,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "blue at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.28961773044694555,
+            -0.5097112694574222,
+            0.6996608353620286
+          ],
+          "maxNDC": [
+            0.28961773044694605,
+            0.4535226255802253,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "yellow at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.3669143544513671,
+            -0.46728027841969727,
+            0.6955805590692876
+          ],
+          "maxNDC": [
+            0.36691435445136805,
+            0.5164676761480841,
+            0.8651824049723539
+          ]
+        },
+        {
+          "name": "red at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.14900302442964047,
+            -0.895959142535156,
+            0.8911352643189204
+          ],
+          "maxNDC": [
+            0.14900302442964017,
+            -0.435180154945647,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "blue at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.10595770626107769,
+            -0.9217686651596261,
+            0.8911352643189204
+          ],
+          "maxNDC": [
+            0.10595770626107735,
+            -0.4233269989743643,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "yellow at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.13309638347745664,
+            -0.8799598721327418,
+            0.8905937642370289
+          ],
+          "maxNDC": [
+            0.13309638347745648,
+            -0.4406356438697482,
+            0.9250961005359368
+          ]
+        }
+      ],
+      "lensAndCameraSeparation": 1.1102230246251565e-16,
+      "assemblyQuaternionNorm": 1,
+      "mountBounds": {
+        "min": [
+          0.02750000014156084,
+          -0.014499999582767495,
+          0.030999999986961464
+        ],
+        "max": [
+          0.0677781744185376,
+          0.014499999582767495,
+          0.086516505100554
+        ]
+      }
+    },
+    {
+      "side": "left",
+      "q": -0.02,
+      "cameraLocal": [
+        0.05999999999999993,
+        0,
+        0.06
+      ],
+      "fov": 76,
+      "groups": [
+        {
+          "name": "TCP",
+          "points": 1,
+          "clipped": 0,
+          "minNDC": [
+            3.1400417254089954e-16,
+            0,
+            0.8128885024855754
+          ],
+          "maxNDC": [
+            3.1400417254089954e-16,
+            0,
+            0.8128885024855754
+          ]
+        },
+        {
+          "name": "left_dex1_finger_link_1 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            0.027480288456386674,
+            -0.2999511288835634,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            0.2700224496901426,
+            0.2328875476047701,
+            0.8459851892655126
+          ]
+        },
+        {
+          "name": "left_dex1_finger_link_2 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            -0.2700224496901429,
+            -0.2999511288835648,
+            0.7626980294067495
+          ],
+          "maxNDC": [
+            -0.027480288456386184,
+            0.23288754760476935,
+            0.845991396119766
+          ]
+        },
+        {
+          "name": "red at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.40727493344101784,
+            -0.47997811207240654,
+            0.6996608353620285
+          ],
+          "maxNDC": [
+            0.40727493344101745,
+            0.4799781120724057,
+            0.8643556239053692
+          ]
+        },
+        {
+          "name": "blue at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.28961773044694555,
+            -0.5097112694574217,
+            0.6996608353620285
+          ],
+          "maxNDC": [
+            0.2896177304469458,
+            0.45352262558022494,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "yellow at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.36691435445136716,
+            -0.4672802784196969,
+            0.6955805590692878
+          ],
+          "maxNDC": [
+            0.3669143544513673,
+            0.5164676761480851,
+            0.8651824049723539
+          ]
+        },
+        {
+          "name": "red at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.1490030244296407,
+            -0.895959142535156,
+            0.8911352643189205
+          ],
+          "maxNDC": [
+            0.14900302442964009,
+            -0.43518015494564777,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "blue at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.10595770626107764,
+            -0.9217686651596255,
+            0.8911352643189205
+          ],
+          "maxNDC": [
+            0.10595770626107746,
+            -0.4233269989743641,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "yellow at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.1330963834774567,
+            -0.8799598721327424,
+            0.8905937642370289
+          ],
+          "maxNDC": [
+            0.13309638347745645,
+            -0.44063564386974824,
+            0.9250961005359368
+          ]
+        }
+      ],
+      "lensAndCameraSeparation": 1.1443916996305594e-16,
+      "assemblyQuaternionNorm": 1,
+      "mountBounds": {
+        "min": [
+          0.02750000014156094,
+          -0.014499999582767514,
+          0.030999999986961475
+        ],
+        "max": [
+          0.0677781744185377,
+          0.014499999582767459,
+          0.08651650510055402
+        ]
+      }
+    },
+    {
+      "side": "left",
+      "q": 0,
+      "cameraLocal": [
+        0.05999999999999993,
+        0,
+        0.06
+      ],
+      "fov": 76,
+      "groups": [
+        {
+          "name": "TCP",
+          "points": 1,
+          "clipped": 0,
+          "minNDC": [
+            3.1400417254089954e-16,
+            0,
+            0.8128885024855754
+          ],
+          "maxNDC": [
+            3.1400417254089954e-16,
+            0,
+            0.8128885024855754
+          ]
+        },
+        {
+          "name": "left_dex1_finger_link_1 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            0.2144336514828355,
+            -0.2999511288835645,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            0.5552123775087672,
+            0.23288754760476935,
+            0.8459851892655126
+          ]
+        },
+        {
+          "name": "left_dex1_finger_link_2 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            -0.5552123775087672,
+            -0.2999511288835636,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            -0.21443365148283522,
+            0.23288754760476935,
+            0.8459913961197661
+          ]
+        },
+        {
+          "name": "red at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.40727493344101784,
+            -0.47997811207240654,
+            0.6996608353620285
+          ],
+          "maxNDC": [
+            0.40727493344101745,
+            0.4799781120724057,
+            0.8643556239053692
+          ]
+        },
+        {
+          "name": "blue at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.28961773044694555,
+            -0.5097112694574217,
+            0.6996608353620285
+          ],
+          "maxNDC": [
+            0.2896177304469458,
+            0.45352262558022494,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "yellow at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.36691435445136716,
+            -0.4672802784196969,
+            0.6955805590692878
+          ],
+          "maxNDC": [
+            0.3669143544513673,
+            0.5164676761480851,
+            0.8651824049723539
+          ]
+        },
+        {
+          "name": "red at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.1490030244296407,
+            -0.895959142535156,
+            0.8911352643189205
+          ],
+          "maxNDC": [
+            0.14900302442964009,
+            -0.43518015494564777,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "blue at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.10595770626107764,
+            -0.9217686651596255,
+            0.8911352643189205
+          ],
+          "maxNDC": [
+            0.10595770626107746,
+            -0.4233269989743641,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "yellow at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.1330963834774567,
+            -0.8799598721327424,
+            0.8905937642370289
+          ],
+          "maxNDC": [
+            0.13309638347745645,
+            -0.44063564386974824,
+            0.9250961005359368
+          ]
+        }
+      ],
+      "lensAndCameraSeparation": 1.1443916996305594e-16,
+      "assemblyQuaternionNorm": 1,
+      "mountBounds": {
+        "min": [
+          0.02750000014156094,
+          -0.014499999582767514,
+          0.030999999986961475
+        ],
+        "max": [
+          0.0677781744185377,
+          0.014499999582767459,
+          0.08651650510055402
+        ]
+      }
+    },
+    {
+      "side": "left",
+      "q": 0.0245,
+      "cameraLocal": [
+        0.05999999999999993,
+        0,
+        0.06
+      ],
+      "fov": 76,
+      "groups": [
+        {
+          "name": "TCP",
+          "points": 1,
+          "clipped": 0,
+          "minNDC": [
+            3.1400417254089954e-16,
+            0,
+            0.8128885024855754
+          ],
+          "maxNDC": [
+            3.1400417254089954e-16,
+            0,
+            0.8128885024855754
+          ]
+        },
+        {
+          "name": "left_dex1_finger_link_1 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            0.44343964163847954,
+            -0.2999511288835636,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            0.9045700390865821,
+            0.23288754760476865,
+            0.8459851892655125
+          ]
+        },
+        {
+          "name": "left_dex1_finger_link_2 distal20mm",
+          "points": 2927,
+          "clipped": 0,
+          "minNDC": [
+            -0.9045700390865823,
+            -0.29995112888356246,
+            0.7626980294067497
+          ],
+          "maxNDC": [
+            -0.4434396416384793,
+            0.2328875476047701,
+            0.8459913961197661
+          ]
+        },
+        {
+          "name": "red at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.40727493344101784,
+            -0.47997811207240654,
+            0.6996608353620285
+          ],
+          "maxNDC": [
+            0.40727493344101745,
+            0.4799781120724057,
+            0.8643556239053692
+          ]
+        },
+        {
+          "name": "blue at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.28961773044694555,
+            -0.5097112694574217,
+            0.6996608353620285
+          ],
+          "maxNDC": [
+            0.2896177304469458,
+            0.45352262558022494,
+            0.8643556239053694
+          ]
+        },
+        {
+          "name": "yellow at contact",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.36691435445136716,
+            -0.4672802784196969,
+            0.6955805590692878
+          ],
+          "maxNDC": [
+            0.3669143544513673,
+            0.5164676761480851,
+            0.8651824049723539
+          ]
+        },
+        {
+          "name": "red at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.1490030244296407,
+            -0.895959142535156,
+            0.8911352643189205
+          ],
+          "maxNDC": [
+            0.14900302442964009,
+            -0.43518015494564777,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "blue at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.10595770626107764,
+            -0.9217686651596255,
+            0.8911352643189205
+          ],
+          "maxNDC": [
+            0.10595770626107746,
+            -0.4233269989743641,
+            0.9248367609410593
+          ]
+        },
+        {
+          "name": "yellow at 130mm approach",
+          "points": 8,
+          "clipped": 0,
+          "minNDC": [
+            -0.1330963834774567,
+            -0.8799598721327424,
+            0.8905937642370289
+          ],
+          "maxNDC": [
+            0.13309638347745645,
+            -0.44063564386974824,
+            0.9250961005359368
+          ]
+        }
+      ],
+      "lensAndCameraSeparation": 1.1443916996305594e-16,
+      "assemblyQuaternionNorm": 1,
+      "mountBounds": {
+        "min": [
+          0.02750000014156094,
+          -0.014499999582767514,
+          0.030999999986961475
+        ],
+        "max": [
+          0.0677781744185377,
+          0.014499999582767459,
+          0.08651650510055402
+        ]
+      }
+    }
+  ],
+  "fullFingerSweepMaxZ": 0.019600000232458115,
+  "mountMinZ": 0.030999999986961464,
+  "mountToFingerSweepZClearance": 0.01139999975450335,
+  "pass": true,
+  "sourceHashes": {
+    "work/check-g1-camera-materials.mjs": "4413a759c10e1c016a5a459c01a2b1b9ebbf8423a41fff1e8d6b3ad1dc5d2cca",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "dist/g1/index.html": "f86d8a38edcbd04980b583cb2bd08606c4cb938c1a9123954077a8234aabb456",
+    "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
+    "dist/g1/g1-app.mjs": "3c96ceb7f8b9f153dbe69d6178d01f9f8460df161020b8be8d8e4ff6f4afea2a",
+    "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+    "dist/g1/g1-materials.mjs": "b9f5cc2a982574979536cd56f706704162708b25901e16a358294bc39e5420f3",
+    "dist/g1/g1-joint-ui.mjs": "a874539c07f451d3efba728a808e3d374af6a8de3e413563bd0583638b8568d2",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/assets/meshes/pelvis.STL": "5ba6bbc888e630550140d3c26763f10206da8c8bd30ed886b8ede41c61f57a31",
+    "dist/g1/assets/meshes/pelvis_contour_link.STL": "5cc5c2c7a312329e3feeb2b03d3fc09fc29705bd01864f6767e51be959662420",
+    "dist/g1/assets/meshes/left_hip_pitch_link.STL": "4725168105ee768ee31638ef22b53f6be2d7641bfd7cfefe803488d884776fa4",
+    "dist/g1/assets/meshes/left_hip_roll_link.STL": "91f25922ee8a7c3152790051bebad17b4d9cd243569c38fe340285ff93a97acf",
+    "dist/g1/assets/meshes/left_hip_yaw_link.STL": "a16d88aa6ddac8083aa7ad55ed317bea44b1fa003d314fba88965b7ed0f3b55b",
+    "dist/g1/assets/meshes/left_knee_link.STL": "8d92b9e3d3a636761150bb8025e32514c4602b91c7028d523ee42b3e632de477",
+    "dist/g1/assets/meshes/left_ankle_pitch_link.STL": "d49e3abc6f5b12e532062cd575b87b5ef40cd2a3fc18f54a1ca5bba4f773d51d",
+    "dist/g1/assets/meshes/left_ankle_roll_link.STL": "c4092af943141d4d9f74232f3cfa345afc6565f46a077793b8ae0e68b39dc33f",
+    "dist/g1/assets/meshes/right_hip_pitch_link.STL": "e4f3c99d7f4a7d34eadbef9461fc66e3486cb5442db1ec50c86317d459f1a9c6",
+    "dist/g1/assets/meshes/right_hip_roll_link.STL": "4c254ef66a356f492947f360dd931965477b631e3fcc841f91ccc46d945d54f6",
+    "dist/g1/assets/meshes/right_hip_yaw_link.STL": "e479c2936ca2057e9eb2f7dff6c189b7419d7b8484dea0b298cbb36a2a6aa668",
+    "dist/g1/assets/meshes/right_knee_link.STL": "63c4008449c9bbe701a6e2b557b7a252e90cf3a5abcf54cee46862b9a69f8ec8",
+    "dist/g1/assets/meshes/right_ankle_pitch_link.STL": "15be426539ec1be70246d4d82a168806db64a41301af8b35c197a33348c787a9",
+    "dist/g1/assets/meshes/right_ankle_roll_link.STL": "4b66222ea56653e627711b56d0a8949b4920da5df091da0ceb343f54e884e3a5",
+    "dist/g1/assets/meshes/waist_yaw_link_rev_1_0.STL": "ec6db442b11f25eed898b5add07940c85d804f300de24dcbd264ccd8be7d554c",
+    "dist/g1/assets/meshes/waist_roll_link_rev_1_0.STL": "b67c347a05abc3e8ddae600d98a082bee273bb39f8e651647708b0a7140a8a97",
+    "dist/g1/assets/meshes/torso_link_rev_1_0.STL": "11ddb46f2098efbbd8816b1d65893632d8e78be936376c7cdcd6771899ccc723",
+    "dist/g1/assets/meshes/logo_link.STL": "8571a0a19bc4916fa55f91449f51d5fdefd751000054865a842449429d5f155b",
+    "dist/g1/assets/meshes/head_link.STL": "005fb67fbd3eff94aa8bf4a6e83238174e9f91b6721f7111594322f223724411",
+    "dist/g1/assets/meshes/left_shoulder_pitch_link.STL": "f0d1cfd02fcf0d42f95e678eeca33da3afbcc366ffba5c052847773ec4f31d52",
+    "dist/g1/assets/meshes/left_shoulder_roll_link.STL": "fb9df21687773522598dc384f1a2945c7519f11cbc8bd372a49170316d6eee88",
+    "dist/g1/assets/meshes/left_shoulder_yaw_link.STL": "1aa97e9748e924336567992181f78c7cd0652fd52a4afcca3df6b2ef6f9e712e",
+    "dist/g1/assets/meshes/left_elbow_link.STL": "fa752198accd104d5c4c3a01382e45165b944fbbc5acce085059223324e5bed3",
+    "dist/g1/assets/meshes/left_wrist_roll_link.STL": "edc387c9a0ba8c2237e9b296d32531426fabeb6f53e58df45c76106bca74148c",
+    "dist/g1/assets/meshes/left_wrist_pitch_link.STL": "b251d8e05047f695d0f536cd78c11973cfa4e78d08cfe82759336cc3471de3a9",
+    "dist/g1/assets/meshes/left_wrist_yaw_link.STL": "83f8fb3a726bf9613d65dd14f0f447cb918c3c95b3938042a0c9c09749267d3b",
+    "dist/g1/assets/meshes/right_shoulder_pitch_link.STL": "24cdb387e0128dfe602770a81c56cdce3a0181d34d039a11d1aaf8819b7b8c02",
+    "dist/g1/assets/meshes/right_shoulder_roll_link.STL": "962b97c48f9ce9e8399f45dd9522e0865d19aa9fd299406b2d475a8fc4a53e81",
+    "dist/g1/assets/meshes/right_shoulder_yaw_link.STL": "a0b76489271da0c72461a344c9ffb0f0c6e64f019ea5014c1624886c442a2fe5",
+    "dist/g1/assets/meshes/right_elbow_link.STL": "1be925d7aa268bb8fddf5362b9173066890c7d32092c05638608126e59d1e2ab",
+    "dist/g1/assets/meshes/right_wrist_roll_link.STL": "a7ee9212ff5b94d6cb7f52bb1bbf3f352194d5b598acff74f4c77d340c5b344f",
+    "dist/g1/assets/meshes/right_wrist_pitch_link.STL": "d22f8f3b3127f15a63e5be1ee273cd5075786c3142f1c3d9f76cbf43d2a26477",
+    "dist/g1/assets/meshes/right_wrist_yaw_link.STL": "bc9dece2d12509707e0057ba2e48df8f3d56db0c79410212963a25e8a50f61a6",
+    "dist/g1/assets/dex1_1/meshes/Dex1_base_link.STL": "03f1cb02f94d6b280953f6c5a10da2eab6220ea5c301408d3c4decca66c8cdad",
+    "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL": "7cd2ff199556e3955547a34c75ed9ea777fb7d704fc98e7318d0f67e4aaedf5a",
+    "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL": "e8297ce8184c64d34d70cd9d6c7b583fba6a3adae2075523e97fb956ada65eb3"
+  }
+}

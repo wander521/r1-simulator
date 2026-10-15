@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T10:49:28Z",
+  "title": "Design System: Manipulation simulator",
+  "extensions": {
+    "breakpoints": [{"name": "stacked-scene-panel", "value": "900px"}]
+  },
+  "components": [
+    {
+      "name": "Joint annotation",
+      "kind": "chip",
+      "description": "Measured joint label; actual UI expands to a checked target slider.",
+      "html": "<button class=\"ds-joint\">J1　0.0°</button>",
+      "css": ".ds-joint{padding:5px 7px;border:1px solid #8ae8ff;border-radius:10px;background:#030b1de0;color:#eaf7ff;font-variant-numeric:tabular-nums}.ds-joint:hover{border-color:#46d9f6}.ds-joint:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}"
+    },
+    {
+      "name": "Selected task",
+      "kind": "button",
+      "description": "Reference task selection style, always paired with a written object label.",
+      "html": "<button class=\"ds-task\" aria-pressed=\"true\">蓝色长方块</button>",
+      "css": ".ds-task{padding:7px 8px;border:1px solid #46d9f6;border-radius:12px;color:#e6f9ff;background:#104f71a3}.ds-task:hover{border-color:#8ae8ff}.ds-task:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}"
+    },
+    {
+      "name": "Camera feed frame",
+      "kind": "custom",
+      "description": "Camera heading and framed image surface; this snippet is not a simulated live feed.",
+      "html": "<figure class=\"ds-camera\"><figcaption>G1 夹爪前置相机</figcaption></figure>",
+      "css": ".ds-camera{margin:0;overflow:hidden;border:1px solid rgba(35,116,160,.55);border-radius:9px;background:#010713;color:#eaf7ff}.ds-camera figcaption{padding:8px;font-size:11px}"
+    },
+    {
+      "name": "Control container",
+      "kind": "card",
+      "description": "Existing reference panel grouping, retained rather than redesigned.",
+      "html": "<section class=\"ds-control\">接触与受力</section>",
+      "css": ".ds-control{margin-top:12px;padding:12px;border:1px solid rgba(28,112,165,.68);border-radius:12px;background:linear-gradient(145deg,#051b30eb,#030c1bf5);color:#eaf7ff;box-shadow:inset 0 1px #79dcff0d,0 10px 24px #0003}"
+    },
+    {
+      "name": "Joint target slider",
+      "kind": "input",
+      "description": "Bounded target, never a direct write to the actual joint state.",
+      "html": "<label class=\"ds-slider\">目标角度<input aria-label=\"目标角度\" type=\"range\" min=\"-1\" max=\"1\" step=\"0.01\" value=\"0\"></label>",
+      "css": ".ds-slider{display:block;color:#a7c8d4;font-size:11px}.ds-slider input{display:block;min-height:28px;margin:0;cursor:pointer;touch-action:pan-y}.ds-slider input:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}.ds-slider input:disabled{cursor:not-allowed;opacity:.5}"
+    }
+  ],
+  "narrative": {
+    "overview": "Preserve the supplied reference workcell and extend its working controls to G1. This is not a visual redesign.",
+    "dos": ["Keep blank-space camera gestures separate from object editing.", "Preserve Chinese labels and task-colored physical objects."],
+    "donts": ["Do not claim a rendered visual pass from geometry tests.", "Do not change the preserved R1 page when extending G1."]
+  }
+}

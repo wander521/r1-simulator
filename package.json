@@ -2,14 +2,17 @@
   "name": "r1-simulator",
   "version": "0.1.0",
   "private": true,
-  "description": "Local Galaxea R1 dual-arm grasping simulation with Three.js and MuJoCo",
+  "description": "Unitree G1 29-DoF with Dex1 standing manipulation simulator; R1 retained for comparison",
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
-    "test": "node work/test-r1-dynamics.mjs && node work/test-r1-dynamic-grasp.mjs",
-    "test:repeat": "node work/test-r1-dynamic-grasp.mjs --repeat=3",
+    "test": "node work/test-g1-dynamics.mjs && node work/test-g1-opening-safety.mjs && node work/test-g1-dynamic-grasp.mjs",
+    "test:r1": "node work/test-r1-dynamics.mjs && node work/test-r1-dynamic-grasp.mjs",
+    "test:repeat": "node work/test-g1-dynamic-grasp.mjs --repeat=3",
     "test:legacy": "node work/test-r1-grasp.mjs",
     "test:pages": "node work/test-pages.mjs",
-    "build:physics": "node work/build-r1-dynamics.mjs"
+    "build:physics": "node work/build-g1-dynamics.mjs",
+    "build:physics:r1": "node work/build-r1-dynamics.mjs",
+    "import:g1": "node work/import-g1-assets.mjs"
   }
 }

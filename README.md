@@ -1,16 +1,59 @@
-# R1 Simulator · 星海图双臂抓取仿真
+# Unitree G1 · 固定站位双臂抓取仿真
 
-基于 Three.js、R1 URDF 和 MuJoCo WebAssembly 的本地静态仿真项目。R1 页面是当前项目入口，同时保留标准机械臂参考页面及其本地依赖。
+`unitree_g1` 分支使用宇树 G1 29 身体自由度 + Dex1 双夹爪（共33个驱动关节）。基于 Three.js、原始 URDF 与 MuJoCo WebAssembly，无需后端或 npm 运行依赖。首页进入 `/g1/`；原星海图 R1 页面及标准机械臂参考页保持不变。
 
-## 网页访问与部署
+分支分工：`dev_r1` 保存替换前的 R1 版本（`7e70fe7`）；`unitree_g1` 开发 G1；远端 `main` 及已发布的 R1 网站不随本次分支推送改变。
+
+## G1 功能与边界
+
+- 固定双脚站位，不下蹲、不行走。骨盆固定在按原 URDF 足底接触球标定的高度，腿部保持零关节站姿；这不是自由浮动机器人的平衡/行走控制。
+- 0.90m 落地工作台位于机器人正前方。双臂先从外侧清障、屈肘到胸前，腰部水平转向目标，所选七轴手臂从上方接近；撤离按相反顺序返回。腿部与腰部俯仰不动。
+- 左/右臂均可取放红色方块、蓝色长方块、黄色圆柱，或依次叠放蓝→红→黄。保留选中闪烁、同色放置框、自由移动/旋转、独立视角控制、TCP 拖动、双路相机、停止与复位。
+- J1–J7 滑杆与实际关节一一对应。曲线和数值读取物理求解器的双指接触力、真实电机力矩、目标/实际角度与七轴误差，不把手指的米混进角误差。
+- 必须有真实双指持续接触、抬升超过35mm、接触正确支撑并在释放后稳定，才判定成功。三层叠放连续稳定3秒才触发结果动作。物体没有焊接、吸附或运输阶段的位置赋值。
+
+模型来自用户指定的 [G1 + Dex1 URDF](https://huggingface.co/lerobot/unitree-g1-mujoco/resolve/main/assets/g1_29dof_with_dex1_1.urdf)，固定来源版本为 `68459ed68f6f68e1f661091dfcb6ebce44681aec`。URDF 和38个 mesh 保留原字节；来源、完整哈希与 Unitree BSD / 官方 AVP Apache 声明见 [模型来源说明](dist/g1/assets/THIRD_PARTY.md)。
+
+`work/build-g1-dynamics.mjs` 从该 URDF 精确转换关节帧、轴、质量、COM、完整惯量及限位，未混用 HF 的旧 MJCF。物理接触使用原肩部圆柱、躯干/头/髋与上臂/前臂/腕/掌/Dex1 原始 STL 凸包、原足底接触球和桌面自由物体。仅排除直接连接零件之间的轴承接触；整臂对躯干、对侧臂、桌面和任务物的接触实际参与求解。原 STL 凸包不是精确非凸三角面接触。腿部外壳不用于行走碰撞；本项目不是可直接驱动实机的控制程序。
+
+G1 使用自己的正向夹爪坐标（本地 +X 朝前、+Z 朝掌背），不会套用 R1 的倒置抓姿。自动路径限制自然作业角度、按物体和放置点水平转腰，台面附近俯夹20°，抬升时恢复水平并略向前清障；整体准备、返回、结果动作及手动操作都做碰撞路径检查。独立的影子仿真只用于候选路径和携带物体预测，绝不改实际物体状态或把预测当作夹持成功。
+
+按用户实物参考设置银白胸肩/肘髋外罩、银灰臂腿、深灰头颈腰髋、黑脚与 Dex1。夹爪相机是前上方黑色单镜头，使用软件视野而非声称硬件相机标定值；相机安装和材质不改原 URDF/STL。
+
+## G1 快速开始与测试
+
+```bash
+git clone --branch unitree_g1 https://github.com/wander521/r1-simulator.git
+cd r1-simulator
+npm start
+```
+
+打开 [G1 页面](http://127.0.0.1:4173/g1/)。需要 Python 3；回归测试使用 Node.js 18+（CI 为22）。
+
+```bash
+npm test                               # G1 转换/站姿/真实抓取与恢复测试
+npm run test:pages                     # 本地与 GitHub 项目路径/资产验证
+npm run test:repeat                    # G1 各任务重复3次
+npm run test:r1                        # 保留的 R1 物理回归
+npm run build:physics                  # 从原 URDF + 原 Dex1 STL 重建 MJCF
+node work/import-g1-assets.mjs --verify # 校验全部原始模型资产
+```
+
+G1 页面与测试共用 `dist/g1/grasp-controller.mjs`、`grasp-kinematics.mjs`、`g1-dynamics.mjs` 以及生成的 `models/g1-dynamic-scene.xml`；`g1-profile.mjs` 集中定义七轴关节、站姿、夹爪实际开度和工作台坐标。运行所需资产均在 `dist/`，不需要访问 HF。
+
+当前预览通过56项物理回归和9项开口边界测试，报告逐项绑定当前源码哈希。详见 [G1 验收与未验证范围](work/G1-ACCEPTANCE.md)，可运行 `node work/verify-g1-acceptance.mjs` 复核。双夹爪独立保持开口；手动、准备、停止、失败及结果动作都检查张爪路径。原始夹指行程与20N力限制保留，实际行程每1ms检查。新的 G1 浏览器画面和实体触控尚待在线预览确认，不将静态几何检查作为渲染验收。
+
+`.github/workflows/validate-g1.yml` 对本分支先执行验证，再将 G1 预览发布到 [G1 网页](https://wander521.github.io/r1-simulator/g1/)。发布产物保留原 `./r1/` 首页跳转和 R1 全部文件，不改变远端 `main` 或 `dev_r1`。该预览与 R1 共用现有 GitHub Pages；之后推送 `main` 会按主分支快照重新发布，届时可能不包含 G1，重新推送 G1 分支可刷新预览。首次分支发布若受 `github-pages` 环境分支限制，需仓库所有者允许 `unitree_g1`，不会自动绕过环境保护。以下是保留的 R1 用法与参考实现说明。
+
+## 保留的 R1 网页与部署
 
 GitHub Pages 入口：[R1 Simulator](https://wander521.github.io/r1-simulator/)，直接页面为 [R1 双臂抓取仿真](https://wander521.github.io/r1-simulator/r1/)。首次部署完成后即可在浏览器中运行，无需启动本地服务。机器人模型与物理运行库约42MB，首次打开需要等待下载，之后可使用浏览器缓存；建议使用支持 WebGL2 的现代桌面浏览器。
 
 发布配置在 `.github/workflows/deploy-pages.yml`：每次推送 `main` 后先验证部署路径、真实物理抓取和验收证据，再仅发布 `dist/`。源码、回归记录和录像保留在仓库，不作为网站文件发布。仓库首次使用时，需要在 Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。也可在 Actions 中手动运行同名发布流程。
 
-首页使用相对路径跳转到 `./r1/`，R1和保留的机械臂参考页都支持 `/r1-simulator/` 项目路径。运行库不使用共享内存，无需额外跨域隔离代理或后端服务。部署过程遵循 [GitHub Pages 自定义工作流文档](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
+`main` 的首页使用相对路径跳转到 `./r1/`，本分支则是 `./g1/`；两版及保留的机械臂参考页均支持 `/r1-simulator/` 项目路径。运行库不使用共享内存，无需额外跨域隔离代理或后端服务。部署过程遵循 [GitHub Pages 自定义工作流文档](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
 
-## 快速开始
+## 保留的 R1 本地入口
 
 需要 Python 3；运行回归测试还需要 Node.js 18 或以上。页面运行库和模型均已包含，无需安装 npm 依赖或下载模型。
 
@@ -26,13 +69,14 @@ npm start
 
 ```text
 dist/r1/             R1 页面、控制器、逆运动学、材质和物理场景
+dist/g1/             本分支 G1 页面、七轴控制器、33关节物理场景和模型
 dist/r1/assets/      R1 URDF 与 STL 模型
 dist/vendor/         Three.js、模型加载器和视角控制
 dist/Rebot_Arm_AGV/  标准机械臂参考页、场景和 MuJoCo WASM
 work/                回归测试及模型分析工具
 ```
 
-本项目的可维护页面代码位于 `dist/r1/`，`dist/` 必须纳入版本管理并整体提供静态服务。当前版本在原有取放、编辑、TCP 拖动和双路相机上增量加入三物体叠放、结果动作、关节标注与真实关节动力学反馈。本轮范围与验收证据见 `work/ACCEPTANCE.md`；未扩展 AGV、行走、双臂协作或三语言功能。
+两版可维护页面代码分别位于 `dist/g1/` 和 `dist/r1/`，`dist/` 必须纳入版本管理并整体提供静态服务。原 R1 验收证据见 `work/ACCEPTANCE.md`，不能用它代替 G1 验收；未扩展 AGV、行走、双臂协作或三语言功能。
 
 ## 参考项目
 
@@ -81,10 +125,10 @@ R1 当前入口为 `dist/r1/r1-app.mjs`。`grasp-controller.mjs` 是浏览器与
 
 `r1-workcell.mjs` 复用参考风格的程序化背景、地面和反射材质。腕部相机与带支架双镜头模型随执行臂移动，30°前下方观察指尖；相机自身模型不进入自己的画面。相机布局、画面开关及模型显隐沿用已有控件。加载百分比由实际零件完成数、WASM 下载字节、场景读取与物理初始化进度组成。
 
-运行真实控制流程回归测试：
+仅运行保留的 R1 真实控制流程回归测试：
 
 ```bash
-npm test
+npm run test:r1
 ```
 
-覆盖 URDF/MJCF 运动学与惯量一致性、实际关节追踪、左右臂 × 三种任务物、移动/旋转后的物体、双侧叠放，以及不可达、停止、失败和复位恢复。测试与页面共用同一控制器和动态场景；检查实际双指接触、抬升、释放、支撑及持续稳定。`npm run test:repeat` 各场景运行三次；`npm run build:physics` 从 URDF 重建动态 MJCF。旧接触场景兼容测试为 `npm run test:legacy`。WASM 接触包装对象读取后立即释放，避免持续查看接触数据导致内存增长。
+覆盖 R1 的 URDF/MJCF 运动学与惯量一致性、实际关节追踪、左右臂 × 三种任务物、移动/旋转后的物体、双侧叠放，以及不可达、停止、失败和复位恢复。测试与页面共用同一控制器和动态场景；检查实际双指接触、抬升、释放、支撑及持续稳定。`npm run build:physics:r1` 重建 R1 动态 MJCF；旧接触场景兼容测试为 `npm run test:legacy`。WASM 接触包装对象读取后立即释放，避免持续查看接触数据导致内存增长。

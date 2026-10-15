@@ -1,0 +1,35 @@
+{
+  "status": "not_verified",
+  "attempts": [
+    {
+      "action": "cua.createBrowserTab('iab', 'http://127.0.0.1:4173/g1/', {visible:false})",
+      "result": "Browser is not available: iab"
+    },
+    {
+      "action": "cua.getState()",
+      "result": "js execution timed out; kernel reset, rerun your request",
+      "elapsedSeconds": 38.824
+    }
+  ],
+  "renderedDesktopVerified": false,
+  "photoUpdateAttempt": {
+    "action": "cua.getTab({url:'http://127.0.0.1:4173/g1/'}, {browser:'iab'})",
+    "result": "Browser is not available: iab"
+  },
+  "renderedPhoneVerified": false,
+  "gestureTestsVerified": false,
+  "screenshots": [],
+  "unverifiedInteractions": [
+    "camera live feeds and switches",
+    "orbit, pan and zoom",
+    "object selection, drag and rotation",
+    "J7 slider and physical gripper opening",
+    "task start, stop and reset",
+    "phone touch interaction"
+  ],
+  "fallbackEvidence": [
+    "ui-static-check.json",
+    "http-resource-check.json"
+  ],
+  "note": "No alternative browser automation was used. Geometry/frustum checks and HTTP status checks do not prove rendered output or gesture correctness."
+}

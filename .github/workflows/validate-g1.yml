@@ -1,0 +1,63 @@
+name: Validate and preview G1 standing manipulation
+
+on:
+  push:
+    branches: [unitree_g1]
+  pull_request:
+    branches: [main, dev_r1, unitree_g1]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify local assets and project-relative paths
+        run: npm run test:pages
+      - name: Verify unmodified upstream assets
+        run: node work/import-g1-assets.mjs --verify
+      - name: Verify source conversion and real G1 grasp tasks
+        run: npm test
+      - name: Verify geometry, materials and recorded G1 acceptance
+        run: |
+          node work/check-g1-camera-materials.mjs
+          node work/verify-g1-acceptance.mjs
+      - name: Verify preserved R1 evidence
+        run: node work/verify-acceptance.mjs
+
+  preview:
+    name: Publish G1 preview while retaining the R1 entry
+    if: github.event_name == 'push' && github.ref == 'refs/heads/unitree_g1'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}g1/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Prepare preview without replacing the existing R1 root entry
+        run: |
+          cp -a dist "${{ runner.temp }}/g1-pages"
+          cp work/pages-preview-index.html "${{ runner.temp }}/g1-pages/index.html"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/g1-pages
+      - name: Deploy R1 plus G1 preview
+        id: deployment
+        uses: actions/deploy-pages@v4
