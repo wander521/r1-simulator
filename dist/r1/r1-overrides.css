@@ -1,0 +1,27 @@
+.arm-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin: 10px 0;
+}
+
+.arm-choice button {
+  min-height: 34px;
+  border: 1px solid #477f9b;
+  border-radius: 8px;
+  background: #0b2940;
+  color: #c6e4f0;
+  cursor: pointer;
+}
+
+.arm-choice button[aria-pressed="true"] {
+  border-color: #75efd5;
+  background: #176858;
+  color: #fff;
+  box-shadow: 0 0 14px #34e3bd38;
+}
+
+.arm-choice button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}

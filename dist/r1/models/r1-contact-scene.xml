@@ -1,0 +1,41 @@
+<mujoco model="r1_contact_grasp">
+  <compiler angle="radian"/>
+  <option timestep="0.001" integrator="implicitfast" solver="Newton" iterations="60" cone="elliptic" gravity="0 0 -9.81"/>
+  <default>
+    <geom friction="3.5 .08 .01" solref=".006 1" solimp=".95 .99 .001" condim="6"/>
+    <joint damping="1" armature=".005"/>
+    <position kp="350" kv="3" forcelimited="true" forcerange="-5 5"/>
+  </default>
+  <worldbody>
+    <geom name="floor" type="plane" size="3 3 .1"/>
+    <body name="task_table" pos=".78 0 .6595"><geom name="table_top" type="box" size=".36 .38 .0325"/></body>
+    <body name="red_cube" pos=".68 -.19 .7145"><freejoint/><geom type="box" size=".0225 .0225 .0225" mass=".045"/></body>
+    <body name="blue_block" pos=".72 0 .711"><freejoint/><geom type="box" size=".026 .016 .019" mass=".050"/></body>
+    <body name="yellow_cylinder" pos=".72 .19 .718"><freejoint/><geom type="cylinder" size=".020 .026" mass=".042"/></body>
+    <!-- The palm follows the URDF wrist continuously. Each fixed-size pad is
+         a dynamic slide joint: its motor has a finite 5 N force limit. The
+         rendered finger uses the measured slide position, not the command.
+         There is no support tray, weld or scripted object transport. -->
+    <body name="right_anchor" mocap="true" pos="0 0 2"/>
+    <body name="right_palm" pos="0 0 2"><freejoint/><inertial pos="0 0 0" mass=".4" diaginertia=".001 .001 .001"/>
+      <body name="right_pad1" pos=".068 -.004 0"><joint name="right_finger1" type="slide" axis="0 -1 0" range="0 .05"/><geom type="box" size=".012 .004 .0065" mass=".027" contype="2" conaffinity="1"/></body>
+      <body name="right_pad2" pos=".068 .004 0"><joint name="right_finger2" type="slide" axis="0 1 0" range="0 .05"/><geom type="box" size=".012 .004 .0065" mass=".027" contype="2" conaffinity="1"/></body>
+    </body>
+    <body name="left_anchor" mocap="true" pos="0 0 2"/>
+    <body name="left_palm" pos="0 0 2"><freejoint/><inertial pos="0 0 0" mass=".4" diaginertia=".001 .001 .001"/>
+      <body name="left_pad1" pos=".068 .004 0"><joint name="left_finger1" type="slide" axis="0 1 0" range="0 .05"/><geom type="box" size=".012 .004 .0065" mass=".027" contype="2" conaffinity="1"/></body>
+      <body name="left_pad2" pos=".068 -.004 0"><joint name="left_finger2" type="slide" axis="0 -1 0" range="0 .05"/><geom type="box" size=".012 .004 .0065" mass=".027" contype="2" conaffinity="1"/></body>
+    </body>
+  </worldbody>
+  <equality>
+    <!-- This weld is the wrist servo, never an object attachment. A dynamic
+         wrist has velocity, so its fingers transmit friction while lifting. -->
+    <weld body1="right_anchor" body2="right_palm" solref=".004 1" solimp=".95 .99 .001"/>
+    <weld body1="left_anchor" body2="left_palm" solref=".004 1" solimp=".95 .99 .001"/>
+  </equality>
+  <contact><exclude body1="right_pad1" body2="right_pad2"/><exclude body1="left_pad1" body2="left_pad2"/></contact>
+  <actuator>
+    <position name="right_motor1" joint="right_finger1"/><position name="right_motor2" joint="right_finger2"/>
+    <position name="left_motor1" joint="left_finger1"/><position name="left_motor2" joint="left_finger2"/>
+  </actuator>
+</mujoco>

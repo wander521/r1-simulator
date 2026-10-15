@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>R1 &#21452;&#33218;&#25235;&#21462; &middot; &#26412;&#22320;&#25968;&#23383;&#23402;&#29983;</title>
+<link rel="stylesheet" href="../Rebot_Arm_AGV/assets/index-B74gtmCa.css">
+<link rel="stylesheet" href="./r1-reference.css?v=20261015-3">
+<script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
+</head>
+<body>
+<main class="app r1-app"><section class="viewport" id="viewport"><canvas id="main-view" aria-label="&#21487;&#26059;&#36716;&#30340;&#26143;&#28023;&#22270; R1 &#21452;&#33218;&#26426;&#22120;&#20154;&#24037;&#20316;&#21488;"></canvas><div class="loading-overlay" id="loading-overlay" role="status">
+<div class="loading-ring"></div>
+<p class="loading-title">正在构建 R1 本地数字孪生</p>
+<p class="loading-text" id="loading-text">正在加载…</p>
+<div class="loading-progress">
+<div class="loading-progress-track"><div class="loading-progress-fill" id="loading-progress-fill"></div></div>
+<span class="loading-progress-value" id="loading-progress-value">0%</span>
+</div>
+</div>
+<div class="callouts" id="callouts"><div class="r1-callout">R1 &middot; &#21452;&#33218;&#31227;&#21160;&#25805;&#20316;&#26426;&#22120;&#20154;</div></div>
+<div id="drag-cluster" class="drag-cluster">
+<div id="drag-marker" class="drag-marker"></div>
+<div class="gripper-fab">
+<button id="gripper-open" type="button">张开</button><button id="gripper-close" type="button">闭合</button>
+</div>
+</div>
+<div class="object-edit-hud" id="object-edit-hud">
+<div class="object-edit-hud-heading">
+<strong>任务对象</strong><span>R1</span>
+</div>
+<p id="object-edit-selection">已选择：青色方块</p>
+<p>&#25302;&#21160;&#24037;&#20316;&#21488;&#21487;&#26059;&#36716;&#35270;&#35282;&#65307;&#20351;&#29992;&#38754;&#26495;&#21551;&#21160;&#21452;&#33218;&#25235;&#21462;&#12290;</p>
+</div></section>
+<aside class="panel"><p class="eyebrow">视觉 + 物理抓取演示</p>
+<h1>R1 双臂抓取仿真</h1>
+<p class="status" id="status">正在加载…</p>
+<p class="hint" id="panel-hint">&#21452;&#33218;&#22402;&#30452;&#24453;&#21629;&#65307;&#24320;&#22987;&#21518;&#20808;&#23637;&#24320;&#65292;&#20877;&#30001;&#36527;&#24178;&#21069;&#20542;&#19979;&#36466;&#24182;&#25235;&#21462;&#12290;</p>
+<div class="button-row">
+<label class="variant-picker"><span>&#25191;&#34892;&#33218;</span><select id="model-variant" class="variant-select"><option value="right">&#21491;&#33218;</option>
+<option value="left">&#24038;&#33218;</option></select></label><button id="toggle-drag" type="button">启用末端拖拽</button><button id="reset" type="button">复位</button><button id="toggle-guides" type="button" aria-pressed="false">显示全部引导</button><select id="lang-select" class="lang-select"><option>&#127464;&#127475; &#20013;&#25991;</option></select>
+</div>
+<section class="control-card camera-controls"><div class="control-card-heading">
+<h2>视觉模式</h2>
+<button id="toggle-camera-views" class="camera-power-switch" role="switch" aria-checked="true">隐藏画面</button>
+</div>
+<div class="camera-toolbar">
+<div class="camera-layout-switch">
+<button id="camera-layout-row" class="active" aria-pressed="true">并排</button><button id="camera-layout-column" aria-pressed="false">上下排列</button>
+</div>
+<button id="toggle-camera-model" class="camera-model-switch" role="switch" aria-checked="true">隐藏相机模型</button>
+</div>
+<div class="camera-feed-grid" id="camera-feed-grid">
+<article class="camera-feed is-live"><div class="camera-feed-heading">
+<span>全局俯视相机</span><span class="camera-mode-badge">RGB</span>
+</div>
+<div class="camera-screen"><canvas id="overhead-camera-canvas" width="320" height="240"></canvas></div></article><article class="camera-feed is-live"><div class="camera-feed-heading">
+<span>R1 腕部相机 · RGB</span><span class="camera-mode-badge">RGB</span>
+</div>
+<div class="camera-screen"><canvas id="wrist-camera-canvas" width="320" height="240"></canvas></div></article>
+</div></section>
+<section class="control-card grasp-controls" id="grasp-controls"><div class="control-card-heading">
+<h2>一键抓取演示</h2>
+<span class="feature-badge">AUTO</span>
+</div>
+<p class="control-hint">&#21452;&#33218;&#20808;&#23637;&#24320;&#65292;&#36527;&#24178;&#21069;&#20542;&#19979;&#36466;&#65307;&#36873;&#23450;&#19968;&#20391;&#30340;&#24179;&#34892;&#22841;&#29226;&#25235;&#21462;&#26041;&#22359;&#24182;&#24402;&#20301;&#12290;</p>
+<div class="vision-targets"><button class="vision-target active" type="button" aria-pressed="true"><i class="target-blue"></i><span>&#38738;&#33394;&#26041;&#22359;</span></button></div>
+<div class="grasp-actions">
+<button id="start-grasp" type="button">▶ 开始抓取</button><button id="start-stack" type="button" hidden>▲ 堆叠</button><button id="cancel-grasp" type="button" disabled>停止</button>
+</div>
+<div class="grasp-progress-row">
+<progress id="grasp-progress" max="1" value="0"></progress><output id="grasp-progress-value">0%</output>
+</div>
+<p class="grasp-stage"><span>阶段</span><strong id="grasp-stage" aria-live="polite">就绪</strong></p></section>
+<section class="control-card telemetry-controls"><div class="control-card-heading">
+<h2>接触与受力</h2>
+<button id="toggle-contact-visuals" role="switch" aria-checked="true">隐藏接触点</button>
+</div>
+<div class="telemetry-metrics">
+<div>
+<span>接触数</span><strong id="contact-count">0</strong>
+</div>
+<div>
+<span>夹持力</span><strong id="grasp-force">0.0 N</strong>
+</div>
+<div>
+<span>均方根误差</span><strong id="rms-error">0.0 mrad</strong>
+</div>
+</div>
+<div class="torque-bars" id="torque-bars"></div>
+<div class="telemetry-chart">
+<span>关节力矩曲线 · N·m</span><canvas id="torque-chart" width="276" height="88"></canvas>
+</div>
+<div class="telemetry-chart">
+<span>关节误差曲线 · rad</span><canvas id="error-chart" width="276" height="88"></canvas>
+</div></section></aside></main><script type="module" src="./r1-app.mjs?v=20261015-5"></script>
+</body>
+</html>

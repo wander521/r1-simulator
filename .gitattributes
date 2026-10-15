@@ -1,0 +1,7 @@
+* text=auto
+*.stl -text
+*.STL -text
+*.wasm -text
+*.png -text
+*.jpg -text
+*.ico -text

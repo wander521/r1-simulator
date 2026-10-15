@@ -1,0 +1,4 @@
+/* This local replica keeps the original physical grasp path, but omits the
+   non-requested inspection features from the control panel. */
+.explosion-controls,
+.part-explorer { display: none !important; }

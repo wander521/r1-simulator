@@ -1,0 +1,10 @@
+#main-view{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.r1-callout{position:absolute;left:20px;top:18px;padding:6px 10px;border:1px solid #7ce5ff;border-radius:7px;background:#061b2cc9;color:#d8f8ff;font:600 12px ui-monospace,monospace}.object-edit-hud{display:block}.loading-overlay.is-hidden{opacity:0;pointer-events:none}.drag-cluster{display:none}.r1-app .panel{overflow-y:auto}.r1-app .viewport{min-height:100vh}
+.r1-app .callouts,.r1-app .object-edit-hud{pointer-events:none}
+.r1-app #main-view{cursor:grab}.r1-app .object-dragging #main-view{cursor:grabbing}
+.r1-app .drag-cluster.active{display:flex;position:absolute;pointer-events:none}.r1-app .drag-marker,.r1-app .gripper-fab{pointer-events:auto}
+.r1-app .r1-joint-guide{position:absolute;padding:9px 12px;border:1px solid var(--joint-color);border-radius:12px;color:var(--joint-color);background:#051324;font-size:13px;font-variant-numeric:tabular-nums}
+.r1-app .camera-feed-grid.is-column{grid-template-columns:1fr}.r1-app [hidden]{display:none!important}
+.r1-app button:focus-visible,.r1-app select:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}
+.r1-app .object-edit-hud{max-width:min(420px,calc(100% - 28px))}
+.r1-app .camera-layout-switch button,.r1-app .camera-model-switch,.r1-app .camera-power-switch,.r1-app .telemetry-chart>span,.r1-app .camera-feed-heading,.r1-app .camera-mode-badge,.r1-app .feature-badge{font-size:11px}
+@media(max-width:800px){.r1-app{display:flex;flex-direction:column;height:auto;overflow:visible}.r1-app .viewport{min-height:58svh;height:58svh;flex:none}.r1-app .panel{width:100%;max-height:none;overflow:visible}.r1-app .object-edit-hud{font-size:12px;padding:10px;bottom:12px;left:12px}.r1-app .r1-callout{top:12px;left:12px;font-size:11px}.r1-app .object-edit-hud p{font-size:12px}.r1-app .r1-joint-guide{font-size:11px;padding:6px}body:has(.r1-app){overflow:auto;height:auto}}

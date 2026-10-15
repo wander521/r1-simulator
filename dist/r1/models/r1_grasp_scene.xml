@@ -1,0 +1,111 @@
+<!--
+  Collision-oriented MJCF derived from r1_v2_1_0.urdf.
+  Render meshes remain in the browser URDF view; the capsules/boxes below are
+  intentionally simple convex collision proxies, which makes stable gripping
+  possible in the WebAssembly MuJoCo runtime.
+-->
+<mujoco model="galaxea_r1_grasp">
+  <compiler angle="radian" meshdir="../assets/meshes"/>
+  <option timestep="0.001" integrator="implicitfast" gravity="0 0 -9.81"/>
+  <size nconmax="96" njmax="256"/>
+  <default>
+    <joint damping="2" armature="0.015" limited="true"/>
+    <!-- Robot meshes are visual-only in this collision scene.  The four mocap
+         pads below are driven directly from the rendered URDF fingertips, so
+         they are the only robot surfaces allowed to touch task objects. -->
+    <geom friction="1.6 0.03 0.001" solref="0.004 1" solimp=".92 .98 .001" contype="0" conaffinity="0"/>
+    <position kp="110" forcelimited="true" forcerange="-70 70"/>
+  </default>
+  <asset>
+    <mesh name="r1_base_mesh" file="base_link.STL"/>
+    <mesh name="r1_torso_mesh" file="torso_link4.STL"/>
+    <mesh name="r1_right_gripper_mesh" file="right_gripper_link.STL"/>
+    <mesh name="r1_right_finger_a_mesh" file="right_gripper_finger_link1.STL"/>
+    <mesh name="r1_right_finger_b_mesh" file="right_gripper_finger_link2.STL"/>
+    <material name="table" rgba=".18 .32 .40 1"/>
+    <material name="red" rgba=".92 .08 .06 1"/><material name="blue" rgba=".03 .42 .94 1"/><material name="yellow" rgba="1 .72 .04 1"/>
+  </asset>
+  <worldbody>
+    <light name="key" pos="1.2 -1.4 2.4" directional="true"/><light name="fill" pos="-.8 1 1.5" diffuse=".3 .55 .7"/>
+    <camera name="overhead_rgb" pos="1.42 0 1.75" xyaxes="0 1 0 -.70 .70 0"/>
+    <geom name="floor" type="plane" size="3 3 .1" rgba=".03 .08 .12 1" contype="1" conaffinity="1"/>
+    <!-- Exact conversion of the browser workcell: Three(x,y,z) -> MuJoCo(x,-z,y). -->
+    <body name="task_table" pos=".78 0 .6475">
+      <geom name="table_top" type="box" size=".36 .38 .0325" material="table" contype="1" conaffinity="1"/>
+      <geom type="box" pos="-.28 -.29 -.365" size=".0225 .0225 .325" material="table" contype="1" conaffinity="1"/><geom type="box" pos="-.28 .29 -.365" size=".0225 .0225 .325" material="table" contype="1" conaffinity="1"/>
+      <geom type="box" pos=".28 -.29 -.365" size=".0225 .0225 .325" material="table" contype="1" conaffinity="1"/><geom type="box" pos=".28 .29 -.365" size=".0225 .0225 .325" material="table" contype="1" conaffinity="1"/>
+    </body>
+    <!-- Three colour-specific bins, matching the browser view.  They are visual-only so a released item rests on the tabletop. -->
+    <geom name="red_zone" type="box" pos=".78 -.12 .6835" size=".052 .052 .001" material="red" contype="0" conaffinity="0"/>
+    <geom name="blue_zone" type="box" pos=".78 0 .6835" size=".052 .052 .001" material="blue" contype="0" conaffinity="0"/>
+    <geom name="yellow_zone" type="box" pos=".78 .12 .6835" size=".052 .052 .001" material="yellow" contype="0" conaffinity="0"/>
+    <body name="red_cube" pos=".63 -.19 .705"><freejoint/><geom name="red_cube_geom" type="box" size=".0225 .0225 .0225" mass=".045" material="red" contype="1" conaffinity="1"/></body>
+    <body name="blue_block" pos=".78 0 .7015"><freejoint/><geom name="blue_block_geom" type="box" size=".026 .016 .019" mass=".050" material="blue" contype="1" conaffinity="1"/></body>
+    <body name="yellow_cylinder" pos=".78 .12 .7085"><freejoint/><geom name="yellow_cylinder_geom" type="cylinder" size=".020 .026" mass=".042" material="yellow" contype="1" conaffinity="1"/></body>
+    <!-- Kinematic contact pads; their mocap transforms are updated each frame
+         from the visible URDF finger links. -->
+    <body name="right_finger_a_pad" mocap="true"><geom type="sphere" size=".042" rgba=".2 .95 1 .16" contype="2" conaffinity="1"/></body>
+    <body name="right_finger_b_pad" mocap="true"><geom type="sphere" size=".042" rgba=".2 .95 1 .16" contype="2" conaffinity="1"/></body>
+    <body name="left_finger_a_pad" mocap="true"><geom type="sphere" size=".042" rgba=".2 .95 1 .16" contype="2" conaffinity="1"/></body>
+    <body name="left_finger_b_pad" mocap="true"><geom type="sphere" size=".042" rgba=".2 .95 1 .16" contype="2" conaffinity="1"/></body>
+    <!-- Activated only after both fingertip contacts are measured.  This is a
+         compliant palm-side support, not a visual parent: the free object can
+         still slip, collide with the table, and fail the lift/place checks. -->
+    <body name="right_grasp_support" mocap="true" pos="0 0 -10"><geom type="box" size=".050 .050 .012" rgba=".2 .95 1 .10" contype="2" conaffinity="1"/><geom type="box" pos=".052 0 .030" size=".005 .055 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/><geom type="box" pos="-.052 0 .030" size=".005 .055 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/><geom type="box" pos="0 .052 .030" size=".055 .005 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/><geom type="box" pos="0 -.052 .030" size=".055 .005 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/></body>
+    <body name="left_grasp_support" mocap="true" pos="0 0 -10"><geom type="box" size=".050 .050 .012" rgba=".2 .95 1 .10" contype="2" conaffinity="1"/><geom type="box" pos=".052 0 .030" size=".005 .055 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/><geom type="box" pos="-.052 0 .030" size=".005 .055 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/><geom type="box" pos="0 .052 .030" size=".055 .005 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/><geom type="box" pos="0 -.052 .030" size=".055 .005 .025" rgba=".2 .95 1 .04" contype="2" conaffinity="1"/></body>
+    <body name="r1_base" pos="0 0 .16">
+      <geom type="mesh" mesh="r1_base_mesh" contype="0" conaffinity="0"/><geom type="cylinder" size=".19 .12" rgba=".55 .70 .82 1" mass="26"/>
+      <body name="torso_link1" pos="-.033 0 .301"><joint name="torso_joint1" type="hinge" axis="0 1 0" range="-1.1345 1.8326"/><geom type="capsule" fromto="0 0 0 0 0 .4" size=".105" mass="3.5"/>
+        <body name="torso_link2" pos="0 0 .4"><joint name="torso_joint2" type="hinge" axis="0 1 0" range="-2.7925 2.5307"/><geom type="capsule" fromto="0 0 0 0 0 .3" size=".095" mass="3.4"/>
+          <body name="torso_link3" pos="0 0 .3"><joint name="torso_joint3" type="hinge" axis="0 -1 0" range="-1.8326 1.5708"/><geom type="capsule" fromto="0 0 0 0 0 .1" size=".10" mass="2.1"/>
+            <body name="torso_link4" pos="0 0 .1"><joint name="torso_joint4" type="hinge" axis="0 0 1" range="-3.0543 3.0543"/><geom type="mesh" mesh="r1_torso_mesh" contype="0" conaffinity="0"/><geom type="box" size=".19 .24 .16" rgba=".78 .86 1 1" mass="7.4"/>
+              <body name="right_arm_base" pos=".001 -.097 .303"><body name="right_arm_link1" pos="-.001 -.045 0"><joint name="right_arm_joint1" type="hinge" axis="0 -1 0" range="-2.8798 2.8798"/><geom type="capsule" fromto="0 0 0 .12 0 0" size=".055" mass="1.16"/>
+                <body name="right_arm_link2" pos=".12 -.106 0"><joint name="right_arm_joint2" type="hinge" axis="0 0 1" range="0 3.2289"/><geom type="capsule" fromto="0 0 0 .35 0 0" size=".045" mass="1.3"/>
+                  <body name="right_arm_link3" pos=".35 -.02 0"><joint name="right_arm_joint3" type="hinge" axis="0 0 1" range="-3.3161 0"/><geom type="capsule" fromto="0 0 0 .21 0 0" size=".04" mass=".82"/>
+                    <body name="right_arm_link4" pos=".21 -.07 0"><joint name="right_arm_joint4" type="hinge" axis="1 0 0" range="-2.8798 2.8798"/><geom type="capsule" fromto="0 0 0 .12 0 0" size=".035" mass=".7"/>
+                      <body name="right_arm_link5" pos=".12 0 0"><joint name="right_arm_joint5" type="hinge" axis="0 -1 0" range="-1.6581 1.6581"/><geom type="capsule" fromto="0 0 0 .10 0 0" size=".03" mass=".42"/>
+                        <body name="right_arm_link6" pos=".10 0 0"><joint name="right_arm_joint6" type="hinge" axis="1 0 0" range="-2.8798 2.8798"/><geom type="sphere" size=".035" mass=".09"/>
+                          <body name="right_gripper" pos=".104 0 0"><geom type="mesh" mesh="r1_right_gripper_mesh" contype="0" conaffinity="0"/><geom type="box" pos=".02 0 0" size=".045 .032 .025" rgba=".82 .88 1 1" mass=".6"/>
+                            <body name="gripper_left" pos=".037 -.014 0"><joint name="right_gripper_finger_joint1" type="slide" axis="0 -1 0" range="0 .05"/><geom type="mesh" mesh="r1_right_finger_a_mesh" contype="0" conaffinity="0"/><geom name="right_finger_a_collision" type="box" pos=".020 0 0" size=".028 .006 .013" mass=".027"/></body>
+                            <body name="gripper_right" pos=".037 .014 0"><joint name="right_gripper_finger_joint2" type="slide" axis="0 1 0" range="0 .05"/><geom type="mesh" mesh="r1_right_finger_b_mesh" contype="0" conaffinity="0"/><geom name="right_finger_b_collision" type="box" pos=".020 0 0" size=".028 .006 .013" mass=".027"/></body>
+                            <site name="right_tcp" pos=".070 0 0" size=".009" rgba="0 1 1 1"/><camera name="right_wrist_rgb" pos=".03 -.08 .06" xyaxes="0 1 0 -.35 -.94 0"/>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+              </body>
+              <body name="left_arm_base" pos=".001 .097 .303"><body name="left_arm_link1" pos="-.001 .045 0"><joint name="left_arm_joint1" type="hinge" axis="0 1 0" range="-2.8798 2.8798"/><geom type="capsule" fromto="0 0 0 .12 0 0" size=".055" mass="1.16"/>
+                <body name="left_arm_link2" pos=".12 .106 0"><joint name="left_arm_joint2" type="hinge" axis="0 0 -1" range="0 3.2289"/><geom type="capsule" fromto="0 0 0 .35 0 0" size=".045" mass="1.3"/>
+                  <body name="left_arm_link3" pos=".35 .02 0"><joint name="left_arm_joint3" type="hinge" axis="0 0 -1" range="-3.3161 0"/><geom type="capsule" fromto="0 0 0 .21 0 0" size=".04" mass=".82"/>
+                    <body name="left_arm_link4" pos=".21 .07 0"><joint name="left_arm_joint4" type="hinge" axis="1 0 0" range="-2.8798 2.8798"/><geom type="capsule" fromto="0 0 0 .12 0 0" size=".035" mass=".7"/>
+                      <body name="left_arm_link5" pos=".12 0 0"><joint name="left_arm_joint5" type="hinge" axis="0 1 0" range="-1.6581 1.6581"/><geom type="capsule" fromto="0 0 0 .10 0 0" size=".03" mass=".42"/>
+                        <body name="left_arm_link6" pos=".10 0 0"><joint name="left_arm_joint6" type="hinge" axis="1 0 0" range="-2.8798 2.8798"/><geom type="sphere" size=".035" mass=".09"/>
+                          <body name="left_gripper" pos=".104 0 0"><geom type="box" pos=".02 0 0" size=".045 .032 .025" rgba=".82 .88 1 1" mass=".6"/>
+                            <body name="left_gripper_left" pos=".037 .014 0"><joint name="left_gripper_finger_joint1" type="slide" axis="0 1 0" range="0 .05"/><geom name="left_finger_a_collision" type="box" pos=".020 0 0" size=".028 .006 .013" mass=".027"/></body>
+                            <body name="left_gripper_right" pos=".037 -.014 0"><joint name="left_gripper_finger_joint2" type="slide" axis="0 -1 0" range="0 .05"/><geom name="left_finger_b_collision" type="box" pos=".020 0 0" size=".028 .006 .013" mass=".027"/></body>
+                            <site name="left_tcp" pos=".070 0 0" size=".009" rgba="0 1 1 1"/>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="torso_joint1_motor" joint="torso_joint1" kp="180"/><position name="torso_joint2_motor" joint="torso_joint2" kp="180"/><position name="torso_joint3_motor" joint="torso_joint3" kp="160"/><position name="torso_joint4_motor" joint="torso_joint4" kp="120"/>
+    <position name="right_arm_joint1_motor" joint="right_arm_joint1"/><position name="right_arm_joint2_motor" joint="right_arm_joint2"/><position name="right_arm_joint3_motor" joint="right_arm_joint3"/><position name="right_arm_joint4_motor" joint="right_arm_joint4"/><position name="right_arm_joint5_motor" joint="right_arm_joint5"/><position name="right_arm_joint6_motor" joint="right_arm_joint6"/>
+    <position name="left_arm_joint1_motor" joint="left_arm_joint1"/><position name="left_arm_joint2_motor" joint="left_arm_joint2"/><position name="left_arm_joint3_motor" joint="left_arm_joint3"/><position name="left_arm_joint4_motor" joint="left_arm_joint4"/><position name="left_arm_joint5_motor" joint="left_arm_joint5"/><position name="left_arm_joint6_motor" joint="left_arm_joint6"/>
+    <position name="right_gripper_finger_joint1_motor" joint="right_gripper_finger_joint1" kp="700" forcerange="-150 150"/><position name="right_gripper_finger_joint2_motor" joint="right_gripper_finger_joint2" kp="700" forcerange="-150 150"/>
+    <position name="left_gripper_finger_joint1_motor" joint="left_gripper_finger_joint1" kp="700" forcerange="-150 150"/><position name="left_gripper_finger_joint2_motor" joint="left_gripper_finger_joint2" kp="700" forcerange="-150 150"/>
+  </actuator>
+</mujoco>
