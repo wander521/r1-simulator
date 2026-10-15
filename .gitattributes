@@ -1,7 +1,3 @@
-* text=auto
-*.stl -text
-*.STL -text
-*.wasm -text
-*.png -text
-*.jpg -text
-*.ico -text
+# Acceptance records fingerprint the supplied model's exact bytes. Preserve
+# its original CRLF line endings across clones and operating systems.
+dist/r1/assets/r1.urdf -text
