@@ -1,0 +1,33 @@
+name: Validate AUBO C5 manipulation
+
+on:
+  push:
+    branches: [dev_aobo_c5]
+  pull_request:
+    branches: [dev_aobo_c5]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify project-relative paths and original C5 assets
+        run: |
+          npm run test:pages
+          node work/import-c5-assets.mjs --verify
+          node work/import-g1-assets.mjs --verify
+      - name: Verify actual C5 physics, original geometry and grasp operations
+        run: npm test
+      - name: Verify interface and source-bound final acceptance
+        run: |
+          node work/check-c5-ui.mjs
+          node work/verify-c5-acceptance.mjs
+          node work/verify-g1-acceptance.mjs
+          node work/verify-acceptance.mjs

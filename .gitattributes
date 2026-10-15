@@ -2,3 +2,4 @@
 # its original CRLF line endings across clones and operating systems.
 dist/r1/assets/r1.urdf -text
 dist/g1/assets/** -text
+dist/c5/assets/** -text

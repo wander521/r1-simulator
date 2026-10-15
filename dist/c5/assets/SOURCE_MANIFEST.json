@@ -1,0 +1,162 @@
+{
+  "repository": "AuboRobot/aubo_description",
+  "commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+  "officialPackageVersion": "1.3.3",
+  "model": "aubo_C5",
+  "license": {
+    "declaration": "BSD",
+    "source": "source/package.xml",
+    "exactVariant": "Not specified by upstream package.xml",
+    "fullLicenseTextPresentInSourceRepository": false,
+    "note": "Upstream declares BSD but supplies no LICENSE/COPYING/NOTICE file or model copyright header. No additional permissions or exact BSD variant are asserted here."
+  },
+  "upstreamVisualReferenceIssue": "Original C5 URDF references visual/link0.DAE through link6.DAE, but the pinned C5 mesh directory contains only link0.3ds through link6.3ds. Preserve this URDF verbatim; repair mesh URLs only in the explicitly derived simulation/visualization model.",
+  "aliasNotUsed": "meshes/aubo_C5_30 is an upstream symlink to aubo_i5. This import selects meshes/aubo_C5 directly, not C5_30 or i5 meshes.",
+  "gripper": "Not present in the official C5 URDF/SRDF. Any project-specific end effector must retain its own provenance and be labelled as a simulation integration.",
+  "files": [
+    {
+      "path": "aubo_C5.urdf",
+      "sourcePath": "urdf/aubo_C5.urdf",
+      "bytes": 9128,
+      "gitBlobSha": "eaa931d3449fec363693e69b093bbd5b6ab1a381",
+      "sha256": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/urdf/aubo_C5.urdf"
+    },
+    {
+      "path": "aubo_C5.srdf",
+      "sourcePath": "urdf/aubo_C5.srdf",
+      "bytes": 2493,
+      "gitBlobSha": "83705489b8b38ec3318f27e3d24e74cf5b39aaad",
+      "sha256": "a2699f4784ba8cec2ae1b8e17c77f002a47e995b8a549f1ca333c9d99fa05f4d",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/urdf/aubo_C5.srdf"
+    },
+    {
+      "path": "source/package.xml",
+      "sourcePath": "package.xml",
+      "bytes": 1201,
+      "gitBlobSha": "67d3dd5222e85fe87ea046acd5c8833d9c6e693f",
+      "sha256": "2f0fa992a99df5c5c5852395c86189cdc6368639d3390fe02275ff381d8568b4",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/package.xml"
+    },
+    {
+      "path": "source/README.md",
+      "sourcePath": "README.md",
+      "bytes": 13054,
+      "gitBlobSha": "380c93076c5bc8f22d3c0ec69d053bb31fd9f248",
+      "sha256": "4ced0ad85cfdf4928403b76f21244d83c15ee322a43a0ae705a7c46c4c742f65",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/README.md"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link0.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link0.STL",
+      "bytes": 14184,
+      "gitBlobSha": "8ee490cced5acc62c85b23bbe88624ce399309fd",
+      "sha256": "fc70e195eeb2e9281e17fc2f32bb418fbca28f7460919902ea2b86a3eef62d6c",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link0.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link1.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link1.STL",
+      "bytes": 23384,
+      "gitBlobSha": "00bf11a8b41728f098f46339baf0ae5208bbe346",
+      "sha256": "b068360a0c5241568ea8f78a2523c059e96cc954b5a4f4e06c184189bcb6095b",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link1.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link2.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link2.STL",
+      "bytes": 52284,
+      "gitBlobSha": "44fedeb0098a1ad422c221778a4db51200974ba7",
+      "sha256": "a887276a3c3241c06cca8b41e86c6dd77496991a9fe29aaec7e83ec5aee0c361",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link2.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link3.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link3.STL",
+      "bytes": 18184,
+      "gitBlobSha": "35e7f691864f0a3b1e145ce3477e858e6ffc777a",
+      "sha256": "92b2a48d0e3df35c344725066ccc00e8eb302d83a8037776915482c37ce91ce6",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link3.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link4.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link4.STL",
+      "bytes": 17784,
+      "gitBlobSha": "36a9e4a54f321518714369aacdf0fe49e6ed9e37",
+      "sha256": "8922499305bc14a58823b3726b540c5e809a7771ef418823db915bc0b224db1b",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link4.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link5.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link5.STL",
+      "bytes": 17784,
+      "gitBlobSha": "e527bb6be9593812604c0c25891e9d25298393ef",
+      "sha256": "859f746bf0ab64a84db7ffe52f04a346be03bd075b6f1b18b2a267fc57bc0ae2",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link5.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link6.STL",
+      "sourcePath": "meshes/aubo_C5/collision/link6.STL",
+      "bytes": 13984,
+      "gitBlobSha": "2e9c032e5ef9830d13190285898f0b11f74971cc",
+      "sha256": "e319fd5d4e51c1a5289cc79abafcb5b2a7952897059df428855dad5d60ebd2ab",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/collision/link6.STL"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link0.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link0.3ds",
+      "bytes": 17911,
+      "gitBlobSha": "02a71f11c9a2ece3e9d15f80407ae56cd24ebf73",
+      "sha256": "d15a32ad9a572db0ec681ee0b85063a12360c69c6e91b594357c39a11b8cd823",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link0.3ds"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link1.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link1.3ds",
+      "bytes": 63725,
+      "gitBlobSha": "1753f68ac64e21343afdb72901e279e3285efcd0",
+      "sha256": "1c2c2581298241da4334bac0e4f931b5130eaf0f479a54cf026f0e4d2c328210",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link1.3ds"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link2.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link2.3ds",
+      "bytes": 125503,
+      "gitBlobSha": "6abea5a95ce59481a9a93f972b27efe2030d9160",
+      "sha256": "f2d372fe84b76efaffbe05bcd42697a271759b30aa457475b4847899b46904a2",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link2.3ds"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link3.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link3.3ds",
+      "bytes": 103543,
+      "gitBlobSha": "e8aa845853d3da5f0aeaeaaf3a6413ed507952c6",
+      "sha256": "d58f2cc8c87d46f21f11157e4373f7273588fbce0846a262b1df173166901d36",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link3.3ds"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link4.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link4.3ds",
+      "bytes": 62603,
+      "gitBlobSha": "1d8cafa4612b43e023edb48dba1b2d011df1ddba",
+      "sha256": "0093dc884cca29ac1c6ec834970d325a2b120947a149b159d773da85a98625df",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link4.3ds"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link5.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link5.3ds",
+      "bytes": 62603,
+      "gitBlobSha": "084a71964b9e0d719b0291e0fbf28a6d926ffcd6",
+      "sha256": "b60ab6c801b5f81f730530b58518f4b7d084c7a479122958d4072370feecc173",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link5.3ds"
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link6.3ds",
+      "sourcePath": "meshes/aubo_C5/visual/link6.3ds",
+      "bytes": 83527,
+      "gitBlobSha": "99083a093d9232135a340241e500cc5688483e24",
+      "sha256": "e7f20ed68ebfc4e8e260fdf9f2329d309ec76a0ecfa57d0671f081f8a2fdcfac",
+      "sourceUrl": "https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/meshes/aubo_C5/visual/link6.3ds"
+    }
+  ]
+}

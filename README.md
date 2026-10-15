@@ -1,4 +1,45 @@
-# Unitree G1 · 固定站位双臂抓取仿真
+# AUBO C5 · 六轴机械臂 + Dex1 抓取仿真
+
+`dev_aobo_c5` 分支将默认机器人替换为遨博 C5，并按用户授权安装宇树 Dex1 平行夹爪。首页进入 `/c5/`；`/g1/`、`/r1/` 和标准机械臂参考页保持不变。此分支从已验证的 `unitree_g1` 版本 `8bcdf71` 创建，原分支不受影响。
+
+C5 使用[遨博官方原始 URDF](https://github.com/AuboRobot/aubo_description/blob/47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1/urdf/aubo_C5.urdf)及其独立 C5 视觉/碰撞模型，不采用网格链接指向 i5 的 `C5_30` 别名。原件固定版本并逐字保留；官方 URDF 中不存在的 DAE 路径只在派生装配中修正，浏览器原生解析真实 3DS，保留逐面银灰蓝材质和毫米到米的单位换算，不用碰撞简模冒充显示模型。
+
+## C5 功能
+
+- 固定安装的单六轴机械臂与两个真实 Dex1 夹指，共8个驱动关节。保留原始坐标、质量、完整惯量、行程、力矩与速度参数。
+- 独立落地支柱与前方落地桌面，均高0.72m；支柱与桌面分离。Dex1 通过独立仿真适配器连接法兰，非声称原厂成套产品或实机标定。
+- 三色物体点选、脉冲高亮、对应色框、自由拖动/三维旋转、WASD，以及空白处旋转、平移和缩放视角。
+- 真实双指接触后抬升、搬运、松爪归位，或蓝→红→黄叠放并稳定3秒。无焊接、吸附、隐藏承托或运输阶段的位置赋值。
+- 六轴关节滑杆、TCP拖拽、前置夹爪与全局相机、真实接触力/电机力矩/跟踪误差曲线、停止和复位。手动大角度指令使用协调的平滑限速轨迹，同时检查实际起点、目标和夹爪开口路径。
+
+## C5 运行与验证
+
+```bash
+git clone --branch dev_aobo_c5 https://github.com/wander521/r1-simulator.git
+cd r1-simulator
+npm start
+```
+
+打开 [C5 页面](http://127.0.0.1:4173/c5/)。Python 3 提供本地静态服务，测试需要 Node.js 18+，CI使用22；无需安装 npm 依赖。
+
+```bash
+npm test                                # 转换、显示、开口、手动轨迹与真实抓取
+npm run test:repeat                      # 全部抓取场景重复三次
+npm run test:pages                       # 本地及 GitHub 项目路径
+npm run build:physics                    # 从精确源模型重建装配与 MJCF
+node work/import-c5-assets.mjs --verify  # 校验18个官方原件
+node work/verify-c5-acceptance.mjs       # 校验最终证据与当前源码一致
+npm run test:g1                          # 保留的 G1 物理测试
+npm run test:r1                          # 保留的 R1 物理测试
+```
+
+实现位于 `dist/c5/`，离线资产和共享运行库均在 `dist/`。测试与网页使用同一套控制器、运动学和 MuJoCo 动态场景。最终覆盖与边界见 [C5 验收说明](work/C5-ACCEPTANCE.md)。
+
+官方软件包声明 BSD，但该版本仓库未附完整许可证正文或明确变体；本仓库保留原声明并如实记录这一缺口，未将旧 i 系列仓库授权套用于 C5。模型、夹爪的归属和来源详见 [C5 资产说明](dist/c5/assets/THIRD_PARTY.md)及保留的 Unitree 声明。本项目是浏览器仿真，不是实机安全、适配器强度、平衡或标定认证。
+
+`.github/workflows/validate-c5.yml` 对 `dev_aobo_c5` 的推送执行自动验证；不改写现有 GitHub Pages 网站。本次仅发布分支代码，保留现有 R1/G1 部署配置。以下为保留版本的说明。
+
+## 保留的 Unitree G1 · 固定站位双臂抓取仿真
 
 `unitree_g1` 分支使用宇树 G1 29 身体自由度 + Dex1 双夹爪（共33个驱动关节）。基于 Three.js、原始 URDF 与 MuJoCo WebAssembly，无需后端或 npm 运行依赖。首页进入 `/g1/`；原星海图 R1 页面及标准机械臂参考页保持不变。
 
@@ -31,11 +72,11 @@ npm start
 打开 [G1 页面](http://127.0.0.1:4173/g1/)。需要 Python 3；回归测试使用 Node.js 18+（CI 为22）。
 
 ```bash
-npm test                               # G1 转换/站姿/真实抓取与恢复测试
-npm run test:pages                     # 本地与 GitHub 项目路径/资产验证
-npm run test:repeat                    # G1 各任务重复3次
+npm run test:g1                        # G1 转换/站姿/真实抓取与恢复测试
+node work/test-pages.mjs               # 保留的 G1 页面路径/资产验证
+node work/test-g1-dynamic-grasp.mjs --repeat=3 # G1 各任务重复3次
 npm run test:r1                        # 保留的 R1 物理回归
-npm run build:physics                  # 从原 URDF + 原 Dex1 STL 重建 MJCF
+npm run build:physics:g1               # 从原 URDF + 原 Dex1 STL 重建 G1 MJCF
 node work/import-g1-assets.mjs --verify # 校验全部原始模型资产
 ```
 
@@ -51,7 +92,7 @@ GitHub Pages 入口：[R1 Simulator](https://wander521.github.io/r1-simulator/)�
 
 发布配置在 `.github/workflows/deploy-pages.yml`：每次推送 `main` 后先验证部署路径、真实物理抓取和验收证据，再仅发布 `dist/`。源码、回归记录和录像保留在仓库，不作为网站文件发布。仓库首次使用时，需要在 Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。也可在 Actions 中手动运行同名发布流程。
 
-`main` 的首页使用相对路径跳转到 `./r1/`，本分支则是 `./g1/`；两版及保留的机械臂参考页均支持 `/r1-simulator/` 项目路径。运行库不使用共享内存，无需额外跨域隔离代理或后端服务。部署过程遵循 [GitHub Pages 自定义工作流文档](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
+`main` 的首页使用相对路径跳转到 `./r1/`，`unitree_g1` 分支为 `./g1/`，当前 `dev_aobo_c5` 分支为 `./c5/`；各版及保留的机械臂参考页均支持 `/r1-simulator/` 项目路径。运行库不使用共享内存，无需额外跨域隔离代理或后端服务。部署过程遵循 [GitHub Pages 自定义工作流文档](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
 
 ## 保留的 R1 本地入口
 
@@ -69,14 +110,15 @@ npm start
 
 ```text
 dist/r1/             R1 页面、控制器、逆运动学、材质和物理场景
-dist/g1/             本分支 G1 页面、七轴控制器、33关节物理场景和模型
+dist/g1/             保留的 G1 页面、七轴控制器、33关节物理场景和模型
+dist/c5/             本分支 C5 页面、六轴控制器、8关节物理场景和原厂模型
 dist/r1/assets/      R1 URDF 与 STL 模型
 dist/vendor/         Three.js、模型加载器和视角控制
 dist/Rebot_Arm_AGV/  标准机械臂参考页、场景和 MuJoCo WASM
 work/                回归测试及模型分析工具
 ```
 
-两版可维护页面代码分别位于 `dist/g1/` 和 `dist/r1/`，`dist/` 必须纳入版本管理并整体提供静态服务。原 R1 验收证据见 `work/ACCEPTANCE.md`，不能用它代替 G1 验收；未扩展 AGV、行走、双臂协作或三语言功能。
+三版可维护页面代码分别位于 `dist/c5/`、`dist/g1/` 和 `dist/r1/`，`dist/` 必须纳入版本管理并整体提供静态服务。各版验收证据独立，不能互相代替；未扩展 AGV、行走、双臂协作或三语言功能。
 
 ## 参考项目
 

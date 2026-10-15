@@ -20,3 +20,17 @@ work/validation/g1/*
 !work/validation/g1/final-acceptance.json
 !work/validation/g1/ui-browser-availability.json
 !work/validation/g1/PHOTO-VISUAL-CHANGES.md
+# Publish only the current, source-bound C5 release evidence. Keep earlier
+# development probes locally without presenting them as release acceptance.
+work/validation/c5/*
+!work/validation/c5/grasp-release-1x.jsonl
+!work/validation/c5/grasp-release-3x.jsonl
+!work/validation/c5/opening-release.json
+!work/validation/c5/manual-motion-final.json
+!work/validation/c5/physics-current.json
+!work/validation/c5/visuals-final.json
+!work/validation/c5/ui-static-final.json
+!work/validation/c5/browser-final.json
+!work/validation/c5/final-acceptance.json
+!work/validation/c5/design-detector.json
+!work/validation/c5/finish-review.md

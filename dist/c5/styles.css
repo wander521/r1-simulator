@@ -1,0 +1,52 @@
+#main-view{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.c5-callout{position:absolute;left:20px;top:18px;padding:6px 10px;border:1px solid #7ce5ff;border-radius:7px;background:#061b2cc9;color:#d8f8ff;font:600 12px ui-monospace,monospace}.object-edit-hud{display:block}.loading-overlay.is-hidden{opacity:0;pointer-events:none}.drag-cluster{display:none}.c5-app .panel{overflow-y:auto}.c5-app .viewport{min-height:100vh}
+.c5-app .callouts,.c5-app .object-edit-hud{pointer-events:none}
+.c5-app #main-view{cursor:grab}.c5-app .object-dragging #main-view{cursor:grabbing}
+.c5-app .drag-cluster.active{display:flex;position:absolute;pointer-events:none}.c5-app .drag-marker,.c5-app .gripper-fab{pointer-events:auto}
+.c5-app .c5-joint-guide{position:absolute;padding:9px 12px;border:1px solid var(--joint-color);border-radius:12px;color:var(--joint-color);background:#051324;font-size:13px;font-variant-numeric:tabular-nums}
+.c5-app .camera-feed-grid.is-column{grid-template-columns:1fr}.c5-app [hidden]{display:none!important}
+.c5-app button:focus-visible,.c5-app select:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}
+.c5-app .object-edit-hud{max-width:min(420px,calc(100% - 28px))}
+.c5-app .camera-layout-switch button,.c5-app .camera-model-switch,.c5-app .camera-power-switch,.c5-app .telemetry-chart>span,.c5-app .camera-feed-heading,.c5-app .camera-mode-badge,.c5-app .feature-badge{font-size:11px}
+.c5-app .vision-target span,.c5-app .grasp-stage,.c5-app .grasp-progress-row output,.c5-app .telemetry-metrics span,.c5-app .telemetry-metrics strong,.c5-app #toggle-contact-visuals,.c5-app .object-edit-hud-heading span,.c5-app .object-edit-hud p{font-size:11px}
+@media(max-width:900px){.c5-app{display:flex;flex-direction:column;height:auto;overflow:visible}.c5-app .viewport{min-height:58svh;height:58svh;flex:none}.c5-app .panel{width:100%;max-height:none;overflow:visible}.c5-app .object-edit-hud{font-size:12px;padding:10px;bottom:12px;left:12px}.c5-app .c5-callout{top:12px;left:12px;font-size:11px}.c5-app .object-edit-hud p{font-size:12px}.c5-app .c5-joint-guide{font-size:11px;padding:6px}body:has(.c5-app){overflow:auto;height:auto}}
+
+/* Reference arm annotations, adapted to C5's six-axis joint anchors. */
+.c5-app .c5-joint-callouts{pointer-events:none}
+.c5-app .c5-joint-chip{pointer-events:auto;min-width:88px;max-width:calc(50% - 16px);font-variant-numeric:tabular-nums}
+.c5-app .c5-joint-header{width:100%;min-height:14px;margin:0;padding:0;border:0;border-radius:3px;background:none;color:inherit;box-shadow:none;font:inherit;cursor:pointer;text-align:start}
+.c5-app .c5-joint-header:hover,.c5-app .c5-joint-header:active{background:none;box-shadow:none}
+.c5-app .c5-joint-chip.is-open .c5-joint-header,.c5-app .c5-joint-chip:focus-within .c5-joint-header{margin-bottom:4px}
+.c5-app .c5-joint-header .callout-name{font-size:11px}
+.c5-app .c5-joint-header strong{font-size:11px}
+.c5-app .c5-joint-chip.is-open,.c5-app .c5-joint-chip:focus-within{width:218px}
+.c5-app .c5-joint-chip:focus-within:not(.is-open){width:max-content;padding:5px 7px}
+.c5-app .c5-joint-chip:focus-within:not(.is-open) .c5-joint-header{margin-bottom:0}
+.c5-app .c5-joint-chip:focus-within:not(.is-open) .callout-body,.c5-app .c5-joint-chip:focus-within:not(.is-open) .target-readout{display:none}
+.c5-app .c5-joint-chip input[type=range]{display:block;min-height:28px;margin:0;cursor:pointer;touch-action:pan-y}
+.c5-app .c5-joint-chip input[type=range]:disabled{cursor:not-allowed;opacity:.5}
+.c5-app .c5-joint-slider-legend{display:flex;justify-content:space-between;gap:8px;max-width:100%;color:#a7c8d4;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+.c5-app .c5-joint-limits{min-width:0;text-align:right;font-variant-numeric:tabular-nums}
+.c5-app .c5-joint-lines{z-index:0}
+.c5-app .c5-joint-chip{z-index:3}
+.c5-app .c5-joint-telemetry{display:grid;gap:10px}
+.c5-app .c5-joint-telemetry .control-card-heading{margin-bottom:0}
+.c5-app .c5-joint-units{color:#96b9c9;font-size:11px;white-space:nowrap}
+.c5-app .c5-joint-rms{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0;color:#a7c8d4;font-size:11px}
+.c5-app .c5-joint-rms strong{color:#d8f7ff;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.c5-app .c5-joint-torque-bars{gap:6px}
+.c5-app .c5-joint-torque-bars .torque-row{grid-template-columns:27px minmax(0,1fr) 81px;min-height:15px;font-size:11px;color:#a7c8d4}
+.c5-app .c5-joint-chart>span{color:#a7c8d4;font-size:11px}
+.c5-app .c5-joint-chart canvas{height:88px;max-width:100%}
+.c5-app .c5-joint-chart-legend{display:flex;justify-content:space-between;gap:6px;font-size:11px;font-variant-numeric:tabular-nums}
+@media(max-width:900px){
+  .c5-app .c5-joint-chip{min-width:76px;max-width:calc(50% - 12px)}
+  .c5-app .c5-joint-header{min-height:14px}
+  .c5-app .c5-joint-header .actual{min-width:5.5ch}
+  .c5-app .c5-joint-chip.is-open .target-readout,.c5-app .c5-joint-chip:focus-within .target-readout{display:inline}
+  .c5-app .c5-joint-chip:focus-within:not(.is-open){padding:4px 6px}
+  .c5-app .c5-joint-chip:focus-within:not(.is-open) .target-readout{display:none}
+  .c5-app .c5-joint-slider-legend{display:block;font-size:11px}
+  .c5-app .c5-joint-limits{display:block;text-align:start}
+}
+@media(prefers-reduced-motion:reduce){.c5-app .c5-joint-chip{transition:none}}
+

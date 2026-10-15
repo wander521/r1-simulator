@@ -2,17 +2,20 @@
   "name": "r1-simulator",
   "version": "0.1.0",
   "private": true,
-  "description": "Unitree G1 29-DoF with Dex1 standing manipulation simulator; R1 retained for comparison",
+  "description": "AUBO C5 six-axis physical manipulation with Unitree Dex1; G1 and R1 retained",
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
-    "test": "node work/test-g1-dynamics.mjs && node work/test-g1-opening-safety.mjs && node work/test-g1-dynamic-grasp.mjs",
+    "test": "node work/test-c5-dynamics.mjs && node work/test-c5-visuals.mjs && node work/test-c5-opening-safety.mjs && node work/test-c5-manual-motion.mjs && node work/test-c5-dynamic-grasp.mjs",
+    "test:g1": "node work/test-g1-dynamics.mjs && node work/test-g1-opening-safety.mjs && node work/test-g1-dynamic-grasp.mjs",
     "test:r1": "node work/test-r1-dynamics.mjs && node work/test-r1-dynamic-grasp.mjs",
-    "test:repeat": "node work/test-g1-dynamic-grasp.mjs --repeat=3",
+    "test:repeat": "node work/test-c5-dynamic-grasp.mjs --repeat=3",
     "test:legacy": "node work/test-r1-grasp.mjs",
-    "test:pages": "node work/test-pages.mjs",
-    "build:physics": "node work/build-g1-dynamics.mjs",
+    "test:pages": "node work/test-c5-pages.mjs",
+    "build:physics": "node work/build-c5-dynamics.mjs",
+    "build:physics:g1": "node work/build-g1-dynamics.mjs",
     "build:physics:r1": "node work/build-r1-dynamics.mjs",
-    "import:g1": "node work/import-g1-assets.mjs"
+    "import:g1": "node work/import-g1-assets.mjs",
+    "import:c5": "node work/import-c5-assets.mjs"
   }
 }

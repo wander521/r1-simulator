@@ -1,0 +1,50 @@
+{
+  "scope": "Static UI wiring, geometry and camera checks; browser rendering and pointer gestures are a separate acceptance check.",
+  "checks": [
+    "Single six-axis route has no humanoid controls or copy",
+    "Solid objects own editing; blank space remains available to orbit",
+    "Reference objects, pulse and matching empty placement frames are retained",
+    "Manual gripper and joint motions go through swept collision validation",
+    "Two real camera renderers and measured force/joint charts remain connected",
+    "Responsive layout, keyboard focus and reduced motion preserve the incumbent system",
+    "Official source visuals use native 3DS loader, not collision STL silhouettes",
+    "Robot plinth and table both meet the floor and remain separate",
+    "Single front Dex1 lens shares the actual optical center and sees TCP",
+    "Official C5 source material colors are not overwritten with G1 finishes"
+  ],
+  "pass": true,
+  "plinth": {
+    "min": [
+      -0.11999999731779099,
+      -1.4305114759416426e-8,
+      -0.11999999731779099
+    ],
+    "max": [
+      0.11999999731779099,
+      0.7200000143051147,
+      0.11999999731779099
+    ]
+  },
+  "table": {
+    "min": [
+      0.2199999988079071,
+      1.4305114759416426e-8,
+      -0.3499999940395355
+    ],
+    "max": [
+      0.7800000011920929,
+      0.7199999988079071,
+      0.3499999940395355
+    ]
+  },
+  "sourceHashes": {
+    "dist/c5/index.html": "f8c53594fb1230bc12db619c1e42d8195003ce0137ea269e189c9081de054d8f",
+    "dist/c5/c5-app.mjs": "22133ca6df4bc58a83d770276b45a35a71c5da7cb4e5f78a7df35418e54cf16f",
+    "dist/c5/c5-joint-ui.mjs": "fad5bf0f08b122e3c6f0a220e317680f197daafc3ed7fc7f4003b571d99f7315",
+    "dist/c5/c5-workcell.mjs": "cdf17185ec30ade459e870d2580db9a8bf8af3edbc056cbaf30ca9275aab4bca",
+    "dist/c5/styles.css": "42079aae01c86f69441673d14179560f96d4c319ac51a35422ef3fddd5458cf6",
+    "dist/c5/c5-materials.mjs": "6270d2a0bbbef2af24f210cfbf6333cee72db8a0ae302737eda2a379471f272e",
+    "dist/c5/c5-profile.mjs": "6a2419169fdf4cda2b4d34b56b3f1b6f97cc2f74b38497e08e67a12b97c135dc",
+    "work/check-c5-ui.mjs": "a9ec9de45518ce04a78e0990eed467cbf9672516bed506779b94f093280d7b2f"
+  }
+}
