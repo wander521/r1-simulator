@@ -34,3 +34,15 @@ work/validation/c5/*
 !work/validation/c5/final-acceptance.json
 !work/validation/c5/design-detector.json
 !work/validation/c5/finish-review.md
+work/validation/multi/*
+!work/validation/multi/coordinator-final.json
+!work/validation/multi/physical-final.json
+!work/validation/multi/pages-final.json
+!work/validation/multi/ui-static-final.json
+!work/validation/multi/browser-final.json
+!work/validation/multi/final-acceptance.json
+!work/validation/multi/design-detector.json
+!work/validation/multi/finish-review.md
+!work/validation/multi/r1-gripper-final.json
+!work/validation/multi/stack-final.json
+!work/validation/multi/verifier-checks-final.json

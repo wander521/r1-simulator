@@ -1,0 +1,1105 @@
+{
+  "pass": true,
+  "scope": "Node-only static UI wiring, real Three geometry and pure presentation/coordinator contracts. No browser rendering, native input, synthesized touch, accessibility-tree or physical grasp claims.",
+  "limitations": [
+    "Rendered desktop/mobile appearance and camera pixels are not verified by this suite.",
+    "Pointer/touch gestures require separate browser or physical-device verification.",
+    "Real contacts and grasp outcomes are verified by the separate physical suite, not these coordinator contract fixtures."
+  ],
+  "total": 28,
+  "passed": 28,
+  "checks": [
+    {
+      "name": "r1: every actual controller state has a Chinese UI label",
+      "pass": true,
+      "detail": {
+        "states": 20
+      }
+    },
+    {
+      "name": "g1: every actual controller state has a Chinese UI label",
+      "pass": true,
+      "detail": {
+        "states": 33
+      }
+    },
+    {
+      "name": "c5: every actual controller state has a Chinese UI label",
+      "pass": true,
+      "detail": {
+        "states": 18
+      }
+    },
+    {
+      "name": "Unknown controller states use a Chinese fallback instead of exposing raw English",
+      "pass": true
+    },
+    {
+      "name": "UI consumes the presentation helper rather than legacy generic runtime progress",
+      "pass": true
+    },
+    {
+      "name": "r1: successful sort progress never regresses through actual mechanism phases",
+      "pass": true,
+      "detail": {
+        "milestones": 13
+      }
+    },
+    {
+      "name": "g1: successful sort progress never regresses through actual mechanism phases",
+      "pass": true,
+      "detail": {
+        "milestones": 20
+      }
+    },
+    {
+      "name": "c5: successful sort progress never regresses through actual mechanism phases",
+      "pass": true,
+      "detail": {
+        "milestones": 11
+      }
+    },
+    {
+      "name": "r1: stack item and reaction milestones remain ordered",
+      "pass": true,
+      "detail": {
+        "milestones": 33
+      }
+    },
+    {
+      "name": "g1: stack item and reaction milestones remain ordered",
+      "pass": true,
+      "detail": {
+        "milestones": 44
+      }
+    },
+    {
+      "name": "c5: stack item and reaction milestones remain ordered",
+      "pass": true,
+      "detail": {
+        "milestones": 31
+      }
+    },
+    {
+      "name": "Idle, aborted and failed tasks never falsely display completion",
+      "pass": true
+    },
+    {
+      "name": "Three station origins lie in the requested fixed row with 2.2 m gaps",
+      "pass": true
+    },
+    {
+      "name": "One shared environment owns one floor and one shadow-casting key light",
+      "pass": true
+    },
+    {
+      "name": "r1: all four table legs meet the floor and the top matches its physical height",
+      "pass": true
+    },
+    {
+      "name": "g1: all four table legs meet the floor and the top matches its physical height",
+      "pass": true
+    },
+    {
+      "name": "c5: all four table legs meet the floor and the top matches its physical height",
+      "pass": true
+    },
+    {
+      "name": "C5 plinth is grounded, supports the source root height and stays clear of the table",
+      "pass": true
+    },
+    {
+      "name": "Station tables introduce no duplicate global lights or floors",
+      "pass": true
+    },
+    {
+      "name": "Adjacent grounded tables remain geometrically separate",
+      "pass": true
+    },
+    {
+      "name": "Native checkboxes, labelled focus/arm selects and status/progress semantics exist",
+      "pass": true
+    },
+    {
+      "name": "Busy/loading states disable selection/start/editing, while focus and stop remain independent",
+      "pass": true
+    },
+    {
+      "name": "Actual selection/focus coordinator contract rejects empty selection and locks active runs",
+      "pass": true
+    },
+    {
+      "name": "Solid-object editing uses both robot and object IDs; blank gestures remain with orbit",
+      "pass": true
+    },
+    {
+      "name": "Pointer cleanup and keyboard controls have source-level interruption safeguards",
+      "pass": true
+    },
+    {
+      "name": "Two camera feeds and actual measured force/torque charts remain connected",
+      "pass": true
+    },
+    {
+      "name": "One RAF advances all worlds through the coordinator and pauses hidden/preparing backlog",
+      "pass": true
+    },
+    {
+      "name": "Public diagnostics expose snapshots only, not test actuators or physics mutation commands",
+      "pass": true
+    }
+  ],
+  "stateCoverage": {
+    "r1": [
+      "approach",
+      "closing",
+      "complete",
+      "crouch",
+      "descend",
+      "face_observer",
+      "failed",
+      "happy",
+      "idle",
+      "lift",
+      "place",
+      "release",
+      "retreat",
+      "return",
+      "settling",
+      "shy",
+      "spread",
+      "stack_settle",
+      "stopped",
+      "transfer"
+    ],
+    "g1": [
+      "align",
+      "approach",
+      "closing",
+      "complete",
+      "descend",
+      "face_observer",
+      "failed",
+      "happy",
+      "idle",
+      "lift",
+      "place",
+      "raise",
+      "reaction_align",
+      "reaction_clear",
+      "reaction_fold",
+      "reaction_home",
+      "reaction_wide",
+      "ready",
+      "recenter",
+      "release",
+      "retreat",
+      "return",
+      "return_align",
+      "return_center",
+      "return_clear",
+      "return_fold",
+      "return_wide",
+      "settling",
+      "shy",
+      "spread",
+      "stack_settle",
+      "stopped",
+      "transfer"
+    ],
+    "c5": [
+      "approach",
+      "closing",
+      "complete",
+      "descend",
+      "failed",
+      "happy",
+      "idle",
+      "lift",
+      "place",
+      "reaction_home",
+      "release",
+      "retreat",
+      "return",
+      "settling",
+      "shy",
+      "stack_settle",
+      "stopped",
+      "transfer"
+    ]
+  },
+  "progressTraces": {
+    "r1-sort": [
+      {
+        "state": "spread",
+        "itemIndex": 0,
+        "value": 0.041666666666666664
+      },
+      {
+        "state": "crouch",
+        "itemIndex": 0,
+        "value": 0.125
+      },
+      {
+        "state": "approach",
+        "itemIndex": 0,
+        "value": 0.20833333333333334
+      },
+      {
+        "state": "descend",
+        "itemIndex": 0,
+        "value": 0.2916666666666667
+      },
+      {
+        "state": "closing",
+        "itemIndex": 0,
+        "value": 0.375
+      },
+      {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.4583333333333333
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 0,
+        "value": 0.5416666666666666
+      },
+      {
+        "state": "place",
+        "itemIndex": 0,
+        "value": 0.625
+      },
+      {
+        "state": "release",
+        "itemIndex": 0,
+        "value": 0.7083333333333334
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 0,
+        "value": 0.7916666666666666
+      },
+      {
+        "state": "settling",
+        "itemIndex": 0,
+        "value": 0.875
+      },
+      {
+        "state": "return",
+        "itemIndex": 0,
+        "value": 0.9583333333333334
+      },
+      {
+        "state": "complete",
+        "itemIndex": 0,
+        "value": 1
+      }
+    ],
+    "g1-sort": [
+      {
+        "state": "spread",
+        "itemIndex": 0,
+        "value": 0.025
+      },
+      {
+        "state": "raise",
+        "itemIndex": 0,
+        "value": 0.075
+      },
+      {
+        "state": "ready",
+        "itemIndex": 0,
+        "value": 0.125
+      },
+      {
+        "state": "align",
+        "itemIndex": 0,
+        "value": 0.225
+      },
+      {
+        "state": "approach",
+        "itemIndex": 0,
+        "value": 0.275
+      },
+      {
+        "state": "descend",
+        "itemIndex": 0,
+        "value": 0.325
+      },
+      {
+        "state": "closing",
+        "itemIndex": 0,
+        "value": 0.375
+      },
+      {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.425
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 0,
+        "value": 0.475
+      },
+      {
+        "state": "place",
+        "itemIndex": 0,
+        "value": 0.525
+      },
+      {
+        "state": "release",
+        "itemIndex": 0,
+        "value": 0.575
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 0,
+        "value": 0.625
+      },
+      {
+        "state": "settling",
+        "itemIndex": 0,
+        "value": 0.675
+      },
+      {
+        "state": "return_clear",
+        "itemIndex": 0,
+        "value": 0.725
+      },
+      {
+        "state": "return_align",
+        "itemIndex": 0,
+        "value": 0.775
+      },
+      {
+        "state": "return_fold",
+        "itemIndex": 0,
+        "value": 0.825
+      },
+      {
+        "state": "return_wide",
+        "itemIndex": 0,
+        "value": 0.875
+      },
+      {
+        "state": "return",
+        "itemIndex": 0,
+        "value": 0.925
+      },
+      {
+        "state": "return_center",
+        "itemIndex": 0,
+        "value": 0.975
+      },
+      {
+        "state": "complete",
+        "itemIndex": 0,
+        "value": 1
+      }
+    ],
+    "c5-sort": [
+      {
+        "state": "approach",
+        "itemIndex": 0,
+        "value": 0.05
+      },
+      {
+        "state": "descend",
+        "itemIndex": 0,
+        "value": 0.15
+      },
+      {
+        "state": "closing",
+        "itemIndex": 0,
+        "value": 0.25
+      },
+      {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.35
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 0,
+        "value": 0.45
+      },
+      {
+        "state": "place",
+        "itemIndex": 0,
+        "value": 0.55
+      },
+      {
+        "state": "release",
+        "itemIndex": 0,
+        "value": 0.65
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 0,
+        "value": 0.75
+      },
+      {
+        "state": "settling",
+        "itemIndex": 0,
+        "value": 0.85
+      },
+      {
+        "state": "return",
+        "itemIndex": 0,
+        "value": 0.95
+      },
+      {
+        "state": "complete",
+        "itemIndex": 0,
+        "value": 1
+      }
+    ],
+    "r1-stack": [
+      {
+        "state": "spread",
+        "itemIndex": 0,
+        "value": 0.012878787878787878
+      },
+      {
+        "state": "crouch",
+        "itemIndex": 0,
+        "value": 0.03863636363636363
+      },
+      {
+        "state": "approach",
+        "itemIndex": 0,
+        "value": 0.06439393939393939
+      },
+      {
+        "state": "descend",
+        "itemIndex": 0,
+        "value": 0.09015151515151515
+      },
+      {
+        "state": "closing",
+        "itemIndex": 0,
+        "value": 0.1159090909090909
+      },
+      {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.14166666666666666
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 0,
+        "value": 0.16742424242424245
+      },
+      {
+        "state": "place",
+        "itemIndex": 0,
+        "value": 0.19318181818181815
+      },
+      {
+        "state": "release",
+        "itemIndex": 0,
+        "value": 0.2189393939393939
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 0,
+        "value": 0.24469696969696972
+      },
+      {
+        "state": "settling",
+        "itemIndex": 0,
+        "value": 0.27045454545454545
+      },
+      {
+        "state": "approach",
+        "itemIndex": 1,
+        "value": 0.3477272727272727
+      },
+      {
+        "state": "descend",
+        "itemIndex": 1,
+        "value": 0.3734848484848485
+      },
+      {
+        "state": "closing",
+        "itemIndex": 1,
+        "value": 0.39924242424242423
+      },
+      {
+        "state": "lift",
+        "itemIndex": 1,
+        "value": 0.425
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 1,
+        "value": 0.4507575757575757
+      },
+      {
+        "state": "place",
+        "itemIndex": 1,
+        "value": 0.4765151515151515
+      },
+      {
+        "state": "release",
+        "itemIndex": 1,
+        "value": 0.5022727272727273
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 1,
+        "value": 0.5280303030303031
+      },
+      {
+        "state": "settling",
+        "itemIndex": 1,
+        "value": 0.5537878787878788
+      },
+      {
+        "state": "approach",
+        "itemIndex": 2,
+        "value": 0.631060606060606
+      },
+      {
+        "state": "descend",
+        "itemIndex": 2,
+        "value": 0.6568181818181819
+      },
+      {
+        "state": "closing",
+        "itemIndex": 2,
+        "value": 0.6825757575757576
+      },
+      {
+        "state": "lift",
+        "itemIndex": 2,
+        "value": 0.7083333333333334
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 2,
+        "value": 0.734090909090909
+      },
+      {
+        "state": "place",
+        "itemIndex": 2,
+        "value": 0.7598484848484848
+      },
+      {
+        "state": "release",
+        "itemIndex": 2,
+        "value": 0.7856060606060605
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 2,
+        "value": 0.8113636363636364
+      },
+      {
+        "state": "settling",
+        "itemIndex": 2,
+        "value": 0.837121212121212
+      },
+      {
+        "state": "stack_settle",
+        "itemIndex": 2,
+        "value": 0.86
+      },
+      {
+        "state": "face_observer",
+        "itemIndex": 2,
+        "value": 0.94
+      },
+      {
+        "state": "happy",
+        "itemIndex": 2,
+        "value": 0.97
+      },
+      {
+        "state": "complete",
+        "itemIndex": 2,
+        "value": 1
+      }
+    ],
+    "g1-stack": [
+      {
+        "state": "spread",
+        "itemIndex": 0,
+        "value": 0.010119047619047618
+      },
+      {
+        "state": "raise",
+        "itemIndex": 0,
+        "value": 0.030357142857142857
+      },
+      {
+        "state": "ready",
+        "itemIndex": 0,
+        "value": 0.05059523809523809
+      },
+      {
+        "state": "align",
+        "itemIndex": 0,
+        "value": 0.09107142857142858
+      },
+      {
+        "state": "approach",
+        "itemIndex": 0,
+        "value": 0.1113095238095238
+      },
+      {
+        "state": "descend",
+        "itemIndex": 0,
+        "value": 0.13154761904761905
+      },
+      {
+        "state": "closing",
+        "itemIndex": 0,
+        "value": 0.15178571428571427
+      },
+      {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.1720238095238095
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 0,
+        "value": 0.19226190476190477
+      },
+      {
+        "state": "place",
+        "itemIndex": 0,
+        "value": 0.2125
+      },
+      {
+        "state": "release",
+        "itemIndex": 0,
+        "value": 0.23273809523809522
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 0,
+        "value": 0.25297619047619047
+      },
+      {
+        "state": "settling",
+        "itemIndex": 0,
+        "value": 0.2732142857142857
+      },
+      {
+        "state": "recenter",
+        "itemIndex": 1,
+        "value": 0.3541666666666667
+      },
+      {
+        "state": "align",
+        "itemIndex": 1,
+        "value": 0.3744047619047619
+      },
+      {
+        "state": "approach",
+        "itemIndex": 1,
+        "value": 0.39464285714285713
+      },
+      {
+        "state": "descend",
+        "itemIndex": 1,
+        "value": 0.4148809523809524
+      },
+      {
+        "state": "closing",
+        "itemIndex": 1,
+        "value": 0.43511904761904757
+      },
+      {
+        "state": "lift",
+        "itemIndex": 1,
+        "value": 0.45535714285714285
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 1,
+        "value": 0.4755952380952381
+      },
+      {
+        "state": "place",
+        "itemIndex": 1,
+        "value": 0.49583333333333335
+      },
+      {
+        "state": "release",
+        "itemIndex": 1,
+        "value": 0.5160714285714285
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 1,
+        "value": 0.5363095238095238
+      },
+      {
+        "state": "settling",
+        "itemIndex": 1,
+        "value": 0.5565476190476191
+      },
+      {
+        "state": "recenter",
+        "itemIndex": 2,
+        "value": 0.6375
+      },
+      {
+        "state": "align",
+        "itemIndex": 2,
+        "value": 0.6577380952380952
+      },
+      {
+        "state": "approach",
+        "itemIndex": 2,
+        "value": 0.6779761904761905
+      },
+      {
+        "state": "descend",
+        "itemIndex": 2,
+        "value": 0.6982142857142857
+      },
+      {
+        "state": "closing",
+        "itemIndex": 2,
+        "value": 0.7184523809523808
+      },
+      {
+        "state": "lift",
+        "itemIndex": 2,
+        "value": 0.7386904761904761
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 2,
+        "value": 0.7589285714285715
+      },
+      {
+        "state": "place",
+        "itemIndex": 2,
+        "value": 0.7791666666666667
+      },
+      {
+        "state": "release",
+        "itemIndex": 2,
+        "value": 0.7994047619047618
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 2,
+        "value": 0.8196428571428571
+      },
+      {
+        "state": "settling",
+        "itemIndex": 2,
+        "value": 0.8398809523809524
+      },
+      {
+        "state": "stack_settle",
+        "itemIndex": 2,
+        "value": 0.86
+      },
+      {
+        "state": "reaction_clear",
+        "itemIndex": 2,
+        "value": 0.88
+      },
+      {
+        "state": "reaction_align",
+        "itemIndex": 2,
+        "value": 0.89
+      },
+      {
+        "state": "reaction_fold",
+        "itemIndex": 2,
+        "value": 0.9
+      },
+      {
+        "state": "reaction_wide",
+        "itemIndex": 2,
+        "value": 0.91
+      },
+      {
+        "state": "reaction_home",
+        "itemIndex": 2,
+        "value": 0.92
+      },
+      {
+        "state": "face_observer",
+        "itemIndex": 2,
+        "value": 0.94
+      },
+      {
+        "state": "happy",
+        "itemIndex": 2,
+        "value": 0.97
+      },
+      {
+        "state": "complete",
+        "itemIndex": 2,
+        "value": 1
+      }
+    ],
+    "c5-stack": [
+      {
+        "state": "approach",
+        "itemIndex": 0,
+        "value": 0.01574074074074074
+      },
+      {
+        "state": "descend",
+        "itemIndex": 0,
+        "value": 0.04722222222222222
+      },
+      {
+        "state": "closing",
+        "itemIndex": 0,
+        "value": 0.0787037037037037
+      },
+      {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.11018518518518518
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 0,
+        "value": 0.14166666666666666
+      },
+      {
+        "state": "place",
+        "itemIndex": 0,
+        "value": 0.17314814814814816
+      },
+      {
+        "state": "release",
+        "itemIndex": 0,
+        "value": 0.2046296296296296
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 0,
+        "value": 0.23611111111111113
+      },
+      {
+        "state": "settling",
+        "itemIndex": 0,
+        "value": 0.26759259259259255
+      },
+      {
+        "state": "approach",
+        "itemIndex": 1,
+        "value": 0.2990740740740741
+      },
+      {
+        "state": "descend",
+        "itemIndex": 1,
+        "value": 0.33055555555555555
+      },
+      {
+        "state": "closing",
+        "itemIndex": 1,
+        "value": 0.362037037037037
+      },
+      {
+        "state": "lift",
+        "itemIndex": 1,
+        "value": 0.39351851851851855
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 1,
+        "value": 0.425
+      },
+      {
+        "state": "place",
+        "itemIndex": 1,
+        "value": 0.4564814814814815
+      },
+      {
+        "state": "release",
+        "itemIndex": 1,
+        "value": 0.487962962962963
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 1,
+        "value": 0.5194444444444445
+      },
+      {
+        "state": "settling",
+        "itemIndex": 1,
+        "value": 0.5509259259259259
+      },
+      {
+        "state": "approach",
+        "itemIndex": 2,
+        "value": 0.5824074074074074
+      },
+      {
+        "state": "descend",
+        "itemIndex": 2,
+        "value": 0.6138888888888888
+      },
+      {
+        "state": "closing",
+        "itemIndex": 2,
+        "value": 0.6453703703703703
+      },
+      {
+        "state": "lift",
+        "itemIndex": 2,
+        "value": 0.6768518518518518
+      },
+      {
+        "state": "transfer",
+        "itemIndex": 2,
+        "value": 0.7083333333333334
+      },
+      {
+        "state": "place",
+        "itemIndex": 2,
+        "value": 0.7398148148148148
+      },
+      {
+        "state": "release",
+        "itemIndex": 2,
+        "value": 0.7712962962962964
+      },
+      {
+        "state": "retreat",
+        "itemIndex": 2,
+        "value": 0.8027777777777777
+      },
+      {
+        "state": "settling",
+        "itemIndex": 2,
+        "value": 0.8342592592592593
+      },
+      {
+        "state": "stack_settle",
+        "itemIndex": 2,
+        "value": 0.86
+      },
+      {
+        "state": "reaction_home",
+        "itemIndex": 2,
+        "value": 0.92
+      },
+      {
+        "state": "happy",
+        "itemIndex": 2,
+        "value": 0.97
+      },
+      {
+        "state": "complete",
+        "itemIndex": 2,
+        "value": 1
+      }
+    ]
+  },
+  "geometry": {
+    "r1": {
+      "table": {
+        "min": [
+          0.4199999856948853,
+          1.2874603272372553e-8,
+          1.8200000047683718
+        ],
+        "max": [
+          1.1400000143051148,
+          0.6919999988079071,
+          2.5799999952316286
+        ]
+      },
+      "tableHeight": 0.692,
+      "offset": [
+        0,
+        0,
+        2.2
+      ]
+    },
+    "g1": {
+      "table": {
+        "min": [
+          0.2199999988079071,
+          1.0728836041806744e-8,
+          -0.3499999940395355
+        ],
+        "max": [
+          0.7800000011920929,
+          0.8999999988079072,
+          0.3499999940395355
+        ]
+      },
+      "tableHeight": 0.9,
+      "offset": [
+        0,
+        0,
+        0
+      ]
+    },
+    "c5": {
+      "table": {
+        "min": [
+          0.2199999988079071,
+          1.4305114759416426e-8,
+          -2.5499999940395357
+        ],
+        "max": [
+          0.7800000011920929,
+          0.7199999988079071,
+          -1.8500000059604647
+        ]
+      },
+      "tableHeight": 0.72,
+      "offset": [
+        0,
+        0,
+        -2.2
+      ],
+      "plinth": {
+        "min": [
+          -0.11999999731779099,
+          -1.4305114759416426e-8,
+          -2.319999997317791
+        ],
+        "max": [
+          0.11999999731779099,
+          0.7200000143051147,
+          -2.080000002682209
+        ],
+        "clearance": 0.10000000149011612
+      }
+    }
+  },
+  "sharedLights": {
+    "count": 8,
+    "shadowCasting": 1
+  },
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-ui.mjs": "237cd8ba51ae39911144b89c976c0b929dc36dc75405805d2515d2f35497e499",
+    "dist/multi/index.html": "66c04b967a263119bd3ee94088d97dbec83d336c3e59aeee6fbbf6c99b9de36e",
+    "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
+    "dist/multi/app.mjs": "1ce460b6647e5a7255fc8265f298f9dc384421f63679fb795410bbcf03f5c318",
+    "dist/multi/presentation.mjs": "65f4ebf3ab8fe2e07751912bdabafdf56e8c18d555d0effeac62e9899e05f3e0",
+    "dist/multi/workcell.mjs": "1f0705ed7763e558bd582555ea3cf2090446f328def6ece3ef75f13d7185e8e9",
+    "dist/multi/robot-runtime.mjs": "f05b529175f5fe0500b07cda3f2d08696f197f1fc85f756999df3e9b14b45a93",
+    "dist/multi/coordinator.mjs": "e386ed0a89f16c5ae5fc56419331efa48c970b5cb7913f363aa5061c770af7b6",
+    "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/r1/r1-workcell.mjs": "82268831c91098125d77a5f72e20e31e576a06e8ce749ef79b77dbf00cd75c45",
+    "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+    "dist/r1/r1-area-light-textures.mjs": "b7de1b481e8247ff3fa30e44477ec338a90e3f79a921c8affd3c421e88538ce1",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "6a2419169fdf4cda2b4d34b56b3f1b6f97cc2f74b38497e08e67a12b97c135dc",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6"
+  },
+  "errors": []
+}

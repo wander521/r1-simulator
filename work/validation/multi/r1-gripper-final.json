@@ -1,0 +1,49 @@
+{
+  "pass": true,
+  "checks": 5,
+  "results": [
+    {
+      "name": "All four finger source velocities are 0.25 m/s and conservative commands use 40%",
+      "pass": true
+    },
+    {
+      "name": "One-shot close/open requests persist while independent ramp history advances through real motors",
+      "pass": true
+    },
+    {
+      "name": "Rapid reversals preserve the command slew, actual state integration and original force/range bounds",
+      "pass": true
+    },
+    {
+      "name": "Reset clears both desired/ramped histories and cannot resume a stale closing request",
+      "pass": true
+    },
+    {
+      "name": "Batch stop still retains the R1 aperture and arm targets",
+      "pass": true
+    }
+  ],
+  "profile": {
+    "sourceVelocityMps": 0.25,
+    "commandFraction": 0.4,
+    "commandVelocityMps": 0.1
+  },
+  "stats": {
+    "millisecondSamples": 3050,
+    "maxCommandVelocity": 0.10000000000000286,
+    "maxActualVelocity": 0.12128729501545277,
+    "maxActualFingerRangeExcess": 0.0006501666218955696,
+    "maxEffortRatio": 0.11040830028877587
+  },
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-r1-gripper.mjs": "2c93ead0bd3dcb33b1a9f32540c53771c1f7c2d831d401c52cbd0266ec551744",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "f05b529175f5fe0500b07cda3f2d08696f197f1fc85f756999df3e9b14b45a93",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "scope": "Root-agent native IAB interactions and read-only page observations; not a hardware or full-browser-matrix certification",
+  "url": "http://127.0.0.1:4173/multi/",
+  "moduleVersion": "20261015-multi-2",
+  "operator": "root agent, actual cua_repl browser tab 14",
+  "sourceBinding": "Companion numerical/static reports bind the current production sources. This is an observed manual browser record, not an executable pixel regression.",
+  "captures": {
+    "desktop": {"width":1280,"height":720,"fullPage":false,"inspected":true},
+    "mobile": {"width":390,"height":844,"fullPage":true,"inspected":true,"scrollWidth":390,"sceneHeight":489.515625},
+    "savedPaths": [],
+    "limitation": "The native screenshot tool returned in-memory PNG bytes displayed inline, but no file-export capability. No saved screenshot path or independent pixel review is claimed. An immediate post-resize transient capture was discarded and replaced after the native full-view action settled."
+  },
+  "checks": [
+    {"name":"all three models load and share one row", "observed":true, "detail":"R1, G1, C5 and grounded separate tables visible in the same scene; all ready, no loading errors"},
+    {"name":"single selection", "observed":true, "selected":["c5"], "startLabel":"开始抓取 · 1 台"},
+    {"name":"cannot deselect final participant", "observed":true, "detail":"C5 stayed checked; status asked to retain at least one robot"},
+    {"name":"pair selection", "observed":true, "selected":["r1","c5"], "startLabel":"开始抓取 · 2 台"},
+    {"name":"all selected begin actual blue sort", "observed":true, "detail":"Native start click, checkboxes disabled while running, stop enabled; read-only evidence below"},
+    {"name":"focus independent of participants", "observed":true, "detail":"C5 focus hid arm selector and linked ../c5/; all participants remained selected. G1 focus also changed while running"},
+    {"name":"solid object drag isolated to station", "observed":true, "detail":"Native C5 blue drag changed local x .38 to .4048738402126376 and z to -.035395015756926274; R1 and G1 blue x/z unchanged; orbit restored on release"},
+    {"name":"W key object movement", "observed":true, "detail":"Focused C5 blue x increased exactly .012 to .4168738402126376; other stations unchanged"},
+    {"name":"right mouse object rotation", "observed":true, "detail":"Documented native CDP mouse input changed only C5 quaternion to approximately [0,.11971220728891935,0,.9928086358538661]; orbit restored on release"},
+    {"name":"blank-space camera orbit", "observed":true, "detail":"Native blank drag changed camera from [3.690343767692,2.004455929,-1.859586364] to [2.534756781558,3.032482865278,-.404796431048]; object x/z unchanged"},
+    {"name":"all stop", "observed":true, "detail":"After another native start and focus change, stop left each state stopped, running false and identical time .5690000000000004"},
+    {"name":"reset all", "observed":true, "detail":"All tables restored; status 全部工作台已复位，可重新开始"},
+    {"name":"camera visibility toggle", "observed":true, "detail":"Native hide showed camera-feeds.hidden true and aria-pressed false; next click restored both actual rendered camera feeds"},
+    {"name":"desktop layout", "observed":true, "detail":"1280×720: full row left; selection and start right; three models/tables and labels visible"},
+    {"name":"mobile layout", "observed":true, "detail":"390×844: three-station scene above stacked controls, no horizontal overflow; all three labels visible and nonoverlapping; focus control available for object editing"},
+    {"name":"page console warnings and errors", "observed":true, "entries":[]},
+    {"name":"new R1 safe adapter loaded", "observed":true, "detail":"Performance resource list contains /multi/r1-safe-dynamics.mjs"}
+  ],
+  "threeWayBlueSort": {
+    "startTick":160302,
+    "startTimes":{"r1":160.30200000040136,"g1":160.30200000040136,"c5":160.30200000040136},
+    "finalTimes":{"r1":194.71500000056568,"g1":194.71500000056568,"c5":194.71500000056568},
+    "robots":[
+      {"id":"r1","state":"complete","actualDualContact":true,"liftM":0.12947995017935854,"maxSpeedMps":0.108885881},
+      {"id":"g1","state":"complete","actualDualContact":true,"liftM":0.10966039853316967,"maxSpeedMps":0.0976360},
+      {"id":"c5","state":"complete","actualDualContact":true,"liftM":0.13942470801010665,"maxSpeedMps":0.12777098}
+    ],
+    "frameSample":{"averageMs":9.8616667,"averageWorkMs":4.75833,"backlogSeconds":0.0008},
+    "detail":"Read-only app diagnostics after native input; not a cross-device performance guarantee"
+  },
+  "mobileLabelBounds":[
+    {"id":"r1","left":55.48046875,"right":118.78515625},
+    {"id":"g1","left":173.078125,"right":226.171875},
+    {"id":"c5","left":281.61328125,"right":336.05859375}
+  ],
+  "remainingUnverified":[
+    "Real mobile touchscreen gestures and mobile GPU performance",
+    "Browser-native full nine-item stack replay (covered by strict numerical physics tests instead)",
+    "Screen reader listening and complete keyboard-only 3D object manipulation",
+    "Other browser engines and full accessibility certification",
+    "GitHub-hosted production revision until an actual successful deployment is confirmed"
+  ]
+}

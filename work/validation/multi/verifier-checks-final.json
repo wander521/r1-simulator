@@ -1,0 +1,55 @@
+{
+  "pass": true,
+  "checks": 12,
+  "results": [
+    {
+      "name": "Current complete release reports are accepted",
+      "pass": true
+    },
+    {
+      "name": "Explicitly unfrozen coordinator evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "Old-source coordinator SHA cannot pass",
+      "pass": true
+    },
+    {
+      "name": "A duplicated physical case cannot replace the required scenario",
+      "pass": true
+    },
+    {
+      "name": "A completed animation without actual two-finger forces is rejected",
+      "pass": true
+    },
+    {
+      "name": "A claimed success with insufficient physical object lift is rejected",
+      "pass": true
+    },
+    {
+      "name": "R1 finger stroke beyond the explicit legacy 1 mm guard is rejected",
+      "pass": true
+    },
+    {
+      "name": "Dex1 finger stroke beyond 0.2 mm is independently rejected",
+      "pass": true
+    },
+    {
+      "name": "Publication reports explicitly marked unfrozen are rejected",
+      "pass": true
+    },
+    {
+      "name": "One fake per-item grasp cannot pass a nine-item stack",
+      "pass": true
+    },
+    {
+      "name": "Contact existence without force-bearing stack support is rejected",
+      "pass": true
+    },
+    {
+      "name": "A stopped stack falsely labelled complete is rejected",
+      "pass": true
+    }
+  ],
+  "verifierSha256": "759b06ca5b3e6e03c859dcc443d96230d60d67111ace65b423644b9170c74273"
+}

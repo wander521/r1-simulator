@@ -1,4 +1,4 @@
-name: Deploy R1 simulator to GitHub Pages
+name: Deploy multi-robot simulator to GitHub Pages
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
   validate:
     name: Validate simulator and deployment paths
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,7 +29,12 @@ jobs:
       - name: Run physical grasping regressions
         run: npm test
       - name: Verify saved acceptance evidence
-        run: node work/verify-acceptance.mjs
+        run: |
+          node work/test-multi-acceptance-verifier.mjs
+          node work/verify-multi-acceptance.mjs
+          node work/verify-acceptance.mjs
+          node work/verify-g1-acceptance.mjs
+          node work/verify-c5-acceptance.mjs
 
   deploy:
     name: Publish static site

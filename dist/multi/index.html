@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>多机器人抓取仿真 · R1 / G1 / C5</title>
+  <link rel="stylesheet" href="./styles.css?v=20261015-multi-2">
+  <script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
+</head>
+<body>
+<main class="multi-app">
+  <section class="viewport" id="viewport" aria-label="三个机器人共用的三维工作场景">
+    <canvas id="main-view" aria-label="拖动空白处旋转视角；拖动物体调整抓取位置" tabindex="0"></canvas>
+    <div class="scene-toolbar"><span id="scene-summary">R1 / G1 / C5 · 并排工作站</span><div><button id="focus-view" type="button">聚焦当前</button> <button id="fit-view" type="button">全景视角</button></div></div>
+    <div id="station-labels" class="station-labels"></div>
+    <p class="scene-help" id="scene-help">空白拖动旋转视角 · 滚轮缩放 · 拖动物体移动，右键拖动旋转</p>
+    <div id="loading" class="loading" role="status"><h2>正在加载三个工作站</h2><p id="loading-message">准备共享物理运行库与原始机器人模型…</p><progress id="loading-progress" max="1" value="0" aria-label="总加载进度"></progress></div>
+  </section>
+  <aside class="panel" aria-label="机器人选择与抓取控制">
+    <header><h1>多机器人抓取</h1><p class="intro">星海图 R1 · 宇树 G1 · 遨博 C5</p></header>
+    <p id="status" class="status" role="status" aria-live="polite">正在加载，请稍候…</p>
+    <fieldset class="robot-picker"><legend>选择参与机器人 <span id="selected-count">3 台</span></legend>
+      <div id="robot-options"></div>
+      <button id="select-all" class="text-button" type="button" disabled>选择全部</button>
+      <p class="hint">可单选或多选；选中的机器人在同一时刻开始，各自操作桌面物体。</p>
+    </fieldset>
+    <section class="task-controls" aria-labelledby="task-heading"><h2 id="task-heading">统一抓取任务</h2>
+      <label class="field-row" for="task-mode">任务<select id="task-mode" disabled><option value="sort">放入同色框</option><option value="stack">蓝 → 红 → 黄叠放</option></select></label>
+      <div class="object-options" role="group" aria-label="共同抓取的物体">
+        <button type="button" data-object="red" aria-pressed="false" disabled><i class="swatch red"></i>红色方块</button>
+        <button type="button" data-object="blue" aria-pressed="true" disabled><i class="swatch blue"></i>蓝色长方块</button>
+        <button type="button" data-object="yellow" aria-pressed="false" disabled><i class="swatch yellow"></i>黄色圆柱</button>
+      </div>
+      <div class="primary-actions"><button id="start" class="primary" type="button" disabled>开始抓取 · 3 台</button><button id="stop" type="button" disabled>全部停止</button></div>
+      <button id="reset" class="reset-button" type="button" disabled>复位全部工作台</button>
+    </section>
+    <section class="station-results" aria-labelledby="result-heading"><h2 id="result-heading">各机器人进度</h2><div id="results"></div></section>
+    <section class="detail-controls" aria-labelledby="detail-heading"><h2 id="detail-heading">观察与控制</h2>
+      <label class="field-row" for="focus-robot">当前观察<select id="focus-robot" disabled></select></label>
+      <label class="field-row" id="arm-field" for="arm-select">执行臂<select id="arm-select" disabled><option value="right">右臂</option><option value="left">左臂</option></select></label>
+      <p class="hint" id="focus-hint">切换观察对象不影响机器人参与选择。</p>
+      <div class="camera-heading"><h3>实时相机</h3><button type="button" id="toggle-cameras" aria-pressed="true">隐藏画面</button></div>
+      <div class="camera-feeds" id="camera-feeds"><figure><figcaption>工作台俯视</figcaption><canvas id="overhead-feed" width="240" height="180" aria-label="当前机器人工作台俯视画面"></canvas></figure><figure><figcaption id="wrist-caption">前置夹爪相机</figcaption><canvas id="wrist-feed" width="240" height="180" aria-label="当前机器人夹爪相机画面"></canvas></figure></div>
+      <dl class="metrics"><div><dt>双指接触</dt><dd id="contact-count">—</dd></div><div><dt>夹持力</dt><dd id="contact-force">— N</dd></div><div><dt>末端误差</dt><dd id="tcp-error">— mm</dd></div></dl>
+      <figure class="chart"><figcaption>双指接触力 · N</figcaption><canvas id="force-chart" width="600" height="130" aria-label="双指实际接触力随时间曲线"></canvas></figure>
+      <figure class="chart"><figcaption>关节力矩 · N·m</figcaption><canvas id="torque-chart" width="600" height="130" aria-label="实际关节电机力矩随时间曲线"></canvas></figure>
+      <p class="hint" id="joint-readout">关节数据加载后显示。</p>
+      <a id="single-link" class="single-link" href="../r1/">打开 R1 独立控制页</a>
+    </section>
+    <footer>浏览器物理仿真 · 每台独立工作台<br>不用于实机控制或安全认证</footer>
+  </aside>
+</main>
+<script type="module" src="./app.mjs?v=20261015-multi-2"></script>
+</body>
+</html>
