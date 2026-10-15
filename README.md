@@ -2,6 +2,14 @@
 
 基于 Three.js、R1 URDF 和 MuJoCo WebAssembly 的本地静态仿真项目。R1 页面是当前项目入口，同时保留标准机械臂参考页面及其本地依赖。
 
+## 网页访问与部署
+
+GitHub Pages 入口：[R1 Simulator](https://wander521.github.io/r1-simulator/)，直接页面为 [R1 双臂抓取仿真](https://wander521.github.io/r1-simulator/r1/)。首次部署完成后即可在浏览器中运行，无需启动本地服务。机器人模型与物理运行库约42MB，首次打开需要等待下载，之后可使用浏览器缓存；建议使用支持 WebGL2 的现代桌面浏览器。
+
+发布配置在 `.github/workflows/deploy-pages.yml`：每次推送 `main` 后先验证部署路径、真实物理抓取和验收证据，再仅发布 `dist/`。源码、回归记录和录像保留在仓库，不作为网站文件发布。仓库首次使用时，需要在 Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。也可在 Actions 中手动运行同名发布流程。
+
+首页使用相对路径跳转到 `./r1/`，R1和保留的机械臂参考页都支持 `/r1-simulator/` 项目路径。运行库不使用共享内存，无需额外跨域隔离代理或后端服务。部署过程遵循 [GitHub Pages 自定义工作流文档](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
+
 ## 快速开始
 
 需要 Python 3；运行回归测试还需要 Node.js 18 或以上。页面运行库和模型均已包含，无需安装 npm 依赖或下载模型。

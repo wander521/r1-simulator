@@ -7,7 +7,7 @@ import {tcpPose,solvePose} from './grasp-kinematics.mjs?v=20261015-6';
 import {applyRobotMaterials} from './r1-materials.mjs?v=20261015-5';
 import {R1Dynamics} from './r1-dynamics.mjs?v=20261015-8';
 import {createJointUI,createJointTelemetry} from './r1-joint-ui.mjs?v=20261015-8';
-import {createWorkcell,createWristVision,configureRenderer,configureOverheadCamera} from './r1-workcell.mjs?v=20261015-8';
+import {createWorkcell,createWristVision,configureRenderer,configureOverheadCamera} from './r1-workcell.mjs?v=20261015-9';
 
 const $=s=>document.querySelector(s),canvas=$('#main-view'),stage=$('#viewport');
 $('#start-grasp').disabled=true;$('#model-variant').disabled=true;$('#reset').disabled=true;
@@ -151,6 +151,9 @@ new ResizeObserver(resize).observe(stage);resize();
 function frame(now){
   requestAnimationFrame(frame);const dt=lastTime?Math.min(.05,(now-lastTime)/1000):0;lastTime=now;
   if(controller){
+    // Freeze the result pose only when the reaction starts, not at task start:
+    // the observer may orbit the camera while the robot is working.
+    if(controller.running&&!controller.reaction)controller.observerYaw=Math.atan2(-camera.position.z,camera.position.x);
     accumulator+=dt;while(accumulator>=.001){controller.step(.001);accumulator-=.001;}
     controller.syncFingers();
     for(const t of targets){const p=controller.objectPose(t.id);t.mesh.position.copy(p.position);t.mesh.quaternion.copy(p.quaternion);if(drag?.target===t)controller.setObject(t.id,t.mesh.position,t.mesh.quaternion);

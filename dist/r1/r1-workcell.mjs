@@ -97,7 +97,9 @@ function environmentTexture(THREE) {
 
 export function configureRenderer(renderer, {THREE}) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = WORKCELL_REFERENCE.exposure;
+  // A small R1-specific lift; preserve the reference's dark background and
+  // specular highlights while bringing its larger robot out of the shadows.
+  renderer.toneMappingExposure = WORKCELL_REFERENCE.exposure * 1.12;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 }
 
@@ -134,14 +136,14 @@ export function createWorkcell(scene, {THREE, TABLE_HEIGHT, tableCenter = .78}) 
   }
   const lights = [];
   const addLight = light => {lights.push(light); group.add(light); return light;};
-  addLight(new THREE.AmbientLight(0x6f9bd4, .26));
-  addLight(new THREE.HemisphereLight(0xd9f6ff, 0x021026, .48));
+  addLight(new THREE.AmbientLight(0x6f9bd4, .40));
+  addLight(new THREE.HemisphereLight(0xd9f6ff, 0x021026, .65));
   const key = addLight(new THREE.DirectionalLight(0xf2fbff, 1));
   key.position.set(1.2, 2.6, -.8); key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048); key.shadow.camera.near = .1; key.shadow.camera.far = 6;
   key.shadow.camera.left = -1.4; key.shadow.camera.right = 1.4; key.shadow.camera.top = 1.4; key.shadow.camera.bottom = -1.4;
   key.shadow.bias = -.00012; key.shadow.normalBias = .003;
-  const fill = addLight(new THREE.DirectionalLight(0x8bdcff, .38)); fill.position.set(-1, 1.4, .5);
+  const fill = addLight(new THREE.DirectionalLight(0x8bdcff, .55)); fill.position.set(-1, 1.4, .5);
   const rim = addLight(new THREE.DirectionalLight(0x286fff, .62)); rim.position.set(-.5, 2.1, 1);
   // sh() uses these three actual area emitters in addition to the environment.
   // Normalize around the reference .50×.90 m table at [.38,0,.10].

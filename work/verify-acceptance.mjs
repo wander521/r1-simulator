@@ -84,6 +84,34 @@ try{
   check('screen_success_only_after_three_seconds_supported',firstReaction?.stackStableSeconds>=3&&observedStable>=3&&firstHappy?.stackCheck?.stable&&complete?.state==='complete'&&complete.running===false&&complete.stackCheck?.stable&&complete.stackStableSeconds>=3,{firstHappyTime:firstHappy?.simTime,firstReactionTime:firstReaction?.simTime,observedStableSeconds:observedStable,stableCounter:firstReaction?.stackStableSeconds,finalState:complete?.state,finalSupports:complete?.stackCheck?.states});
   check('screen_physics_rms_finite',trace.every(f=>finite(f.rms)&&f.rms>=0),{maximumRms:Math.max(...trace.map(f=>f.rms))});
 
+  const failureTrace=await json('work/validation/failure-screen-trace.json'),failureFinal=failureTrace.at(-1);
+  const failureSequence=failureTrace.map(f=>f.state).filter((state,i,states)=>!i||state!==states[i-1]);
+  const failureReason=failureTrace[0]?.message;
+  const failureOrder=failureSequence.join(',')==='face_observer,shy,failed';
+  const failureStatesValid=failureTrace.length>=3&&failureTrace.every((f,i)=>f.frame===i&&(!i||f.at>=failureTrace[i-1].at)&&f.reaction==='shy'&&!f.history.includes('happy')&&!f.history.includes('complete')&&f.state!=='happy'&&f.state!=='complete'&&f.message===failureReason)&&failureReason?.includes('目标超出')&&failureFinal?.state==='failed'&&failureFinal.running===false;
+  const sceneSource=await readFile(new URL('dist/r1/models/r1-dynamic-scene.xml',root),'utf8');
+  const tableSpec=sceneSource.match(/<body name="task_table" pos="([^"]+)"[^>]*>\s*<geom[^>]*size="([^"]+)"/),blueSpec=sceneSource.match(/<body name="blue_block"[^>]*>[\s\S]*?<geom[^>]*size="([^"]+)"/);
+  const tableHeight=Number(tableSpec?.[1].split(/\s+/)[2])+Number(tableSpec?.[2].split(/\s+/)[2]),blueHalfHeight=Number(blueSpec?.[1].split(/\s+/)[2]);
+  const bluePositions=failureTrace.map(f=>f.objects.find(o=>o.id==='blue')?.position),firstBlue=bluePositions[0];
+  const maxBlueDisplacement=firstBlue?Math.max(...bluePositions.map(p=>p?.length===3&&p.every(finite)?distance(p,firstBlue):Infinity)):Infinity;
+  const maxBottomHeightError=Math.max(...bluePositions.map(p=>p?.length===3?Math.abs(p[1]-blueHalfHeight-tableHeight):Infinity));
+  const stationaryBlue=finite(tableHeight)&&finite(blueHalfHeight)&&maxBlueDisplacement<.0001&&maxBottomHeightError<.001&&Math.abs(firstBlue?.[0]-1.106)<.001&&Math.abs(firstBlue?.[2])<.001;
+  const urdfSource=await readFile(new URL('dist/r1/assets/r1.urdf',root),'utf8');
+  const pitchAxes=[1,2,3].map(i=>{
+    const joint=urdfSource.match(new RegExp(`<joint\\s+name="torso_joint${i}"[^>]*>([\\s\\S]*?)<\\/joint>`))?.[1];
+    const axis=joint?.match(/<axis\s+xyz="([^"]+)"/)?.[1].split(/\s+/).map(Number),rpy=joint?.match(/<origin[^>]*rpy="([^"]+)"/)?.[1].split(/\s+/).map(Number);
+    if(!axis||!rpy||Math.abs(axis[0])+Math.abs(axis[2])>1e-12||rpy.some(v=>Math.abs(v)>1e-12))throw new Error('Failure torso pitch audit needs the source planar URDF axes');
+    return axis[1];
+  });
+  const shySamples=failureTrace.filter(f=>f.state==='shy').map(f=>{
+    const torso=[1,2,3].map(i=>f.telemetry.torso.find(j=>j.name===`torso_joint${i}`)),pitch=torso.reduce((s,j,i)=>s+j.actual*pitchAxes[i],0);
+    return {frame:f.frame,actual:torso.map(j=>j.actual),target:torso.map(j=>j.target),pitch,maximumError:Math.max(...torso.map(j=>Math.abs(j.actual-j.target))),atBowedTarget:torso.every((j,i)=>Math.abs(j.target-[.25,-.45,-.3][i])<.002)};
+  });
+  const bowedSamples=shySamples.filter(s=>s.atBowedTarget),leanedForward=shySamples.length>0&&shySamples.every(s=>finite(s.pitch)&&s.pitch>0)&&bowedSamples.some(s=>s.maximumError<.003&&s.pitch>.08&&s.pitch<.12);
+  check('screen_genuine_unreachable_shy_failure',failureOrder&&failureStatesValid&&stationaryBlue&&leanedForward,{frames:failureTrace.length,states:failureSequence,reason:failureReason,finalRunning:failureFinal?.running,allFramesShyWithoutHappy:failureStatesValid,blue:{start:firstBlue,maximumDisplacement:maxBlueDisplacement,tableHeight,halfHeight:blueHalfHeight,maximumBottomHeightError:maxBottomHeightError,evidence:'Recorded physical positions keep the block bottom at the source table height; this trace does not include contact-force samples.'},torso:{sourcePitchAxes:pitchAxes,shySamples,bowedTargetReached:bowedSamples.some(s=>s.maximumError<.003)}});
+  const failureVideo=mp4Info(await readFile(new URL('work/validation/media/r1-stack-failure.mp4',root)));
+  check('failure_operation_video_valid_container',failureVideo.bytes>10000&&['ftyp','moov','mdat'].every(atom=>failureVideo.atoms.includes(atom))&&finite(failureVideo.duration)&&failureVideo.duration>0,{bytes:failureVideo.bytes,duration:failureVideo.duration,atoms:failureVideo.atoms});
+
   const progress=await json('work/validation/loading-progress.json');
   check('loading_progress_monotonic_to_100',progress.length>3&&progress.every((p,i)=>finite(p.percent)&&p.percent>=0&&p.percent<=100&&(!i||p.percent>=progress[i-1].percent))&&progress.at(-1).percent===100&&new Set(progress.map(p=>p.percent)).size>10,{samples:progress.length,start:progress[0]?.percent,end:progress.at(-1)?.percent,distinct:new Set(progress.map(p=>p.percent)).size});
   const screenshots=[];
@@ -111,7 +139,7 @@ try{
   // simulated physics checks for actual browser input evidence.
   details.additionalBrowserEvidence=Object.fromEntries(Object.entries(browser).filter(([key])=>!['jointKeyboard','guides','tcp','closed','cameraSwitch','objectW','blankOrbit','objectDrag','objectRotate','narrow','narrowChip','outsideClose','finalClosed','finalOpened','leftArm','stopped','finalReset'].includes(key)));
   details.artifactRoot=fileURLToPath(new URL('work/validation/',root));
-  details.evidenceScope={baseline:'36 saved simulations before reaction-centering adjustment',final:'Current-source-hashed two-arm full stacks and four recovery scenarios',screen:'Saved browser trace, screenshots and R1 operation video',touchHardwareTested:false};
+  details.evidenceScope={baseline:'36 saved simulations before reaction-centering adjustment',final:'Current-source-hashed two-arm full stacks and four recovery scenarios',screen:'Saved success and genuine unreachable-failure browser traces, paired screenshots, and R1 operation videos',touchHardwareTested:false};
   details.limitations=['Physical touchscreen hardware input was not tested.','Screenshot checks verify file dimensions and pairing; visual fidelity still requires human/rendered-image review.','The R1 operation recording is verified as an MP4 container with duration; this script does not inspect every decoded video frame.'];
 }catch(error){check('evidence_read_or_parse',false,{error:error.message});}
 const passed=checks.filter(c=>c.pass).length,failed=checks.filter(c=>!c.pass);

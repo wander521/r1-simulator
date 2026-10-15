@@ -7,7 +7,7 @@
 - `dist/Rebot_Arm_AGV/assets/index-BXF1-FJz.js`：`nh()` 背景；`th()` 地面贴图；`ih()` 环境反射；`sh()` Three.js 场景与渲染器；`Qu()` MJCF 材质到 Three.js 材质；`$h()` 自动任务；其前方 `Ph/Lh/L2/qh/jh/Yh` 常量；`N4()` 物理控制；`Kh()` 接触采样；`Zh()` 指标与曲线。
 - `dist/Rebot_Arm_AGV/models/rs_grasp_scene.xml`：地面、台面、三物体、同色框、全局相机。
 - `dist/Rebot_Arm_AGV/models/rs_arm.xml`：六关节电机、夹爪耦合、夹爪分块碰撞、腕部相机及其支架。
-- `dist/r1/r1-app.mjs`、`grasp-controller.mjs`、`grasp-kinematics.mjs` 与 `models/r1-contact-scene.xml`：R1 现有实现。本文引用的函数名对应仓库包含的确定版本，不依赖线上页面更新。
+- `dist/r1/r1-app.mjs`、`grasp-controller.mjs`、`grasp-kinematics.mjs`、`r1-dynamics.mjs` 与 `models/r1-dynamic-scene.xml`：R1 当前实现。本文引用的函数名对应仓库包含的确定版本，不依赖线上页面更新。
 
 ## 本次场景与相机适配
 
@@ -18,8 +18,8 @@
 | 背景 | `nh()` 1600×900 画布；渐变 `#010319 → #030629 → #06154b → #03153d → #01030f`；地平线位于高度 `.73`；五道蓝色竖光的横坐标比例为 `.035/.18/.5/.82/.965` | 直接复现同一画布算法、光束颜色/宽度、扫描横线、暗角；作为场景背景，随视口铺满，与参考一致 |
 | 地面 | `th()` 1024² 画布，深蓝底、每纹理十格、青蓝外框；2m 平面上 repeat=5，格距4cm | 同算法；R1 地面8m，repeat=20，保留4cm格距 |
 | 环境反射 | `ih()` 蓝白条形灯的1024×512等距柱状贴图，`sh()` 经 PMREM 用作环境 | 复现原画布并设置 EquirectangularReflectionMapping，由 Three.js 环境预滤处理 |
-| 色调与输出 | `sh()` ACESFilmic，exposure `1.02`，sRGB；主视图软阴影2048² | `configureRenderer()` 设置相同色调与输出；主光设置2048²阴影 |
-| 直接灯光 | Ambient `#6f9bd4/.26`，Hemisphere `#d9f6ff,#021026/.48`；Directional 白 `#f2fbff/1`、青 `#8bdcff/.38`、蓝 `#286fff/.62`；三盏 RectAreaLight 为 `#eaf8ff/2`、`#10cfff/2.8`、`#245cff/1.9` | 全部八盏真实灯光。面积灯使用参考包中同一组64×64 LTC查找表，Float32无损编码及同算法HalfFloat转换；按台面归一化映射面积灯的位置/目标，保留颜色和强度 |
+| 色调与输出 | `sh()` ACESFilmic，exposure `1.02`，sRGB；主视图软阴影2048² | 保留色调、输出与2048²阴影；按用户随后提出的“稍微调亮”要求，R1主视图及两路相机曝光统一为`1.02×1.12=1.1424` |
+| 直接灯光 | Ambient `#6f9bd4/.26`，Hemisphere `#d9f6ff,#021026/.48`；Directional 白 `#f2fbff/1`、青 `#8bdcff/.38`、蓝 `#286fff/.62`；三盏 RectAreaLight 为 `#eaf8ff/2`、`#10cfff/2.8`、`#245cff/1.9` | 全部八盏真实灯光。面积灯使用参考包中同一组64×64 LTC查找表，按台面归一化映射位置/目标；面积灯颜色和强度不变。按用户补光要求，将环境光/半球光/青色补光分别升至`.40/.65/.55`，主光与蓝色轮廓光不变 |
 | 台面 | XML 尺寸 `.50×.90×.03m`，高度 `.10m`；`Qu()` 将 rs_table 线性颜色 `[.34,.37,.36]` 乘 `.58` | 保留已适配 R1 的 `.72×.76×.065m`、现有高度与 x=.78 中心，不移动任务物；沿用参考颜色转换、金属度 `.12`、粗糙度 `.55`；四腿落地 |
 | 全局俯视 | XML overhead_rgb：FOV70°，台面上方 `.68m`，原位置偏台面中心4cm | `configureOverheadCamera()` FOV70°，置于 R1 台面中心上方 `.68m`，Y-up与台面正交 |
 | 腕部光学 | `rs_arm.xml` wrist_rgb FOV `62.82°`，`xyaxes="0 -1 0 0.5 0 .866025404"`；30°向下；随夹爪坐标变换更新 | 夹爪局部 +X 为前方，抓取时 +Z 朝下。镜头偏移 `[-.035,0,-.065]m`，局部视线 `[cos30°,0,sin30°]`、up `[-sin30°,0,-cos30°]`；镜头在夹爪上方65mm，观察 TCP/指尖/物体/台面 |

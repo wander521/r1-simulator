@@ -9,6 +9,7 @@
     "test": "node work/test-r1-dynamics.mjs && node work/test-r1-dynamic-grasp.mjs",
     "test:repeat": "node work/test-r1-dynamic-grasp.mjs --repeat=3",
     "test:legacy": "node work/test-r1-grasp.mjs",
+    "test:pages": "node work/test-pages.mjs",
     "build:physics": "node work/build-r1-dynamics.mjs"
   }
 }

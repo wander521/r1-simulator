@@ -1,0 +1,2252 @@
+[
+  {
+    "frame": 0,
+    "at": 1792053265325,
+    "state": "face_observer",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05017557158461551,
+          "biasTorque": -0.18966715720901783,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00017557158461550815,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.061450305844516606,
+          "unit": "m",
+          "velocity": 9.235095079758725e-8
+        },
+        {
+          "actual": 0.04945833415427522,
+          "biasTorque": 0.1896626946353644,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0005416658457247855,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.1895938184878787,
+          "unit": "m",
+          "velocity": -0.000003824579438272999
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.5699109368405175,
+          "biasTorque": -0.7249829517567381,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.00008906315948253862,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": -1.1512300314272328e-15,
+          "torque": -1.0983528912602196,
+          "unit": "rad",
+          "velocity": -0.0003169777185252056
+        },
+        {
+          "actual": 2.200000949903802,
+          "biasTorque": -5.9934052270905624,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -9.499038018390138e-7,
+          "name": "right_arm_joint2",
+          "target": 2.2,
+          "targetVelocity": -4.513195402500285e-16,
+          "torque": -5.99733995463248,
+          "unit": "rad",
+          "velocity": -0.0000039289467931053146
+        },
+        {
+          "actual": -1.3999989991445372,
+          "biasTorque": 3.7331708597574824,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": -0.000001000855462729433,
+          "name": "right_arm_joint3",
+          "target": -1.4,
+          "targetVelocity": -2.1590201656023072e-16,
+          "torque": 3.73094000978881,
+          "unit": "rad",
+          "velocity": -0.0000050996021661691574
+        },
+        {
+          "actual": -0.000003055835217730568,
+          "biasTorque": -0.06037756314440834,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.000003055835217730568,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.05841810486434655,
+          "unit": "rad",
+          "velocity": 0.000013302477265964865
+        },
+        {
+          "actual": 0.00004299259721411205,
+          "biasTorque": -0.01811383553161203,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.00004299259721411205,
+          "name": "right_arm_joint5",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.04512662142441514,
+          "unit": "rad",
+          "velocity": -0.00022810606980849032
+        },
+        {
+          "actual": -0.0000026654866307669372,
+          "biasTorque": -0.06219378552622212,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000026654866307669372,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.06110735790922608,
+          "unit": "rad",
+          "velocity": 0.00001302210603243204
+        }
+      ],
+      "rms": 0.00004041236767990242,
+      "time": 19.652000000001035,
+      "torso": [
+        {
+          "actual": 1.0765330779318318e-8,
+          "biasTorque": -8.13854598444986,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -1.0765330779318318e-8,
+          "name": "torso_joint1",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -8.138746899133308,
+          "unit": "rad",
+          "velocity": -1.141994767133728e-7
+        },
+        {
+          "actual": 0.05999996506650973,
+          "biasTorque": -8.101700739655826,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 3.4933490281052755e-8,
+          "name": "torso_joint2",
+          "target": 0.060000000000000005,
+          "targetVelocity": 1.6726423773602926e-15,
+          "torque": -8.100969289044997,
+          "unit": "rad",
+          "velocity": 1.9927281955928566e-7
+        },
+        {
+          "actual": 6.90597442323656e-8,
+          "biasTorque": 2.8870801360572367,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -6.90597442323656e-8,
+          "name": "torso_joint3",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": 2.8856479452471744,
+          "unit": "rad",
+          "velocity": -4.24856001647419e-7
+        },
+        {
+          "actual": -0.0024254995257895866,
+          "biasTorque": -0.0020018476021800465,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.00006693369341167392,
+          "name": "torso_joint4",
+          "target": -0.0024924332192012605,
+          "targetVelocity": -0.05627960017036264,
+          "torque": -1.4949298003123914,
+          "unit": "rad",
+          "velocity": -0.05979332085565891
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210844,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.0308906276133
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213387,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782378,
+          "y": 452.26745862210976
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7800000008778072,
+          0.7179960601446073,
+          -0.14000064563068096
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.1280641921185,
+          "y": 424.11677622583335
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 1.9732007014365747e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 1,
+    "at": 1792053265832,
+    "state": "face_observer",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05017507014674357,
+          "biasTorque": -0.1890359995804437,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00017507014674356808,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.06126938488033673,
+          "unit": "m",
+          "velocity": -0.000001954205610121244
+        },
+        {
+          "actual": 0.04946035654931695,
+          "biasTorque": 0.188889061922119,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0005396434506830527,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.18885572874929224,
+          "unit": "m",
+          "velocity": 0.000007365226904997481
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.569951058692287,
+          "biasTorque": -0.7207805701242316,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.000048941307713379345,
+          "name": "right_arm_joint1",
+          "target": -1.5700000000000005,
+          "targetVelocity": -5.1448414573264815e-14,
+          "torque": -0.9352236442355206,
+          "unit": "rad",
+          "velocity": -0.00006810595817575327
+        },
+        {
+          "actual": 2.2000005340475655,
+          "biasTorque": -6.026549665571624,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -5.340475652815257e-7,
+          "name": "right_arm_joint2",
+          "target": 2.2,
+          "targetVelocity": -9.500448435911576e-26,
+          "torque": -6.028756073392287,
+          "unit": "rad",
+          "velocity": -6.262385491265503e-7
+        },
+        {
+          "actual": -1.3999994525081878,
+          "biasTorque": 3.7161644246088184,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": -5.474918121084471e-7,
+          "name": "right_arm_joint3",
+          "target": -1.4,
+          "targetVelocity": -8.414103044518353e-16,
+          "torque": 3.714899155641888,
+          "unit": "rad",
+          "velocity": -6.629946124227165e-7
+        },
+        {
+          "actual": -0.0000016566945425148256,
+          "biasTorque": -0.060152855079429246,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000016566945425148256,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.05902448805980901,
+          "unit": "rad",
+          "velocity": 0.0000023014741256168987
+        },
+        {
+          "actual": 0.000022916636465675325,
+          "biasTorque": -0.01760445079584383,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.000022916636465675325,
+          "name": "right_arm_joint5",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.033225306242753244,
+          "unit": "rad",
+          "velocity": -0.000031897987983629265
+        },
+        {
+          "actual": -0.0000014324071705014202,
+          "biasTorque": -0.06197789866408465,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000014324071705014202,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.0613510552524404,
+          "unit": "rad",
+          "velocity": 0.0000019872839750889978
+        }
+      ],
+      "rms": 0.000022082441021436076,
+      "time": 20.169000000001667,
+      "torso": [
+        {
+          "actual": 5.415220227966157e-10,
+          "biasTorque": -8.134068701960814,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -5.415220227966157e-10,
+          "name": "torso_joint1",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -8.134088161341833,
+          "unit": "rad",
+          "velocity": -1.6746973365924304e-8
+        },
+        {
+          "actual": 0.05999997102844705,
+          "biasTorque": -8.09683440829661,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 2.8971552948342527e-8,
+          "name": "torso_joint2",
+          "target": 0.06,
+          "targetVelocity": 2.312579516150904e-16,
+          "torque": -8.096157683839692,
+          "unit": "rad",
+          "velocity": 4.6831652258552284e-9
+        },
+        {
+          "actual": 5.1147099095688786e-8,
+          "biasTorque": 2.881920827423716,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -5.1147099095688786e-8,
+          "name": "torso_joint3",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": 2.8807209982062685,
+          "unit": "rad",
+          "velocity": -2.0773447427972896e-8
+        },
+        {
+          "actual": -0.11287263667320306,
+          "biasTorque": -0.002579606672299639,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.00026661200214865566,
+          "name": "torso_joint4",
+          "target": -0.1126060246710544,
+          "targetVelocity": -0.33942744917552964,
+          "torque": -0.8621723735427622,
+          "unit": "rad",
+          "velocity": -0.34153188384995975
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210942,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.0308906276099
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213176,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782374,
+          "y": 452.26745862211715
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7799999764861966,
+          0.7179960541851401,
+          -0.1400006816512813
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.1280633841861,
+          "y": 424.11677487280974
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.0611900949856123e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 2,
+    "at": 1792053266339,
+    "state": "face_observer",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05017370324830867,
+          "biasTorque": -0.18743255610245943,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.0001737032483086695,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.06078631737122109,
+          "unit": "m",
+          "velocity": -0.000003708827966946573
+        },
+        {
+          "actual": 0.04946516956991707,
+          "biasTorque": 0.18715813802482084,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0005348304300829346,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.18715766185344407,
+          "unit": "m",
+          "velocity": 0.000012457100799219636
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.5699834146285718,
+          "biasTorque": -0.6866082964926992,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.000016585371428234907,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": 1.0039093835668964e-14,
+          "torque": -0.755537476502468,
+          "unit": "rad",
+          "velocity": -0.0000681240742355223
+        },
+        {
+          "actual": 2.2000002386538995,
+          "biasTorque": -6.136419280156458,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -2.386538993093268e-7,
+          "name": "right_arm_joint2",
+          "target": 2.2,
+          "targetVelocity": -8.820392805068491e-72,
+          "torque": -6.137124622955525,
+          "unit": "rad",
+          "velocity": -6.270968061124517e-7
+        },
+        {
+          "actual": -1.3999997675090805,
+          "biasTorque": 3.665910877300698,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": -2.3249091962718185e-7,
+          "name": "right_arm_joint3",
+          "target": -1.4,
+          "targetVelocity": -1.3808837373605451e-30,
+          "torque": 3.6655051247821575,
+          "unit": "rad",
+          "velocity": -6.702068929352751e-7
+        },
+        {
+          "actual": -5.632488057301735e-7,
+          "biasTorque": -0.059743608120966685,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 5.632488057301735e-7,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.059380900988575125,
+          "unit": "rad",
+          "velocity": 0.000002302531756920597
+        },
+        {
+          "actual": 0.000007761501509266567,
+          "biasTorque": -0.013875533868187104,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.000007761501509266567,
+          "name": "right_arm_joint5",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.018896996683834492,
+          "unit": "rad",
+          "velocity": -0.00003190941565365572
+        },
+        {
+          "actual": -4.881768635757538e-7,
+          "biasTorque": -0.06150698188346321,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 4.881768635757538e-7,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.061305481482680134,
+          "unit": "rad",
+          "velocity": 0.0000019885782849933243
+        }
+      ],
+      "rms": 0.000007483114599656013,
+      "time": 20.644000000002247,
+      "torso": [
+        {
+          "actual": -3.484515360563809e-9,
+          "biasTorque": -8.123792731289864,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 3.484515360563809e-9,
+          "name": "torso_joint1",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -8.12373757856504,
+          "unit": "rad",
+          "velocity": 1.6812073955157332e-9
+        },
+        {
+          "actual": 0.0599999827526469,
+          "biasTorque": -8.086297965883023,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 1.7247353094329565e-8,
+          "name": "torso_joint2",
+          "target": 0.06,
+          "targetVelocity": -3.4691410718821323e-16,
+          "torque": -8.085937710928192,
+          "unit": "rad",
+          "velocity": 4.9436531900243015e-8
+        },
+        {
+          "actual": 2.7589874655873103e-8,
+          "biasTorque": 2.871187639694457,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -2.7589874655873103e-8,
+          "name": "torso_joint3",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": 2.870598105845197,
+          "unit": "rad",
+          "velocity": -8.531575758469636e-8
+        },
+        {
+          "actual": -0.3098831133789952,
+          "biasTorque": -0.0035289320306741384,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.0004401817620997561,
+          "name": "torso_joint4",
+          "target": -0.30944293161689546,
+          "targetVelocity": -0.4655831634313211,
+          "torque": -0.2869584781528829,
+          "unit": "rad",
+          "velocity": -0.4663371197275368
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210942,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.0308906276099
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213192,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782374,
+          "y": 452.26745862211664
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7799999969970703,
+          0.7179960563238738,
+          -0.14000066339752737
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.1280661040934,
+          "y": 424.11677621926697
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 3,
+    "at": 1792053266946,
+    "state": "face_observer",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05017170785659613,
+          "biasTorque": -0.1851468479466839,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00017170785659612747,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.06008585982104009,
+          "unit": "m",
+          "velocity": -0.0000044869749747144465
+        },
+        {
+          "actual": 0.04947159599306389,
+          "biasTorque": 0.1848760514561839,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0005284040069361146,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.18490449038870335,
+          "unit": "m",
+          "velocity": 0.000013927256430350692
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.5700157016014558,
+          "biasTorque": -0.6083500623335802,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 0.0000157016014559197,
+          "name": "right_arm_joint1",
+          "target": -1.5699999999999998,
+          "targetVelocity": 3.366449163877405e-14,
+          "torque": -0.5320715770967581,
+          "unit": "rad",
+          "velocity": -0.0000681005243446103
+        },
+        {
+          "actual": 2.1999999316477052,
+          "biasTorque": -6.3132414784137385,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 6.835229493518113e-8,
+          "name": "right_arm_joint2",
+          "target": 2.2,
+          "targetVelocity": -1.023627065613339e-117,
+          "torque": -6.312465344723023,
+          "unit": "rad",
+          "velocity": -6.737301787778487e-7
+        },
+        {
+          "actual": -1.4000000936629822,
+          "biasTorque": 3.5887179222328633,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": 9.366298225899072e-8,
+          "name": "right_arm_joint3",
+          "target": -1.4,
+          "targetVelocity": -1.6025476407528078e-76,
+          "torque": 3.5891659757635352,
+          "unit": "rad",
+          "velocity": -7.096149188514863e-7
+        },
+        {
+          "actual": 5.28335427442897e-7,
+          "biasTorque": -0.05931714258323961,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -5.28335427442897e-7,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.05971842091937596,
+          "unit": "rad",
+          "velocity": 0.000002303168232460207
+        },
+        {
+          "actual": -0.0000073609605097677804,
+          "biasTorque": -0.005606473260198915,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000073609605097677804,
+          "name": "right_arm_joint5",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.00005071986418599128,
+          "unit": "rad",
+          "velocity": -0.000031893736191810144
+        },
+        {
+          "actual": 4.547888021465073e-7,
+          "biasTorque": -0.06092310856476932,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -4.547888021465073e-7,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.0611460008687728,
+          "unit": "rad",
+          "velocity": 0.0000019901205789051565
+        }
+      ],
+      "rms": 0.000007085471566002953,
+      "time": 21.118000000002827,
+      "torso": [
+        {
+          "actual": 3.226472005858905e-9,
+          "biasTorque": -8.108813826957764,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -3.226472005858905e-9,
+          "name": "torso_joint1",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -8.108938983392669,
+          "unit": "rad",
+          "velocity": 2.6347161972494937e-8
+        },
+        {
+          "actual": 0.06000001942069762,
+          "biasTorque": -8.07145843139744,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -1.942069761950993e-8,
+          "name": "torso_joint2",
+          "target": 0.06,
+          "targetVelocity": 1.8598501923668577e-44,
+          "torque": -8.072012142490621,
+          "unit": "rad",
+          "velocity": 1.0341239787546912e-7
+        },
+        {
+          "actual": -3.1586302408662334e-8,
+          "biasTorque": 2.8564498529794955,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 3.1586302408662334e-8,
+          "name": "torso_joint3",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": 2.857325521159509,
+          "unit": "rad",
+          "velocity": -1.613163583504519e-7
+        },
+        {
+          "actual": -0.5351738436890996,
+          "biasTorque": -0.0044458795376634015,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.0004855808252219873,
+          "name": "torso_joint4",
+          "target": -0.5346882628638776,
+          "targetVelocity": -0.4635613734428933,
+          "torque": 0.2896330503226636,
+          "unit": "rad",
+          "velocity": -0.4629676944423013
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210895,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.03089062761154
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213288,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782376,
+          "y": 452.2674586221132
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7799999830085267,
+          0.7179960594999572,
+          -0.14000066340211528
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.128062153419,
+          "y": 424.1167745506906
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 4,
+    "at": 1792053267508,
+    "state": "face_observer",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.050169415072655155,
+          "biasTorque": -0.18257914408011716,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00016941507265515188,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.059285997701724824,
+          "unit": "m",
+          "velocity": -0.000003496608025420152
+        },
+        {
+          "actual": 0.0494784339594884,
+          "biasTorque": 0.1824656202347394,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0005215660405116021,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.18252168678001723,
+          "unit": "m",
+          "velocity": 0.00000995793608216517
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.570053071271669,
+          "biasTorque": -0.4971132609525966,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 0.00005307127166886971,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": 5.09545391259948e-15,
+          "torque": -0.2526511314235904,
+          "unit": "rad",
+          "velocity": -0.00006803299450217931
+        },
+        {
+          "actual": 2.199999539381599,
+          "biasTorque": -6.528566305333875,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 4.606184011990422e-7,
+          "name": "right_arm_joint2",
+          "target": 2.2,
+          "targetVelocity": -6.405375865230497e-171,
+          "torque": -6.52609478051636,
+          "unit": "rad",
+          "velocity": -7.608825313350187e-7
+        },
+        {
+          "actual": -1.4000005006384286,
+          "biasTorque": 3.49741065139135,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": 5.006384287131738e-7,
+          "name": "right_arm_joint3",
+          "target": -1.4,
+          "targetVelocity": -1.0027988049348364e-129,
+          "torque": 3.498842756121121,
+          "unit": "rad",
+          "velocity": -7.765102504119919e-7
+        },
+        {
+          "actual": 0.000001792770618379322,
+          "biasTorque": -0.05895715897689002,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.000001792770618379322,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.060243222792129826,
+          "unit": "rad",
+          "velocity": 0.0000023031124220837703
+        },
+        {
+          "actual": -0.00002485921157317765,
+          "biasTorque": 0.006013332350722232,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.00002485921157317765,
+          "name": "right_arm_joint5",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": 0.023820072580073955,
+          "unit": "rad",
+          "velocity": -0.00003184969770306038
+        },
+        {
+          "actual": 0.0000015477515017977328,
+          "biasTorque": -0.06033661495573825,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.0000015477515017977328,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.061050976616793914,
+          "unit": "rad",
+          "velocity": 0.0000019915449853490978
+        }
+      ],
+      "rms": 0.000023946512084018456,
+      "time": 21.667000000003497,
+      "torso": [
+        {
+          "actual": 2.3458909529196873e-8,
+          "biasTorque": -8.09175526100588,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -2.3458909529196873e-8,
+          "name": "torso_joint1",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -8.092366430005974,
+          "unit": "rad",
+          "velocity": 4.409531822305757e-8
+        },
+        {
+          "actual": 0.06000008716179243,
+          "biasTorque": -8.05476544052096,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -8.716179242945765e-8,
+          "name": "torso_joint2",
+          "target": 0.06,
+          "targetVelocity": 1.1638066181840231e-97,
+          "torque": -8.056953258181466,
+          "unit": "rad",
+          "velocity": 1.3600226906326965e-7
+        },
+        {
+          "actual": -1.350241629416151e-7,
+          "biasTorque": 2.84002616670427,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 1.350241629416151e-7,
+          "name": "torso_joint3",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": 2.843398592626084,
+          "unit": "rad",
+          "velocity": -2.0505946563251553e-7
+        },
+        {
+          "actual": -0.7521935135710148,
+          "biasTorque": -0.00511756912422417,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.000378592892252394,
+          "name": "torso_joint4",
+          "target": -0.7518149206787624,
+          "targetVelocity": -0.30151618548566794,
+          "torque": 0.9610417871590472,
+          "unit": "rad",
+          "velocity": -0.2993616377014223
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210985,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.03089062760847
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213373,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782377,
+          "y": 452.2674586221103
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7800000129573014,
+          0.717996056363857,
+          -0.14000068081758463
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.128073632181,
+          "y": 424.1167759133895
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 5,
+    "at": 1792053268061,
+    "state": "shy",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer",
+      "shy"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05022549277969358,
+          "biasTorque": -0.17988153001072388,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00022549277969357431,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.07909160734262954,
+          "unit": "m",
+          "velocity": 0.00003053265603095783
+        },
+        {
+          "actual": 0.04949741205180041,
+          "biasTorque": 0.17988596099548715,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.000502587948199594,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.1786811263554391,
+          "unit": "m",
+          "velocity": -0.0010956774955919802
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.5702043682960285,
+          "biasTorque": -0.4316848398874026,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 0.00020436829602821227,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": 2.476837225794059e-14,
+          "torque": 0.6101940536473194,
+          "unit": "rad",
+          "velocity": -0.0013852016622836652
+        },
+        {
+          "actual": 2.196080880086724,
+          "biasTorque": -6.624206530371872,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.00031235528672368673,
+          "name": "right_arm_joint2",
+          "target": 2.1957685248,
+          "targetVelocity": -0.12203361078251164,
+          "torque": -7.704333486439282,
+          "unit": "rad",
+          "velocity": -0.13431190234865725
+        },
+        {
+          "actual": -1.3974630868978928,
+          "biasTorque": 3.421176931416218,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": 0.000001972017892759581,
+          "name": "right_arm_joint3",
+          "target": -1.39746111488,
+          "targetVelocity": 0.0732201664694794,
+          "torque": 3.514184034650043,
+          "unit": "rad",
+          "velocity": 0.07614176061321284
+        },
+        {
+          "actual": 0.000006989594637136206,
+          "biasTorque": -0.07076445095905481,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.000006989594637136206,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.07723588480264175,
+          "unit": "rad",
+          "velocity": 0.00015081194469422323
+        },
+        {
+          "actual": 0.013906336756728569,
+          "biasTorque": 0.023947885121574048,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0004806789232714541,
+          "name": "right_arm_joint5",
+          "target": 0.01438701568000002,
+          "targetVelocity": 0.4149142766604717,
+          "torque": 0.31415827338093294,
+          "unit": "rad",
+          "velocity": 0.4468494986011115
+        },
+        {
+          "actual": 0.000007590705677845329,
+          "biasTorque": -0.0598964574884073,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.000007590705677845329,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.06471982812125285,
+          "unit": "rad",
+          "velocity": 0.00016725615620921108
+        }
+      ],
+      "rms": 0.00024849373397316764,
+      "time": 22.232000000004188,
+      "torso": [
+        {
+          "actual": 0.009657718328612166,
+          "biasTorque": -8.34975665870503,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.0009209696713878489,
+          "name": "torso_joint1",
+          "target": 0.010578688000000017,
+          "targetVelocity": 0.30508402695622916,
+          "torque": 18.68685897695497,
+          "unit": "rad",
+          "velocity": 0.31468686999336765
+        },
+        {
+          "actual": 0.03849466369946449,
+          "biasTorque": -7.071992622385096,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.00007518721946452034,
+          "name": "torso_joint2",
+          "target": 0.03841947647999997,
+          "targetVelocity": -0.6223714149907067,
+          "torque": 0.1507260721308512,
+          "unit": "rad",
+          "velocity": -0.6777621369289574
+        },
+        {
+          "actual": -0.012292436878602108,
+          "biasTorque": 2.83708733411988,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0004019887213979091,
+          "name": "torso_joint3",
+          "target": -0.012694425600000015,
+          "targetVelocity": -0.36610083234747487,
+          "torque": -6.0450911174513635,
+          "unit": "rad",
+          "velocity": -0.3901168625704621
+        },
+        {
+          "actual": -0.8330114610159705,
+          "biasTorque": -0.005020289228567146,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.000030194341538725133,
+          "name": "torso_joint4",
+          "target": -0.8329812666744317,
+          "targetVelocity": -2.6014883168960803e-9,
+          "torque": 0.4739168424421223,
+          "unit": "rad",
+          "velocity": 0.0004547253386860856
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210891,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.03089062761165
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213204,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782374,
+          "y": 452.26745862211624
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7800000081984045,
+          0.7179960484097799,
+          -0.14000067986199943
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.1280720473169,
+          "y": 424.1167783034559
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 6,
+    "at": 1792053268678,
+    "state": "shy",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer",
+      "shy"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05018939474259574,
+          "biasTorque": -0.167207605686333,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00018939474259573735,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.06020794438592603,
+          "unit": "m",
+          "velocity": -0.002207888257312607
+        },
+        {
+          "actual": 0.04955803666521825,
+          "biasTorque": 0.16720588387885107,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0004419633347817545,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.15038679457953918,
+          "unit": "m",
+          "velocity": 0.0013778261183255052
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.5699022919738348,
+          "biasTorque": -0.32856429777913254,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.0000977080261652663,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": -3.7324500056529795e-19,
+          "torque": -0.39082153626077343,
+          "unit": "rad",
+          "velocity": -0.004310370348008662
+        },
+        {
+          "actual": 2.0999806161893257,
+          "biasTorque": -8.041850708598405,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 0.000019383810674344915,
+          "name": "right_arm_joint2",
+          "target": 2.1,
+          "targetVelocity": -0.0000027535788700195724,
+          "torque": -8.393452918078765,
+          "unit": "rad",
+          "velocity": 0.0047900753509094495
+        },
+        {
+          "actual": -1.3399002988480253,
+          "biasTorque": 2.9261738776784494,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": -0.00009970115197455164,
+          "name": "right_arm_joint3",
+          "target": -1.34,
+          "targetVelocity": 0.0000016521473220106878,
+          "torque": 2.619949570726021,
+          "unit": "rad",
+          "velocity": 0.0008441525525264965
+        },
+        {
+          "actual": -0.00002167516314774435,
+          "biasTorque": -0.33612814941351066,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.00002167516314774435,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.3129043546835326,
+          "unit": "rad",
+          "velocity": -0.0005161344823212576
+        },
+        {
+          "actual": 0.3402075622321288,
+          "biasTorque": 0.33260470695099614,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.00020756223212875513,
+          "name": "right_arm_joint5",
+          "target": 0.34,
+          "targetVelocity": 0.0000093621681580611,
+          "torque": 0.3560475281710751,
+          "unit": "rad",
+          "velocity": -0.0120431109475585
+        },
+        {
+          "actual": -0.0000071591753914031015,
+          "biasTorque": -0.06337318066875319,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000071591753914031015,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.06012946128659138,
+          "unit": "rad",
+          "velocity": 0.000012816726269195942
+        }
+      ],
+      "rms": 0.00010284783006498914,
+      "time": 22.70700000000477,
+      "torso": [
+        {
+          "actual": 0.2508065742827383,
+          "biasTorque": -21.142199141858075,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0008065742827382816,
+          "name": "torso_joint1",
+          "target": 0.25,
+          "targetVelocity": 0.000006883947175044838,
+          "torque": -29.300609967396667,
+          "unit": "rad",
+          "velocity": -0.021230807144554328
+        },
+        {
+          "actual": -0.4499308825834297,
+          "biasTorque": 11.525655685491532,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0000691174165702857,
+          "name": "torso_joint2",
+          "target": -0.45,
+          "targetVelocity": -0.000014043252237091832,
+          "torque": 6.0481885959252395,
+          "unit": "rad",
+          "velocity": 0.006367261106591323
+        },
+        {
+          "actual": -0.30035571361899926,
+          "biasTorque": 4.903850555442178,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.000355713618999276,
+          "name": "torso_joint3",
+          "target": -0.3,
+          "targetVelocity": -0.000008260736610053781,
+          "torque": 7.263801777054141,
+          "unit": "rad",
+          "velocity": 0.011473690711197797
+        },
+        {
+          "actual": -0.8329775451761556,
+          "biasTorque": -0.01036624668015223,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0000037214982760991337,
+          "name": "torso_joint4",
+          "target": -0.8329812666744317,
+          "targetVelocity": 1.5489000908005606e-22,
+          "torque": 0.24336099791617016,
+          "unit": "rad",
+          "velocity": -0.0006184947538615465
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061211066,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795174,
+          "y": 443.0308906276056
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213115,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782373,
+          "y": 452.26745862211936
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7800000063383837,
+          0.7179960610853565,
+          -0.14000066561187194
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.1280691810879,
+          "y": 424.11677499212067
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 7,
+    "at": 1792053269382,
+    "state": "shy",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer",
+      "shy",
+      "shy"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05016483092510505,
+          "biasTorque": -0.1674555335924446,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00016483092510504588,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.05791653222347648,
+          "unit": "m",
+          "velocity": 0.00008502422201959327
+        },
+        {
+          "actual": 0.04952377787168845,
+          "biasTorque": 0.16745560465036466,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0004762221283115542,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.16660367977073776,
+          "unit": "m",
+          "velocity": 0.000028141490055444457
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.569977696908234,
+          "biasTorque": -0.1488796531987311,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.000022303091766096017,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": -3.4338020625777867e-15,
+          "torque": -0.2679902887348362,
+          "unit": "rad",
+          "velocity": 0.00021429842639635177
+        },
+        {
+          "actual": 2.065714491410952,
+          "biasTorque": -8.286306618170642,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": 0.000179389549047837,
+          "name": "right_arm_joint2",
+          "target": 2.06589388096,
+          "targetVelocity": -0.09020095999998212,
+          "torque": -7.972095508601342,
+          "unit": "rad",
+          "velocity": -0.08865287848938816
+        },
+        {
+          "actual": -1.3057686359816814,
+          "biasTorque": 2.886483663688365,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": -0.0001252449783184506,
+          "name": "right_arm_joint3",
+          "target": -1.3058938809599998,
+          "targetVelocity": 0.09020096000000864,
+          "torque": 2.8774390308790316,
+          "unit": "rad",
+          "velocity": 0.08818919000612428
+        },
+        {
+          "actual": -0.00000314727081685736,
+          "biasTorque": -0.42869546397653346,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.00000314727081685736,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.4257131146341891,
+          "unit": "rad",
+          "velocity": -0.00004157062265837507
+        },
+        {
+          "actual": 0.4598728569842307,
+          "biasTorque": 0.4505357628627083,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.0005014403442306081,
+          "name": "right_arm_joint5",
+          "target": 0.4593714166400001,
+          "targetVelocity": 0.31570336000000676,
+          "torque": 0.3815603969305243,
+          "unit": "rad",
+          "velocity": 0.3092671750041891
+        },
+        {
+          "actual": -0.0000026166748545472827,
+          "biasTorque": -0.06650364146026555,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000026166748545472827,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.06509758435232982,
+          "unit": "rad",
+          "velocity": -0.000025901453531461384
+        }
+      ],
+      "rms": 0.0002235410155977728,
+      "time": 23.299000000005492,
+      "torso": [
+        {
+          "actual": 0.24999442634010763,
+          "biasTorque": -20.962857913764573,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.000005573659892371685,
+          "name": "torso_joint1",
+          "target": 0.25,
+          "targetVelocity": 2.9316345295095523e-63,
+          "torque": -20.84150875924206,
+          "unit": "rad",
+          "velocity": 0.000028434174088153302
+        },
+        {
+          "actual": -0.4499999950403735,
+          "biasTorque": 11.601455078898848,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -4.959626487277546e-9,
+          "name": "torso_joint2",
+          "target": -0.45,
+          "targetVelocity": -1.2453513958322041e-16,
+          "torque": 11.578031704750174,
+          "unit": "rad",
+          "velocity": 0.000047312952172893
+        },
+        {
+          "actual": -0.2999983531957946,
+          "biasTorque": 4.905025422876545,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0000016468042053907617,
+          "name": "torso_joint3",
+          "target": -0.3,
+          "targetVelocity": -1.1597306250889462e-27,
+          "torque": 4.868694776385382,
+          "unit": "rad",
+          "velocity": -0.000007699076769461168
+        },
+        {
+          "actual": -0.8329770098011259,
+          "biasTorque": -0.01564983846630947,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.000004256873305852338,
+          "name": "torso_joint4",
+          "target": -0.8329812666744317,
+          "targetVelocity": 1.3508699295097776e-15,
+          "torque": -0.13829495808749925,
+          "unit": "rad",
+          "velocity": 0.00003882974871578288
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210815,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795171,
+          "y": 443.0308906276142
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.710995206121297,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782371,
+          "y": 452.2674586221244
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7799999945842852,
+          0.7179960580512592,
+          -0.14000067069394745
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.128066684315,
+          "y": 424.11677512011937
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 8,
+    "at": 1792053269960,
+    "state": "shy",
+    "running": true,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer",
+      "shy",
+      "shy",
+      "shy"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.05021702075174759,
+          "biasTorque": -0.16733403295646712,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00021702075174758612,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.07474733932480859,
+          "unit": "m",
+          "velocity": -0.0004558800428022327
+        },
+        {
+          "actual": 0.04951712312064656,
+          "biasTorque": 0.16737737089922747,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0004828768793534444,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.16960649814644313,
+          "unit": "m",
+          "velocity": -0.00022505592486645417
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.569848947331924,
+          "biasTorque": -0.22288077350923063,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.00015105266807613482,
+          "name": "right_arm_joint1",
+          "target": -1.5700000000000005,
+          "targetVelocity": -5.1740267002055524e-14,
+          "torque": -0.7186348661070951,
+          "unit": "rad",
+          "velocity": -0.0021480810723329227
+        },
+        {
+          "actual": 2.0946811688422837,
+          "biasTorque": -7.720561608822317,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.00011467156228350817,
+          "name": "right_arm_joint2",
+          "target": 2.09456649728,
+          "targetVelocity": 0.36236704000004966,
+          "torque": -7.182748968481974,
+          "unit": "rad",
+          "velocity": 0.37029228012255266
+        },
+        {
+          "actual": -1.3248457690736088,
+          "biasTorque": 2.9716812342471624,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": 0.0001554138736088451,
+          "name": "right_arm_joint3",
+          "target": -1.3246903552,
+          "targetVelocity": -0.2588336000000346,
+          "torque": 2.9881126420541477,
+          "unit": "rad",
+          "velocity": -0.26498771111442304
+        },
+        {
+          "actual": -0.000006137458859196089,
+          "biasTorque": -0.3543020719823819,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.000006137458859196089,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.35466576088628116,
+          "unit": "rad",
+          "velocity": 0.000279033145824733
+        },
+        {
+          "actual": 0.3609880487609964,
+          "biasTorque": 0.34678603143147146,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.000498246279003467,
+          "name": "right_arm_joint5",
+          "target": 0.36148629503999985,
+          "targetVelocity": -1.2424012799999995,
+          "torque": 0.14293791507020617,
+          "unit": "rad",
+          "velocity": -1.2704210260639757
+        },
+        {
+          "actual": -0.00000743835965946281,
+          "biasTorque": -0.06390169198016027,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.00000743835965946281,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.061734148500064194,
+          "unit": "rad",
+          "velocity": 0.000135263788222778
+        }
+      ],
+      "rms": 0.0002267385792699153,
+      "time": 23.832000000006143,
+      "torso": [
+        {
+          "actual": 0.18858364291863483,
+          "biasTorque": -17.83931461773905,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0003095309186348927,
+          "name": "torso_joint1",
+          "target": 0.1882741119999999,
+          "targetVelocity": -0.647083999999998,
+          "torque": -28.870526675592373,
+          "unit": "rad",
+          "velocity": -0.6720850868113307
+        },
+        {
+          "actual": -0.3230460586022029,
+          "biasTorque": 6.389601715645428,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.0010331298777969675,
+          "name": "torso_joint2",
+          "target": -0.3240791884799999,
+          "targetVelocity": 1.320051359999995,
+          "torque": 4.034773668893649,
+          "unit": "rad",
+          "velocity": 1.3421950014423245
+        },
+        {
+          "actual": -0.2256807800545576,
+          "biasTorque": 4.342098476068318,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.00024815434544231407,
+          "name": "torso_joint3",
+          "target": -0.22592893439999992,
+          "targetVelocity": 0.7765007999999968,
+          "torque": 8.14819706317121,
+          "unit": "rad",
+          "velocity": 0.7960485539496186
+        },
+        {
+          "actual": -0.8329664610345707,
+          "biasTorque": -0.05381168009854713,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.00001480563986111516,
+          "name": "torso_joint4",
+          "target": -0.8329812666744318,
+          "targetVelocity": -2.8120242634223192e-14,
+          "torque": -0.34377234501153,
+          "unit": "rad",
+          "velocity": -0.00012436775667541423
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.7144952061210844,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795173,
+          "y": 443.0308906276133
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213123,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782373,
+          "y": 452.2674586221191
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7799999722478421,
+          0.7179960641222976,
+          -0.14000065614727744
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.1280578876018,
+          "y": 424.11677299781144
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  },
+  {
+    "frame": 9,
+    "at": 1792053270462,
+    "state": "failed",
+    "running": false,
+    "message": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+    "reaction": "shy",
+    "history": [
+      "face_observer",
+      "shy",
+      "shy",
+      "shy"
+    ],
+    "telemetry": {
+      "fingers": [
+        {
+          "actual": 0.050164651347275824,
+          "biasTorque": -0.1814059745888693,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": -0.00016465134727582098,
+          "name": "right_gripper_finger_joint1",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": -0.05756132960025795,
+          "unit": "m",
+          "velocity": -0.00002162341921410453
+        },
+        {
+          "actual": 0.04949734947702492,
+          "biasTorque": 0.18140597285996263,
+          "effortLimit": 5,
+          "effortUnit": "N",
+          "error": 0.0005026505229750802,
+          "name": "right_gripper_finger_joint2",
+          "target": 0.05,
+          "targetVelocity": 0,
+          "torque": 0.17646838835779022,
+          "unit": "m",
+          "velocity": -0.00021151599405016305
+        }
+      ],
+      "joints": [
+        {
+          "actual": -1.5699492407137632,
+          "biasTorque": -0.45191380108046575,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.000050759286236878864,
+          "name": "right_arm_joint1",
+          "target": -1.57,
+          "targetVelocity": -4.531821573606118e-28,
+          "torque": -0.6751189247443108,
+          "unit": "rad",
+          "velocity": -0.00009404255060464192
+        },
+        {
+          "actual": 2.2000366253957124,
+          "biasTorque": -6.6313206466139025,
+          "effortLimit": 40,
+          "effortUnit": "N·m",
+          "error": -0.000036625395712253095,
+          "name": "right_arm_joint2",
+          "target": 2.2,
+          "targetVelocity": 4.680630511436912e-15,
+          "torque": -6.793543411995415,
+          "unit": "rad",
+          "velocity": -0.00006383519744760337
+        },
+        {
+          "actual": -1.3999430027466169,
+          "biasTorque": 3.4545221062073743,
+          "effortLimit": 27,
+          "effortUnit": "N·m",
+          "error": -0.00005699725338303985,
+          "name": "right_arm_joint3",
+          "target": -1.4,
+          "targetVelocity": -3.343307508170062e-15,
+          "torque": 3.306425125498663,
+          "unit": "rad",
+          "velocity": 0.000054352187395785525
+        },
+        {
+          "actual": -0.0000033825581367586618,
+          "biasTorque": -0.05882222575196938,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.0000033825581367586618,
+          "name": "right_arm_joint4",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.056496284305067875,
+          "unit": "rad",
+          "velocity": 0.000005797399069749448
+        },
+        {
+          "actual": 0.000022894258371100957,
+          "biasTorque": 0.010862075926857315,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": -0.000022894258371100957,
+          "name": "right_arm_joint5",
+          "target": 0,
+          "targetVelocity": -1.6047876039221747e-14,
+          "torque": -0.005817883946772812,
+          "unit": "rad",
+          "velocity": 0.00002976389055872921
+        },
+        {
+          "actual": -0.000004337644698390279,
+          "biasTorque": -0.06006016727711905,
+          "effortLimit": 7,
+          "effortUnit": "N·m",
+          "error": 0.000004337644698390279,
+          "name": "right_arm_joint6",
+          "target": 0,
+          "targetVelocity": 0,
+          "torque": -0.05814073876714354,
+          "unit": "rad",
+          "velocity": 0.000007338264470520501
+        }
+      ],
+      "rms": 0.00003587249543175506,
+      "time": 24.29900000000671,
+      "torso": [
+        {
+          "actual": 0.00034551762672524445,
+          "biasTorque": -8.208612895339115,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.00034551762672524445,
+          "name": "torso_joint1",
+          "target": 0,
+          "targetVelocity": -8.358268770427998e-15,
+          "torque": -16.821620106938585,
+          "unit": "rad",
+          "velocity": 0.0003445206075437575
+        },
+        {
+          "actual": 0.060205101705155195,
+          "biasTorque": -8.12640071469387,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": -0.00020510170515519732,
+          "name": "torso_joint2",
+          "target": 0.06,
+          "targetVelocity": 1.705086829167319e-14,
+          "torque": -13.079841461823662,
+          "unit": "rad",
+          "velocity": -0.00008014616576089412
+        },
+        {
+          "actual": -0.00009278117824186138,
+          "biasTorque": 2.8656699228819953,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 0.00009278117824186138,
+          "name": "torso_joint3",
+          "target": 0,
+          "targetVelocity": 1.0029922524513591e-14,
+          "torque": 5.23959149615167,
+          "unit": "rad",
+          "velocity": -0.0002020301627814325
+        },
+        {
+          "actual": -0.8329813839080745,
+          "biasTorque": -0.005361909622041654,
+          "effortLimit": 100,
+          "effortUnit": "N·m",
+          "error": 1.1723364279347949e-7,
+          "name": "torso_joint4",
+          "target": -0.8329812666744317,
+          "targetVelocity": 1.8806250147274096e-31,
+          "torque": 0.0009899268770823255,
+          "unit": "rad",
+          "velocity": -0.000005596790794828095
+        }
+      ]
+    },
+    "objects": [
+      {
+        "id": "red",
+        "position": [
+          0.78,
+          0.714495206121071,
+          0.14
+        ],
+        "screen": {
+          "visible": true,
+          "x": 573.8417398795171,
+          "y": 443.03089062761785
+        }
+      },
+      {
+        "id": "blue",
+        "position": [
+          1.106,
+          0.7109952061213145,
+          0
+        ],
+        "screen": {
+          "visible": true,
+          "x": 700.4226480782373,
+          "y": 452.2674586221183
+        }
+      },
+      {
+        "id": "yellow",
+        "position": [
+          0.7799999718756319,
+          0.7179960644347846,
+          -0.14000065236543136
+        ],
+        "screen": {
+          "visible": true,
+          "x": 625.12805713558,
+          "y": 424.1167731044628
+        }
+      }
+    ],
+    "evidence": {
+      "dual": false,
+      "lift": 0,
+      "maxSpeed": 2.1623452903167703e-11,
+      "stable": 0
+    }
+  }
+]
