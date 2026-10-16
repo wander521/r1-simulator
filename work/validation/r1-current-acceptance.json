@@ -1,0 +1,862 @@
+{
+  "passed": true,
+  "checksPassed": 27,
+  "checksTotal": 27,
+  "checks": [
+    {
+      "name": "baseline_36_passes",
+      "pass": true,
+      "evidence": {
+        "cases": 36,
+        "passed": 36
+      }
+    },
+    {
+      "name": "six_sort_combinations_three_passes_each",
+      "pass": true,
+      "evidence": [
+        {
+          "arm": "right",
+          "id": "red",
+          "cases": 3,
+          "repeats": [
+            1,
+            2,
+            3
+          ],
+          "valid": true
+        },
+        {
+          "arm": "right",
+          "id": "blue",
+          "cases": 3,
+          "repeats": [
+            1,
+            2,
+            3
+          ],
+          "valid": true
+        },
+        {
+          "arm": "right",
+          "id": "yellow",
+          "cases": 3,
+          "repeats": [
+            1,
+            2,
+            3
+          ],
+          "valid": true
+        },
+        {
+          "arm": "left",
+          "id": "red",
+          "cases": 3,
+          "repeats": [
+            1,
+            2,
+            3
+          ],
+          "valid": true
+        },
+        {
+          "arm": "left",
+          "id": "blue",
+          "cases": 3,
+          "repeats": [
+            1,
+            2,
+            3
+          ],
+          "valid": true
+        },
+        {
+          "arm": "left",
+          "id": "yellow",
+          "cases": 3,
+          "repeats": [
+            1,
+            2,
+            3
+          ],
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "both_arms_stack_three_passes_each",
+      "pass": true,
+      "evidence": {
+        "cases": 6,
+        "stableSeconds": [
+          3.00999999999998,
+          3.00999999999998,
+          3.00999999999998,
+          3.00999999999998,
+          3.00999999999998,
+          3.00999999999998
+        ]
+      }
+    },
+    {
+      "name": "edited_position_and_rotation_cases",
+      "pass": true,
+      "evidence": {
+        "cases": 12
+      }
+    },
+    {
+      "name": "final_six_cases_pass",
+      "pass": true,
+      "evidence": [
+        {
+          "arm": "right",
+          "stack": true,
+          "repeat": 1
+        },
+        {
+          "arm": "left",
+          "stack": true,
+          "repeat": 1
+        },
+        {
+          "recovery": "unreachable_stack"
+        },
+        {
+          "recovery": "failure_reset_then_sort"
+        },
+        {
+          "recovery": "stop_stack_mid_transfer"
+        },
+        {
+          "recovery": "stop_happy_mid_gesture"
+        }
+      ]
+    },
+    {
+      "name": "final_physics_source_hashes_match_current",
+      "pass": true,
+      "evidence": [
+        {
+          "path": "dist/r1/grasp-controller.mjs",
+          "expected": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+          "actual": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+          "match": true
+        },
+        {
+          "path": "dist/r1/grasp-kinematics.mjs",
+          "expected": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+          "actual": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+          "match": true
+        },
+        {
+          "path": "dist/r1/r1-dynamics.mjs",
+          "expected": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+          "actual": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+          "match": true
+        },
+        {
+          "path": "dist/r1/models/r1-dynamic-scene.xml",
+          "expected": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+          "actual": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+          "match": true
+        },
+        {
+          "path": "dist/r1/assets/r1.urdf",
+          "expected": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+          "actual": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+          "match": true
+        }
+      ]
+    },
+    {
+      "name": "final_both_arms_full_physical_stack",
+      "pass": true,
+      "evidence": [
+        {
+          "arm": "right",
+          "stableSeconds": 3.00999999999998,
+          "maxWristError": 0.002236393197388509
+        },
+        {
+          "arm": "left",
+          "stableSeconds": 3.00999999999998,
+          "maxWristError": 0.0022438553837195365
+        }
+      ]
+    },
+    {
+      "name": "failure_stop_reset_recoveries",
+      "pass": true,
+      "evidence": [
+        {
+          "scenario": {
+            "recovery": "unreachable_stack"
+          },
+          "reason": "目标超出自然臂姿可稳定抓取的范围，请调整位置或先转腰"
+        },
+        {
+          "scenario": {
+            "recovery": "failure_reset_then_sort"
+          }
+        },
+        {
+          "scenario": {
+            "recovery": "stop_stack_mid_transfer"
+          },
+          "state": "stopped"
+        },
+        {
+          "scenario": {
+            "recovery": "stop_happy_mid_gesture"
+          },
+          "state": "stopped"
+        }
+      ]
+    },
+    {
+      "name": "screen_trace_continuous_frames",
+      "pass": true,
+      "evidence": {
+        "frames": 193,
+        "simulationStart": 0.4920000000000004,
+        "simulationEnd": 52.77999999996769
+      }
+    },
+    {
+      "name": "screen_all_three_real_grasp_stages",
+      "pass": true,
+      "evidence": [
+        {
+          "itemIndex": 0,
+          "id": "blue",
+          "stages": {
+            "closing": 26,
+            "lift": 30,
+            "place": 43,
+            "release": 50
+          },
+          "ordered": true,
+          "lift": 0.12947995017943092,
+          "dual": true,
+          "releasedSupported": true
+        },
+        {
+          "itemIndex": 1,
+          "id": "red",
+          "stages": {
+            "closing": 14,
+            "lift": 18,
+            "place": 32,
+            "release": 38
+          },
+          "ordered": true,
+          "lift": 0.1295084587026778,
+          "dual": true,
+          "releasedSupported": true
+        },
+        {
+          "itemIndex": 2,
+          "id": "yellow",
+          "stages": {
+            "closing": 16,
+            "lift": 20,
+            "place": 34,
+            "release": 40
+          },
+          "ordered": true,
+          "lift": 0.12959148529905085,
+          "dual": true,
+          "releasedSupported": true
+        }
+      ]
+    },
+    {
+      "name": "screen_success_only_after_three_seconds_supported",
+      "pass": true,
+      "evidence": {
+        "firstHappyTime": 49.76599999997472,
+        "firstReactionTime": 47.30499999998045,
+        "observedStableSeconds": 3.082999999992815,
+        "stableCounter": 3.00999999999998,
+        "finalState": "complete",
+        "finalSupports": [
+          {
+            "id": "blue",
+            "supported": true,
+            "speed": 0.0000027586796849697637,
+            "error": 0.00015592386880493818,
+            "position": [
+              0.9001361603268323,
+              0.7109868683550997,
+              -0.00007551887127137588
+            ]
+          },
+          {
+            "id": "red",
+            "supported": true,
+            "speed": 0.000013741808586236974,
+            "error": 0.00021947283964925232,
+            "position": [
+              0.9003728808913595,
+              0.7524692581663933,
+              -0.000038325981697038374
+            ]
+          },
+          {
+            "id": "yellow",
+            "supported": true,
+            "speed": 0.0000471873381777331,
+            "error": 0.00021166072596478432,
+            "position": [
+              0.9006206849545693,
+              0.8009601797673302,
+              0.005969991530979048
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "screen_physics_rms_finite",
+      "pass": true,
+      "evidence": {
+        "maximumRms": 0.0013467536694742176
+      }
+    },
+    {
+      "name": "screen_genuine_unreachable_shy_failure",
+      "pass": true,
+      "evidence": {
+        "frames": 10,
+        "states": [
+          "face_observer",
+          "shy",
+          "failed"
+        ],
+        "reason": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+        "finalRunning": false,
+        "allFramesShyWithoutHappy": true,
+        "blue": {
+          "start": [
+            1.106,
+            0.7109952061213387,
+            0
+          ],
+          "maximumDisplacement": 4.1744385725905886e-14,
+          "tableHeight": 0.692,
+          "halfHeight": 0.019,
+          "maximumBottomHeightError": 0.000004793878703002186,
+          "evidence": "Recorded physical positions keep the block bottom at the source table height; this trace does not include contact-force samples."
+        },
+        "torso": {
+          "sourcePitchAxes": [
+            1,
+            1,
+            -1
+          ],
+          "shySamples": [
+            {
+              "frame": 5,
+              "actual": [
+                0.009657718328612166,
+                0.03849466369946449,
+                -0.012292436878602108
+              ],
+              "target": [
+                0.010578688000000017,
+                0.03841947647999997,
+                -0.012694425600000015
+              ],
+              "pitch": 0.06044481890667877,
+              "maximumError": 0.0009209696713878505,
+              "atBowedTarget": false
+            },
+            {
+              "frame": 6,
+              "actual": [
+                0.2508065742827383,
+                -0.4499308825834297,
+                -0.30035571361899926
+              ],
+              "target": [
+                0.25,
+                -0.45,
+                -0.3
+              ],
+              "pitch": 0.10123140531830782,
+              "maximumError": 0.0008065742827382816,
+              "atBowedTarget": true
+            },
+            {
+              "frame": 7,
+              "actual": [
+                0.24999442634010763,
+                -0.4499999950403735,
+                -0.2999983531957946
+              ],
+              "target": [
+                0.25,
+                -0.45,
+                -0.3
+              ],
+              "pitch": 0.0999927844955287,
+              "maximumError": 0.000005573659892371685,
+              "atBowedTarget": true
+            },
+            {
+              "frame": 8,
+              "actual": [
+                0.18858364291863483,
+                -0.3230460586022029,
+                -0.2256807800545576
+              ],
+              "target": [
+                0.1882741119999999,
+                -0.3240791884799999,
+                -0.22592893439999992
+              ],
+              "pitch": 0.09121836437098951,
+              "maximumError": 0.0010331298777969677,
+              "atBowedTarget": false
+            }
+          ],
+          "bowedTargetReached": true
+        }
+      }
+    },
+    {
+      "name": "failure_operation_video_valid_container",
+      "pass": true,
+      "evidence": {
+        "bytes": 248867,
+        "duration": 5.188,
+        "atoms": [
+          "ftyp",
+          "moov",
+          "mvhd",
+          "trak",
+          "udta",
+          "free",
+          "mdat"
+        ]
+      }
+    },
+    {
+      "name": "loading_progress_monotonic_to_100",
+      "pass": true,
+      "evidence": {
+        "samples": 100,
+        "start": 5,
+        "end": 100,
+        "distinct": 59
+      }
+    },
+    {
+      "name": "paired_screenshots_same_viewport",
+      "pass": true,
+      "evidence": [
+        {
+          "mode": "desktop",
+          "reference": {
+            "width": 1280,
+            "height": 800
+          },
+          "r1": {
+            "width": 1280,
+            "height": 800
+          },
+          "sameViewport": true
+        },
+        {
+          "mode": "narrow",
+          "reference": {
+            "width": 390,
+            "height": 844
+          },
+          "r1": {
+            "width": 390,
+            "height": 844
+          },
+          "sameViewport": true
+        }
+      ]
+    },
+    {
+      "name": "stack_operation_video_valid_container",
+      "pass": true,
+      "evidence": {
+        "bytes": 1663596,
+        "duration": 55.688,
+        "atoms": [
+          "ftyp",
+          "moov",
+          "mvhd",
+          "trak",
+          "udta",
+          "free",
+          "mdat"
+        ]
+      }
+    },
+    {
+      "name": "browser_manual_joint_and_guides",
+      "pass": true,
+      "evidence": {
+        "joint": {
+          "name": "right_arm_joint6",
+          "target": 0.0102,
+          "actual": 0.010200024739052762,
+          "error": -2.4739052761207914e-8,
+          "velocity": -0.0000013899579878406366,
+          "targetVelocity": 1.2967236152753119e-19,
+          "torque": -0.061880062255474044,
+          "biasTorque": -0.06188147537806793,
+          "effortLimit": 7,
+          "unit": "rad",
+          "effortUnit": "N·m"
+        },
+        "guides": {
+          "lines": 7,
+          "pressed": "true"
+        }
+      }
+    },
+    {
+      "name": "browser_tcp_drag_finishes_and_restores_orbit",
+      "pass": true,
+      "evidence": {
+        "tcp": {
+          "x": 357.9399129036414,
+          "y": 389.1731953905322,
+          "visible": true
+        },
+        "drag": null,
+        "orbit": true,
+        "joints": [
+          {
+            "name": "right_arm_joint1",
+            "target": -1.5414523450190922,
+            "actual": -1.5414172092899492
+          },
+          {
+            "name": "right_arm_joint2",
+            "target": 2.2142849806796745,
+            "actual": 2.2142285073191728
+          },
+          {
+            "name": "right_arm_joint3",
+            "target": -1.394995123174323,
+            "actual": -1.395040720371114
+          },
+          {
+            "name": "right_arm_joint4",
+            "target": -0.37273254622763563,
+            "actual": -0.372226674368742
+          },
+          {
+            "name": "right_arm_joint5",
+            "target": -0.024260342315319455,
+            "actual": -0.02423500058373559
+          },
+          {
+            "name": "right_arm_joint6",
+            "target": 0.39345908475755365,
+            "actual": 0.3929796356192143
+          }
+        ]
+      }
+    },
+    {
+      "name": "browser_gripper_closed",
+      "pass": true,
+      "evidence": [
+        {
+          "name": "right_gripper_finger_joint1",
+          "target": 0,
+          "actual": 0.0005472614427310892,
+          "error": -0.0005472614427310892,
+          "velocity": -5.53521181971706e-8,
+          "targetVelocity": 0,
+          "torque": -0.19154135196640018,
+          "biasTorque": -0.1915413780032912,
+          "effortLimit": 5,
+          "unit": "m",
+          "effortUnit": "N"
+        },
+        {
+          "name": "right_gripper_finger_joint2",
+          "target": 0,
+          "actual": -0.0001770805404198305,
+          "error": 0.0001770805404198305,
+          "velocity": -8.785952863529311e-8,
+          "targetVelocity": 0,
+          "torque": 0.061978457605718754,
+          "biasTorque": 0.19154137800339469,
+          "effortLimit": 5,
+          "unit": "m",
+          "effortUnit": "N"
+        }
+      ]
+    },
+    {
+      "name": "browser_camera_controls",
+      "pass": true,
+      "evidence": {
+        "column": true,
+        "feedsHidden": true,
+        "modelButton": "false"
+      }
+    },
+    {
+      "name": "browser_object_move_separate_from_orbit",
+      "pass": true,
+      "evidence": {
+        "keyboardBlue": {
+          "id": "blue",
+          "position": [
+            0.792,
+            0.7109952061213328,
+            0
+          ]
+        },
+        "orbitCamera": [
+          1.665905681073836,
+          1.949112756222907,
+          3.0962885995180693
+        ]
+      }
+    },
+    {
+      "name": "browser_object_drag_and_rotation",
+      "pass": true,
+      "evidence": {
+        "drag": {
+          "camera": [
+            2.5000000000000004,
+            1.4999999999999996,
+            2.7500000000000004
+          ],
+          "objects": [
+            {
+              "id": "red",
+              "position": [
+                0.78,
+                0.7144952061211054,
+                0.14
+              ],
+              "screen": {
+                "x": 573.8417398795174,
+                "y": 443.03089062760614,
+                "visible": true
+              }
+            },
+            {
+              "id": "blue",
+              "position": [
+                0.8161543439544832,
+                0.71099520517608,
+                0.01898665071764638
+              ],
+              "screen": {
+                "x": 607.3331650456589,
+                "y": 438.0488827038317,
+                "visible": true
+              }
+            },
+            {
+              "id": "yellow",
+              "position": [
+                0.7799999785916154,
+                0.7179960532155283,
+                -0.14000070060802272
+              ],
+              "screen": {
+                "x": 625.1280672269739,
+                "y": 424.116774157712,
+                "visible": true
+              }
+            }
+          ],
+          "drag": null,
+          "orbit": true
+        },
+        "rotate": {
+          "drag": "rotate",
+          "orbit": false,
+          "camera": [
+            2.5000000000000004,
+            1.4999999999999996,
+            2.7500000000000004
+          ]
+        }
+      }
+    },
+    {
+      "name": "browser_narrow_layout_and_control_dismissal",
+      "pass": true,
+      "evidence": {
+        "narrow": {
+          "panel": {
+            "bottom": 2134.78125,
+            "height": 1645.265625,
+            "left": 0,
+            "right": 390,
+            "top": 489.515625,
+            "width": 390,
+            "x": 0,
+            "y": 489.515625
+          },
+          "scrollWidth": 390,
+          "viewport": {
+            "bottom": 489.515625,
+            "height": 489.515625,
+            "left": 0,
+            "right": 390,
+            "top": 0,
+            "width": 390,
+            "x": 0,
+            "y": 0
+          },
+          "width": 390
+        },
+        "narrowChip": {
+          "open": true,
+          "slider": {
+            "bottom": 303.5,
+            "height": 28,
+            "left": 206,
+            "right": 375,
+            "top": 275.5,
+            "width": 169,
+            "x": 206,
+            "y": 275.5
+          },
+          "width": 390
+        },
+        "outsideClose": true
+      }
+    },
+    {
+      "name": "browser_gripper_close_then_reopen",
+      "pass": true,
+      "evidence": {
+        "closed": [
+          {
+            "name": "right_gripper_finger_joint1",
+            "target": 0,
+            "actual": 0.0005419234729761904,
+            "error": -0.0005419234729761904,
+            "velocity": 1.7922827618919774e-10,
+            "targetVelocity": 0,
+            "torque": -0.18967321602914472,
+            "biasTorque": -0.18967321230061637,
+            "effortLimit": 5,
+            "unit": "m",
+            "effortUnit": "N"
+          },
+          {
+            "name": "right_gripper_finger_joint2",
+            "target": 0,
+            "actual": -0.00017543865315847689,
+            "error": 0.00017543865315847689,
+            "velocity": 1.4849945628108445e-10,
+            "targetVelocity": 0,
+            "torque": 0.061403528107001566,
+            "biasTorque": 0.18967321230061637,
+            "effortLimit": 5,
+            "unit": "m",
+            "effortUnit": "N"
+          }
+        ],
+        "opened": [
+          {
+            "name": "right_gripper_finger_joint1",
+            "target": 0.05,
+            "actual": 0.050175564084055845,
+            "error": -0.00017556408405584173,
+            "velocity": -2.306113117262004e-8,
+            "targetVelocity": 0,
+            "torque": -0.06144736588768396,
+            "biasTorque": -0.18967321255493008,
+            "effortLimit": 5,
+            "unit": "m",
+            "effortUnit": "N"
+          },
+          {
+            "name": "right_gripper_finger_joint2",
+            "target": 0.05,
+            "actual": 0.04945807650625877,
+            "error": 0.0005419234937412351,
+            "velocity": -1.4772684779945995e-9,
+            "targetVelocity": 0,
+            "torque": 0.18967322758833305,
+            "biasTorque": 0.18967321255492978,
+            "effortLimit": 5,
+            "unit": "m",
+            "effortUnit": "N"
+          }
+        ]
+      }
+    },
+    {
+      "name": "browser_left_arm_and_wrist_camera",
+      "pass": true,
+      "evidence": {
+        "names": [
+          "left_arm_joint1",
+          "left_arm_joint2",
+          "left_arm_joint3",
+          "left_arm_joint4",
+          "left_arm_joint5",
+          "left_arm_joint6"
+        ],
+        "wrist": {
+          "position": [
+            -0.08854820285914625,
+            0.8560295140890976,
+            -0.27964922438932016
+          ],
+          "direction": [
+            0.4634233862531281,
+            -0.6318931429785065,
+            0.6212485983327681
+          ],
+          "fov": 62.82,
+          "modelVisible": true
+        }
+      }
+    },
+    {
+      "name": "browser_stop_and_reset_states",
+      "pass": true,
+      "evidence": {
+        "stopped": {
+          "state": "stopped",
+          "running": false,
+          "reaction": null
+        },
+        "reset": {
+          "state": "idle",
+          "running": false,
+          "history": []
+        }
+      }
+    }
+  ],
+  "details": {
+    "additionalBrowserEvidence": {},
+    "artifactRoot": "/Users/wander/PyProjects/people/r1-simulator/work/validation/",
+    "evidenceScope": {
+      "baseline": "36 saved simulations before reaction-centering adjustment",
+      "final": "Current-source-hashed two-arm full stacks and four recovery scenarios",
+      "screen": "Saved success and genuine unreachable-failure browser traces, paired screenshots, and R1 operation videos",
+      "touchHardwareTested": false
+    },
+    "limitations": [
+      "Physical touchscreen hardware input was not tested.",
+      "Screenshot checks verify file dimensions and pairing; visual fidelity still requires human/rendered-image review.",
+      "The R1 operation recording is verified as an MP4 container with duration; this script does not inspect every decoded video frame."
+    ]
+  }
+}

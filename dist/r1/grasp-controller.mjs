@@ -1,5 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
-import {solvePose,tcpPose} from './grasp-kinematics.mjs?v=20261015-6';
+import {solvePose,tcpPose,naturalArmLimits} from './grasp-kinematics.mjs?v=20261015-6';
 
 export const TABLE_HEIGHT = .692;
 export const REST_TORSO = {torso_joint1:0,torso_joint2:.06,torso_joint3:0,torso_joint4:0};
@@ -7,15 +7,27 @@ export const CROUCH = {torso_joint1:1.45,torso_joint2:-2.35,torso_joint3:-.8,tor
 export const REST = {}, SPREAD = {};
 for (const arm of ['right','left']) {
   const sign = arm === 'right' ? 1 : -1;
-  REST[arm] = Object.fromEntries([-1.57*sign,2.20,-1.40,0,0,0].map((v,i)=>[`${arm}_arm_joint${i+1}`,v]));
-  SPREAD[arm] = Object.fromEntries([.64*sign,1.04,-1.35,.1*sign,.3*sign,.02*sign].map((v,i)=>[`${arm}_arm_joint${i+1}`,v]));
+  // Native shoulder axes are mirrored. Compensate the small standing torso
+  // pitch so both upper arms and forearms hang beside the body, not akimbo.
+  // Split the half-turn across the two source +X roll joints (neither can
+  // reach PI alone). Actual wrist pitch keeps the native Realsense +Z lens
+  // face pointing forward after that turn; no mesh/frame remount is used.
+  REST[arm] = Object.fromEntries([(Math.PI/2+.06)*sign,.06,-Math.PI-.06,-2.7*sign,.7*sign,-(Math.PI-2.7)*sign].map((v,i)=>[`${arm}_arm_joint${i+1}`,v]));
+  // Open the shoulders without unwinding the already camera-facing forearm.
+  SPREAD[arm] = Object.fromEntries([.64*sign,1.04,-1.35,-2.7*sign,0,-(Math.PI-2.7)*sign].map((v,i)=>[`${arm}_arm_joint${i+1}`,v]));
 }
 const idlePose = {...REST_TORSO,...REST.right,...REST.left};
 const smooth = t => {t=THREE.MathUtils.clamp(t,0,1);return t*t*(3-2*t);};
 const mix = (a,b,t) => Object.fromEntries(Object.keys(b).map(k=>[k,THREE.MathUtils.lerp(a[k]??b[k],b[k],t)]));
 const toMJ = p => [p.x,-p.z,p.y];
 const basis = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),Math.PI/2);
-const gripRotation = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1,0,0),new THREE.Vector3(0,0,1),new THREE.Vector3(0,-1,0)));
+// Parallel fingers admit a true native +X half-turn: the two jaws exchange
+// sides, while the source camera moves above the wrist and looks down/front.
+// A 20-degree downward tool pitch keeps the original bulky palm/forearm above
+// the table while the unchanged fingertip TCP reaches the object centre.
+const gripRotation = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1,0,0),new THREE.Vector3(0,0,1),new THREE.Vector3(0,-1,0)))
+  .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),Math.PI))
+  .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),Math.PI/9));
 
 export class GraspController {
   constructor(api,model,data,robot,targets,dynamics=null) {
@@ -88,12 +100,7 @@ export class GraspController {
     const p=this.objectPose().position,j=this.model.body_jntadr[b],d=this.model.jnt_dofadr[j];
     return {count:hits.size,force:forces.reduce((s,v)=>s+v,0),forces,table,support,position:p,speed:Math.hypot(...this.data.qvel.subarray(d,d+3)),distance:p.distanceTo(this.planData?.drop||target.drop),contacts};
   }
-  plan(target,twist=.3,yaw=0) {
-    this.crouch={...CROUCH,torso_joint4:this.arm==='right'?twist:-twist};
-    this.robot.setJointValues({...this.crouch,...SPREAD.right,...SPREAD.left});
-    const seedValues=this.arm==='right'?[-.55,3.13,-1.93,1.09,1.24,1.74]:[.55,3.13,-1.93,-1.09,-1.24,-1.74];
-    let seed=Object.fromEntries(seedValues.map((v,i)=>[`${this.arm}_arm_joint${i+1}`,v]));
-    const orientation=gripRotation.clone().premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),yaw));
+  placementEndpoints(target) {
     const start=this.objectPose(target.id).position,drop=target.drop.clone();
     // Keep the measured resting height when an object has been rotated onto
     // another face; the drop frame denotes XY, not a forced object rotation.
@@ -105,23 +112,66 @@ export class GraspController {
       drop.x=base.x;drop.z=base.z+(target.id==='yellow'?.006:0);
       if(this.itemIndex>0){const supportId=['blue','red'][this.itemIndex-1],support=this.objectPose(supportId).position,supportTarget=this.targets.find(t=>t.id===supportId);drop.x=support.x;drop.z=support.z+(target.id==='yellow'?.006:0);drop.y=support.y+supportTarget.h+target.h;}
     }
-    // Side-on pinch keeps the jaws horizontal and the wrist clear of the
-    // tabletop with the user's existing crouch. The original position-only
-    // IK had no such constraint and often pointed the jaws upward.
-    const solve=p=>{let result=solvePose(this.robot,this.arm,p,orientation,seed);
-      if(result.positionError>.003||result.angleError>.035) {
-        for(let k=0;k<12;k++) {
-          const guess=Object.fromEntries([Math.sin(k)*1.5,1.5+Math.cos(k)*1.3,-1.7,Math.sin(k*2)*2,0,Math.cos(k)*2].map((v,i)=>[`${this.arm}_arm_joint${i+1}`,v]));
-          const candidate=solvePose(this.robot,this.arm,p,orientation,guess);
-          if(candidate.positionError+.18*candidate.angleError<result.positionError+.18*result.angleError)result=candidate;
-          if(result.positionError<.001&&result.angleError<.01)break;
-        }
-      }
-      if(result.positionError>.003||result.angleError>.035){const error=new Error('目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动');error.detail={position:p.toArray(),positionError:result.positionError,angleError:result.angleError};throw error;}seed=result.pose;return {...this.crouch,...SPREAD.right,...SPREAD.left,...seed};};
+    return {start,drop};
+  }
+  waistAssistAngles(target) {
+    // Solve in the source pre-yaw frame, not an assumed world-Y frame: the
+    // native yaw axis follows the crouched torso's small pitch. Shoulder
+    // lateral offsets are mirrored in that frame and set the sign correctly.
+    this.robot.setJointValues({...CROUCH,torso_joint4:0,...SPREAD.right,...SPREAD.left});
+    this.robot.updateMatrixWorld(true);
+    const waist=this.robot.joints.torso_joint4,shoulder=waist.worldToLocal(this.robot.getObjectByName(`${this.arm}_arm_link2`).getWorldPosition(new THREE.Vector3()));
+    const {start,drop}=this.placementEndpoints(target),limit=waist.limit;
+    const lower=Math.max(-1,limit.lower+.002),upper=Math.min(1,limit.upper-.002);
+    const bearing=point=>{
+      const local=waist.worldToLocal(point.clone()),radius=Math.hypot(local.x,local.y);
+      return THREE.MathUtils.clamp(Math.atan2(local.y,local.x)-Math.asin(THREE.MathUtils.clamp(shoulder.y/Math.max(radius,1e-6),-.9,.9)),lower,upper);
+    };
+    const startYaw=bearing(start),dropYaw=bearing(drop),middle=(startYaw+dropYaw)/2;
+    const candidates=[];
+    for(const offset of [0,.15,-.15,.3,-.3])for(const angle of [middle,startYaw,dropYaw]){
+      const value=THREE.MathUtils.clamp(angle+offset,lower,upper);
+      if(!candidates.some(candidate=>Math.abs(candidate-value)<1e-6))candidates.push(value);
+    }
+    return candidates;
+  }
+  plan(target,twist=.3,yaw=0,{wristPitch=1.35}={}) {
+    this.crouch={...CROUCH,torso_joint4:this.arm==='right'?twist:-twist};
+    this.robot.setJointValues({...this.crouch,...SPREAD.right,...SPREAD.left});
+    const sign=this.arm==='right'?1:-1,names=Array.from({length:6},(_,i)=>`${this.arm}_arm_joint${i+1}`);
+    const limits=naturalArmLimits(this.arm,{wristPitch});
+    const seeds=[this.pose,REST[this.arm],SPREAD[this.arm],
+      Object.fromEntries([-.3*sign,2.7,-1.7,-1.8*sign,-.8*sign,.9*sign].map((value,i)=>[names[i],value])),
+      Object.fromEntries([.4*sign,2.2,-1.8,-2.2*sign,-.6*sign,.5*sign].map((value,i)=>[names[i],value]))];
+    let seed;
+    const orientation=gripRotation.clone().premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),yaw));
+    const {start,drop}=this.placementEndpoints(target);
     const above=start.clone().add(new THREE.Vector3(0,.13,0)),aboveDrop=drop.clone().add(new THREE.Vector3(0,.13,0));
-    const approach=solve(above),line=(from,to)=>{const samples=[];for(let i=0;i<=24;i++){const p=from.clone().lerp(to,i/24);samples.push(solve(p));}return samples;};
+    const weights=[.8,1,.5,2.5,1.5,1.5],entryCost=pose=>names.reduce((sum,name,i)=>sum+weights[i]*(pose[name]-SPREAD[this.arm][name])**2,0);
+    let initial;
+    for(const guess of seeds){
+      const candidate=solvePose(this.robot,this.arm,above,orientation,guess,300,{limits});
+      if(candidate.positionError<=.003&&candidate.angleError<=.035&&(!initial||entryCost(candidate.pose)<entryCost(initial.pose)))initial=candidate;
+    }
+    if(!initial){const error=new Error('目标超出自然臂姿可稳定抓取的范围，请调整位置或先转腰');error.detail={position:above.toArray(),naturalLimits:limits};throw error;}
+    seed=initial.pose;
+    const quality={maxPositionError:initial.positionError,maxAngleError:initial.angleError,maxAdjacentJointJump:0};
+    const solve=p=>{
+      // A Cartesian segment continues only its preceding branch. Never
+      // restart a failing sample on a distant elbow/wrist configuration.
+      const result=solvePose(this.robot,this.arm,p,orientation,seed,300,{limits});
+      const jump=Math.max(...names.map(name=>Math.abs(result.pose[name]-seed[name])));
+      if(result.positionError>.003||result.angleError>.035||jump>.30){const error=new Error('未找到自然且连续的完整取放路径，请调整物体位置');error.detail={position:p.toArray(),positionError:result.positionError,angleError:result.angleError,jointJump:jump};throw error;}
+      quality.maxPositionError=Math.max(quality.maxPositionError,result.positionError);quality.maxAngleError=Math.max(quality.maxAngleError,result.angleError);quality.maxAdjacentJointJump=Math.max(quality.maxAdjacentJointJump,jump);
+      seed=result.pose;return {...this.crouch,...SPREAD.right,...SPREAD.left,...seed};
+    };
+    const approach={...this.crouch,...SPREAD.right,...SPREAD.left,...seed},line=(from,to)=>{const samples=[];for(let i=0;i<=24;i++)samples.push(solve(from.clone().lerp(to,i/24)));return samples;};
     const descend=line(above,start),lift=line(start,above),transfer=line(above,aboveDrop),place=line(aboveDrop,drop),retreat=line(drop,aboveDrop);
-    this.planData={start,drop,approach,descend,lift,transfer,place,retreat};
+    const poses=[approach,...descend,...lift,...transfer,...place,...retreat];
+    const maxWristPitch=Math.max(...poses.map(pose=>Math.abs(pose[names[4]]))),maxWristRoll=Math.max(...poses.map(pose=>Math.abs(pose[names[5]])));
+    const score=entryCost(approach)+4*(maxWristPitch/wristPitch)**4+.5*(maxWristRoll/2.35)**4+2*yaw*yaw+.2*Math.abs(this.crouch.torso_joint4);
+    this.planData={start,drop,orientation,approach,descend,lift,transfer,place,retreat,
+      naturalSelection:{score,wristPitchLimit:wristPitch,maxWristPitch,maxWristRoll,toolDownTilt:Math.PI/9,toolYaw:yaw,limits,...quality}};
   }
   start(arm,id) {
     if(this.running)return false;this.task='putaway';this.history=[];this.stackEvidence=[];this.reaction=null;this.planError=null;
@@ -135,13 +185,30 @@ export class GraspController {
   prepareItem(arm,id,continuing) {
     this.arm=arm;this.selected=id;
     const before={...this.pose};
-    let error;
-    search:for(const yaw of [0,.35,-.35,.7,-.7])for(const twist of [.3,.4,.2,.1,0]) {
-      try{this.plan(this.targets.find(t=>t.id===id),twist,yaw*(arm==='right'?1:-1));error=null;break search;}catch(e){error=e;}
+    let error,attempts=0,best,valid=0;
+    const target=this.targets.find(t=>t.id===id),sign=arm==='right'?1:-1,candidates=this.waistAssistAngles(target);
+    for(const angle of [.3*sign,.4*sign,.2*sign,.1*sign,0])if(!candidates.some(value=>Math.abs(value-angle)<1e-6))candidates.push(angle);
+    this.planData=null;
+    // Natural branch and wrist margin take priority over historical search
+    // order. Compare a bounded set of complete valid routes, including the
+    // actual source-frame waist alignment, before choosing the arm motion.
+    for(const wristPitch of [1.35,1.50]){
+      search:for(const actualYaw of candidates)for(const yaw of [.35,.7,0,-.35,-.7]){
+        attempts++;try{
+          this.plan(target,actualYaw*sign,yaw*sign,{wristPitch});valid++;
+          if(!best||this.planData.naturalSelection.score<best.plan.naturalSelection.score)best={plan:this.planData,crouch:{...this.crouch}};
+          if(valid>=4)break search;
+        }catch(caught){error=caught;}
+      }
+      if(best)break;
     }
     this.applyPose(before);this.dynamics?.syncRobot();
-    if(error){this.planError=error.detail;this.fail(error.message);return false;}
-    this.running=true;this.opening=.05;this.evidence={lift:0,maxSpeed:0,dual:false,stable:0};this.transition(continuing?'approach':'spread');return true;
+    if(!best){this.planError=error?.detail;this.fail(error?.message||'未找到自然且连续的取放路径');return false;}
+    this.planData=best.plan;this.crouch=best.crouch;
+    this.planData.waistAssist={used:Math.abs(this.crouch.torso_joint4)>.005,attempts,candidates,actualYaw:this.crouch.torso_joint4,sharedPickPlaceYaw:true,legacyPriority:false,validNaturalRoutes:valid};
+    this.planData.alignFromYaw=before.torso_joint4??0;
+    const turnNeeded=Math.abs(this.planData.alignFromYaw-this.crouch.torso_joint4)>.005;
+    this.running=true;this.opening=.05;this.evidence={lift:0,maxSpeed:0,dual:false,stable:0};this.transition(continuing?(turnNeeded?'align_clear':'approach'):'spread');return true;
   }
   transition(state) {this.state=state;this.elapsed=0;this.from={...this.pose};this.evidence.stable=0;this.history.push(state);}
   stop(message='已停止；物体继续按重力落桌') {this.running=false;this.state='stopped';this.opening=.05;this.message=message;this.reaction=null;}
@@ -198,7 +265,9 @@ export class GraspController {
     const joint=(to,duration)=>this.applyPose(mix(this.from,to,smooth(t/duration)));
     const path=(samples,duration)=>{const v=smooth(t/duration)*(samples.length-1),i=Math.min(samples.length-2,Math.floor(v));this.applyPose(mix(samples[i],samples[i+1],v-i));};
     if(this.state==='spread')joint({...REST_TORSO,...SPREAD.right,...SPREAD.left},1.4);
-    if(this.state==='crouch')joint({...this.crouch,...SPREAD.right,...SPREAD.left},1.5);
+    if(this.state==='crouch')joint({...this.crouch,torso_joint4:0,...SPREAD.right,...SPREAD.left},1.5);
+    if(this.state==='align_clear')joint({...this.crouch,torso_joint4:p.alignFromYaw,...SPREAD.right,...SPREAD.left},1.4);
+    if(this.state==='align')joint({...this.crouch,...SPREAD.right,...SPREAD.left},1.3);
     if(this.state==='approach')joint(p.approach,2.4);
     if(this.state==='descend')path(p.descend,1.7);
     if(this.state==='lift')path(p.lift,1.8);
@@ -230,7 +299,14 @@ export class GraspController {
     if(!this.running)return;
     this.evidence.maxSpeed=Math.max(this.evidence.maxSpeed,m.speed);const t=this.elapsed;
     if(this.state==='spread'&&t>=1.4)this.transition('crouch');
-    else if(this.state==='crouch'&&t>=1.5)this.transition('approach');
+    else if(this.state==='crouch'&&t>=1.5)this.transition('align');
+    else if(this.state==='align_clear'){
+      if(t>=1.4&&this.jointError()<.01)this.transition('align');
+      else if(t>2.8)this.fail('手臂尚未安全收回转腰待命姿态，请复位重试');
+    }else if(this.state==='align'){
+      if(t>=1.3&&this.jointError()<.01)this.transition('approach');
+      else if(t>2.8)this.fail('水平转腰尚未稳定到达目标方向，请复位重试');
+    }
     else if(this.state==='approach'&&t>=2.4)this.transition('descend');
     else if(this.state==='descend'&&t>=1.7)this.transition('closing');
     else if(this.state==='closing') {

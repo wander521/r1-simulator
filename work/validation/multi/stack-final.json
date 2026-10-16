@@ -1,7 +1,7 @@
 {
   "pass": true,
-  "startedAt": "2026-10-15T16:29:27.795Z",
-  "wallSeconds": 36.55323645800352,
+  "startedAt": "2026-10-16T02:37:52.058Z",
+  "wallSeconds": 71.36932862499356,
   "cases": 2,
   "physicalStacks": 3,
   "physicallyGraspedStackItems": 9,
@@ -19,7 +19,7 @@
     {
       "name": "three-way-simultaneous-blue-red-yellow-stack",
       "pass": true,
-      "wallSeconds": 28.945761959016323,
+      "wallSeconds": 55.28059320798516,
       "start": {
         "ok": true,
         "runIds": [
@@ -41,17 +41,17 @@
         "r1": {
           "millisecondSamples": 68700,
           "contactSamples": 6870,
-          "supportSamples": 2496,
+          "supportSamples": 1821,
           "actualDualByObject": {
             "blue": true,
             "red": true,
             "yellow": true
           },
           "objectEditsDuringTask": 0,
-          "maxObjectTranslationResidual": 7.245112196207419e-17,
+          "maxObjectTranslationResidual": 6.744521018336048e-17,
           "maxTorqueRatio": 1,
           "maxFingerForce": 5,
-          "maxFingerLimitViolation": 0.00037468753021067946,
+          "maxFingerLimitViolation": 0.00030735548680863034,
           "fingerStrokeToleranceM": 0.001,
           "maxRevoluteLimitViolation": 0,
           "maxActualVelocityRatio": 0,
@@ -72,140 +72,160 @@
             },
             {
               "time": 3.2199999999997564,
+              "key": "0/blue/align"
+            },
+            {
+              "time": 4.5299999999998475,
               "key": "0/blue/approach"
             },
             {
-              "time": 5.630000000000215,
+              "time": 6.940000000000652,
               "key": "0/blue/descend"
             },
             {
-              "time": 7.340000000000786,
+              "time": 8.650000000000645,
               "key": "0/blue/closing"
             },
             {
-              "time": 8.340000000000817,
+              "time": 9.650000000000091,
               "key": "0/blue/lift"
             },
             {
-              "time": 10.149999999999814,
+              "time": 11.459999999999088,
               "key": "0/blue/transfer"
             },
             {
-              "time": 12.1599999999987,
+              "time": 13.469999999997974,
               "key": "0/blue/place"
             },
             {
-              "time": 13.969999999997697,
+              "time": 15.27999999999697,
               "key": "0/blue/release"
             },
             {
-              "time": 14.719999999997281,
+              "time": 16.02999999999661,
               "key": "0/blue/retreat"
             },
             {
-              "time": 16.329999999996975,
+              "time": 17.639999999998576,
               "key": "0/blue/settling"
             },
             {
-              "time": 16.729999999997464,
+              "time": 18.039999999999065,
+              "key": "1/red/align_clear"
+            },
+            {
+              "time": 19.450000000000788,
+              "key": "1/red/align"
+            },
+            {
+              "time": 20.76000000000239,
               "key": "1/red/approach"
             },
             {
-              "time": 19.14000000000041,
+              "time": 23.170000000005334,
               "key": "1/red/descend"
             },
             {
-              "time": 20.8500000000025,
+              "time": 24.880000000007424,
               "key": "1/red/closing"
             },
             {
-              "time": 21.85000000000372,
+              "time": 25.880000000008646,
               "key": "1/red/lift"
             },
             {
-              "time": 23.660000000005933,
+              "time": 27.69000000001086,
               "key": "1/red/transfer"
             },
             {
-              "time": 25.67000000000839,
+              "time": 29.700000000013315,
               "key": "1/red/place"
             },
             {
-              "time": 27.4800000000106,
+              "time": 31.510000000015527,
               "key": "1/red/release"
             },
             {
-              "time": 28.23000000001152,
+              "time": 32.260000000015516,
               "key": "1/red/retreat"
             },
             {
-              "time": 29.840000000013486,
+              "time": 33.870000000011764,
               "key": "1/red/settling"
             },
             {
-              "time": 30.240000000013975,
+              "time": 34.27000000001083,
+              "key": "2/yellow/align_clear"
+            },
+            {
+              "time": 35.680000000007546,
+              "key": "2/yellow/align"
+            },
+            {
+              "time": 36.99000000000449,
               "key": "2/yellow/approach"
             },
             {
-              "time": 32.65000000001461,
+              "time": 39.399999999998876,
               "key": "2/yellow/descend"
             },
             {
-              "time": 34.36000000001062,
+              "time": 41.10999999999489,
               "key": "2/yellow/closing"
             },
             {
-              "time": 35.36000000000829,
+              "time": 42.10999999999256,
               "key": "2/yellow/lift"
             },
             {
-              "time": 37.17000000000407,
+              "time": 43.91999999998834,
               "key": "2/yellow/transfer"
             },
             {
-              "time": 39.17999999999939,
+              "time": 45.92999999998366,
               "key": "2/yellow/place"
             },
             {
-              "time": 40.98999999999517,
+              "time": 47.73999999997944,
               "key": "2/yellow/release"
             },
             {
-              "time": 41.73999999999342,
+              "time": 48.48999999997769,
               "key": "2/yellow/retreat"
             },
             {
-              "time": 43.34999999998967,
+              "time": 50.09999999997394,
               "key": "2/yellow/settling"
             },
             {
-              "time": 43.74999999998874,
+              "time": 50.49999999997301,
               "key": "2/yellow/stack_settle"
             },
             {
-              "time": 46.75999999998172,
+              "time": 53.50999999996599,
               "key": "2/yellow/face_observer"
             },
             {
-              "time": 49.36999999997564,
+              "time": 56.11999999995991,
               "key": "2/yellow/happy"
             },
             {
-              "time": 52.26999999996888,
+              "time": 59.01999999995315,
               "key": "2/yellow/complete"
             }
           ],
           "lastTransition": "2/yellow/complete",
-          "independentStableSeconds": 24.960000000001102,
-          "maxIndependentStableSeconds": 24.960000000001102,
+          "independentStableSeconds": 18.210000000000047,
+          "maxIndependentStableSeconds": 18.210000000000047,
           "extraStableSamples": 300,
           "supportMinNormalForce": {
-            "blue": 1.3434298265058295,
-            "red": 0.8529202998351559,
-            "yellow": 0.411444008843634
+            "blue": 1.3438492484908464,
+            "red": 0.8533461745006303,
+            "yellow": 0.4118881965406712
           },
-          "maxStackSpeed": 0.00004781496815552733,
-          "maxStackDropError": 0.00022108949402590037
+          "maxStackSpeed": 0.000034919061783833274,
+          "maxStackDropError": 0.0013131596084703188
         },
         "g1": {
           "millisecondSamples": 68700,
@@ -430,13 +450,13 @@
             "yellow": true
           },
           "objectEditsDuringTask": 0,
-          "maxObjectTranslationResidual": 6.867150213274789e-17,
+          "maxObjectTranslationResidual": 7.255387764648798e-17,
           "maxTorqueRatio": 1,
           "maxFingerForce": 20,
-          "maxFingerLimitViolation": 0.00005710545758014218,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
           "fingerStrokeToleranceM": 0.0002,
           "maxRevoluteLimitViolation": 0,
-          "maxActualVelocityRatio": 1.0000306898678986,
+          "maxActualVelocityRatio": 1.0000118714622164,
           "maxIllegalPenetration": 0,
           "illegalContacts": [],
           "transitions": [
@@ -574,12 +594,12 @@
           "maxIndependentStableSeconds": 27.550000000001507,
           "extraStableSamples": 300,
           "supportMinNormalForce": {
-            "blue": 1.343835559187366,
-            "red": 0.853332141529128,
-            "yellow": 0.41187432915061956
+            "blue": 1.3438359162454847,
+            "red": 0.8533325080918934,
+            "yellow": 0.41187471804399867
           },
-          "maxStackSpeed": 0.000030856407982111884,
-          "maxStackDropError": 0.002081093028881506
+          "maxStackSpeed": 0.0000308159122397231,
+          "maxStackDropError": 0.0020773894588072025
         }
       },
       "robots": [
@@ -592,8 +612,8 @@
           "itemIndex": 2,
           "selected": "yellow",
           "evidence": {
-            "lift": 0.12959130603736935,
-            "maxSpeed": 0.15557317855888123,
+            "lift": 0.12965643794091708,
+            "maxSpeed": 0.15646267136109518,
             "dual": true,
             "stable": 0
           },
@@ -605,32 +625,32 @@
                 0.7109952061210892,
                 0
               ],
-              "lift": 0.1294799501793581,
-              "maxSpeed": 0.10888588100673424,
+              "lift": 0.12889564475169668,
+              "maxSpeed": 0.10906531664435466,
               "dual": true,
               "stable": 0
             },
             {
               "id": "red",
               "drop": [
-                0.9001579385733358,
-                0.752495206121204,
-                -0.00007539605296962988
+                0.9005485072138217,
+                0.7524952061212041,
+                0.00132329972854217
               ],
-              "lift": 0.1295084587026467,
-              "maxSpeed": 0.1417731389042108,
+              "lift": 0.12892811715928099,
+              "maxSpeed": 0.14095505663496316,
               "dual": true,
               "stable": 0
             },
             {
               "id": "yellow",
               "drop": [
-                0.900411047698541,
-                0.8009817847203933,
-                0.005947834955409737
+                0.9002239114466027,
+                0.8009817831365896,
+                0.007643093868572778
               ],
-              "lift": 0.12959130603736935,
-              "maxSpeed": 0.15557317855888123,
+              "lift": 0.12965643794091708,
+              "maxSpeed": 0.15646267136109518,
               "dual": true,
               "stable": 0
             }
@@ -645,34 +665,34 @@
               {
                 "id": "blue",
                 "supported": true,
-                "speed": 0.0000020475859351951077,
-                "error": 0.00015629543498378275,
+                "speed": 0.0000010191557141636175,
+                "error": 0.0013131588426074957,
                 "position": [
-                  0.9001361860665967,
-                  0.7109868682836329,
-                  -0.00007623712172057386
+                  0.9005693524082845,
+                  0.7109868683139569,
+                  0.0011832812269579613
                 ]
               },
               {
                 "id": "red",
                 "supported": true,
-                "speed": 0.000010288477473060298,
-                "error": 0.00022108949402590037,
+                "speed": 0.000004890175068321212,
+                "error": 0.00047540473563974526,
                 "position": [
-                  0.9003735536344445,
-                  0.7524692563778962,
-                  -0.00003395548571979218
+                  0.9000894879833449,
+                  0.7524692848139173,
+                  0.0014442918545242514
                 ]
               },
               {
                 "id": "yellow",
                 "supported": true,
-                "speed": 0.000031788153764737306,
-                "error": 0.0002176446861522844,
+                "speed": 0.000010091118411879308,
+                "error": 0.0010414380191322106,
                 "position": [
-                  0.9006211469484103,
-                  0.80096016525243,
-                  0.006000371735094444
+                  0.901048942801667,
+                  0.8009598950755095,
+                  0.00827826103053643
                 ]
               }
             ]
@@ -680,6 +700,7 @@
           "history": [
             "spread",
             "crouch",
+            "align",
             "approach",
             "descend",
             "closing",
@@ -689,6 +710,8 @@
             "release",
             "retreat",
             "settling",
+            "align_clear",
+            "align",
             "approach",
             "descend",
             "closing",
@@ -698,6 +721,8 @@
             "release",
             "retreat",
             "settling",
+            "align_clear",
+            "align",
             "approach",
             "descend",
             "closing",
@@ -873,8 +898,8 @@
           "itemIndex": 2,
           "selected": "yellow",
           "evidence": {
-            "lift": 0.13922836627470103,
-            "maxSpeed": 0.15937172643062156,
+            "lift": 0.13922836627470025,
+            "maxSpeed": 0.15937384171328303,
             "dual": true,
             "stable": 0
           },
@@ -886,32 +911,32 @@
                 0.7389952061210893,
                 0
               ],
-              "lift": 0.13942470649159144,
-              "maxSpeed": 0.12777098314770913,
+              "lift": 0.1394246809059807,
+              "maxSpeed": 0.12777098327848704,
               "dual": true,
               "stable": 0
             },
             {
               "id": "red",
               "drop": [
-                0.5495907633632129,
-                0.7804952061212037,
-                0.00006356122058738391
+                0.5495894184442294,
+                0.7804952061212042,
+                0.00006570976829841152
               ],
-              "lift": 0.14000516215881798,
-              "maxSpeed": 0.1520136148763434,
+              "lift": 0.14000516215881653,
+              "maxSpeed": 0.15201195560731487,
               "dual": true,
               "stable": 0
             },
             {
               "id": "yellow",
               "drop": [
-                0.5478954831128839,
-                0.8289817667106162,
-                0.00008791205101922782
+                0.5478977535201953,
+                0.8289817667459833,
+                0.00009007150852647645
               ],
-              "lift": 0.13922836627470103,
-              "maxSpeed": 0.15937172643062156,
+              "lift": 0.13922836627470025,
+              "maxSpeed": 0.15937384171328303,
               "dual": true,
               "stable": 0
             }
@@ -926,34 +951,34 @@
               {
                 "id": "blue",
                 "supported": true,
-                "speed": 0.0000016988994688847102,
-                "error": 0.0005334203925251037,
+                "speed": 0.0000017378274688697258,
+                "error": 0.0005330915658243369,
                 "position": [
-                  0.5494726742826994,
-                  0.7389868683232598,
-                  0.00007997114581125811
+                  0.5494733365120326,
+                  0.7389868683411738,
+                  0.00008211375902398745
                 ]
               },
               {
                 "id": "red",
                 "supported": true,
-                "speed": 0.000008825045106706559,
-                "error": 0.002081089096877776,
+                "speed": 0.000009209272075675154,
+                "error": 0.0020773810364215915,
                 "position": [
-                  0.5475098888377851,
-                  0.7804692139449478,
-                  0.000078307248614421
+                  0.5475122510448887,
+                  0.7804692141012796,
+                  0.00008026931844268905
                 ]
               },
               {
                 "id": "yellow",
                 "supported": true,
-                "speed": 0.000022546307601155844,
-                "error": 0.0009331939080518731,
+                "speed": 0.0000223708168581861,
+                "error": 0.0009333647008768122,
                 "position": [
-                  0.546962996560197,
-                  0.8289617473764134,
-                  0.00011822583239321181
+                  0.5469651102686753,
+                  0.8289617469616879,
+                  0.00012081949177514022
                 ]
               }
             ]
@@ -1001,7 +1026,7 @@
     {
       "name": "stop-three-way-stack-after-real-lifts-never-reports-completion",
       "pass": true,
-      "wallSeconds": 5.73331075000763,
+      "wallSeconds": 12.595411540985108,
       "start": {
         "ok": true,
         "runIds": [
@@ -1028,10 +1053,10 @@
             "yellow": false
           },
           "objectEditsDuringTask": 0,
-          "maxObjectTranslationResidual": 6.643448811904928e-17,
+          "maxObjectTranslationResidual": 5.987734137655773e-17,
           "maxTorqueRatio": 1,
           "maxFingerForce": 5,
-          "maxFingerLimitViolation": 0.00017637708290509785,
+          "maxFingerLimitViolation": 0.0002763336245863307,
           "fingerStrokeToleranceM": 0.001,
           "maxRevoluteLimitViolation": 0,
           "maxActualVelocityRatio": 0,
@@ -1052,23 +1077,23 @@
             },
             {
               "time": 3.2199999999997564,
+              "key": "0/blue/align"
+            },
+            {
+              "time": 4.5299999999998475,
               "key": "0/blue/approach"
             },
             {
-              "time": 5.630000000000215,
+              "time": 6.940000000000652,
               "key": "0/blue/descend"
             },
             {
-              "time": 7.340000000000786,
+              "time": 8.650000000000645,
               "key": "0/blue/closing"
             },
             {
-              "time": 8.340000000000817,
+              "time": 9.650000000000091,
               "key": "0/blue/lift"
-            },
-            {
-              "time": 10.149999999999814,
-              "key": "0/blue/transfer"
             },
             {
               "time": 11.339999999999154,
@@ -1170,13 +1195,13 @@
             "yellow": false
           },
           "objectEditsDuringTask": 0,
-          "maxObjectTranslationResidual": 6.709856194969666e-17,
-          "maxTorqueRatio": 0.6584246668835386,
-          "maxFingerForce": 13.168493337670773,
-          "maxFingerLimitViolation": 0.000007712350753971003,
+          "maxObjectTranslationResidual": 6.677510124296392e-17,
+          "maxTorqueRatio": 0.6586514796878087,
+          "maxFingerForce": 13.173029593756175,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
           "fingerStrokeToleranceM": 0.0002,
           "maxRevoluteLimitViolation": 0,
-          "maxActualVelocityRatio": 0.9999824416200485,
+          "maxActualVelocityRatio": 0.9999825149156234,
           "maxIllegalPenetration": 0,
           "illegalContacts": [],
           "transitions": [
@@ -1240,8 +1265,8 @@
           "itemIndex": 0,
           "selected": "blue",
           "evidence": {
-            "lift": 0.1294799501793581,
-            "maxSpeed": 0.10831670151194063,
+            "lift": 0.12722913858924578,
+            "maxSpeed": 0.10757506855454092,
             "dual": true,
             "stable": 0
           },
@@ -1256,12 +1281,12 @@
               {
                 "id": "blue",
                 "supported": false,
-                "speed": 0.0002940890189140092,
+                "speed": 0.00029987336985621985,
                 "error": null,
                 "position": [
-                  0.8561170001692332,
-                  0.8391352828888626,
-                  -0.000014154848411118291
+                  0.7803260393293378,
+                  0.8372902794869685,
+                  0.0011278686608019845
                 ]
               },
               {
@@ -1291,11 +1316,11 @@
           "history": [
             "spread",
             "crouch",
+            "align",
             "approach",
             "descend",
             "closing",
-            "lift",
-            "transfer"
+            "lift"
           ],
           "planError": null
         },
@@ -1377,8 +1402,8 @@
           "itemIndex": 0,
           "selected": "blue",
           "evidence": {
-            "lift": 0.13942470649159144,
-            "maxSpeed": 0.12777098314770913,
+            "lift": 0.1394246809059807,
+            "maxSpeed": 0.12777098327848704,
             "dual": true,
             "stable": 0
           },
@@ -1393,12 +1418,12 @@
               {
                 "id": "blue",
                 "supported": true,
-                "speed": 6.325816582895596e-12,
+                "speed": 3.730148601040102e-12,
                 "error": null,
                 "position": [
-                  0.5496071084369182,
-                  0.738995206121204,
-                  0.00007410476225077855
+                  0.5496058374250155,
+                  0.7389952061212041,
+                  0.0000775329752473014
                 ]
               },
               {
@@ -1446,11 +1471,11 @@
     "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
     "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
     "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
-    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
-    "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
-    "dist/r1/grasp-kinematics.mjs": "8aabe6ae5d1664c04421aa72f70c2ce68fd95fbf7acce33bb207f87edf656893",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
     "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
     "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
     "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
@@ -1466,7 +1491,7 @@
     "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
     "dist/c5/assets/aubo_C5.urdf": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
     "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
-    "dist/c5/c5-profile.mjs": "6a2419169fdf4cda2b4d34b56b3f1b6f97cc2f74b38497e08e67a12b97c135dc",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
     "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
     "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
   }

@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-16",
+  "reviewer": "independent native_camera_cache_review",
+  "release": "20261016-native-camera-3",
+  "status": "source-review-clear-final-evidence-confirmed",
+  "scope": "Read-only independent review of the frozen production diff for C5 reference-photo HOME, R1 natural REST/native Realsense camera/20-degree tool-down IK/strict six-key seeds/pre-approach waist alignment, closer idle framing, motion envelopes and v3 cache aliases. No production source edited by reviewer.",
+  "instructionsRead": [
+    "/Users/wander/.codex/skills/impeccable/SKILL.md",
+    "/Users/wander/.codex/skills/impeccable/reference/polish.md",
+    "/Users/wander/.codex/skills/impeccable/reference/craft-floor.md",
+    "DESIGN.md",
+    "work/MULTI-SURFACE-BRIEF.md"
+  ],
+  "findings": [],
+  "severityCounts": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0
+  },
+  "sourceReview": {
+    "c5Home": "Six true HOME joint targets match the reference-photo shape and remain used by existing initialization, reset and return paths.",
+    "r1NativeCamera": "No synthetic camera meshes are created. The view binds both original Realsense subtrees, preserves original child visibility, separates feed layers and restores masks/visibility on idempotent disposal without removing or disposing loader-owned assets.",
+    "r1SeedIsolation": "Independent checks confirmed solvePose returns exactly the executing arm's six keys and preserves current torso and opposite-arm quaternions.",
+    "r1NaturalPaths": "Comfort bounds are intersected with original source limits; independent checks confirmed both 1.35 and 1.50 rad wrist-pitch ranges remain strictly inside URDF ranges. Each Cartesian segment continues the previous branch and rejects excessive pose errors or a greater-than-0.30 rad adjacent joint jump.",
+    "r1Waist": "Candidate planning uses the source waist frame and a common yaw for the complete pick/place path. Alignment happens before approach; a changed-yaw continuation retracts at the old yaw before alignment.",
+    "framing": "The current fit path uses actual presentation geometry at rest and includes the named motion envelope before accepted motion. No model/local-physics rescaling is introduced.",
+    "cache": "All three entry HTML maps include exact old-query aliases for grasp-kinematics.mjs?v=20261015-6 and r1-workcell.mjs?v=20261016-source-camera-1, resolving to the same v3 identity.",
+    "independentChecks": {
+      "pass": true,
+      "cases": 8,
+      "scope": "Four arm/pitch seed-isolation and strict-limit checks, one C5 HOME check and three page-alias checks."
+    }
+  },
+  "evidenceSummary": {
+    "r1Natural": {
+      "checks": 4,
+      "plannedRoutes": 10,
+      "plannedGeometryFrames": 6090,
+      "actualBlueGeometryFrames": 2036,
+      "physicalBlueArms": 2
+    },
+    "r1CurrentPhysical": {
+      "sortCases": 10,
+      "stackCases": 2,
+      "recoveryCases": 4,
+      "allReportedPassAndCurrentSourceBound": true
+    },
+    "c5": {
+      "corePhysicalCases": 40,
+      "finalAcceptanceCurrentSourceBindings": 47,
+      "browserEvidence": "Root's eight controls and blue sort used unchanged C5 core; desktop/phone and later cache reloads keep their recorded version provenance."
+    },
+    "finalMultiPhysical": {
+      "cases": 8,
+      "physicalSorts": 12,
+      "stackCases": 2,
+      "physicalStacks": 3,
+      "physicallyGraspedStackItems": 9,
+      "sourceFrozen": true
+    },
+    "finalFullPipes": {
+      "mode": "full",
+      "cases": 8,
+      "physicallySortedPipes": 72,
+      "layoutChecks": 300,
+      "sourceFrozen": true,
+      "sha256": "5221c5cd1f53011b02aeaed0aee8c3ee5592475331d5d35763cbf5edc8aba99b"
+    },
+    "finalFraming": {
+      "checks": 113,
+      "passed": 113,
+      "projectionCases": 98,
+      "idleProjectionCases": 49,
+      "motionProjectionCases": 49,
+      "sourceFrozen": true
+    },
+    "finalCache": {
+      "release": "20261016-native-camera-3",
+      "checks": 13,
+      "sourceFrozen": true,
+      "allCurrentSourceBindingsMatch": true
+    },
+    "finalVerifiers": {
+      "multiChecks": 12,
+      "pipeChecks": 35,
+      "multiPositiveAcceptance": true,
+      "pipePositiveAcceptance": true
+    },
+    "rootFinalNativeObservation": {
+      "report": "work/validation/pose-vision/browser-final.json",
+      "release": "20261016-native-camera-3",
+      "boundProductionSources": 12,
+      "cacheEnabled": true,
+      "desktop": [
+        1280,
+        720
+      ],
+      "phone": [
+        390,
+        844
+      ],
+      "pipeSeed": 609029927,
+      "physicallySortedPipes": 24,
+      "threeWayBlueSortComplete": true,
+      "r1LeftOnlyBlueSortComplete": true,
+      "actualAlignAndEarlyApproachFramesReported": true,
+      "closingFrameApproval": false,
+      "independentlyViewedByThisReviewer": false
+    },
+    "finalLayoutDetector": {
+      "report": "work/validation/pose-vision/design-detector.json",
+      "findings": 0
+    }
+  },
+  "releaseGates": [
+    {
+      "gate": "cache-report-final-source-binding",
+      "status": "pass",
+      "evidence": "v3 cache report: 13 checks, sourceFrozen, all 43 source bindings match."
+    },
+    {
+      "gate": "framing-final-source-binding",
+      "status": "pass",
+      "evidence": "113/113 checks and 98 projections; all 99 source bindings match."
+    },
+    {
+      "gate": "multi-sort-and-stack-physical-rerun",
+      "status": "pass",
+      "evidence": "8 cases/12 physical sorts and 2 stack cases/3 physical towers/9 items; current source-bound reports and positive acceptance."
+    },
+    {
+      "gate": "full-pipe-72-item-physical-rerun",
+      "status": "pass",
+      "evidence": "New FULL 8 cases/72 items/300 layouts, sourceFrozen, exact report SHA verified; 35 verifier checks and positive acceptance."
+    },
+    {
+      "gate": "root-native-final-v3-observation",
+      "status": "confirmed-root-observation-current-source",
+      "evidence": "Read root's new v3 desktop/phone, cache-enabled module URLs, three-way blue sort, R1-left-only sort and seed 609029927 24-item batch. All 12 production bindings match. No independent pixel or captured-closing-frame approval."
+    },
+    {
+      "gate": "final-layout-detector",
+      "status": "pass",
+      "evidence": "Current saved detector output is []."
+    }
+  ],
+  "renderReview": {
+    "status": "recapture",
+    "independentPixelsInspected": false,
+    "savedScreenshotFiles": [],
+    "reason": "Native screenshots were emitted inline to the root without supported file export. This reviewer has not inspected those pixels; source and numerical evidence cannot supply pixel approval."
+  },
+  "limitations": [
+    "First-four-valid-route scoring is a bounded heuristic, not a global optimum or proof that every editable object pose is reachable.",
+    "R1 physical contact dynamics still cover fingertip contacts only; original STL/table and body-gap checks sample bounded poses/trajectories and do not prove full-body, continuous-time or arbitrary-workspace collision freedom.",
+    "Native Realsense optical axes and centre are source-geometry inference, not calibrated intrinsics/extrinsics.",
+    "Exact import-map and emulated stale-cache graphs require fresh entry HTML; they are not independent browser HTTP-cache inspection.",
+    "Physical touch, complete assistive-technology coverage, other browser engines and real robot hardware safety were not certified.",
+    "DESIGN.md/sidecar drift was reported by Impeccable context earlier in the session; it was not repaired as a side effect.",
+    "Root's brief closing-state wait missed the pulse; final browser evidence reports actual align/early-approach frames and successful physical completion, not a captured closing-frame visual approval."
+  ],
+  "sourceHashes": {
+    "dist/c5/c5-app.mjs": "0ce63c36b4dd95fb5fcdce7488c75c4c74cd85dcda8d8e564ea9f90de7e874a9",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/index.html": "83a6cc5bf6a3daaf19fe312237e8e38a5be304f2e3a16b13b0afe6cf03dfcc46",
+    "dist/multi/app.mjs": "a085e623aa65d36ba16464cb0ae6ea3f13712230519fa0684e66e269b5a28f33",
+    "dist/multi/index.html": "945fd94066cf1098e290efdbad5422945703ce9c0c4fdbb449ea6416a48a6517",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
+    "dist/multi/workcell.mjs": "bd2f968634d10cb606935ee78fd70c931882d12a549c30e91353915d0d64fcfc",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/index.html": "bdc42fb50ab454685e1527f659aaee7faca31c86ea8026e6a094e63f292a6fd2",
+    "dist/r1/r1-app.mjs": "1a7483ff1f0ddf318b8c8e1c7371de73c67ac9b82fc4a4126d5d5ef055a85821",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11"
+  },
+  "reviewedReports": [
+    {
+      "path": "work/validation/r1-natural-grasp-final.json",
+      "sha256": "ea769ffc72b0c8c0a386ecb9bd15aa74a0e02beac95d66d79d57ab14d0ae6d1a",
+      "reportedPass": true,
+      "checks": 4,
+      "sourceFrozen": true,
+      "boundSources": 33,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/r1-waist-assist-final.json",
+      "sha256": "cca62fa50163a3bc746ab683bbb84710c4efd18feff73ac974b044c66af6d182",
+      "reportedPass": true,
+      "checks": 6,
+      "sourceFrozen": true,
+      "boundSources": 32,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/r1-initial-pose-final.json",
+      "sha256": "14215dce3bc4b6be81a106545c64af3d5de157eef2fb80208038d4d43a3b0578",
+      "reportedPass": true,
+      "checks": 14,
+      "sourceFrozen": true,
+      "boundSources": 33,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/r1-camera/final.json",
+      "sha256": "d05dea0f314b4fc890913648a69d80d1067752803ff4a654aa2486f4c217b514",
+      "reportedPass": true,
+      "sourceFrozen": true,
+      "boundSources": 11,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/release-cache/final.json",
+      "sha256": "c599a13d2a94b2daf0066ac3dfffe81a5f217e819105ea47260b5d9f92e5ab32",
+      "reportedPass": true,
+      "checks": 13,
+      "sourceFrozen": true,
+      "boundSources": 43,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi-framing/final.json",
+      "sha256": "9ff99049b72fa8c1c6d0313330485c8eb6ed495e73a0f1d4d9d317c7477d849c",
+      "reportedPass": true,
+      "checks": 113,
+      "sourceFrozen": true,
+      "boundSources": 99,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/c5/final-acceptance.json",
+      "sha256": "750a82153a4cb63b5cfcb55d41d57c77c872f994b57d2698cfe17772a04583bb",
+      "reportedPass": true,
+      "sourceFrozen": null,
+      "boundSources": 47,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/r1-dynamic-current-sort.jsonl",
+      "sha256": "a055d4448c397692867cb80ed6ef58755fcf6fa509a8871d9f18ab02b9621c6a",
+      "reportedPass": true,
+      "checks": 10,
+      "sourceFrozen": null,
+      "boundSources": 50,
+      "mismatches": [],
+      "reportHashMismatches": [],
+      "cases": 10
+    },
+    {
+      "path": "work/validation/r1-dynamic-final-stack-recovery.jsonl",
+      "sha256": "33811ba15ac250e5770bb9538736392815c49956939de70c5818babf39975943",
+      "reportedPass": true,
+      "checks": 6,
+      "sourceFrozen": null,
+      "boundSources": 30,
+      "mismatches": [],
+      "reportHashMismatches": [],
+      "cases": 6
+    },
+    {
+      "path": "work/validation/multi-pipes/physical-final.json",
+      "sha256": "5221c5cd1f53011b02aeaed0aee8c3ee5592475331d5d35763cbf5edc8aba99b",
+      "reportedPass": true,
+      "sourceFrozen": true,
+      "boundSources": 30,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi/physical-final.json",
+      "sha256": "98dc08633370b6c36c909a18ab12753f56f915036b99651f3ac90d34ebae4ea1",
+      "reportedPass": true,
+      "sourceFrozen": true,
+      "boundSources": 26,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi/stack-final.json",
+      "sha256": "a5ee56bf52dfa4eb80d8a1ff23758d743efe5afc0e0a639c2b986ac63fded6e6",
+      "reportedPass": true,
+      "sourceFrozen": true,
+      "boundSources": 27,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi/final-acceptance.json",
+      "sha256": "1d94fd35e5eefca559906a77ecf55cc861ff1548dcc8ca2dfc1e0f20b5374651",
+      "reportedPass": true,
+      "sourceFrozen": null,
+      "boundSources": 156,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi/verifier-checks-final.json",
+      "sha256": "a0cf2bba233d001d986fdb4f1e9cfa52024a91ca350f723a7b8f43f94c45af1e",
+      "reportedPass": true,
+      "checks": 12,
+      "sourceFrozen": null,
+      "boundSources": 0,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi-pipes/acceptance-final.json",
+      "sha256": "3d944d228177a7ee6994082dfd30ae31bc1ff31dc04d18c8bf48368c56e465b7",
+      "reportedPass": true,
+      "sourceFrozen": null,
+      "boundSources": 30,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/multi-pipes/verifier-final.json",
+      "sha256": "d749670bafe9e7fbc576e053e3e2db04eaadedc464c795e6b39892612e225bfd",
+      "reportedPass": true,
+      "checks": 35,
+      "sourceFrozen": null,
+      "boundSources": 2,
+      "mismatches": [],
+      "reportHashMismatches": [],
+      "summary": {
+        "pass": true,
+        "scope": "Positive/negative validation of a real saved physical report; not new physics, browser or hardware evidence",
+        "checks": 35,
+        "physicalReport": "work/validation/multi-pipes/physical-final.json",
+        "physicalReportSha256": "5221c5cd1f53011b02aeaed0aee8c3ee5592475331d5d35763cbf5edc8aba99b"
+      }
+    },
+    {
+      "path": "work/validation/pose-vision/browser-final.json",
+      "sha256": "5754fe13a58dc29108b830ab0fd8573175725b08e1019ed2dee4140c4fa4470e",
+      "reportedPass": null,
+      "sourceFrozen": null,
+      "boundSources": 12,
+      "mismatches": [],
+      "reportHashMismatches": []
+    },
+    {
+      "path": "work/validation/pose-vision/design-detector.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "reportedPass": null,
+      "checks": 0,
+      "sourceFrozen": null,
+      "boundSources": 0,
+      "mismatches": [],
+      "reportHashMismatches": [],
+      "findings": 0
+    }
+  ],
+  "finalConfirmation": {
+    "reviewedAt": "2026-10-16",
+    "productionSourcesCompared": 13,
+    "productionSourceMismatches": [],
+    "allReviewedSourceAndReportBindingsCurrent": true,
+    "productionChangesSincePriorReview": false,
+    "priorityFindings": [],
+    "renderDisposition": "recapture",
+    "conclusion": "No P0/P1/P2 found in the scoped frozen production diff or final source-bound evidence. Numerical/source gates are confirmed; independent pixel approval is not asserted."
+  }
+}

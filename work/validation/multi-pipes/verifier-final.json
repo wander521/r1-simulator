@@ -145,7 +145,7 @@
     }
   ],
   "physicalReport": "work/validation/multi-pipes/physical-final.json",
-  "physicalReportSha256": "d091550a8b04b2962d81752c128ebe5090e65363fd9b8d72b634dbb54f5f15ee",
+  "physicalReportSha256": "5221c5cd1f53011b02aeaed0aee8c3ee5592475331d5d35763cbf5edc8aba99b",
   "sourceHashes": {
     "work/test-pipe-acceptance-verifier.mjs": "f6a132460204fa2ebea3f841f7685b564c268304f8f6f00e6c417bc70fa4a7dd",
     "work/verify-pipe-acceptance.mjs": "f7ba024798a44fe4c6ce6f0698c9c7e06aaccf05edbc1b6eae088a20557dbab2"

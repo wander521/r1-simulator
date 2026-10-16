@@ -3,13 +3,13 @@ import {OrbitControls} from '../vendor/OrbitControls.js';
 import URDFLoader from '../vendor/URDFLoader.js';
 import {loadC5Mesh} from './c5-3ds.mjs?v=20261015-c5-3';
 import createMuJoCo from '../r1/mujoco-runtime.mjs';
-import {GraspController,TABLE_HEIGHT} from './grasp-controller.mjs?v=20261015-c5-3';
+import {GraspController,TABLE_HEIGHT} from './grasp-controller.mjs?v=20261016-rest-1';
 import {tcpPose,solvePose} from './grasp-kinematics.mjs?v=20261015-c5-3';
 import {C5Dynamics} from './c5-dynamics.mjs?v=20261015-c5-3';
 import {applyC5Materials} from './c5-materials.mjs?v=20261015-c5-3';
 import {createJointUI,createJointTelemetry} from './c5-joint-ui.mjs?v=20261015-c5-3';
 import {createWorkcell,createWristVision,configureRenderer,configureOverheadCamera} from './c5-workcell.mjs?v=20261015-c5-3';
-import {ROOT_HEIGHT,TABLE_CENTER_X,TABLE_HALF_X,TABLE_HALF_Z,OBJECT_START_X,OBJECT_DROP_X,OBJECT_LATERAL_OFFSET,gripperLinkName,qToOpening,GRIPPER_Q_MIN,GRIPPER_Q_MAX,GRIPPER_GAP_AT_ZERO} from './c5-profile.mjs?v=20261015-c5-3';
+import {ROOT_HEIGHT,TABLE_CENTER_X,TABLE_HALF_X,TABLE_HALF_Z,OBJECT_START_X,OBJECT_DROP_X,OBJECT_LATERAL_OFFSET,gripperLinkName,qToOpening,GRIPPER_Q_MIN,GRIPPER_Q_MAX,GRIPPER_GAP_AT_ZERO} from './c5-profile.mjs?v=20261016-rest-1';
 
 const OPENING_MIN=Math.min(qToOpening(GRIPPER_Q_MIN),qToOpening(GRIPPER_Q_MAX)),OPENING_MAX=Math.max(qToOpening(GRIPPER_Q_MIN),qToOpening(GRIPPER_Q_MAX));
 

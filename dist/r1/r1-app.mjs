@@ -2,12 +2,12 @@ import * as THREE from '../vendor/three.module.min.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import URDFLoader from '../vendor/URDFLoader.js';
 import createMuJoCo from './mujoco-runtime.mjs';
-import {GraspController,TABLE_HEIGHT} from './grasp-controller.mjs?v=20261015-6';
+import {GraspController,TABLE_HEIGHT} from './grasp-controller.mjs?v=20261016-rest-1';
 import {tcpPose,solvePose} from './grasp-kinematics.mjs?v=20261015-6';
 import {applyRobotMaterials} from './r1-materials.mjs?v=20261015-5';
 import {R1Dynamics} from './r1-dynamics.mjs?v=20261015-8';
 import {createJointUI,createJointTelemetry} from './r1-joint-ui.mjs?v=20261015-8';
-import {createWorkcell,createWristVision,configureRenderer,configureOverheadCamera} from './r1-workcell.mjs?v=20261015-9';
+import {createWorkcell,createWristVision,configureRenderer,configureOverheadCamera} from './r1-workcell.mjs?v=20261016-source-camera-1';
 
 const $=s=>document.querySelector(s),canvas=$('#main-view'),stage=$('#viewport');
 $('#start-grasp').disabled=true;$('#model-variant').disabled=true;$('#reset').disabled=true;
@@ -46,8 +46,8 @@ const cameras=[new THREE.PerspectiveCamera(48,4/3,.02,10),new THREE.PerspectiveC
 const feeds=['#overhead-camera-canvas','#wrist-camera-canvas'].map(selector=>{const r=new THREE.WebGLRenderer({canvas:$(selector),antialias:true});r.setSize(320,240,false);return r;});
 feeds.forEach(r=>configureRenderer(r,{THREE}));configureOverheadCamera(cameras[0],{THREE,TABLE_HEIGHT});
 const wristVision=createWristVision({scene,THREE,camera:cameras[1]});
-const stages={idle:'就绪',spread:'双臂展开',crouch:'前倾下蹲',approach:'接近目标',descend:'下降对准',closing:'闭合并验证接触',lift:'抬升验证',transfer:'搬运至放置位置',place:'支撑接触验证',release:'松开夹爪',retreat:'夹爪撤离',settling:'等待物体稳定',return:'回到待命姿态',stack_settle:'三层支撑稳定验证',face_observer:'面向观察者',happy:'叠放成功 · 庆祝',shy:'叠放失败 · 害羞',complete:'任务完成',failed:'抓取失败',stopped:'已停止'};
-const sequence=['spread','crouch','approach','descend','closing','lift','transfer','place','release','retreat','settling','return'];
+const stages={idle:'就绪',spread:'双臂展开',crouch:'前倾下蹲',align_clear:'收臂准备转腰',align:'转腰对准目标',approach:'接近目标',descend:'下降对准',closing:'闭合并验证接触',lift:'抬升验证',transfer:'搬运至放置位置',place:'支撑接触验证',release:'松开夹爪',retreat:'夹爪撤离',settling:'等待物体稳定',return:'回到待命姿态',stack_settle:'三层支撑稳定验证',face_observer:'面向观察者',happy:'叠放成功 · 庆祝',shy:'叠放失败 · 害羞',complete:'任务完成',failed:'抓取失败',stopped:'已停止'};
+const sequence=['spread','crouch','align_clear','align','approach','descend','closing','lift','transfer','place','release','retreat','settling','return'];
 const status=message=>{$('#status').textContent=message;};
 
 function select(id){if(controller?.running)return;selected=id;if(controller)controller.selected=id;document.querySelectorAll('.vision-target').forEach(b=>{b.classList.toggle('active',b.dataset.target===id);b.setAttribute('aria-pressed',String(b.dataset.target===id));});$('#object-edit-selection').textContent=`已选择：${byId(id).label}`;}
@@ -161,7 +161,7 @@ function frame(now){
       const pulse=reducedMotion?.5:.5+.5*Math.sin(now*.006);t.mesh.material.emissive.set(t.color).multiplyScalar(.1);t.mesh.material.emissiveIntensity=.18;
       if(t.id===selected&&!controller.running){t.mesh.material.emissive.lerp(new THREE.Color(0x5ee0ff),.38+pulse*.28);t.mesh.material.emissiveIntensity=.42+pulse*.72;}
     }
-    const link=robot.getObjectByName(`${arm}_gripper_link`),tcp=tcpPose(robot,arm).position;wristVision.update(link);
+    const link=robot.getObjectByName(`${arm}_realsense_link`),tcp=tcpPose(robot,arm).position;wristVision.update(link);
     const marker=project(tcp);$('#drag-cluster').classList.toggle('active',tcpEnabled&&marker.visible&&!controller.running);$('#drag-cluster').style.left=`${marker.x}px`;$('#drag-cluster').style.top=`${marker.y}px`;
     if(now-lastUI>100){updateUI();lastUI=now;}
   }

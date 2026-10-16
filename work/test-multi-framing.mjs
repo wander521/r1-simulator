@@ -28,7 +28,7 @@ const paths=new Set(['work/test-multi-framing.mjs','dist/multi/workcell.mjs','di
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs',
   ...ids.flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`]),
   'dist/g1/g1-profile.mjs','dist/c5/c5-profile.mjs']);
-const sourceHashes={},checks=[],errors=[],geometry={},projections=[],magnifications=[];
+const sourceHashes={},checks=[],errors=[],geometry={},projections=[],historicalMagnifications=[],currentPoseMagnifications=[],idleFramingGains=[];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function boundBytes(path){
   const bytes=await readFile(new URL(path,root));
@@ -92,15 +92,51 @@ async function visualFixture(id){
   assert.equal(visualCount,[...xml.matchAll(/<visual\b/g)].length,`${id}: every original visual must be loaded`);
   assert(meshes.length>0);return {id,robot,meshes,visualCount};
 }
+const r1Standby={...R1.REST_TORSO,...R1.REST.right,...R1.REST.left},r1Spread={...R1.REST_TORSO,...R1.SPREAD.right,...R1.SPREAD.left};
 const poseSets={
-  r1:{idle:{...R1.REST_TORSO,...R1.REST.right,...R1.REST.left},
-    spread:{...R1.REST_TORSO,...R1.SPREAD.right,...R1.SPREAD.left},
-    crouch:{...R1.CROUCH,...R1.SPREAD.right,...R1.SPREAD.left}},
+  r1:{idle:r1Standby,spread:r1Spread,
+    crouch:{...R1.CROUCH,...R1.SPREAD.right,...R1.SPREAD.left},
+    ...Object.fromEntries(Array.from({length:41},(_,index)=>[
+      `spread-entry-${index}`,Object.fromEntries(Object.keys(r1Spread).map(name=>[name,r1Standby[name]+(r1Spread[name]-r1Standby[name])*index/40])),
+    ])),
+    ...Object.fromEntries(Array.from({length:21},(_,index)=>{
+      const yaw=Number((-1+index*.1).toFixed(1));
+      return [`crouch-waist-${yaw.toFixed(1)}`,{...R1.CROUCH,...R1.SPREAD.right,...R1.SPREAD.left,torso_joint4:yaw}];
+    }))},
   g1:{idle:{...G1_STAND,...G1.REST.right,...G1.REST.left},
     spread:{...G1_STAND,...G1.SPREAD.right,...G1.SPREAD.left},
     raised:{...G1_STAND,...G1.RAISED.right,...G1.RAISED.left},
     ready:{...G1_STAND,...G1.READY.right,...G1.READY.left}},
   c5:{idle:{...C5_HOME}},
+};
+// Preserve the compact-layout regression's original pose, not the new shorter
+// C5 silhouette. Both sides of that historical camera comparison must use the
+// same explicitly frozen joint targets. These hashes document the commit from
+// which the constants were read; they are historical provenance, not assertions
+// that today's changed controllers still have the old bytes.
+const historicalStandbyFixture={
+  commit:'b271a9aeb5bbdf8d2bad5853519da34bd59bf8ea',
+  sourceFileSha256:{
+    'dist/r1/grasp-controller.mjs':'c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f',
+    'dist/g1/grasp-controller.mjs':'68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d',
+    'dist/g1/g1-profile.mjs':'6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08',
+    'dist/c5/c5-profile.mjs':'6a2419169fdf4cda2b4d34b56b3f1b6f97cc2f74b38497e08e67a12b97c135dc',
+  },
+  motionViewBounds:{
+    r1:{min:[-.371,-.062,-.872],max:[1.160,1.709,.872]},
+    g1:{min:[-.100,-.021,-.696],max:[.800,1.343,.695]},
+    c5:{min:[-.539,-.020,-.780],max:[.800,1.814,.698]},
+  },
+  poses:{
+    r1:{torso_joint1:0,torso_joint2:.06,torso_joint3:0,torso_joint4:0,
+      ...Object.fromEntries(['right','left'].flatMap(side=>[-1.57*(side==='right'?1:-1),2.20,-1.40,0,0,0]
+        .map((value,index)=>[`${side}_arm_joint${index+1}`,value])))},
+    g1:{...Object.fromEntries(['left','right'].flatMap(side=>['hip_pitch','hip_roll','hip_yaw','knee','ankle_pitch','ankle_roll']
+      .map(suffix=>[`${side}_${suffix}_joint`,0]))),waist_yaw_joint:0,waist_roll_joint:0,waist_pitch_joint:0,
+      ...Object.fromEntries(['right','left'].flatMap(side=>['shoulder_pitch','shoulder_roll','shoulder_yaw','elbow','wrist_roll','wrist_pitch','wrist_yaw']
+        .map((suffix,index)=>[`${side}_${suffix}_joint`,[0,.025*(side==='left'?1:-1),0,1.50,0,0,0][index]])))},
+    c5:Object.fromEntries(['shoulder','upperArm','foreArm','wrist1','wrist2','wrist3'].map(name=>[`${name}_joint`,0])),
+  },
 };
 function applyPose(fixture,pose){
   for(const joint of Object.values(fixture.robot.joints))joint.setValue(0);
@@ -114,9 +150,10 @@ function envelopeFor(id){
   return new THREE.Box3(new THREE.Vector3(...item.min),new THREE.Vector3(...item.max));
 }
 function shifted(box,offset){return box.clone().translate(new THREE.Vector3(...offset));}
-function sceneBounds(selected,{old=false}={}){
+function sceneBounds(selected,{old=false,historical=false,motion=true}={}){
   const box=new THREE.Box3();for(const id of selected){const offset=old?[0,0,(1-ids.indexOf(id))*2.2]:workcell.STATION_OFFSETS[id];
-    box.union(shifted(old?geometry[id].idleStationBox:geometry[id].framingBox,offset));}return box;
+    const measured=historical?geometry[id].historical:geometry[id];
+    box.union(shifted(old?measured.idleStationBox:motion?measured.framingBox:measured.idleFrameBox,offset));}return box;
 }
 function cameraFor(fit,view){
   const camera=new THREE.PerspectiveCamera(42,view.width/view.height,.02,40);
@@ -131,6 +168,31 @@ function projectedBox(box,camera,view){
   const points=corners(box).map(p=>p.project(camera));
   return {points,width:(Math.max(...points.map(p=>p.x))-Math.min(...points.map(p=>p.x)))*view.width/2,
     height:(Math.max(...points.map(p=>p.y))-Math.min(...points.map(p=>p.y)))*view.height/2};
+}
+function compareFraming(view,{historical=false}={}){
+  const oldCamera=cameraFor(oldFit(sceneBounds(ids,{old:true,historical}),view),view);
+  const fit=workcell.fitWorkstationView(sceneBounds(ids,{historical}),
+    {fov:42,aspect:view.width/view.height,viewportHeight:view.height,near:.02}),newCamera=cameraFor(fit,view),robots=[];
+  for(const id of ids){const measured=historical?geometry[id].historical:geometry[id];
+    const oldRect=projectedBox(shifted(measured.idleBox,[0,0,(1-ids.indexOf(id))*2.2]),oldCamera,view);
+    const newRect=projectedBox(shifted(measured.idleBox,workcell.STATION_OFFSETS[id]),newCamera,view);
+    robots.push({id,oldHeightPixels:oldRect.height,newHeightPixels:newRect.height,heightRatio:newRect.height/oldRect.height,
+      oldWidthPixels:oldRect.width,newWidthPixels:newRect.width,widthRatio:newRect.width/oldRect.width});}
+  return {viewport:view.name,averageHeightRatio:robots.reduce((sum,item)=>sum+item.heightRatio,0)/3,robots};
+}
+function compareIdleToMotion(view){
+  const fit=bounds=>workcell.fitWorkstationView(bounds,
+    {fov:42,aspect:view.width/view.height,viewportHeight:view.height,near:.02});
+  const priorBounds=new THREE.Box3();
+  for(const id of ids){const item=historicalStandbyFixture.motionViewBounds[id],priorEnvelope=new THREE.Box3(new THREE.Vector3(...item.min),new THREE.Vector3(...item.max));
+    priorBounds.union(shifted(geometry[id].idleFrameBox.clone().union(priorEnvelope),workcell.STATION_OFFSETS[id]));}
+  const priorPolicy=fit(priorBounds),idle=fit(sceneBounds(ids,{motion:false})),priorCamera=cameraFor(priorPolicy,view),idleCamera=cameraFor(idle,view),robots=[];
+  for(const id of ids){const box=shifted(geometry[id].idleBox,workcell.STATION_OFFSETS[id]);
+    const priorRect=projectedBox(box,priorCamera,view),idleRect=projectedBox(box,idleCamera,view);
+    robots.push({id,priorMotionPolicyHeightPixels:priorRect.height,idleHeightPixels:idleRect.height,heightRatio:idleRect.height/priorRect.height,
+      priorMotionPolicyWidthPixels:priorRect.width,idleWidthPixels:idleRect.width,widthRatio:idleRect.width/priorRect.width});}
+  return {viewport:view.name,priorMotionPolicyDistance:priorPolicy.distance,idleDistance:idle.distance,
+    averageHeightRatio:robots.reduce((sum,item)=>sum+item.heightRatio,0)/3,robots};
 }
 // These are canvas dimensions, not full-window dimensions. The 340 px desktop
 // panel and 58svh narrow-screen canvas follow the incumbent CSS unchanged.
@@ -156,11 +218,43 @@ await check('The station row uses exact 1.6 metre display offsets and the applic
     'fitWorkstationView(bounds,{fov:camera.fov,aspect:camera.aspect,viewportHeight:viewport.clientHeight,near:camera.near})',
     'orbit.target.copy(view.target);camera.position.copy(view.position)'])assert(fitSource.includes(fragment),`Application fit omits ${fragment}`);
   assert(app.includes('p.y-tag.offsetHeight'),'Station labels must end at their world anchor instead of extending over the robot');
+  assert(fitSource.includes("{motion=preparing||Boolean(coordinator?.running)||coordinator?.state==='preparing'}"),'Fit policy must follow preparation/running state');
+  assert(/if\(motion\)\{\s*const envelope=STATION_VIEW_BOUNDS\[id\];/.test(fitSource),'Only motion mode may add the conservative preparation envelope');
+  const startHandler=app.slice(app.indexOf("$('#start').addEventListener"),app.indexOf("$('#stop').addEventListener"));
+  assert(startHandler.includes('updateUI();fitView(undefined,{motion:true});'),'Preparing must expand the view before yielding a frame');
+  assert(startHandler.includes('fitView(undefined,{motion:result.ok})'),'Accepted starts must retain motion view and rejected starts must refit actual geometry');
+  const resetHandler=app.slice(app.indexOf("$('#reset').addEventListener"),app.indexOf('\nfunction ray('));
+  assert(resetHandler.includes('coordinator?.reset()')&&resetHandler.includes('fitView(undefined,{motion:false})'),'Reset must return to the actual standby fit');
+  const configure=app.slice(app.indexOf('async function configureTask('),start);
+  assert(configure.includes('fitView(undefined,{motion:false})'),'Task/randomization preparation must not leave an unnecessary motion envelope at rest');
+  assert(app.includes("$('#fit-view').addEventListener('click',()=>fitView())")&&app.includes("$('#focus-view').addEventListener('click',()=>fitView([coordinator?.focusId]))"),'Panorama/focus must use the state-aware policy');
+  assert(app.includes('if(coordinator)fitView();'),'Resize must refit with the state-aware policy');
   assert.equal(typeof workcell.fitWorkstationView,'function');
   for(const bad of [{aspect:0},{viewportHeight:0},{fov:180},{near:0}])
     assert.throws(()=>workcell.fitWorkstationView(new THREE.Box3(new THREE.Vector3(),new THREE.Vector3(1,1,1)),bad),RangeError);
   assert.throws(()=>workcell.fitWorkstationView(new THREE.Box3()),RangeError);
   return {offsets:workcell.STATION_OFFSETS,scope:'Display-group origins only; local-frame isolation is separately source-bound below.'};
+});
+await check('The exact production fit function selects current geometry at rest and reserves motion bounds only when needed',async()=>{
+  const app=(await boundBytes('dist/multi/app.mjs')).toString('utf8'),start=app.indexOf('function fitView('),end=app.indexOf('\nfunction setFocus(',start),source=app.slice(start,end);
+  // An explicit small-box contract fixture exercises production branching, not
+  // robot appearance. The source-mesh suites below provide actual geometry.
+  const group=new THREE.Group(),mesh=new THREE.Mesh(new THREE.BoxGeometry(.2,.4,.2),new THREE.MeshBasicMaterial());
+  mesh.position.set(.3,.5,0);group.position.fromArray(workcell.STATION_OFFSETS.r1);group.add(mesh);group.updateMatrixWorld(true);
+  const station={group,labelHeight:.9},fixtureStations=new Map([['r1',station]]),fixtureVisions=new Map(),coordinator={selectedIds:['r1'],running:false,state:'idle'};
+  const viewport={clientHeight:720},camera=new THREE.PerspectiveCamera(42,940/720,.02,40),orbit={target:new THREE.Vector3(),update(){}};
+  function fixtureFit(preparing=false){return new Function('THREE','stations','visions','coordinator','preparing','STATION_VIEW_BOUNDS','fitWorkstationView','viewport','camera','orbit',
+    `let lastViewFit=null;${source};return (ids,options)=>{fitView(ids,options);return lastViewFit;};`)
+    (THREE,fixtureStations,fixtureVisions,coordinator,preparing,workcell.STATION_VIEW_BOUNDS,workcell.fitWorkstationView,viewport,camera,orbit);}
+  const run=fixtureFit(),idle=run();assert.equal(idle.mode,'idle');assert.deepEqual(idle.ids,['r1']);
+  const actual=new THREE.Box3().setFromObject(group);actual.expandByPoint(group.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));
+  assert.deepEqual(idle.bounds,serial(actual),'Standby fit must use actual object bounds, without the future envelope');
+  coordinator.running=true;const running=run();assert.equal(running.mode,'motion');assert(running.distance>idle.distance);
+  coordinator.running=false;assert.equal(fixtureFit(true)().mode,'motion');coordinator.state='preparing';assert.equal(run().mode,'motion');
+  coordinator.state='idle';assert.equal(run(undefined,{motion:false}).mode,'idle');assert.equal(run(undefined,{motion:true}).mode,'motion');
+  mesh.geometry.dispose();mesh.material.dispose();
+  return {idleDistance:idle.distance,motionDistance:running.distance,preparingAndRunningBranchesChecked:true,
+    scope:'Exact production function with a declared box-only state-contract fixture; no robot rendering or physical execution.'};
 });
 for(const id of ids)await check(`${id}: all original visual meshes and named source poses fit the production view envelope`,async()=>{
   const fixture=await visualFixture(id),envelope=envelopeFor(id),samples={},idleWristBounds=new THREE.Box3();let idleBox;
@@ -170,13 +264,20 @@ for(const id of ids)await check(`${id}: all original visual meshes and named sou
     assert(envelope.clone().expandByScalar(1e-6).containsBox(actual),`${id}/${name}: actual visual vertices exceed framing envelope`);
     assert(envelope.clone().expandByScalar(1e-6).containsBox(productionAABB),`${id}/${name}: production per-mesh AABB exceeds framing envelope`);
     const wrists=[];for(const side of id==='c5'?['left']:['right','left']){
-      const link=fixture.robot.getObjectByName(ROBOT_CONFIGS[id].gripperLink(side));assert(link,`${id}/${side}: original camera link absent`);
+      const link=fixture.robot.getObjectByName((ROBOT_CONFIGS[id].cameraFrame??ROBOT_CONFIGS[id].gripperLink)(side));assert(link,`${id}/${side}: original camera link absent`);
       assert(vision.update(link));const mountBox=new THREE.Box3().setFromObject(vision.model);
       assert(envelope.clone().expandByScalar(1e-6).containsBox(mountBox),`${id}/${name}/${side}: real camera attachment exceeds production view envelope`);
       wrists.push({side,bounds:serial(mountBox),containedByProductionEnvelope:true});if(name==='idle')idleWristBounds.union(mountBox);
     }
     samples[name]={preciseVertices:serial(actual),productionObjectAABB:serial(productionAABB),wristCameraAttachments:wrists};
     if(name==='idle')idleBox=productionAABB.clone();
+  }
+  applyPose(fixture,historicalStandbyFixture.poses[id]);
+  const historicalIdleBox=new THREE.Box3().setFromObject(fixture.robot),historicalIdleVertices=preciseBounds(fixture.robot,fixture.meshes);
+  const historicalWristBounds=new THREE.Box3();
+  for(const side of id==='c5'?['left']:['right','left']){
+    const link=fixture.robot.getObjectByName((ROBOT_CONFIGS[id].cameraFrame??ROBOT_CONFIGS[id].gripperLink)(side));assert(vision.update(link));
+    historicalWristBounds.union(new THREE.Box3().setFromObject(vision.model));
   }
   vision.dispose();
   const station={id,config:ROBOT_CONFIGS[id],group:new THREE.Group()};
@@ -187,13 +288,21 @@ for(const id of ids)await check(`${id}: all original visual meshes and named sou
     new THREE.Vector3(config.tableCenter+config.tableHalfX,config.tableHeight+.065,config.tableHalfZ));
   // This task-space box is explicitly a conservative table-local proxy. Robot
   // visual bounds above are original mesh measurements, not this proxy.
-  const idleStationBox=idleBox.clone().union(supportBox).union(taskSpace),framingBox=idleStationBox.clone().union(envelope).union(idleWristBounds);
-  const labelHeight=idleBox.max.y+.13;framingBox.expandByPoint(new THREE.Vector3(0,labelHeight,0));
+  const idleStationBox=idleBox.clone().union(supportBox).union(taskSpace),idleFrameBox=idleStationBox.clone().union(idleWristBounds);
+  const labelHeight=idleBox.max.y+.13;idleFrameBox.expandByPoint(new THREE.Vector3(0,labelHeight,0));
+  const framingBox=idleFrameBox.clone().union(envelope);
+  const historicalIdleStationBox=historicalIdleBox.clone().union(supportBox).union(taskSpace);
+  const historicalGuard=historicalStandbyFixture.motionViewBounds[id];
+  const historicalFramingBox=historicalIdleStationBox.clone().union(new THREE.Box3(new THREE.Vector3(...historicalGuard.min),new THREE.Vector3(...historicalGuard.max))).union(historicalWristBounds);
+  const historicalLabelHeight=historicalIdleBox.max.y+.13;historicalFramingBox.expandByPoint(new THREE.Vector3(0,historicalLabelHeight,0));
   geometry[id]={visualCount:fixture.visualCount,meshNodeCount:fixture.meshes.length,
     vertexCount:fixture.meshes.reduce((n,mesh)=>n+mesh.geometry.attributes.position.count,0),
     namedPoses:samples,envelope:serial(envelope),table:serial(tableBox),taskSpaceProxy:serial(taskSpace),
-    idleRobot:serial(idleBox),idleStation:serial(idleStationBox),framing:serial(framingBox),
-    labelHeight,idleWristAttachments:serial(idleWristBounds),idleBox,idleStationBox,framingBox,tableBox};
+    idleRobot:serial(idleBox),idleStation:serial(idleStationBox),idleFraming:serial(idleFrameBox),motionFraming:serial(framingBox),
+    labelHeight,idleWristAttachments:serial(idleWristBounds),idleBox,idleStationBox,idleFrameBox,framingBox,tableBox,
+    historical:{idleRobot:serial(historicalIdleBox),idleVisualVertices:serial(historicalIdleVertices),idleStation:serial(historicalIdleStationBox),
+      framing:serial(historicalFramingBox),labelHeight:historicalLabelHeight,wristAttachments:serial(historicalWristBounds),
+      idleBox:historicalIdleBox,idleStationBox:historicalIdleStationBox,framingBox:historicalFramingBox}};
   assert.equal(fixture.robot.parent,null,'Source kinematic robot must remain outside display station');
   return {visualCount:fixture.visualCount,meshNodes:fixture.meshes.length,poses:Object.keys(samples)};
 });
@@ -224,8 +333,8 @@ await check('Grounded tables retain a positive independently measured inter-stat
 });
 if(ids.every(id=>geometry[id]))for(let mask=1;mask<8;mask++){
   const selected=ids.filter((id,index)=>mask&(1<<index));
-  for(const view of views)await check(`${selected.join('+')}/${view.name}: full robot, foot, worktable and motion envelopes stay inside the camera`,()=>{
-    assert.equal(typeof workcell.fitWorkstationView,'function');const bounds=sceneBounds(selected);
+  for(const motion of [false,true])for(const view of views)await check(`${selected.join('+')}/${view.name}/${motion?'motion':'idle'}: full robots, feet, worktables and required view bounds stay inside the camera`,()=>{
+    assert.equal(typeof workcell.fitWorkstationView,'function');const bounds=sceneBounds(selected,{motion});
     const fit=workcell.fitWorkstationView(bounds,{fov:42,aspect:view.width/view.height,viewportHeight:view.height,near:.02}),camera=cameraFor(fit,view);
     assert(Number.isFinite(fit.distance)&&fit.distance>=.6&&fit.distance<=22,'Fit must remain inside actual OrbitControls distance limits');near(fit.fillX,.9,'Horizontal fill');
     near(fit.fillY,Math.max(.50,1-152/view.height),'Vertical HUD fill');
@@ -242,33 +351,58 @@ if(ids.every(id=>geometry[id]))for(let mask=1;mask<8;mask++){
       assert(x-width/2>=0&&x+width/2<=view.width&&y-height>=0&&y<=view.height,`${id}: conservative label rectangle cropped`);
       labels.push({id,x,anchorBottomY:y,topY:y-height,assumedWidth:width,assumedHeight:height});
     }
-    projections.push({selected,viewport:view.name,width:view.width,height:view.height,distance:fit.distance,maxAbsNdcX:maxX,maxAbsNdcY:maxY,minDepthM:minNear,labels});
+    projections.push({selected,mode:motion?'motion':'idle',viewport:view.name,width:view.width,height:view.height,distance:fit.distance,maxAbsNdcX:maxX,maxAbsNdcY:maxY,minDepthM:minNear,labels});
     return {cornerCount:8,distance:fit.distance,topBottomReservePixels:(1-fit.fillY)*view.height/2};
   });
 }
-if(ids.every(id=>geometry[id]))for(const view of views.filter(view=>view.desktop))await check(`${view.name}: three original idle robots are at least 15 percent larger than the old panorama`,()=>{
-  const oldCamera=cameraFor(oldFit(sceneBounds(ids,{old:true}),view),view),fit=workcell.fitWorkstationView(sceneBounds(ids),
-    {fov:42,aspect:view.width/view.height,viewportHeight:view.height,near:.02}),newCamera=cameraFor(fit,view),robots=[];
-  for(const id of ids){const oldRect=projectedBox(shifted(geometry[id].idleBox,[0,0,(1-ids.indexOf(id))*2.2]),oldCamera,view);
-    const newRect=projectedBox(shifted(geometry[id].idleBox,workcell.STATION_OFFSETS[id]),newCamera,view);
-    robots.push({id,oldHeightPixels:oldRect.height,newHeightPixels:newRect.height,heightRatio:newRect.height/oldRect.height,
-      oldWidthPixels:oldRect.width,newWidthPixels:newRect.width,widthRatio:newRect.width/oldRect.width});}
-  const averageHeightRatio=robots.reduce((sum,item)=>sum+item.heightRatio,0)/3;
-  assert(averageHeightRatio>=1.15,`Average visual height only ${averageHeightRatio.toFixed(3)} times old panorama`);
-  magnifications.push({viewport:view.name,averageHeightRatio,robots});return {averageHeightRatio};
+if(ids.every(id=>geometry[id]))for(const view of views.filter(view=>view.desktop))await check(`${view.name}: identical frozen b271a9a standby poses retain the historical 15 percent compact-framing gain`,()=>{
+  const historical=compareFraming(view,{historical:true}),current=compareFraming(view);
+  historicalMagnifications.push(historical);currentPoseMagnifications.push(current);
+  assert(historical.averageHeightRatio>=1.15,`Historical fixture average visual height only ${historical.averageHeightRatio.toFixed(3)} times old panorama`);
+  assert(Number.isFinite(current.averageHeightRatio)&&current.averageHeightRatio>0,'Current-pose observation must be finite and positive');
+  return {historicalAverageHeightRatio:historical.averageHeightRatio,historicalMinimumRatio:1.15,
+    currentPoseObservedAverageHeightRatio:current.averageHeightRatio,currentPoseHasNoMinimumMagnificationGate:true};
+});
+if(ids.every(id=>geometry[id]))for(const view of views.filter(view=>view.desktop))await check(`${view.name}: current standby is closer than the previous always-motion policy without changing any robot pose or scale`,()=>{
+  const observation=compareIdleToMotion(view);idleFramingGains.push(observation);
+  assert(observation.idleDistance<observation.priorMotionPolicyDistance,'Current standby must not retain the farther motion fit');
+  assert(Number.isFinite(observation.averageHeightRatio)&&observation.averageHeightRatio>1,'Standby robots must be visibly enlarged by the camera change alone');
+  return {averageHeightRatio:observation.averageHeightRatio,priorMotionPolicyDistance:observation.priorMotionPolicyDistance,idleDistance:observation.idleDistance};
 });
 const sourceFrozen=(await Promise.all([...paths].map(async path=>sha(await readFile(new URL(path,root)))===sourceHashes[path]))).every(Boolean);
 if(!sourceFrozen)errors.push({name:'source freeze',message:'A measured source or visual asset changed during the geometry suite'});
-const outputGeometry=Object.fromEntries(Object.entries(geometry).map(([id,data])=>[id,Object.fromEntries(Object.entries(data).filter(([key])=>!['idleBox','idleStationBox','framingBox','tableBox'].includes(key)))]));
-const report={pass:errors.length===0,scope:'Source-visual vertex measurements, named-pose conservative envelopes, exact Three perspective projections and old/new projected size comparison. No browser rendering or physical simulation.',
+const outputGeometry=Object.fromEntries(Object.entries(geometry).map(([id,data])=>{
+  const {historical,...current}=data,omitRuntimeBoxes=record=>Object.fromEntries(Object.entries(record)
+    .filter(([key])=>!['idleBox','idleStationBox','idleFrameBox','framingBox','tableBox'].includes(key)));
+  return [id,{...omitRuntimeBoxes(current),historicalStandbyFixture:omitRuntimeBoxes(historical)}];
+}));
+const report={schemaVersion:3,pass:errors.length===0,scope:'Current-source visual vertices and named poses, separate idle/motion perspective projections, exact production fit-state contracts, plus an explicitly frozen historical-pose camera regression. No browser rendering or physical simulation.',
   limitations:['Named poses do not cover arbitrary manually requested joint configurations or full continuous physical trajectories.',
     'Task-space boxes conservatively cover the existing table-local task objects; they are not robot visual measurements.',
     'Label rectangles use explicit conservative pixel estimates, not browser font metrics; final native desktop/mobile inspection remains necessary.',
+    'The 15 percent gate applies only to identical frozen historical standby poses under the two camera/layout implementations. Current standby magnifications are separate observations, not a claim that every viewport exceeds 15 percent.',
+    'Both camera comparisons use source-mesh geometry measured with the same joint pose on each side; neither compares the new shorter C5 pose with the historical straight C5 pose or with user-photo pixels.',
     'Independent physical worlds do not calculate cross-station collision; geometric separation is not hardware safety certification.'],
   total:checks.length,passed:checks.filter(item=>item.pass).length,sourceFrozen,sourceHashes,geometry:outputGeometry,
-  projectionCases:projections.length,projections,magnifications,checks,errors};
+  motionPoseSampling:{r1CrouchWaistYaw:{minimumRad:-1,maximumRad:1,stepRad:.1,samples:21,
+    scope:'Source visual meshes at explicitly sampled CROUCH+SPREAD waist poses only. Not a continuous whole-joint envelope, collision test or safety proof.'},
+    r1StandbyToSpread:{samples:41,interpolation:'Linear joint interpolation at fixed 1/40 path fractions, covering the same geometric path as smoothstep timing.',
+      scope:'Explicit preparation-entry samples only; this does not prove all planned returns, arbitrary joint paths or collision safety.'}},
+  projectionCases:projections.length,idleProjectionCases:projections.filter(row=>row.mode==='idle').length,
+  motionProjectionCases:projections.filter(row=>row.mode==='motion').length,projections,
+  comparisons:{
+    historical:{fixture:historicalStandbyFixture,minimumAverageHeightRatio:1.15,magnifications:historicalMagnifications,
+      scope:'Frozen b271a9a standby geometry and motion guards on both sides: 2.2m/previous fit versus 1.6m/corner-fit with that historical motion envelope. Historical regression, not the new default idle view or current wider waist-yaw guard.'},
+    current:{poses:Object.fromEntries(ids.map(id=>[id,poseSets[id].idle])),minimumAverageHeightRatio:null,magnifications:currentPoseMagnifications,
+      scope:'Same current standby geometry on both sides: 2.2m/previous fit versus 1.6m/motion-envelope fit; factual observations only. Both 49-case current idle/motion projection sets remain gated above.'},
+    idleVersusPriorMotionPolicy:{policyBaselineCommit:'b271a9aeb5bbdf8d2bad5853519da34bd59bf8ea',poses:Object.fromEntries(ids.map(id=>[id,poseSets[id].idle])),
+      stationOffsets:workcell.STATION_OFFSETS,magnifications:idleFramingGains,
+      scope:'Camera-only counterfactual: identical current standby source geometry, source-camera attachments, 1.6m offsets, lens settings and HUD margins on both sides; frozen b271a9a always-motion guards versus new actual-idle fit. Newly widened motion guards are not used to inflate this gain. This does not compare different robot poses or reproduce historical browser pixels.'},
+  },checks,errors};
 await mkdir(new URL('work/validation/multi-framing/',root),{recursive:true});
 await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,total:report.total,passed:report.passed,projectionCases:projections.length,
-  magnifications:magnifications.map(({viewport,averageHeightRatio})=>({viewport,averageHeightRatio})),sourceFrozen,report:reportPath,errors},null,2));
+  historicalMagnifications:historicalMagnifications.map(({viewport,averageHeightRatio})=>({viewport,averageHeightRatio})),
+  currentPoseObservations:currentPoseMagnifications.map(({viewport,averageHeightRatio})=>({viewport,averageHeightRatio})),
+  idleVersusPriorMotionPolicy:idleFramingGains.map(({viewport,averageHeightRatio})=>({viewport,averageHeightRatio})),sourceFrozen,report:reportPath,errors},null,2));
 if(!report.pass)process.exitCode=1;

@@ -9,7 +9,7 @@
 - `dist/Rebot_Arm_AGV/models/rs_arm.xml`：六关节电机、夹爪耦合、夹爪分块碰撞、腕部相机及其支架。
 - `dist/r1/r1-app.mjs`、`grasp-controller.mjs`、`grasp-kinematics.mjs`、`r1-dynamics.mjs` 与 `models/r1-dynamic-scene.xml`：R1 当前实现。本文引用的函数名对应仓库包含的确定版本，不依赖线上页面更新。
 
-## 本次场景与相机适配
+## 场景与相机适配（含 2026-10-16 原生相机更新）
 
 新增 `dist/r1/r1-workcell.mjs`，所有位姿为 Three.js Y-up。参考 XML/任务常量使用 MuJoCo Z-up，二者位置映射为 `(x,y,z)_MJ → (x,z,-y)_Three`。
 
@@ -22,8 +22,8 @@
 | 直接灯光 | Ambient `#6f9bd4/.26`，Hemisphere `#d9f6ff,#021026/.48`；Directional 白 `#f2fbff/1`、青 `#8bdcff/.38`、蓝 `#286fff/.62`；三盏 RectAreaLight 为 `#eaf8ff/2`、`#10cfff/2.8`、`#245cff/1.9` | 全部八盏真实灯光。面积灯使用参考包中同一组64×64 LTC查找表，按台面归一化映射位置/目标；面积灯颜色和强度不变。按用户补光要求，将环境光/半球光/青色补光分别升至`.40/.65/.55`，主光与蓝色轮廓光不变 |
 | 台面 | XML 尺寸 `.50×.90×.03m`，高度 `.10m`；`Qu()` 将 rs_table 线性颜色 `[.34,.37,.36]` 乘 `.58` | 保留已适配 R1 的 `.72×.76×.065m`、现有高度与 x=.78 中心，不移动任务物；沿用参考颜色转换、金属度 `.12`、粗糙度 `.55`；四腿落地 |
 | 全局俯视 | XML overhead_rgb：FOV70°，台面上方 `.68m`，原位置偏台面中心4cm | `configureOverheadCamera()` FOV70°，置于 R1 台面中心上方 `.68m`，Y-up与台面正交 |
-| 腕部光学 | `rs_arm.xml` wrist_rgb FOV `62.82°`，`xyaxes="0 -1 0 0.5 0 .866025404"`；30°向下；随夹爪坐标变换更新 | 夹爪局部 +X 为前方，抓取时 +Z 朝下。镜头偏移 `[-.035,0,-.065]m`，局部视线 `[cos30°,0,sin30°]`、up `[-sin30°,0,-cos30°]`；镜头在夹爪上方65mm，观察 TCP/指尖/物体/台面 |
-| 相机模型 | XML D405 盒体 `.042×.042×.023m`，两镜头半径5.5mm，含支架；模型可隐藏 | 同尺寸盒体/面板/双镜头，R1深灰支架；随当前执行臂 wrist frame 更新。模型在layer1，腕部相机只渲染layer0以防看见自身外壳；全局/主相机需要启用layer1 |
+| 腕部光学 | `rs_arm.xml` wrist_rgb FOV `62.82°`，`xyaxes="0 -1 0 0.5 0 .866025404"`；30°向下；随夹爪坐标变换更新 | 当前 R1 绑定执行臂原生 `${arm}_realsense_link`，由该源 STL 推断镜头局部中心 `[.0325,0,.001]m`、视线 `[0,0,1]`、up `[0,-1,0]`。FOV `62.82°` 仍是软件视野约定；URDF 未提供光学标定帧，这些轴及中心不是硬件内外参。原生关节姿态决定真实画面，不强制待命镜头俯视桌面 |
+| 相机模型 | XML D405 盒体 `.042×.042×.023m`，两镜头半径5.5mm，含支架；模型可隐藏 | 当前 R1 只保留原 URDF 左右 Realsense 网格与固定变换；不再新建盒体、镜头或支架。显隐作用于这两个原始相机子树；它们置于 layer1，腕部画面排除自身源网格，主视图/俯视相机保留 layer1。无相机绑定时只返回无几何的空占位组 |
 
 接口：
 
@@ -33,17 +33,19 @@ configureRenderer(mainRenderer, {THREE});
 feedRenderers.forEach(renderer => configureRenderer(renderer, {THREE}));
 mainCamera.layers.enable(1);
 configureOverheadCamera(overheadCamera, {THREE, TABLE_HEIGHT, tableCenter: .78});
-const wrist = createWristVision({scene, THREE, camera: wristCamera});
+const wrist = createWristVision({THREE, camera: wristCamera});
 // 每次姿态更新后：
-wrist.update(robot.getObjectByName(`${arm}_gripper_link`));
+wrist.update(robot.getObjectByName(`${arm}_realsense_link`));
 wrist.setVisible(showCameraModel);
 ```
 
-`createWorkcell` 返回 `group/table/floor/grid/lights/dispose`；`grid` 指使用网格贴图的地面，不另叠一套有深度冲突的线段。`createWristVision` 返回 `model/update/setVisible/visible/dispose`，不修改机器人关节或碰撞。
+`createWorkcell` 返回 `group/table/floor/grid/lights/dispose`；`grid` 指使用网格贴图的地面，不另叠一套有深度冲突的线段。`createWristVision` 返回 `model/update/setVisible/visible/dispose`；`model` 为当前原生相机链接或空占位，错误/缺失源链接被拒绝，不退回夹爪坐标。销毁时恢复源子树状态，不删除或释放机器人资产，也不修改机器人关节或碰撞。
 
 面积灯补充：`r1-area-light-textures.mjs` 从已包含的参考包 `Hi.init()` 提取两张64×64 RGBA表，以Float32字节无损base64编码（约176KB模块）；`initAreaLightTextures()` 设置 `THREE.UniformsLib.LTC_FLOAT_1/2` 及 `LTC_HALF_1/2`，与参考 `Uu.init()` 对应，支持本仓库Three.js r180的float/half纹理分支。原面积灯 `position/target/size` 为白光 `[.28,-.58,1.28] / [.25,0,.16] / 1.6×1.15`、青光 `[-.58,.2,.68] / [.23,0,.18] / .75×1.05`、蓝光 `[.86,.32,.62] / [.25,0,.18] / .7×.9`。映射以参考台面中心 `[.38,0,.10]` 为基准，x与高度差乘 `.72/.50`、深度差乘 `.76/.90` 后移到R1台面中心 `[.78,TABLE_HEIGHT,0]`；发光面积的宽高按`.72/.50`等比调整，保证台面旁的软箱尺寸与距离比例一致。
 
-本次静态数值检查：在真实抓取使用的水平夹爪旋转下，TCP `[.068,0,0]` 投影到腕部图像 NDC `[-0,-.06448,.87003]`，在画面中央附近；光轴世界方向约 `[.866,-.5,0]`，朝前下方；光学位置比腕部高65mm。模块语法检查通过。上述检查证明变换计算，不代替页面截图、遮挡和动态画面的最终验收。
+历史数值（2026-10-15，已被原生相机替换）：旧合成相机在水平夹爪旋转下将 TCP `[.068,0,0]` 投影到 NDC `[-0,-.06448,.87003]`；旧光轴世界方向约 `[.866,-.5,0]`，光学位置比腕部高65mm。这些数值只说明当时的变换，不描述当前原生相机，也不作为当前遮挡或取景通过证据。原截图/录像保留在 [历史验收](ACCEPTANCE.md)；当前证据与边界见 [姿态与原生相机验收](POSE-AND-VISION-ACCEPTANCE.md)。
+
+2026-10-16 姿态/路径契约：R1 以真实肩肘关节自然垂臂，在第4、第6轴分配原生相机朝前所需的纵向转角，由第5轴补偿俯仰。抓取使用左右镜像的自然腕部范围及向下20°的工具姿态；初始候选比较完整取放路径，笛卡尔段仅延续前一采样点支路，相邻关节跳变不超过 `.30rad`，位置/角误差仍须不超过 `.003m/.035rad`。IK seed 只含执行臂六轴，避免旧躯干或另一臂目标覆盖当前规划。腰部候选在源关节帧求解，取放共用同一腰角；接近前转腰，叠放换向先清障，携物不转腰。上述舒适范围不替换 URDF/MJCF 限位、力矩、速度或接触模型；源 STL 离散几何检查不等于完整自碰撞求解。
 
 ## 自动归位与叠放的精确参考契约
 
@@ -91,6 +93,6 @@ wrist.setVisible(showCameraModel);
 
 ## 升级前审计记录与原始目标
 
-以下是升级前记录，不代表当前实现状态。原始目标曾包含左右臂×三种物体各连续3次、完整三物体叠放连续3次且松爪稳定3秒、编辑/不可达/停止/复位/手动TCP/夹爪与关节重复操作、真实关节力矩与目标/实测误差、中英日与触控、同条件参考页/R1截图及操作录像。本轮收窄后的范围、实际完成证据与未验证边界见 [当前验收报告](ACCEPTANCE.md)，其中不包含三语言扩展或真实触屏设备验收。
+以下是升级前记录，不代表当前实现状态。原始目标曾包含左右臂×三种物体各连续3次、完整三物体叠放连续3次且松爪稳定3秒、编辑/不可达/停止/复位/手动TCP/夹爪与关节重复操作、真实关节力矩与目标/实测误差、中英日与触控、同条件参考页/R1截图及操作录像。2026-10-15 收窄后的范围、当时完成证据与未验证边界见 [历史验收报告](ACCEPTANCE.md)，其中不包含三语言扩展或真实触屏设备验收；2026-10-16 姿态与原生相机更新另见 [本轮验收](POSE-AND-VISION-ACCEPTANCE.md)。
 
 升级前的 `r1-contact-scene.xml` 只模拟自由腕部和四个滑动指垫，没有六轴臂的动力学关节与电机；该模型的指尖力、腕部位置误差不能冒充六关节力矩或RMS角误差。参考 `N4` 使用全臂MJCF，`qfrc_bias + kp*(target-qpos)-kd*qvel` 驱动力矩，臂kp `[80,100,100,35,25,18]`、kd `[8,10,10,4,3,2.5]`、力矩限幅 `[36,36,36,14,14,14] N·m`。当前R1页面已切换到 `r1-dynamic-scene.xml` 与 `r1-dynamics.mjs` 的完整关节动力学，按R1自身URDF配置电机与限位，并读取实际关节状态和 `qfrc_actuator`；旧接触模型仅保留作历史参考。

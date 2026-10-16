@@ -238,7 +238,9 @@ async function main() {
   check(release?.pass === true && release.manualMotionRevisionVerified === true, 'browser: final manual-motion revision not inspected');
   check(JSON.stringify(release?.desktop) === '[1280,720]' && JSON.stringify(release?.mobile) === '[390,844]', 'browser: final desktop/phone inspection absent');
   check(release?.controllerSha256 === await currentHash('dist/c5/grasp-controller.mjs'), 'browser: confirmation refers to an old controller');
-  const html = await readFile(resolve(root, 'dist/c5/index.html'), 'utf8'), cache = [...html.matchAll(/\?v=([\w-]+)/g)].map(match => match[1]);
+  // Import-map keys intentionally include obsolete cache aliases. Only real
+  // resource attributes declare the release actually requested by this HTML.
+  const html = await readFile(resolve(root, 'dist/c5/index.html'), 'utf8'), cache = [...html.matchAll(/(?:src|href)=["']([^"']+\?v=([\w-]+))["']/g)].map(match => match[2]);
   check(cache.length >= 2 && cache.every(version => version === release?.cacheVersion), 'browser: rendered release cache differs from current entry point');
   check(browser.rendered?.desktop?.robotAndGroundedTableFullyVisible === true && browser.rendered.desktop.originalC5SilverGrayBlueMaterialsVisible === true
     && browser.rendered.desktop.dex1Black === true && browser.rendered.desktop.twoCameraFeedsContainRenderedScene === true, 'browser: actual C5/grounded table/material/camera render not observed');

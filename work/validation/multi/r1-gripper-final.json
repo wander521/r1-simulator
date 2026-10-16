@@ -31,17 +31,17 @@
   "stats": {
     "millisecondSamples": 3050,
     "maxCommandVelocity": 0.10000000000000286,
-    "maxActualVelocity": 0.12128729501545277,
-    "maxActualFingerRangeExcess": 0.0006501666218955696,
-    "maxEffortRatio": 0.11040830028877587
+    "maxActualVelocity": 0.1212679178813042,
+    "maxActualFingerRangeExcess": 0.00040864430894242687,
+    "maxEffortRatio": 0.08707100642111384
   },
   "sourceFrozen": true,
   "sourceHashes": {
     "work/test-multi-r1-gripper.mjs": "2c93ead0bd3dcb33b1a9f32540c53771c1f7c2d831d401c52cbd0266ec551744",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
-    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
     "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
-    "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
     "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
     "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
     "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3"

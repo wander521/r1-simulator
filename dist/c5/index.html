@@ -6,8 +6,57 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>遨博 C5 六轴抓取 · 本地数字孪生</title>
 <link rel="stylesheet" href="../Rebot_Arm_AGV/assets/index-B74gtmCa.css">
-<link rel="stylesheet" href="./styles.css?v=20261015-c5-3">
-<script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
+<link rel="stylesheet" href="./styles.css?v=20261016-native-camera-3">
+<script type="importmap">
+{
+  "imports": {
+    "three": "../vendor/three.module.min.js",
+    "three/examples/jsm/loaders/STLLoader.js": "../vendor/STLLoader.js",
+    "../multi/app.mjs": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/app.mjs?v=20261016-rest-1": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/app.mjs?v=20261016-native-camera-2": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/robot-runtime.mjs": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "../multi/robot-runtime.mjs?v=20261016-native-camera-2": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "../multi/presentation.mjs": "../multi/presentation.mjs?v=20261016-native-camera-3",
+    "../multi/presentation.mjs?v=20261016-native-camera-2": "../multi/presentation.mjs?v=20261016-native-camera-3",
+    "../multi/workcell.mjs": "../multi/workcell.mjs?v=20261016-native-camera-3",
+    "../multi/workcell.mjs?v=20261016-native-camera-2": "../multi/workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs?v=20261016-rest-1": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs?v=20261016-native-camera-2": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs?v=20261016-rest-1": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs?v=20261016-native-camera-2": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs?v=20261015-6": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs?v=20261016-native-camera-2": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs?v=20261016-source-camera-1": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs?v=20261016-native-camera-2": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs?v=20261016-rest-1": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs?v=20261016-native-camera-2": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs?v=20261016-rest-1": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs?v=20261016-native-camera-2": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261016-rest-1": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261015-c5-3": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261016-native-camera-2": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../multi/app.mjs?v=20261016-native-camera-3": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/robot-runtime.mjs?v=20261016-native-camera-3": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "../multi/presentation.mjs?v=20261016-native-camera-3": "../multi/presentation.mjs?v=20261016-native-camera-3",
+    "../multi/workcell.mjs?v=20261016-native-camera-3": "../multi/workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs?v=20261016-native-camera-3": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs?v=20261016-native-camera-3": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs?v=20261016-native-camera-3": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs?v=20261016-native-camera-3": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs?v=20261016-native-camera-3": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261016-native-camera-3": "../c5/c5-profile.mjs?v=20261016-native-camera-3"
+  }
+}
+</script>
 </head>
 <body>
 <main class="app c5-app"><section class="viewport" id="viewport"><canvas id="main-view" aria-label="可旋转的遨博 C5 六轴机械臂工作台"></canvas><div class="loading-overlay" id="loading-overlay" role="status">
@@ -93,7 +142,7 @@
 </div>
 <div class="telemetry-chart">
 <span>关节误差曲线 · rad</span><canvas id="error-chart" width="276" height="88"></canvas>
-</div></section></aside></main><script type="module" src="./c5-app.mjs?v=20261015-c5-3"></script>
+</div></section></aside></main><script type="module" src="./c5-app.mjs?v=20261016-native-camera-3"></script>
 </body>
 </html>
 

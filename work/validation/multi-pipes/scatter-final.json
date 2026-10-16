@@ -1,6 +1,6 @@
 {
   "pass": true,
-  "startedAt": "2026-10-15T23:16:40.317Z",
+  "startedAt": "2026-10-16T02:38:00.222Z",
   "mode": "static-scatter-quality",
   "scope": "Deterministic production-layout statistics and geometric clearance only; not IK, physical grasp, native interaction or rendered-pixel evidence",
   "attemptedLayouts": 300,
@@ -30785,11 +30785,11 @@
   "sourceHashes": {
     "work/test-pipe-scatter.mjs": "3fdfaa47131d1c1df991438bdde93015c6a48a940f62f99659e8212e8195c3c8",
     "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
-    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
-    "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
-    "dist/r1/grasp-kinematics.mjs": "8aabe6ae5d1664c04421aa72f70c2ce68fd95fbf7acce33bb207f87edf656893",
+    "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
     "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
-    "dist/c5/c5-profile.mjs": "6a2419169fdf4cda2b4d34b56b3f1b6f97cc2f74b38497e08e67a12b97c135dc",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
     "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6"
   },
   "errors": []

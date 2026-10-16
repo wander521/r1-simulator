@@ -1,4 +1,7 @@
 {
+  "historical": true,
+  "supersededBy": "work/validation/pose-vision/browser-final.json",
+  "historicalNote": "The observations and hashes below belong to the prior compact-layout release; they have not been relabeled as current standby/native-camera/IK evidence.",
   "scope": "Root-agent native in-app browser inspection of the compact display layout, not new physical grasp evidence or an independent saved-pixel review.",
   "url": "http://127.0.0.1:4173/multi/",
   "sourceHashes": {

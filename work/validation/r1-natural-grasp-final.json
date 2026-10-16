@@ -1,0 +1,1185 @@
+{
+  "pass": true,
+  "checks": 4,
+  "results": [
+    {
+      "name": "IK trims full-pose seeds to exactly six executing-arm joints, preserving torso and real state",
+      "pass": true
+    },
+    {
+      "name": "Both arms: all three default object routes and preparation are naturally continuous and original-STL/table clear",
+      "pass": true
+    },
+    {
+      "name": "Both arms: complete real blue grasp/release with original STL triangles checked every 20 ms",
+      "pass": true
+    },
+    {
+      "name": "Both arms: original-source table clearance for red/yellow stack-height preparation and complete planned routes",
+      "pass": true
+    }
+  ],
+  "cases": [
+    {
+      "arm": "right",
+      "id": "red",
+      "type": "source-planned-route",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 16,
+        "candidates": [
+          0.15280022263717025,
+          0.1658682748711689,
+          0.13973217040317162,
+          0.3028002226371702,
+          0.31586827487116886,
+          0.2897321704031716,
+          0.002800222637170252,
+          0.015868274871168903,
+          -0.01026782959682837,
+          0.45280022263717024,
+          0.4658682748711689,
+          0.4397321704031716,
+          -0.14719977736282974,
+          -0.1341317251288311,
+          -0.16026782959682837,
+          0.3,
+          0.4,
+          0.2,
+          0.1,
+          0
+        ],
+        "actualYaw": 0.13973217040317162,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "natural": {
+        "score": 14.951230402130419,
+        "wristPitchLimit": 1.35,
+        "maxWristPitch": 0.8851723537531822,
+        "maxWristRoll": 1.479905059757891,
+        "toolDownTilt": 0.3490658503988659,
+        "toolYaw": 0.35,
+        "limits": {
+          "right_arm_joint1": {
+            "lower": -1.35,
+            "upper": 2.2
+          },
+          "right_arm_joint2": {
+            "lower": 0.02,
+            "upper": 3.2
+          },
+          "right_arm_joint3": {
+            "lower": -3.25,
+            "upper": -0.35
+          },
+          "right_arm_joint4": {
+            "lower": -2.85,
+            "upper": -0.15
+          },
+          "right_arm_joint5": {
+            "lower": -1.35,
+            "upper": -0.04
+          },
+          "right_arm_joint6": {
+            "lower": -2.35,
+            "upper": 2.35
+          }
+        },
+        "maxPositionError": 0.0001383033762764987,
+        "maxAngleError": 0.0008081427438417795,
+        "maxAdjacentJointJump": 0.03724235921413377
+      },
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009173228382644005,
+        "maxPositionErrorM": 0.0001383033762764987,
+        "maxAngleErrorRad": 0.0008081427440579202,
+        "maxAdjacentJointJumpRad": 0.03724235921413377
+      }
+    },
+    {
+      "arm": "right",
+      "id": "blue",
+      "type": "source-planned-route",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 7,
+        "candidates": [
+          0.3518250571889275,
+          0.38205674113301274,
+          0.3215933732448422,
+          0.5018250571889274,
+          0.5320567411330127,
+          0.4715933732448422,
+          0.2018250571889275,
+          0.23205674113301275,
+          0.17159337324484222,
+          0.6518250571889275,
+          0.6820567411330127,
+          0.6215933732448422,
+          0.05182505718892749,
+          0.08205674113301276,
+          0.02159337324484223,
+          0.3,
+          0.4,
+          0.2,
+          0.1,
+          0
+        ],
+        "actualYaw": 0.38205674113301274,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "natural": {
+        "score": 14.484022713785889,
+        "wristPitchLimit": 1.35,
+        "maxWristPitch": 0.7070388826354986,
+        "maxWristRoll": 1.4868724071266484,
+        "toolDownTilt": 0.3490658503988659,
+        "toolYaw": 0.7,
+        "limits": {
+          "right_arm_joint1": {
+            "lower": -1.35,
+            "upper": 2.2
+          },
+          "right_arm_joint2": {
+            "lower": 0.02,
+            "upper": 3.2
+          },
+          "right_arm_joint3": {
+            "lower": -3.25,
+            "upper": -0.35
+          },
+          "right_arm_joint4": {
+            "lower": -2.85,
+            "upper": -0.15
+          },
+          "right_arm_joint5": {
+            "lower": -1.35,
+            "upper": -0.04
+          },
+          "right_arm_joint6": {
+            "lower": -2.35,
+            "upper": 2.35
+          }
+        },
+        "maxPositionError": 0.00014634082974774706,
+        "maxAngleError": 0.0014888502124338033,
+        "maxAdjacentJointJump": 0.041852445958554974
+      },
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009167850063628302,
+        "maxPositionErrorM": 0.00014634082974774706,
+        "maxAngleErrorRad": 0.0014888502123886448,
+        "maxAdjacentJointJumpRad": 0.041852445958554974
+      }
+    },
+    {
+      "arm": "right",
+      "id": "yellow",
+      "type": "source-planned-route",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 17,
+        "candidates": [
+          0.5364695128210105,
+          0.580341890508594,
+          0.49259713513342707,
+          0.6864695128210105,
+          0.730341890508594,
+          0.6425971351334271,
+          0.3864695128210105,
+          0.43034189050859395,
+          0.34259713513342704,
+          0.8364695128210105,
+          0.880341890508594,
+          0.7925971351334271,
+          0.23646951282101053,
+          0.280341890508594,
+          0.19259713513342708,
+          0.3,
+          0.4,
+          0.2,
+          0.1,
+          0
+        ],
+        "actualYaw": 0.49259713513342707,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "natural": {
+        "score": 16.295765802018593,
+        "wristPitchLimit": 1.35,
+        "maxWristPitch": 0.9153495550975869,
+        "maxWristRoll": 1.5212361693763734,
+        "toolDownTilt": 0.3490658503988659,
+        "toolYaw": 0.7,
+        "limits": {
+          "right_arm_joint1": {
+            "lower": -1.35,
+            "upper": 2.2
+          },
+          "right_arm_joint2": {
+            "lower": 0.02,
+            "upper": 3.2
+          },
+          "right_arm_joint3": {
+            "lower": -3.25,
+            "upper": -0.35
+          },
+          "right_arm_joint4": {
+            "lower": -2.85,
+            "upper": -0.15
+          },
+          "right_arm_joint5": {
+            "lower": -1.35,
+            "upper": -0.04
+          },
+          "right_arm_joint6": {
+            "lower": -2.35,
+            "upper": 2.35
+          }
+        },
+        "maxPositionError": 0.00013328855423646303,
+        "maxAngleError": 0.0008852068605512723,
+        "maxAdjacentJointJump": 0.03403329675892697
+      },
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009167287512784894,
+        "maxPositionErrorM": 0.00013328855423646303,
+        "maxAngleErrorRad": 0.0008852068611129015,
+        "maxAdjacentJointJumpRad": 0.03403329675892697
+      }
+    },
+    {
+      "arm": "left",
+      "id": "red",
+      "type": "source-planned-route",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 16,
+        "candidates": [
+          -0.5367280541671138,
+          -0.5806421345632936,
+          -0.49281397377093383,
+          -0.38672805416711376,
+          -0.4306421345632936,
+          -0.3428139737709338,
+          -0.6867280541671138,
+          -0.7306421345632936,
+          -0.6428139737709339,
+          -0.2367280541671138,
+          -0.2806421345632936,
+          -0.19281397377093384,
+          -0.8367280541671138,
+          -0.8806421345632935,
+          -0.7928139737709339,
+          -0.3,
+          -0.4,
+          -0.2,
+          -0.1,
+          0
+        ],
+        "actualYaw": -0.49281397377093383,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "natural": {
+        "score": 16.252525264264822,
+        "wristPitchLimit": 1.35,
+        "maxWristPitch": 0.9141257848315865,
+        "maxWristRoll": 1.525815946050721,
+        "toolDownTilt": 0.3490658503988659,
+        "toolYaw": -0.7,
+        "limits": {
+          "left_arm_joint1": {
+            "lower": -2.2,
+            "upper": 1.35
+          },
+          "left_arm_joint2": {
+            "lower": 0.02,
+            "upper": 3.2
+          },
+          "left_arm_joint3": {
+            "lower": -3.25,
+            "upper": -0.35
+          },
+          "left_arm_joint4": {
+            "lower": 0.15,
+            "upper": 2.85
+          },
+          "left_arm_joint5": {
+            "lower": 0.04,
+            "upper": 1.35
+          },
+          "left_arm_joint6": {
+            "lower": -2.35,
+            "upper": 2.35
+          }
+        },
+        "maxPositionError": 0.00013454937890524315,
+        "maxAngleError": 0.0008837202168152368,
+        "maxAdjacentJointJump": 0.034048195047466256
+      },
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009152833033798935,
+        "maxPositionErrorM": 0.00013454937890524315,
+        "maxAngleErrorRad": 0.0008837202165488433,
+        "maxAdjacentJointJumpRad": 0.034048195047466256
+      }
+    },
+    {
+      "arm": "left",
+      "id": "blue",
+      "type": "source-planned-route",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 7,
+        "candidates": [
+          -0.3518235750302341,
+          -0.38205512054935575,
+          -0.3215920295111124,
+          -0.2018235750302341,
+          -0.23205512054935576,
+          -0.17159202951111238,
+          -0.5018235750302341,
+          -0.5320551205493558,
+          -0.47159202951111234,
+          -0.051823575030234104,
+          -0.08205512054935576,
+          -0.021592029511112387,
+          -0.6518235750302341,
+          -0.6820551205493557,
+          -0.6215920295111124,
+          -0.3,
+          -0.4,
+          -0.2,
+          -0.1,
+          0
+        ],
+        "actualYaw": -0.38205512054935575,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "natural": {
+        "score": 14.484014286863884,
+        "wristPitchLimit": 1.35,
+        "maxWristPitch": 0.7070354703317233,
+        "maxWristRoll": 1.4868753414064557,
+        "toolDownTilt": 0.3490658503988659,
+        "toolYaw": -0.7,
+        "limits": {
+          "left_arm_joint1": {
+            "lower": -2.2,
+            "upper": 1.35
+          },
+          "left_arm_joint2": {
+            "lower": 0.02,
+            "upper": 3.2
+          },
+          "left_arm_joint3": {
+            "lower": -3.25,
+            "upper": -0.35
+          },
+          "left_arm_joint4": {
+            "lower": 0.15,
+            "upper": 2.85
+          },
+          "left_arm_joint5": {
+            "lower": 0.04,
+            "upper": 1.35
+          },
+          "left_arm_joint6": {
+            "lower": -2.35,
+            "upper": 2.35
+          }
+        },
+        "maxPositionError": 0.00014688561906216243,
+        "maxAngleError": 0.0014887504556025401,
+        "maxAdjacentJointJump": 0.041852331990550384
+      },
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009153322932396457,
+        "maxPositionErrorM": 0.00014688561906216243,
+        "maxAngleErrorRad": 0.0014887504554924051,
+        "maxAdjacentJointJumpRad": 0.041852331990550384
+      }
+    },
+    {
+      "arm": "left",
+      "id": "yellow",
+      "type": "source-planned-route",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 16,
+        "candidates": [
+          -0.15272060868702578,
+          -0.16577458819072263,
+          -0.13966662918332892,
+          -0.002720608687025783,
+          -0.015774588190722638,
+          0.010333370816671072,
+          -0.30272060868702577,
+          -0.3157745881907226,
+          -0.2896666291833289,
+          0.1472793913129742,
+          0.13422541180927736,
+          0.16033337081667107,
+          -0.4527206086870258,
+          -0.4657745881907226,
+          -0.4396666291833289,
+          -0.3,
+          -0.4,
+          -0.2,
+          -0.1,
+          0
+        ],
+        "actualYaw": -0.16577458819072263,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "natural": {
+        "score": 14.997096645357487,
+        "wristPitchLimit": 1.35,
+        "maxWristPitch": 0.9003605918215302,
+        "maxWristRoll": 1.4928404939098996,
+        "toolDownTilt": 0.3490658503988659,
+        "toolYaw": -0.35,
+        "limits": {
+          "left_arm_joint1": {
+            "lower": -2.2,
+            "upper": 1.35
+          },
+          "left_arm_joint2": {
+            "lower": 0.02,
+            "upper": 3.2
+          },
+          "left_arm_joint3": {
+            "lower": -3.25,
+            "upper": -0.35
+          },
+          "left_arm_joint4": {
+            "lower": 0.15,
+            "upper": 2.85
+          },
+          "left_arm_joint5": {
+            "lower": 0.04,
+            "upper": 1.35
+          },
+          "left_arm_joint6": {
+            "lower": -2.35,
+            "upper": 2.35
+          }
+        },
+        "maxPositionError": 0.00012319063230829507,
+        "maxAngleError": 0.0015096225317871267,
+        "maxAdjacentJointJump": 0.035520940191453354
+      },
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.000915560836453666,
+        "maxPositionErrorM": 0.00012319063230829507,
+        "maxAngleErrorRad": 0.001509622531762648,
+        "maxAdjacentJointJumpRad": 0.035520940191453354
+      }
+    },
+    {
+      "arm": "right",
+      "id": "blue",
+      "type": "complete-real-MuJoCo-route",
+      "pass": true,
+      "stats": {
+        "geometrySamples": 1018,
+        "minimumConservativeBodyGapM": 0.0009167270750704282,
+        "maxEffortRatio": 1,
+        "maxJointErrorRad": 0.002483100907941571,
+        "contactOptical": [
+          [
+            0.5385301331363537,
+            -0.7072913033747908,
+            -0.45795666593525075
+          ],
+          [
+            0.5385753161286644,
+            -0.7072526220921878,
+            -0.45796327079869026
+          ],
+          [
+            0.5385953263576757,
+            -0.7072347558947217,
+            -0.4579673290532876
+          ],
+          [
+            0.5386005759019243,
+            -0.7072286106131216,
+            -0.457970645312938
+          ],
+          [
+            0.5386001799549701,
+            -0.7072277056900161,
+            -0.4579725084073387
+          ],
+          [
+            0.5385974516917671,
+            -0.7072298056532096,
+            -0.45797247409299413
+          ],
+          [
+            0.5385937885040966,
+            -0.7072334251547848,
+            -0.4579711926842522
+          ],
+          [
+            0.538590333906601,
+            -0.7072370295951526,
+            -0.4579696891627233
+          ],
+          [
+            0.5385879634033729,
+            -0.7072395025541206,
+            -0.45796865799310665
+          ],
+          [
+            0.5385870095797435,
+            -0.7072404669752695,
+            -0.4579682903701436
+          ],
+          [
+            0.538587255972133,
+            -0.7072401837805533,
+            -0.45796843794136893
+          ],
+          [
+            0.5385881707157497,
+            -0.7072392303348194,
+            -0.4579688345733529
+          ],
+          [
+            0.5385891952299677,
+            -0.707238184058383,
+            -0.4579692454645141
+          ],
+          [
+            0.5385899450148108,
+            -0.7072374286991109,
+            -0.45796953018297315
+          ],
+          [
+            0.5385902750505291,
+            -0.7072371019509415,
+            -0.4579696466415968
+          ],
+          [
+            0.5385902368353582,
+            -0.7072371457621915,
+            -0.45796962392693874
+          ],
+          [
+            0.5385899847105621,
+            -0.70723740194795,
+            -0.45796952481075653
+          ],
+          [
+            0.5385896840601028,
+            -0.7072377036246152,
+            -0.45796941251116285
+          ],
+          [
+            0.5385894518764232,
+            -0.7072379338546753,
+            -0.4579693300259576
+          ],
+          [
+            0.5385893368069595,
+            -0.7072380449016699,
+            -0.45796929386314006
+          ],
+          [
+            0.5385893297224414,
+            -0.7072380470782588,
+            -0.4579692988335158
+          ],
+          [
+            0.5385893892930814,
+            -0.7072379827228764,
+            -0.45796932815962915
+          ],
+          [
+            0.5385894682298582,
+            -0.7072378997102498,
+            -0.45796936352261985
+          ],
+          [
+            0.5385970433355771,
+            -0.7072379779584204,
+            -0.4579603339192812
+          ],
+          [
+            0.5386049742569043,
+            -0.7072385076691559,
+            -0.4579501883126863
+          ],
+          [
+            0.5386111682967512,
+            -0.7072393284490792,
+            -0.4579416356708617
+          ],
+          [
+            0.538617476760406,
+            -0.7072398894417692,
+            -0.4579333494195938
+          ],
+          [
+            0.5386229866003789,
+            -0.7072412406377777,
+            -0.4579247818657835
+          ],
+          [
+            0.5386290846873585,
+            -0.7072423113513786,
+            -0.4579159553490334
+          ],
+          [
+            0.5386360669918862,
+            -0.7072422860352986,
+            -0.4579077813043556
+          ],
+          [
+            0.5386409630730683,
+            -0.7072429788751043,
+            -0.4579009518788823
+          ],
+          [
+            0.5386441929114514,
+            -0.7072456738757128,
+            -0.4578929899298092
+          ],
+          [
+            0.5386488890601858,
+            -0.7072471508477121,
+            -0.45788518422419155
+          ],
+          [
+            0.5386461566882521,
+            -0.7072482580326809,
+            -0.4578866883790285
+          ],
+          [
+            0.5386428090382793,
+            -0.707249404453842,
+            -0.45788885569648635
+          ],
+          [
+            0.5386407003591324,
+            -0.7072505135554591,
+            -0.4578896231540554
+          ],
+          [
+            0.5386396811248201,
+            -0.7072515058015588,
+            -0.45788928952223795
+          ],
+          [
+            0.5386391765950391,
+            -0.7072523544291812,
+            -0.4578885722437262
+          ],
+          [
+            0.538638738330408,
+            -0.7072531264507527,
+            -0.45788789533625135
+          ],
+          [
+            0.5386384965974913,
+            -0.7072535530502508,
+            -0.4578875207744697
+          ],
+          [
+            0.5386381491435537,
+            -0.7072539063736637,
+            -0.45788738375980587
+          ],
+          [
+            0.5386375484368867,
+            -0.7072544077833832,
+            -0.45788731592486426
+          ],
+          [
+            0.5386368141346658,
+            -0.7072550605326331,
+            -0.4578871714842413
+          ],
+          [
+            0.538636054574054,
+            -0.7072557541374753,
+            -0.4578869936483546
+          ],
+          [
+            0.5386353298575867,
+            -0.7072564685949005,
+            -0.4578867426120564
+          ],
+          [
+            0.5386351172585087,
+            -0.7072570312190084,
+            -0.4578861236674324
+          ],
+          [
+            0.538634374118807,
+            -0.7072576997861143,
+            -0.4578859651822667
+          ],
+          [
+            0.5386333794065461,
+            -0.7072585381110147,
+            -0.45788584042111896
+          ],
+          [
+            0.5386330151415191,
+            -0.707259047087296,
+            -0.4578854827494821
+          ],
+          [
+            0.5386333081018725,
+            -0.7072594391607294,
+            -0.457884532520246
+          ]
+        ]
+      },
+      "evidence": {
+        "lift": 0.12889564475169668,
+        "maxSpeed": 0.10906531664435466,
+        "dual": true,
+        "stable": 0
+      },
+      "placementErrorM": 0.001432474203812334,
+      "history": [
+        "spread",
+        "crouch",
+        "align",
+        "approach",
+        "descend",
+        "closing",
+        "lift",
+        "transfer",
+        "place",
+        "release",
+        "retreat",
+        "settling",
+        "return"
+      ]
+    },
+    {
+      "arm": "left",
+      "id": "blue",
+      "type": "complete-real-MuJoCo-route",
+      "pass": true,
+      "stats": {
+        "geometrySamples": 1018,
+        "minimumConservativeBodyGapM": 0.0009152702645208455,
+        "maxEffortRatio": 1,
+        "maxJointErrorRad": 0.002483100907941571,
+        "contactOptical": [
+          [
+            0.5427659086767558,
+            -0.7072906310523763,
+            0.45292949959549655
+          ],
+          [
+            0.542809353021536,
+            -0.707252295575193,
+            0.45293729883501693
+          ],
+          [
+            0.542828636900341,
+            -0.7072346070697885,
+            0.45294180809874435
+          ],
+          [
+            0.5428337952630875,
+            -0.7072284811279165,
+            0.45294519116751064
+          ],
+          [
+            0.5428334845156396,
+            -0.7072275587038668,
+            0.45294700385186076
+          ],
+          [
+            0.5428308605769165,
+            -0.7072296430680183,
+            0.45294689398560584
+          ],
+          [
+            0.5428272961548333,
+            -0.7072332444227186,
+            0.4529455425683623
+          ],
+          [
+            0.542823928394506,
+            -0.7072368252624766,
+            0.452943987436647
+          ],
+          [
+            0.5428216227228861,
+            -0.7072392743673984,
+            0.4529429265335404
+          ],
+          [
+            0.5428207045150945,
+            -0.7072402211651466,
+            0.4529425485820595
+          ],
+          [
+            0.5428209588367934,
+            -0.7072399295143287,
+            0.452942699188398
+          ],
+          [
+            0.5428218633564676,
+            -0.7072389755901931,
+            0.45294310467027377
+          ],
+          [
+            0.5428228719954683,
+            -0.7072379332076387,
+            0.4529435234891641
+          ],
+          [
+            0.5428236104878906,
+            -0.7072371821695239,
+            0.4529438111441666
+          ],
+          [
+            0.5428239389744295,
+            -0.7072368573426064,
+            0.4529439246666619
+          ],
+          [
+            0.5428239090514712,
+            -0.7072368995404429,
+            0.45294389463873075
+          ],
+          [
+            0.5428236718954359,
+            -0.7072371509584393,
+            0.45294378628494925
+          ],
+          [
+            0.5428233887141548,
+            -0.7072374459916129,
+            0.4529436649873162
+          ],
+          [
+            0.5428231730578227,
+            -0.7072376691682206,
+            0.4529435749637472
+          ],
+          [
+            0.5428230717122593,
+            -0.7072377738637852,
+            0.4529435329454048
+          ],
+          [
+            0.5428230752817752,
+            -0.7072377709022596,
+            0.4529435332917772
+          ],
+          [
+            0.5428231432589374,
+            -0.7072377025656336,
+            0.4529435585281807
+          ],
+          [
+            0.5428232295971238,
+            -0.7072376163138816,
+            0.45294358973321075
+          ],
+          [
+            0.5428322131483173,
+            -0.7072372911128133,
+            0.45293333110725
+          ],
+          [
+            0.5428388530020678,
+            -0.7072381043434028,
+            0.45292410339498335
+          ],
+          [
+            0.5428447528022784,
+            -0.7072389677388147,
+            0.45291568405915156
+          ],
+          [
+            0.5428508886344166,
+            -0.7072395537152857,
+            0.45290741478742436
+          ],
+          [
+            0.5428562931181332,
+            -0.7072409047769852,
+            0.4528988271482614
+          ],
+          [
+            0.5428623749603605,
+            -0.7072419383533078,
+            0.45288992314540755
+          ],
+          [
+            0.5428691691622682,
+            -0.7072419659840271,
+            0.45288173591360115
+          ],
+          [
+            0.5428739776422755,
+            -0.7072426772773059,
+            0.452874861122234
+          ],
+          [
+            0.5428773296641483,
+            -0.7072450260953391,
+            0.45286717478762684
+          ],
+          [
+            0.5428816223990589,
+            -0.7072470142595009,
+            0.45285892381887227
+          ],
+          [
+            0.5428790518343922,
+            -0.707248107244922,
+            0.4528602984120672
+          ],
+          [
+            0.5428755060166713,
+            -0.7072493759697724,
+            0.4528625676267697
+          ],
+          [
+            0.5428734575986092,
+            -0.7072504567841607,
+            0.4528633352497496
+          ],
+          [
+            0.5428725484036666,
+            -0.7072513604781812,
+            0.45286301382589267
+          ],
+          [
+            0.5428721026091518,
+            -0.7072521568184368,
+            0.45286230455226445
+          ],
+          [
+            0.5428717420889204,
+            -0.7072528627120415,
+            0.4528616343067305
+          ],
+          [
+            0.5428714242049213,
+            -0.7072534253945948,
+            0.45286113660738525
+          ],
+          [
+            0.542871043490663,
+            -0.7072538222176344,
+            0.45286097325548563
+          ],
+          [
+            0.5428705309493609,
+            -0.7072542827344144,
+            0.45286086845805973
+          ],
+          [
+            0.5428698709227173,
+            -0.7072548498762233,
+            0.45286077393710433
+          ],
+          [
+            0.5428690607585955,
+            -0.7072555288701583,
+            0.4528606847074198
+          ],
+          [
+            0.5428683822475304,
+            -0.7072562486831259,
+            0.4528603739063748
+          ],
+          [
+            0.5428677928543612,
+            -0.707256890705873,
+            0.45286007776187925
+          ],
+          [
+            0.542867524655253,
+            -0.70725750520732,
+            0.45285943956441477
+          ],
+          [
+            0.5428672635407563,
+            -0.7072580556089016,
+            0.4528588929811218
+          ],
+          [
+            0.5428667475717153,
+            -0.7072586477135799,
+            0.4528585867743549
+          ],
+          [
+            0.5428658769137341,
+            -0.707259313724627,
+            0.45285859032644193
+          ]
+        ]
+      },
+      "evidence": {
+        "lift": 0.12889628588585456,
+        "maxSpeed": 0.10906670361674829,
+        "dual": true,
+        "stable": 0
+      },
+      "placementErrorM": 0.001434579787704128,
+      "history": [
+        "spread",
+        "crouch",
+        "align",
+        "approach",
+        "descend",
+        "closing",
+        "lift",
+        "transfer",
+        "place",
+        "release",
+        "retreat",
+        "settling",
+        "return"
+      ]
+    },
+    {
+      "arm": "right",
+      "index": 1,
+      "type": "explicit-stack-height-source-geometry",
+      "pass": true,
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009205246892416974,
+        "maxPositionErrorM": 0.000375668127164906,
+        "maxAngleErrorRad": 0.0019331421365324452,
+        "maxAdjacentJointJumpRad": 0.05712965199084796
+      }
+    },
+    {
+      "arm": "right",
+      "index": 2,
+      "type": "explicit-stack-height-source-geometry",
+      "pass": true,
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009167877997062757,
+        "maxPositionErrorM": 0.00020016965334493643,
+        "maxAngleErrorRad": 0.0016296897569882238,
+        "maxAdjacentJointJumpRad": 0.05536085003561597
+      }
+    },
+    {
+      "arm": "left",
+      "index": 1,
+      "type": "explicit-stack-height-source-geometry",
+      "pass": true,
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009157563401414881,
+        "maxPositionErrorM": 0.00018039040859904587,
+        "maxAngleErrorRad": 0.0016567267882096309,
+        "maxAdjacentJointJumpRad": 0.04909496108515421
+      }
+    },
+    {
+      "arm": "left",
+      "index": 2,
+      "type": "explicit-stack-height-source-geometry",
+      "pass": true,
+      "stats": {
+        "samples": 125,
+        "geometrySamples": 609,
+        "minimumConservativeBodyGapM": 0.0009166171405269874,
+        "maxPositionErrorM": 0.0020037926889754404,
+        "maxAngleErrorRad": 0.020627985631724428,
+        "maxAdjacentJointJumpRad": 0.06967896987329664
+      }
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",
+    "dist/r1/assets/meshes/left_arm_link2.STL": "93814ba93f4b50a0d496ab6b7ec8e64f201a8b3c34224867c2e441a9e5faa4bc",
+    "dist/r1/assets/meshes/left_arm_link3.STL": "38ab533a5351ecfd0568c4b32f6b05e2e3aa75157ca5baa525149b14a2550466",
+    "dist/r1/assets/meshes/left_arm_link4.STL": "069cc11bbdf74917d7a281c5dd893fc96f67843afbc0ba23d3b3bcb78f4b3f54",
+    "dist/r1/assets/meshes/left_arm_link5.STL": "b4f5dbddf54b5b58578ff8a77203ae4b76391be991dc39504df437d59b4d25ca",
+    "dist/r1/assets/meshes/left_arm_link6.STL": "5efbcdd752410681ff048a4837d35b92b4aef1f2a04720cbf5155375b6d1fd97",
+    "dist/r1/assets/meshes/left_gripper_finger_link1.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/left_gripper_finger_link2.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/left_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/left_realsense_link.STL": "87b52e61376328de7661e6921541da3bab1079eb33b9c73daca908fbc376aed7",
+    "dist/r1/assets/meshes/right_arm_link2.STL": "681318bd627336ee971ef87c29520ca6b28148928cb8100a6a541d2fa361e48c",
+    "dist/r1/assets/meshes/right_arm_link3.STL": "0dd23673f5f91a74eb2199400c6c8487150c5a22bd4030182ac1b0070004e405",
+    "dist/r1/assets/meshes/right_arm_link4.STL": "c20855f4565d11117d1b789dd1cf3c24ac24deea847cbd7ea00dc972dc2321e9",
+    "dist/r1/assets/meshes/right_arm_link5.STL": "1acdf70b58ef89c58f9e8b0044b70673cd5052e6780e4bf7a7c876fd7524ed6a",
+    "dist/r1/assets/meshes/right_arm_link6.STL": "c59dac0e3417710c8e58a7ce5f4a6917e8a801f158fb91f91fe86c978c5f3487",
+    "dist/r1/assets/meshes/right_gripper_finger_link1.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/right_gripper_finger_link2.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/right_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/right_realsense_link.STL": "ab14050ffaa18d327720b80df258b12bd0e434ddc8a193b9b5a280dee88342ec",
+    "dist/r1/assets/meshes/torso_link1.STL": "a79af656c6bfb266a331647e14ebeabde7e3f6794361ed4a7704411621cf7556",
+    "dist/r1/assets/meshes/torso_link2.STL": "a86a34fab170eed8930d17f658b05eaaf0b4fa8589efcf3b7cedb62e299eaff8",
+    "dist/r1/assets/meshes/torso_link3.STL": "c851f419886a4a0adcb6f82cee3c512b14eaf39e3bc173e10fbfa1404140ab41",
+    "dist/r1/assets/meshes/torso_link4.STL": "d9ec62fe00c61e73026e03f9c4509b9f9a0c307409c616c8dd4b24bb0417b549",
+    "dist/r1/assets/meshes/zed_link.STL": "17fb5d674d2a0fe5ee6c28c6ea236a6cf13765621b0860e32256f098d9aa0a7d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "work/r1-source-geometry.mjs": "0f7b035010397ab55867d5c2bc97e199334da6eede5b45a73a6005ae709df14e",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-r1-natural-grasp.mjs": "dce4210f1dc8eab86aeb3f44e7cfe55e8116982d63cc59fb8748309da24800c1"
+  },
+  "collisionScope": "Original MuJoCo fingertip contact dynamics only: shell/self collision geoms remain absent. Independent unchanged source-STL triangle-vs-original-table SAT/contained-vertex checks sample planned paths and actual blue trajectories every 20 ms. Body-frame boxes are conservative gap witnesses, not full-body contact physics or arbitrary-workspace certification.",
+  "opticalScope": "Camera direction uses original Realsense source-frame +Z inferred from STL lens geometry, not calibrated optical intrinsics/extrinsics.",
+  "limits": {
+    "positionErrorM": 0.003,
+    "orientationErrorRad": 0.035,
+    "adjacentJointJumpRad": 0.3,
+    "toolDownTiltRad": 0.3490658503988659,
+    "requiredLiftM": 0.035,
+    "placementErrorM": 0.02,
+    "originalEffortRatio": 1
+  }
+}

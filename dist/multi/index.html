@@ -5,7 +5,56 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>多机器人抓取仿真 · R1 / G1 / C5</title>
   <link rel="stylesheet" href="./styles.css?v=20261016-compact-1">
-  <script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "../vendor/three.module.min.js",
+    "three/examples/jsm/loaders/STLLoader.js": "../vendor/STLLoader.js",
+    "../multi/app.mjs": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/app.mjs?v=20261016-rest-1": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/app.mjs?v=20261016-native-camera-2": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/robot-runtime.mjs": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "../multi/robot-runtime.mjs?v=20261016-native-camera-2": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "../multi/presentation.mjs": "../multi/presentation.mjs?v=20261016-native-camera-3",
+    "../multi/presentation.mjs?v=20261016-native-camera-2": "../multi/presentation.mjs?v=20261016-native-camera-3",
+    "../multi/workcell.mjs": "../multi/workcell.mjs?v=20261016-native-camera-3",
+    "../multi/workcell.mjs?v=20261016-native-camera-2": "../multi/workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs?v=20261016-rest-1": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs?v=20261016-native-camera-2": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs?v=20261016-rest-1": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs?v=20261016-native-camera-2": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs?v=20261015-6": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs?v=20261016-native-camera-2": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs?v=20261016-source-camera-1": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs?v=20261016-native-camera-2": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs?v=20261016-rest-1": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs?v=20261016-native-camera-2": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs?v=20261016-rest-1": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs?v=20261016-native-camera-2": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261016-rest-1": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261015-c5-3": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261016-native-camera-2": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+    "../multi/app.mjs?v=20261016-native-camera-3": "../multi/app.mjs?v=20261016-native-camera-3",
+    "../multi/robot-runtime.mjs?v=20261016-native-camera-3": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "../multi/presentation.mjs?v=20261016-native-camera-3": "../multi/presentation.mjs?v=20261016-native-camera-3",
+    "../multi/workcell.mjs?v=20261016-native-camera-3": "../multi/workcell.mjs?v=20261016-native-camera-3",
+    "../r1/r1-app.mjs?v=20261016-native-camera-3": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-controller.mjs?v=20261016-native-camera-3": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+    "../r1/r1-workcell.mjs?v=20261016-native-camera-3": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "../c5/c5-app.mjs?v=20261016-native-camera-3": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+    "../c5/grasp-controller.mjs?v=20261016-native-camera-3": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+    "../c5/c5-profile.mjs?v=20261016-native-camera-3": "../c5/c5-profile.mjs?v=20261016-native-camera-3"
+  }
+}
+</script>
 </head>
 <body>
 <main class="multi-app">
@@ -55,6 +104,6 @@
     <footer>浏览器物理仿真 · 每台独立工作台<br>不用于实机控制或安全认证</footer>
   </aside>
 </main>
-<script type="module" src="./app.mjs?v=20261016-compact-1"></script>
+<script type="module" src="./app.mjs?v=20261016-native-camera-3"></script>
 </body>
 </html>

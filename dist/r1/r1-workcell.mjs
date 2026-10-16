@@ -173,56 +173,79 @@ export function createWorkcell(scene, {THREE, TABLE_HEIGHT, tableCenter = .78}) 
   };
 }
 
-export function createWristVision({scene, THREE, camera}) {
-  const model = new THREE.Group(); model.name = 'r1-wrist-camera-mount'; scene.add(model);
-  const black = new THREE.MeshStandardMaterial({color: 0x29343b, metalness: .22, roughness: .38});
-  const front = new THREE.MeshStandardMaterial({color: 0x061219, metalness: .12, roughness: .34});
-  const lens = new THREE.MeshStandardMaterial({color: 0x0569a2, metalness: .1, roughness: .08, emissive: 0x005380, emissiveIntensity: .2});
-  const bracketMaterial = new THREE.MeshStandardMaterial({color: 0x313a40, metalness: .3, roughness: .5});
-  const lensPosition = new THREE.Vector3(-.035, 0, -.065);
-  const sine = Math.sin(WORKCELL_REFERENCE.wristCant), cosine = Math.cos(WORKCELL_REFERENCE.wristCant);
-  const direction = new THREE.Vector3(cosine, 0, sine);
-  const up = new THREE.Vector3(-sine, 0, -cosine);
-  const cameraRotation = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(0, 1, 0), up, direction.clone().negate()));
-  const assembly = new THREE.Group(); assembly.position.copy(lensPosition); assembly.quaternion.copy(cameraRotation); model.add(assembly);
-  const housing = new THREE.Mesh(new THREE.BoxGeometry(.042, .042, .023), black); housing.position.z = .0125; assembly.add(housing);
-  const face = new THREE.Mesh(new THREE.BoxGeometry(.0404, .0404, .002), front); assembly.add(face);
-  for (const x of [-.009, .009]) {
-    const imager = new THREE.Mesh(new THREE.CylinderGeometry(.0055, .0055, .0024, 20), lens);
-    imager.rotation.x = Math.PI / 2; imager.position.set(x, 0, -.002); assembly.add(imager);
+// The source URDF supplies wrist-side Realsense meshes and fixed transforms,
+// but no optical/calibration frame. These axes and the double-lens centre are
+// inferred from that unchanged STL: a visualization convention, not hardware
+// camera calibration or an additional physical camera assembly.
+export const R1_WRIST_OPTICS = Object.freeze({
+  lensLocal: Object.freeze([.0325, 0, .001]),
+  forwardLocal: Object.freeze([0, 0, 1]),
+  upLocal: Object.freeze([0, -1, 0]),
+  provenance: 'Geometry-based source Realsense STL inference; not calibrated intrinsics/extrinsics.',
+  calibrated: false,
+});
+
+export function createWristVision({THREE, camera}) {
+  // Until a source link is bound, keep only an empty placeholder for callers
+  // that query bounds. Never create a second housing, bracket or lens mesh.
+  const unbound = new THREE.Group(); unbound.name = 'r1-unbound-wrist-camera';
+  const originalNodes = new Map(), sourceLinks = new Map();
+  const lensPosition = new THREE.Vector3(...R1_WRIST_OPTICS.lensLocal);
+  const direction = new THREE.Vector3(...R1_WRIST_OPTICS.forwardLocal);
+  const up = new THREE.Vector3(...R1_WRIST_OPTICS.upLocal);
+  const originalCameraMask = camera.layers.mask;
+  camera.layers.disable(1); camera.fov = WORKCELL_REFERENCE.wristFov;
+  camera.near = .008; camera.far = 10; camera.updateProjectionMatrix();
+  const worldDirection = new THREE.Vector3(), worldUp = new THREE.Vector3(), target = new THREE.Vector3();
+  let current = null, visible = true, disposed = false;
+  function bind(link) {
+    if (sourceLinks.has(link)) return;
+    sourceLinks.set(link, link.visible);
+    link.traverse(node => {
+      originalNodes.set(node, {mask: node.layers.mask, visible: node.visible});
+      // Main and overhead views draw layer 1; the wrist feed excludes its
+      // own existing source camera surfaces instead of looking through them.
+      node.layers.set(1);
+    });
+    link.visible = visible && sourceLinks.get(link);
   }
-  function bracket(from, to) {
-    const a = new THREE.Vector3(...from), b = new THREE.Vector3(...to), delta = b.clone().sub(a);
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(.006, .006, delta.length()), bracketMaterial);
-    bar.position.copy(a).add(b).multiplyScalar(.5);
-    bar.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), delta.normalize()); model.add(bar);
+  function bindPair(link) {
+    // Use the nearest source ancestor containing both wrist cameras. This
+    // scopes the model toggle to one robot even inside translated stations.
+    for (let ancestor = link; ancestor; ancestor = ancestor.parent) {
+      const pair = ['left', 'right'].map(side => ancestor.getObjectByName(`${side}_realsense_link`));
+      if (pair.every(Boolean)) {pair.forEach(bind); return;}
+    }
+    bind(link);
   }
-  for (const y of [-.025, .025]) {
-    bracket([-.065, y, -.012], [-.065, y, -.05]);
-    bracket([-.065, y, -.05], [-.046, y, -.058]);
-  }
-  // Layer 1 is drawn by main/overhead cameras, excluded from wrist camera.
-  // A lens mounted to the wrist should never render its own housing/bracket.
-  model.traverse(node => {node.layers.set(1); if (node.isMesh) {node.castShadow = true; node.receiveShadow = true;}});
-  camera.layers.disable(1); camera.fov = WORKCELL_REFERENCE.wristFov; camera.near = .008; camera.far = 10; camera.updateProjectionMatrix();
-  const linkPosition = new THREE.Vector3(), linkRotation = new THREE.Quaternion(), worldDirection = new THREE.Vector3(), worldUp = new THREE.Vector3(), target = new THREE.Vector3();
   return {
-    model,
-    get visible() {return model.visible;},
-    setVisible(value) {model.visible = Boolean(value); return model.visible;},
+    get model() {return current || unbound;},
+    get visible() {return visible;},
+    setVisible(value) {
+      if (disposed) return visible;
+      visible = Boolean(value);
+      for (const [link, wasVisible] of sourceLinks) link.visible = visible && wasVisible;
+      return visible;
+    },
     update(link) {
-      if (!link) return false;
-      link.updateWorldMatrix(true, false); link.getWorldPosition(linkPosition); link.getWorldQuaternion(linkRotation);
-      model.position.copy(linkPosition); model.quaternion.copy(linkRotation);
-      camera.position.copy(lensPosition).applyQuaternion(linkRotation).add(linkPosition);
-      worldDirection.copy(direction).applyQuaternion(linkRotation); worldUp.copy(up).applyQuaternion(linkRotation);
-      camera.up.copy(worldUp); target.copy(camera.position).add(worldDirection); camera.lookAt(target); camera.updateMatrixWorld(true);
+      if (disposed || !/^(left|right)_realsense_link$/.test(link?.name || '')) return false;
+      bindPair(link); current = link;
+      link.updateWorldMatrix(true, false);
+      camera.position.copy(link.localToWorld(lensPosition.clone()));
+      worldDirection.copy(direction).transformDirection(link.matrixWorld);
+      worldUp.copy(up).transformDirection(link.matrixWorld);
+      camera.up.copy(worldUp); target.copy(camera.position).add(worldDirection);
+      camera.lookAt(target); camera.updateMatrixWorld(true);
       return true;
     },
     dispose() {
-      scene.remove(model);
-      model.traverse(node => node.geometry?.dispose());
-      [black, front, lens, bracketMaterial].forEach(value => value.dispose());
+      if (disposed) return;
+      for (const [node, original] of originalNodes) {
+        node.layers.mask = original.mask; node.visible = original.visible;
+      }
+      camera.layers.mask = originalCameraMask;
+      originalNodes.clear(); sourceLinks.clear(); current = null; disposed = true;
+      // Source URDF meshes/materials belong to the robot loader, not this view.
     },
   };
 }

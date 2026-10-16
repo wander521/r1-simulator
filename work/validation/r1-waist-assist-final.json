@@ -1,0 +1,236 @@
+{
+  "pass": true,
+  "checks": 6,
+  "results": [
+    {
+      "name": "Natural continuous branch and wrist margin replace historical 25-branch priority",
+      "pass": true
+    },
+    {
+      "name": "right: source-FK waist alignment precedes naturally continuous real grasp/release",
+      "pass": true
+    },
+    {
+      "name": "left: source-FK waist alignment precedes naturally continuous real grasp/release",
+      "pass": true
+    },
+    {
+      "name": "Stopping during actual waist alignment holds targets and reset restores camera-facing natural REST",
+      "pass": true
+    },
+    {
+      "name": "Changed-yaw continuing-item entry retracts at old yaw before a waist-only alignment",
+      "pass": true,
+      "geometry": {
+        "geometrySamples": 136,
+        "minimumBodyGapM": 0.0009167633017246046,
+        "minimumTableGapM": 0.12382936194820782
+      }
+    },
+    {
+      "name": "Unreachable full pick/place paths are rejected without moving physical state",
+      "pass": true
+    }
+  ],
+  "cases": [
+    {
+      "arm": "right",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 7,
+        "candidates": [
+          0.3518250571889275,
+          0.38205674113301274,
+          0.3215933732448422,
+          0.5018250571889274,
+          0.5320567411330127,
+          0.4715933732448422,
+          0.2018250571889275,
+          0.23205674113301275,
+          0.17159337324484222,
+          0.6518250571889275,
+          0.6820567411330127,
+          0.6215933732448422,
+          0.05182505718892749,
+          0.08205674113301276,
+          0.02159337324484223,
+          0.3,
+          0.4,
+          0.2,
+          0.1,
+          0
+        ],
+        "actualYaw": 0.38205674113301274,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "path": {
+        "samples": 125,
+        "maxPositionErrorM": 0.00014634082974774706,
+        "maxOrientationErrorRad": 0.0014888502123886448,
+        "maxAdjacentJointJumpRad": 0.041852445958554974
+      },
+      "stats": {
+        "millisecondSamples": 20350,
+        "contactScans": 2035,
+        "maxEffortRatio": 1,
+        "maxActualVelocityRatio": 0.964290802220067,
+        "maxFingerRangeExcessM": 0.0002763336245863307,
+        "maxIllegalPadPenetrationM": 0.00026449034862574355,
+        "maxObjectTranslationResidualM": 5.669615032446659e-17,
+        "actualDualForce": true,
+        "geometrySamples": 141,
+        "minimumBodyGapM": 0.008014576925243155,
+        "minimumTableGapM": 0.16424222452518158,
+        "maxCarryingWaistTrackingErrorRad": 0.00004507763658589958
+      },
+      "evidence": {
+        "lift": 0.12889564475169668,
+        "maxSpeed": 0.10906531664435466,
+        "dual": true,
+        "stable": 0
+      },
+      "placementErrorM": 0.001432474203812334,
+      "history": [
+        "spread",
+        "crouch",
+        "align",
+        "approach",
+        "descend",
+        "closing",
+        "lift",
+        "transfer",
+        "place",
+        "release",
+        "retreat",
+        "settling",
+        "return"
+      ]
+    },
+    {
+      "arm": "left",
+      "pass": true,
+      "assist": {
+        "used": true,
+        "attempts": 7,
+        "candidates": [
+          -0.3518235750302341,
+          -0.38205512054935575,
+          -0.3215920295111124,
+          -0.2018235750302341,
+          -0.23205512054935576,
+          -0.17159202951111238,
+          -0.5018235750302341,
+          -0.5320551205493558,
+          -0.47159202951111234,
+          -0.051823575030234104,
+          -0.08205512054935576,
+          -0.021592029511112387,
+          -0.6518235750302341,
+          -0.6820551205493557,
+          -0.6215920295111124,
+          -0.3,
+          -0.4,
+          -0.2,
+          -0.1,
+          0
+        ],
+        "actualYaw": -0.38205512054935575,
+        "sharedPickPlaceYaw": true,
+        "legacyPriority": false,
+        "validNaturalRoutes": 4
+      },
+      "path": {
+        "samples": 125,
+        "maxPositionErrorM": 0.00014688561906216243,
+        "maxOrientationErrorRad": 0.0014887504554924051,
+        "maxAdjacentJointJumpRad": 0.041852331990550384
+      },
+      "stats": {
+        "millisecondSamples": 20350,
+        "contactScans": 2035,
+        "maxEffortRatio": 1,
+        "maxActualVelocityRatio": 0.964290802220067,
+        "maxFingerRangeExcessM": 0.0002763336245863307,
+        "maxIllegalPadPenetrationM": 0.0002644997959922764,
+        "maxObjectTranslationResidualM": 5.812424787353734e-17,
+        "actualDualForce": true,
+        "geometrySamples": 141,
+        "minimumBodyGapM": 0.008014576925243155,
+        "minimumTableGapM": 0.1642398072545911,
+        "maxCarryingWaistTrackingErrorRad": 0.00004478583425432392
+      },
+      "evidence": {
+        "lift": 0.12889628588585456,
+        "maxSpeed": 0.10906670361674829,
+        "dual": true,
+        "stable": 0
+      },
+      "placementErrorM": 0.001434579787704128,
+      "history": [
+        "spread",
+        "crouch",
+        "align",
+        "approach",
+        "descend",
+        "closing",
+        "lift",
+        "transfer",
+        "place",
+        "release",
+        "retreat",
+        "settling",
+        "return"
+      ]
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",
+    "dist/r1/assets/meshes/left_arm_link2.STL": "93814ba93f4b50a0d496ab6b7ec8e64f201a8b3c34224867c2e441a9e5faa4bc",
+    "dist/r1/assets/meshes/left_arm_link3.STL": "38ab533a5351ecfd0568c4b32f6b05e2e3aa75157ca5baa525149b14a2550466",
+    "dist/r1/assets/meshes/left_arm_link4.STL": "069cc11bbdf74917d7a281c5dd893fc96f67843afbc0ba23d3b3bcb78f4b3f54",
+    "dist/r1/assets/meshes/left_arm_link5.STL": "b4f5dbddf54b5b58578ff8a77203ae4b76391be991dc39504df437d59b4d25ca",
+    "dist/r1/assets/meshes/left_arm_link6.STL": "5efbcdd752410681ff048a4837d35b92b4aef1f2a04720cbf5155375b6d1fd97",
+    "dist/r1/assets/meshes/left_gripper_finger_link1.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/left_gripper_finger_link2.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/left_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/left_realsense_link.STL": "87b52e61376328de7661e6921541da3bab1079eb33b9c73daca908fbc376aed7",
+    "dist/r1/assets/meshes/right_arm_link2.STL": "681318bd627336ee971ef87c29520ca6b28148928cb8100a6a541d2fa361e48c",
+    "dist/r1/assets/meshes/right_arm_link3.STL": "0dd23673f5f91a74eb2199400c6c8487150c5a22bd4030182ac1b0070004e405",
+    "dist/r1/assets/meshes/right_arm_link4.STL": "c20855f4565d11117d1b789dd1cf3c24ac24deea847cbd7ea00dc972dc2321e9",
+    "dist/r1/assets/meshes/right_arm_link5.STL": "1acdf70b58ef89c58f9e8b0044b70673cd5052e6780e4bf7a7c876fd7524ed6a",
+    "dist/r1/assets/meshes/right_arm_link6.STL": "c59dac0e3417710c8e58a7ce5f4a6917e8a801f158fb91f91fe86c978c5f3487",
+    "dist/r1/assets/meshes/right_gripper_finger_link1.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/right_gripper_finger_link2.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/right_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/right_realsense_link.STL": "ab14050ffaa18d327720b80df258b12bd0e434ddc8a193b9b5a280dee88342ec",
+    "dist/r1/assets/meshes/torso_link1.STL": "a79af656c6bfb266a331647e14ebeabde7e3f6794361ed4a7704411621cf7556",
+    "dist/r1/assets/meshes/torso_link2.STL": "a86a34fab170eed8930d17f658b05eaaf0b4fa8589efcf3b7cedb62e299eaff8",
+    "dist/r1/assets/meshes/torso_link3.STL": "c851f419886a4a0adcb6f82cee3c512b14eaf39e3bc173e10fbfa1404140ab41",
+    "dist/r1/assets/meshes/torso_link4.STL": "d9ec62fe00c61e73026e03f9c4509b9f9a0c307409c616c8dd4b24bb0417b549",
+    "dist/r1/assets/meshes/zed_link.STL": "17fb5d674d2a0fe5ee6c28c6ea236a6cf13765621b0860e32256f098d9aa0a7d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-r1-waist-assist.mjs": "4b440f25f137becd893937adf3fe99e8e8d736b25059f061553bf1c775719407"
+  },
+  "collisionScope": "Original R1 fixed-size fingertip contacts only, with unchanged 1 mm legacy numerical guard. Source shell/self collision geoms remain absent. Source-STL conservative body-frame and world-table boxes are sampled every 20 ms during crouch/waist alignment; this is not full-body collision dynamics or arbitrary-workspace certification.",
+  "limits": {
+    "positionErrorM": 0.003,
+    "orientationErrorRad": 0.035,
+    "naturalAdjacentJointJumpRad": 0.3,
+    "naturalWaistYawAbsRad": 1,
+    "requiredLiftM": 0.035,
+    "finalPlacementErrorM": 0.02,
+    "fingerStrokeToleranceM": 0.001,
+    "illegalFingertipPenetrationM": 0.001
+  },
+  "placementStrategy": "One common waist yaw must solve the complete original pick-and-place trajectory; no carrying-time extra waist rotation."
+}

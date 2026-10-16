@@ -13,7 +13,7 @@
       "name": "r1: every actual controller state has a Chinese UI label",
       "pass": true,
       "detail": {
-        "states": 20
+        "states": 22
       }
     },
     {
@@ -151,6 +151,8 @@
   ],
   "stateCoverage": {
     "r1": [
+      "align",
+      "align_clear",
       "approach",
       "closing",
       "complete",
@@ -233,62 +235,62 @@
       {
         "state": "spread",
         "itemIndex": 0,
-        "value": 0.041666666666666664
+        "value": 0.03571428571428571
       },
       {
         "state": "crouch",
         "itemIndex": 0,
-        "value": 0.125
+        "value": 0.10714285714285714
       },
       {
         "state": "approach",
         "itemIndex": 0,
-        "value": 0.20833333333333334
+        "value": 0.32142857142857145
       },
       {
         "state": "descend",
         "itemIndex": 0,
-        "value": 0.2916666666666667
+        "value": 0.39285714285714285
       },
       {
         "state": "closing",
         "itemIndex": 0,
-        "value": 0.375
+        "value": 0.4642857142857143
       },
       {
         "state": "lift",
         "itemIndex": 0,
-        "value": 0.4583333333333333
+        "value": 0.5357142857142857
       },
       {
         "state": "transfer",
         "itemIndex": 0,
-        "value": 0.5416666666666666
+        "value": 0.6071428571428571
       },
       {
         "state": "place",
         "itemIndex": 0,
-        "value": 0.625
+        "value": 0.6785714285714286
       },
       {
         "state": "release",
         "itemIndex": 0,
-        "value": 0.7083333333333334
+        "value": 0.75
       },
       {
         "state": "retreat",
         "itemIndex": 0,
-        "value": 0.7916666666666666
+        "value": 0.8214285714285714
       },
       {
         "state": "settling",
         "itemIndex": 0,
-        "value": 0.875
+        "value": 0.8928571428571429
       },
       {
         "state": "return",
         "itemIndex": 0,
-        "value": 0.9583333333333334
+        "value": 0.9642857142857143
       },
       {
         "state": "complete",
@@ -459,147 +461,147 @@
       {
         "state": "spread",
         "itemIndex": 0,
-        "value": 0.012878787878787878
+        "value": 0.010897435897435899
       },
       {
         "state": "crouch",
         "itemIndex": 0,
-        "value": 0.03863636363636363
+        "value": 0.032692307692307694
       },
       {
         "state": "approach",
         "itemIndex": 0,
-        "value": 0.06439393939393939
+        "value": 0.09807692307692308
       },
       {
         "state": "descend",
         "itemIndex": 0,
-        "value": 0.09015151515151515
+        "value": 0.11987179487179488
       },
       {
         "state": "closing",
-        "itemIndex": 0,
-        "value": 0.1159090909090909
-      },
-      {
-        "state": "lift",
         "itemIndex": 0,
         "value": 0.14166666666666666
       },
       {
+        "state": "lift",
+        "itemIndex": 0,
+        "value": 0.16346153846153844
+      },
+      {
         "state": "transfer",
         "itemIndex": 0,
-        "value": 0.16742424242424245
+        "value": 0.18525641025641026
       },
       {
         "state": "place",
         "itemIndex": 0,
-        "value": 0.19318181818181815
+        "value": 0.207051282051282
       },
       {
         "state": "release",
         "itemIndex": 0,
-        "value": 0.2189393939393939
+        "value": 0.22884615384615384
       },
       {
         "state": "retreat",
         "itemIndex": 0,
-        "value": 0.24469696969696972
+        "value": 0.25064102564102564
       },
       {
         "state": "settling",
         "itemIndex": 0,
-        "value": 0.27045454545454545
+        "value": 0.2724358974358974
       },
       {
         "state": "approach",
         "itemIndex": 1,
-        "value": 0.3477272727272727
+        "value": 0.38141025641025644
       },
       {
         "state": "descend",
         "itemIndex": 1,
-        "value": 0.3734848484848485
+        "value": 0.40320512820512816
       },
       {
         "state": "closing",
-        "itemIndex": 1,
-        "value": 0.39924242424242423
-      },
-      {
-        "state": "lift",
         "itemIndex": 1,
         "value": 0.425
       },
       {
+        "state": "lift",
+        "itemIndex": 1,
+        "value": 0.44679487179487176
+      },
+      {
         "state": "transfer",
         "itemIndex": 1,
-        "value": 0.4507575757575757
+        "value": 0.46858974358974353
       },
       {
         "state": "place",
         "itemIndex": 1,
-        "value": 0.4765151515151515
+        "value": 0.4903846153846154
       },
       {
         "state": "release",
         "itemIndex": 1,
-        "value": 0.5022727272727273
+        "value": 0.5121794871794871
       },
       {
         "state": "retreat",
         "itemIndex": 1,
-        "value": 0.5280303030303031
+        "value": 0.533974358974359
       },
       {
         "state": "settling",
         "itemIndex": 1,
-        "value": 0.5537878787878788
+        "value": 0.5557692307692308
       },
       {
         "state": "approach",
         "itemIndex": 2,
-        "value": 0.631060606060606
+        "value": 0.6647435897435897
       },
       {
         "state": "descend",
         "itemIndex": 2,
-        "value": 0.6568181818181819
+        "value": 0.6865384615384614
       },
       {
         "state": "closing",
         "itemIndex": 2,
-        "value": 0.6825757575757576
+        "value": 0.7083333333333334
       },
       {
         "state": "lift",
         "itemIndex": 2,
-        "value": 0.7083333333333334
+        "value": 0.7301282051282051
       },
       {
         "state": "transfer",
         "itemIndex": 2,
-        "value": 0.734090909090909
+        "value": 0.7519230769230769
       },
       {
         "state": "place",
         "itemIndex": 2,
-        "value": 0.7598484848484848
+        "value": 0.7737179487179487
       },
       {
         "state": "release",
         "itemIndex": 2,
-        "value": 0.7856060606060605
+        "value": 0.7955128205128205
       },
       {
         "state": "retreat",
         "itemIndex": 2,
-        "value": 0.8113636363636364
+        "value": 0.8173076923076922
       },
       {
         "state": "settling",
         "itemIndex": 2,
-        "value": 0.837121212121212
+        "value": 0.8391025641025641
       },
       {
         "state": "stack_settle",
@@ -1084,21 +1086,21 @@
   "sourceFrozen": true,
   "sourceHashes": {
     "work/test-multi-ui.mjs": "c4a6a29bca826b6ceb8c58edf69cc310abf50e2b28096b63716ab5ddb5e48cbf",
-    "dist/multi/index.html": "4ec60aeb02235a4fec65a858ffcb18cc918dbb8e5d8a115a39ef2c92991d2b76",
+    "dist/multi/index.html": "945fd94066cf1098e290efdbad5422945703ce9c0c4fdbb449ea6416a48a6517",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
-    "dist/multi/app.mjs": "3b08b6154714cdf3f91a67759892e62c48e67aff799b7ba5b8aa894a59f72a05",
-    "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
-    "dist/multi/workcell.mjs": "3591f353d7ece026a8177841e370378c57ccafba37d4c8052fa3fef5b9aa6fb6",
-    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/app.mjs": "a085e623aa65d36ba16464cb0ae6ea3f13712230519fa0684e66e269b5a28f33",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/workcell.mjs": "bd2f968634d10cb606935ee78fd70c931882d12a549c30e91353915d0d64fcfc",
+    "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
-    "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
     "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
     "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
-    "dist/r1/r1-workcell.mjs": "82268831c91098125d77a5f72e20e31e576a06e8ce749ef79b77dbf00cd75c45",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
     "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
     "dist/r1/r1-area-light-textures.mjs": "b7de1b481e8247ff3fa30e44477ec338a90e3f79a921c8affd3c421e88538ce1",
     "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
-    "dist/c5/c5-profile.mjs": "6a2419169fdf4cda2b4d34b56b3f1b6f97cc2f74b38497e08e67a12b97c135dc",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
     "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6"
   },
   "errors": []

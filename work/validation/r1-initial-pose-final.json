@@ -1,0 +1,457 @@
+{
+  "pass": true,
+  "checks": 14,
+  "results": [
+    {
+      "name": "original-single-robot: both upper and lower arms point down in source FK",
+      "pass": true
+    },
+    {
+      "name": "original-single-robot: controller initialization and reset set genuine qpos/ctrl",
+      "pass": true
+    },
+    {
+      "name": "original-single-robot: original-limit static and REST/SPREAD return dynamics",
+      "pass": true
+    },
+    {
+      "name": "original-single-robot: sampled source-STL non-mount arm/body separation",
+      "pass": true
+    },
+    {
+      "name": "original-single-robot: real wrist quaternion has half-turn longitudinal twist within original limits",
+      "pass": true
+    },
+    {
+      "name": "original-single-robot: native Realsense STL and simulated lens face forward without remount",
+      "pass": true
+    },
+    {
+      "name": "original-single-robot: idle centre ray is not misreported as a tabletop view",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: both upper and lower arms point down in source FK",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: controller initialization and reset set genuine qpos/ctrl",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: original-limit static and REST/SPREAD return dynamics",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: sampled source-STL non-mount arm/body separation",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: real wrist quaternion has half-turn longitudinal twist within original limits",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: native Realsense STL and simulated lens face forward without remount",
+      "pass": true
+    },
+    {
+      "name": "conservative-multi-robot: idle centre ray is not misreported as a tabletop view",
+      "pass": true
+    }
+  ],
+  "initialPose": {
+    "torso_joint1": 0,
+    "torso_joint2": 0.06,
+    "torso_joint3": 0,
+    "torso_joint4": 0,
+    "right_arm_joint1": 1.6307963267948966,
+    "right_arm_joint2": 0.06,
+    "right_arm_joint3": -3.201592653589793,
+    "right_arm_joint4": -2.7,
+    "right_arm_joint5": 0.7,
+    "right_arm_joint6": -0.44159265358979294,
+    "left_arm_joint1": -1.6307963267948966,
+    "left_arm_joint2": 0.06,
+    "left_arm_joint3": -3.201592653589793,
+    "left_arm_joint4": 2.7,
+    "left_arm_joint5": -0.7,
+    "left_arm_joint6": 0.44159265358979294
+  },
+  "runs": [
+    {
+      "name": "original-single-robot",
+      "restPoints": {
+        "right": {
+          "shoulder": [
+            0.008941801545808465,
+            1.4022261243685448,
+            0.24793500000000032
+          ],
+          "elbow": [
+            0.008941801545808412,
+            1.0547740398375787,
+            0.2888452353829246
+          ],
+          "wrist": [
+            0.009155944508598333,
+            0.7811240398375787,
+            0.21862524099544547
+          ],
+          "gripper": [
+            0.10338106272090451,
+            0.6571056440115861,
+            0.26372083441306066
+          ],
+          "upperVerticalAngleDeg": 6.715288750978132,
+          "lowerVerticalAngleDeg": 0.11655941404247615,
+          "longitudinalTwistRad": -3.141592653589793,
+          "handFromDownAngleDeg": 40.10704565915761,
+          "nativeCamera": {
+            "framePosition": [
+              0.141414062339427,
+              0.6898965582504533,
+              0.25569660249924303
+            ],
+            "stlFrontAxisLocal": [
+              0,
+              0,
+              1
+            ],
+            "stlFrontAxisWorld": [
+              0.1867992712881078,
+              -0.9402147832948795,
+              0.28478446853716377
+            ],
+            "sourceBounds": {
+              "min": [
+                0.09599278356663354,
+                0.6731750140503847,
+                0.23376783450403127
+              ],
+              "max": [
+                0.1561437734871708,
+                0.7418783520360072,
+                0.33232354999865993
+              ]
+            },
+            "simulatedLensCenter": [
+              0.1384435752296773,
+              0.6977569263826124,
+              0.2871074416978023
+            ],
+            "opticsCalibrated": false,
+            "idleCenterRayHitsTabletop": false,
+            "centerHeightAboveTableM": 0.005756926382612493,
+            "rayTablePlaneParameter": 0.006122990709035627,
+            "rayTablePlanePoint": [
+              0.139587345432229,
+              0.692,
+              0.288851174352733
+            ],
+            "limitation": "Source STL lens-face direction and approximate double-lens centre, not hardware calibration. Standing wrists are near/below table height; a forward-facing native camera does not imply a tabletop view at idle. Centre-ray check is not a rendered-pixel visibility test."
+          }
+        },
+        "left": {
+          "shoulder": [
+            0.008940563777138947,
+            1.4022261987239129,
+            -0.24793399999999968
+          ],
+          "elbow": [
+            0.008940563777138893,
+            1.0547738743369208,
+            -0.28884024258076435
+          ],
+          "wrist": [
+            0.00915380069458272,
+            0.7811238743369209,
+            -0.21862216482622643
+          ],
+          "gripper": [
+            0.10337870521694878,
+            0.6571054785109284,
+            -0.2637182102799127
+          ],
+          "upperVerticalAngleDeg": 6.714634736627737,
+          "lowerVerticalAngleDeg": 0.11606624899122092,
+          "longitudinalTwistRad": 3.141592653589793,
+          "handFromDownAngleDeg": 40.10704565915762,
+          "nativeCamera": {
+            "framePosition": [
+              0.14103229375371112,
+              0.6910520811689674,
+              -0.25972882026495914
+            ],
+            "stlFrontAxisLocal": [
+              0,
+              0,
+              1
+            ],
+            "stlFrontAxisWorld": [
+              0.18620218572231617,
+              -0.9384054993987401,
+              -0.29107364142160563
+            ],
+            "sourceBounds": {
+              "min": [
+                0.1020503541311121,
+                0.6561915904724256,
+                -0.2740418225030101
+              ],
+              "max": [
+                0.16110648935506558,
+                0.7254655736078095,
+                -0.17599358978715288
+              ]
+            },
+            "simulatedLensCenter": [
+              0.143966982893603,
+              0.6810186315563027,
+              -0.22893973959465788
+            ],
+            "opticsCalibrated": false,
+            "idleCenterRayHitsTabletop": false,
+            "centerHeightAboveTableM": -0.010981368443697237,
+            "rayTablePlaneParameter": -0.011702156957448858,
+            "rayTablePlanePoint": [
+              0.1417880156904604,
+              0.692,
+              -0.22553355015656606
+            ],
+            "limitation": "Source STL lens-face direction and approximate double-lens centre, not hardware calibration. Standing wrists are near/below table height; a forward-facing native camera does not imply a tabletop view at idle. Centre-ray check is not a rendered-pixel visibility test."
+          }
+        }
+      },
+      "stats": {
+        "millisecondSamples": 8500,
+        "contactScans": 850,
+        "maxStaticErrorRad": 0.000001471859068846726,
+        "maxMovingErrorRad": 0.0022553408489962568,
+        "maxEffortRatio": 0.30776079432300774,
+        "maxActualVelocityRatio": 0.26344388084415943,
+        "maxArmJointRangeExcess": 0,
+        "maxFingerRangeExcess": 0.00027633362452048754,
+        "maxIllegalPadPenetrationM": 0,
+        "maxFKPositionErrorM": 3.608224830031759e-16
+      },
+      "geometry": {
+        "samples": 426,
+        "minimumAABBSeparationM": 0.005217683879438162,
+        "closestPair": {
+          "phase": "spread",
+          "links": [
+            "left_arm_link2",
+            "torso_link4"
+          ]
+        },
+        "scope": "Source STL transformed AABBs; non-mount arm parts versus torso/base and opposite arm; 20 ms samples during standing REST/SPREAD only. No whole-body MuJoCo collision geoms or arbitrary-trajectory guarantee."
+      }
+    },
+    {
+      "name": "conservative-multi-robot",
+      "restPoints": {
+        "right": {
+          "shoulder": [
+            0.008941801545808465,
+            1.4022261243685448,
+            0.24793500000000032
+          ],
+          "elbow": [
+            0.008941801545808412,
+            1.0547740398375787,
+            0.2888452353829246
+          ],
+          "wrist": [
+            0.009155944508598333,
+            0.7811240398375787,
+            0.21862524099544547
+          ],
+          "gripper": [
+            0.10338106272090451,
+            0.6571056440115861,
+            0.26372083441306066
+          ],
+          "upperVerticalAngleDeg": 6.715288750978132,
+          "lowerVerticalAngleDeg": 0.11655941404247615,
+          "longitudinalTwistRad": -3.141592653589793,
+          "handFromDownAngleDeg": 40.10704565915761,
+          "nativeCamera": {
+            "framePosition": [
+              0.141414062339427,
+              0.6898965582504533,
+              0.25569660249924303
+            ],
+            "stlFrontAxisLocal": [
+              0,
+              0,
+              1
+            ],
+            "stlFrontAxisWorld": [
+              0.1867992712881078,
+              -0.9402147832948795,
+              0.28478446853716377
+            ],
+            "sourceBounds": {
+              "min": [
+                0.09599278356663354,
+                0.6731750140503847,
+                0.23376783450403127
+              ],
+              "max": [
+                0.1561437734871708,
+                0.7418783520360072,
+                0.33232354999865993
+              ]
+            },
+            "simulatedLensCenter": [
+              0.1384435752296773,
+              0.6977569263826124,
+              0.2871074416978023
+            ],
+            "opticsCalibrated": false,
+            "idleCenterRayHitsTabletop": false,
+            "centerHeightAboveTableM": 0.005756926382612493,
+            "rayTablePlaneParameter": 0.006122990709035627,
+            "rayTablePlanePoint": [
+              0.139587345432229,
+              0.692,
+              0.288851174352733
+            ],
+            "limitation": "Source STL lens-face direction and approximate double-lens centre, not hardware calibration. Standing wrists are near/below table height; a forward-facing native camera does not imply a tabletop view at idle. Centre-ray check is not a rendered-pixel visibility test."
+          }
+        },
+        "left": {
+          "shoulder": [
+            0.008940563777138947,
+            1.4022261987239129,
+            -0.24793399999999968
+          ],
+          "elbow": [
+            0.008940563777138893,
+            1.0547738743369208,
+            -0.28884024258076435
+          ],
+          "wrist": [
+            0.00915380069458272,
+            0.7811238743369209,
+            -0.21862216482622643
+          ],
+          "gripper": [
+            0.10337870521694878,
+            0.6571054785109284,
+            -0.2637182102799127
+          ],
+          "upperVerticalAngleDeg": 6.714634736627737,
+          "lowerVerticalAngleDeg": 0.11606624899122092,
+          "longitudinalTwistRad": 3.141592653589793,
+          "handFromDownAngleDeg": 40.10704565915762,
+          "nativeCamera": {
+            "framePosition": [
+              0.14103229375371112,
+              0.6910520811689674,
+              -0.25972882026495914
+            ],
+            "stlFrontAxisLocal": [
+              0,
+              0,
+              1
+            ],
+            "stlFrontAxisWorld": [
+              0.18620218572231617,
+              -0.9384054993987401,
+              -0.29107364142160563
+            ],
+            "sourceBounds": {
+              "min": [
+                0.1020503541311121,
+                0.6561915904724256,
+                -0.2740418225030101
+              ],
+              "max": [
+                0.16110648935506558,
+                0.7254655736078095,
+                -0.17599358978715288
+              ]
+            },
+            "simulatedLensCenter": [
+              0.143966982893603,
+              0.6810186315563027,
+              -0.22893973959465788
+            ],
+            "opticsCalibrated": false,
+            "idleCenterRayHitsTabletop": false,
+            "centerHeightAboveTableM": -0.010981368443697237,
+            "rayTablePlaneParameter": -0.011702156957448858,
+            "rayTablePlanePoint": [
+              0.1417880156904604,
+              0.692,
+              -0.22553355015656606
+            ],
+            "limitation": "Source STL lens-face direction and approximate double-lens centre, not hardware calibration. Standing wrists are near/below table height; a forward-facing native camera does not imply a tabletop view at idle. Centre-ray check is not a rendered-pixel visibility test."
+          }
+        }
+      },
+      "stats": {
+        "millisecondSamples": 8500,
+        "contactScans": 850,
+        "maxStaticErrorRad": 0.000001471859068846726,
+        "maxMovingErrorRad": 0.0022553408489962568,
+        "maxEffortRatio": 0.30776079432300774,
+        "maxActualVelocityRatio": 0.26344388084415943,
+        "maxArmJointRangeExcess": 0,
+        "maxFingerRangeExcess": 0.00027633362452048754,
+        "maxIllegalPadPenetrationM": 0,
+        "maxFKPositionErrorM": 3.608224830031759e-16
+      },
+      "geometry": {
+        "samples": 426,
+        "minimumAABBSeparationM": 0.005217683879438162,
+        "closestPair": {
+          "phase": "spread",
+          "links": [
+            "left_arm_link2",
+            "torso_link4"
+          ]
+        },
+        "scope": "Source STL transformed AABBs; non-mount arm parts versus torso/base and opposite arm; 20 ms samples during standing REST/SPREAD only. No whole-body MuJoCo collision geoms or arbitrary-trajectory guarantee."
+      }
+    }
+  ],
+  "collisionScope": "R1 original fixed-size finger-contact MJCF only; source shell/self contacts are omitted. Independent STL AABB tests do not add collision geoms, modify the physical model, or claim real-robot safety.",
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",
+    "dist/r1/assets/meshes/left_arm_link2.STL": "93814ba93f4b50a0d496ab6b7ec8e64f201a8b3c34224867c2e441a9e5faa4bc",
+    "dist/r1/assets/meshes/left_arm_link3.STL": "38ab533a5351ecfd0568c4b32f6b05e2e3aa75157ca5baa525149b14a2550466",
+    "dist/r1/assets/meshes/left_arm_link4.STL": "069cc11bbdf74917d7a281c5dd893fc96f67843afbc0ba23d3b3bcb78f4b3f54",
+    "dist/r1/assets/meshes/left_arm_link5.STL": "b4f5dbddf54b5b58578ff8a77203ae4b76391be991dc39504df437d59b4d25ca",
+    "dist/r1/assets/meshes/left_arm_link6.STL": "5efbcdd752410681ff048a4837d35b92b4aef1f2a04720cbf5155375b6d1fd97",
+    "dist/r1/assets/meshes/left_gripper_finger_link1.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/left_gripper_finger_link2.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/left_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/left_realsense_link.STL": "87b52e61376328de7661e6921541da3bab1079eb33b9c73daca908fbc376aed7",
+    "dist/r1/assets/meshes/right_arm_link2.STL": "681318bd627336ee971ef87c29520ca6b28148928cb8100a6a541d2fa361e48c",
+    "dist/r1/assets/meshes/right_arm_link3.STL": "0dd23673f5f91a74eb2199400c6c8487150c5a22bd4030182ac1b0070004e405",
+    "dist/r1/assets/meshes/right_arm_link4.STL": "c20855f4565d11117d1b789dd1cf3c24ac24deea847cbd7ea00dc972dc2321e9",
+    "dist/r1/assets/meshes/right_arm_link5.STL": "1acdf70b58ef89c58f9e8b0044b70673cd5052e6780e4bf7a7c876fd7524ed6a",
+    "dist/r1/assets/meshes/right_arm_link6.STL": "c59dac0e3417710c8e58a7ce5f4a6917e8a801f158fb91f91fe86c978c5f3487",
+    "dist/r1/assets/meshes/right_gripper_finger_link1.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/right_gripper_finger_link2.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/right_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/right_realsense_link.STL": "ab14050ffaa18d327720b80df258b12bd0e434ddc8a193b9b5a280dee88342ec",
+    "dist/r1/assets/meshes/torso_link1.STL": "a79af656c6bfb266a331647e14ebeabde7e3f6794361ed4a7704411621cf7556",
+    "dist/r1/assets/meshes/torso_link2.STL": "a86a34fab170eed8930d17f658b05eaaf0b4fa8589efcf3b7cedb62e299eaff8",
+    "dist/r1/assets/meshes/torso_link3.STL": "c851f419886a4a0adcb6f82cee3c512b14eaf39e3bc173e10fbfa1404140ab41",
+    "dist/r1/assets/meshes/torso_link4.STL": "d9ec62fe00c61e73026e03f9c4509b9f9a0c307409c616c8dd4b24bb0417b549",
+    "dist/r1/assets/meshes/zed_link.STL": "17fb5d674d2a0fe5ee6c28c6ea236a6cf13765621b0860e32256f098d9aa0a7d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-r1-initial-pose.mjs": "abe6ae3fbd2e77036d1b92215a8f7f3e486d1b4b9ae055e5c12e783c51ea1437"
+  }
+}

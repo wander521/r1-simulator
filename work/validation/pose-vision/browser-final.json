@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 2,
+  "recordedAt": "2026-10-16",
+  "url": "http://127.0.0.1:4173/multi/",
+  "release": "20261016-native-camera-3",
+  "scope": "Root's actual native in-app browser observations of this frozen source: closer idle panorama, natural standby, motion/focus, participant selection, real blue grasps and a new complete concurrent 24-pipe batch. Not independent pixel approval or hardware certification.",
+  "cacheEnabled": true,
+  "moduleUrlsObserved": [
+    "r1/r1-workcell.mjs?v=20261016-native-camera-3",
+    "multi/robot-runtime.mjs?v=20261016-native-camera-3",
+    "r1/grasp-controller.mjs?v=20261016-native-camera-3",
+    "r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+  ],
+  "desktop": {
+    "window": [1280,720],
+    "scene": [940,720],
+    "allThreeFullRobotsAndGroundedTablesVisible": true,
+    "labelsVisibleAboveHeads": true,
+    "r1UpperAndLowerArmsDownAtIdleAndAfterReturn": true,
+    "c5ReferenceBentElbowDownwardGripperVisible": true,
+    "idleFitDistance": 5.359223104162455,
+    "allThreeMotionFitDistance": 6.801267077262973,
+    "r1FocusMotionFitDistance": 4.50582405975993,
+    "focusDidNotChangeThreeParticipants": true,
+    "actualAlignAndEarlyApproachFramesInspected": true,
+    "realOverheadAndWristFeedsAndNonzeroContactCurveInspected": true
+  },
+  "phone": {
+    "window": [390,844],
+    "scene": [390,489.515625],
+    "documentScrollWidth": 390,
+    "horizontalOverflow": false,
+    "allThreeFullRobotsAndGroundedTablesVisible": true,
+    "sceneAboveOrderedPanel": true,
+    "allThreeParticipantCheckboxesChecked": true,
+    "labelsVisible": true,
+    "labelTopBottomY": {"r1":[140.671875,168.671875],"g1":[166.7421875,194.7421875],"c5":[154.0234375,182.0234375]},
+    "fullPageInspected": true
+  },
+  "blueSort": {
+    "simultaneousThreeWay": {
+      "state": "complete",
+      "r1": {"arm":"right","dual":true,"actualLiftM":0.12889564475165194},
+      "g1": {"dual":true,"actualLiftM":0.1096603985331609},
+      "c5": {"dual":true,"actualLiftM":0.1394246799749589}
+    },
+    "r1LeftOnly": {"state":"complete","arm":"left","dual":true,"actualLiftM":0.1288962858858823,"g1AndC5StayedIdle":true},
+    "r1History": ["spread","crouch","align","approach","descend","closing","lift","transfer","place","release","retreat","settling","return"]
+  },
+  "pipeClassification": {
+    "seed": 609029927,
+    "state": "complete",
+    "physicallySortedPipes": 24,
+    "r1": {"completed":8,"verified":true,"allStable":true,"allDual":true,"stableSeconds":3.00999999999998,"minLiftM":0.1296369729747563,"maxPlacementErrorM":0.0011487546043998645,"armSequence":["right","left","right","left","right","left","right","left"]},
+    "g1": {"completed":8,"verified":true,"allStable":true,"allDual":true,"stableSeconds":3.00999999999998,"minLiftM":0.10920785207608286,"maxPlacementErrorM":0.0002653982394936604,"armSequence":["right","left","right","left","right","left","right","left"]},
+    "c5": {"completed":8,"verified":true,"allStable":true,"allDual":true,"stableSeconds":3.00999999999998,"minLiftM":0.13878876460879697,"maxPlacementErrorM":0.0006244121754580815,"armSequence":["left","left","left","left","left","left","left","left"]}
+  },
+  "screenshots": {"method":"Native tab.screenshot emitted inline and inspected by root","persistedToDisk":false,"localPaths":[],"independentPixelReview":"recapture"},
+  "limitations": [
+    "No supported screenshot-file export; the independent reviewer inspected source/reports, not these in-memory pixels.",
+    "A transient selector/CDP timeout occurred during task preparation; subsequent native state showed successful execution. A brief closing-state wait missed the pulse, so no captured closing-frame approval is claimed.",
+    "Idle wrist images legitimately follow the real wrist pose and can show the arm; no target-looking substitute camera was used. Ownership/absence of synthetic meshes is established by the separate source-bound 16-check camera suite, not a renderer node count.",
+    "R1 retains fingertip-only contact physics. Sampled original-STL geometry checks are not full-body continuous collision or hardware safety certification.",
+    "No real touch, screen-reader, other-browser or arbitrary-position certification. Temporary viewport overrides are restored at completion."
+  ],
+  "sourceHashes": {
+    "dist/multi/index.html":"945fd94066cf1098e290efdbad5422945703ce9c0c4fdbb449ea6416a48a6517",
+    "dist/multi/app.mjs":"a085e623aa65d36ba16464cb0ae6ea3f13712230519fa0684e66e269b5a28f33",
+    "dist/multi/workcell.mjs":"bd2f968634d10cb606935ee78fd70c931882d12a549c30e91353915d0d64fcfc",
+    "dist/multi/robot-runtime.mjs":"f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
+    "dist/multi/presentation.mjs":"d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/styles.css":"ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
+    "dist/r1/grasp-controller.mjs":"311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs":"806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-workcell.mjs":"2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
+    "dist/r1/r1-app.mjs":"1a7483ff1f0ddf318b8c8e1c7371de73c67ac9b82fc4a4126d5d5ef055a85821",
+    "dist/r1/index.html":"bdc42fb50ab454685e1527f659aaee7faca31c86ea8026e6a094e63f292a6fd2",
+    "dist/c5/c5-profile.mjs":"92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff"
+  }
+}

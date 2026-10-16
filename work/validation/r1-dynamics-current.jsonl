@@ -1,0 +1,2 @@
+{"nq":47,"nv":44,"nu":26,"articulatedJoints":26,"massError":0,"inertiaError":1.0474006638324122e-8,"fkPositionError":6.843874359417885e-16,"fkAngleError":5.16191365590357e-8,"maxStaticError":0.000001437973633305889,"maxMovingError":0.00013362704191810515,"maxTorque":19.43926857115489,"final":1.6712708300405993e-10}
+{"crouchError":0.002484170562135457,"crouchTorque":98.10055949913658,"crouchFinalError":2.0284111418546962e-7}

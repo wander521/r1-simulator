@@ -7,10 +7,12 @@ export const STATION_OFFSETS = Object.freeze({r1:[0,0,1.6], g1:[0,0,0], c5:[0,0,
 export {configureRenderer};
 
 // Display envelopes measured from source visual meshes in named preparation
-// poses (C5 also includes the original/pipe plans), plus table/plinth and 20 mm.
+// poses (R1 additionally samples crouched waist yaw -1..1 in .1 rad steps
+// and actual default preparation/return plans; C5 includes original/pipe
+// plans), plus table/plinth and 20 mm.
 // These are framing guards, not a collision model or all-joint safety limits.
 export const STATION_VIEW_BOUNDS=Object.freeze({
-  r1:Object.freeze({min:Object.freeze([-.371,-.062,-.872]),max:Object.freeze([1.160,1.709,.872])}),
+  r1:Object.freeze({min:Object.freeze([-.575,-.062,-1.130]),max:Object.freeze([1.160,1.709,1.130])}),
   g1:Object.freeze({min:Object.freeze([-.100,-.021,-.696]),max:Object.freeze([.800,1.343,.695])}),
   c5:Object.freeze({min:Object.freeze([-.539,-.020,-.780]),max:Object.freeze([.800,1.814,.698])}),
 });

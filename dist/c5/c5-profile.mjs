@@ -43,4 +43,8 @@ export const qToOpening=q=>GRIPPER_GAP_AT_ZERO+2*clampQ(q);
 export const GRIPPER_OPENING_MIN=qToOpening(GRIPPER_Q_MIN);
 export const GRIPPER_OPENING_MAX=qToOpening(GRIPPER_Q_MAX);
 export const STAND_POSE=Object.freeze({});
-export const HOME_POSE=Object.freeze(Object.fromEntries(ARM_JOINT_NAMES.map(name=>[name,0])));
+// Reference-photo standby: near-upright upper arm, elbow bent forward and
+// native Dex1 tool-forward axis pointing down. These are simulation joint
+// targets, not joint-frame edits or a claimed calibration of the real arm.
+export const HOME_POSE=Object.freeze(Object.fromEntries(ARM_JOINT_NAMES.map((name,index)=>
+  [name,[0,.10,1.25,1.25-.10-Math.PI/2,Math.PI/2,0][index]])));

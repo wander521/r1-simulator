@@ -25,7 +25,7 @@ export const ROBOT_CONFIGS=Object.freeze({
     tableHeight:R1_TABLE_HEIGHT,tableCenter:.78,tableHalfX:.36,tableHalfZ:.38,startX:.78,dropX:.90,lateral:.14,
     urdf:url('../r1/assets/r1.urdf'),xml:url('../r1/models/r1-dynamic-scene.xml'),defaultArm:'right',
     Controller:R1Controller,Dynamics:R1SafeDynamics,applyMaterials:applyRobotMaterials,tcp:r1TCP,
-    gripperLink:arm=>`${arm}_gripper_link`}),
+    gripperLink:arm=>`${arm}_gripper_link`,cameraFrame:arm=>`${arm}_realsense_link`}),
   g1:Object.freeze({id:'g1',label:'宇树 G1',shortLabel:'G1',color:0x9bd2f6,rootHeight:G1.ROOT_HEIGHT,
     tableHeight:G1.TABLE_HEIGHT,tableCenter:G1.TABLE_CENTER_X,tableHalfX:G1.TABLE_HALF_X,tableHalfZ:G1.TABLE_HALF_Z,
     startX:G1.OBJECT_START_X,dropX:G1.OBJECT_DROP_X,lateral:G1.OBJECT_LATERAL_OFFSET,
@@ -133,7 +133,7 @@ export function objectExtents(target,quaternion){
   return [0,1,2].map(k=>Math.abs(m[k])*target.halfX+Math.abs(m[4+k])*target.h+Math.abs(m[8+k])*target.halfZ);
 }
 
-const phases=['spread','crouch','approach','descend','closing','lift','transfer','place','release','retreat','settling','return'];
+const phases=['spread','crouch','align_clear','align','approach','descend','closing','lift','transfer','place','release','retreat','settling','return'];
 function progressOf(controller){
   if(controller.state==='complete')return 1;
   if(['idle','failed','stopped'].includes(controller.state))return 0;
@@ -163,7 +163,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     get taskMode(){return taskMode;},
     get solidMeshes(){return targets.map(target=>target.visualMesh);},
     get selected(){return controller.selected;},get running(){return controller.running;},get arm(){return controller.arm;},
-    get cameraLink(){return visualRobot.getObjectByName(config.gripperLink(controller.arm));},
+    get cameraLink(){return visualRobot.getObjectByName((config.cameraFrame??config.gripperLink)(controller.arm));},
     get snapshot(){
       const measurement=controller.measure();
       return {id,label:config.label,state:controller.state,running:controller.running,task:taskMode==='pipes'?'pipes':controller.task,

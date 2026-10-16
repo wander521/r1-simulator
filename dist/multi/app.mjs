@@ -26,6 +26,7 @@ const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let coordinator, selectedObject='blue', preparing=false, drag=null, notice='', showCameras=true, currentTask='sort';
 let lastFrame=0, accumulator=0, lastUI=0, lastFeed=0, lastStatus='', physicsSteps=0;
 const frameTimes=[], renderTimes=[];
+let lastViewFit=null;
 const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
 const feedTarget=new THREE.WebGLRenderTarget(240,180), feedPixels=new Uint8Array(240*180*4);
 const feeds=[$('#overhead-feed'),$('#wrist-feed')].map(element=>({element,ctx:element.getContext('2d'),image:new ImageData(240,180)}));
@@ -53,27 +54,31 @@ async function configureTask(task,{randomize=false}={}){
   endDrag();preparing=true;notice=task==='pipes'?'正在准备随机圆管与分类工作区…':'正在恢复原工作台…';updateUI();
   await new Promise(requestAnimationFrame);
   const result=coordinator.configureTask(task,task==='pipes'?{seed:crypto.getRandomValues(new Uint32Array(1))[0]}:{});
-  if(result.ok){currentTask=task;selectedObject=task==='pipes'?focused().selected:'blue';clearHistories();notice='';fitView();}
+  if(result.ok){currentTask=task;selectedObject=task==='pipes'?focused().selected:'blue';clearHistories();notice='';fitView(undefined,{motion:false});}
   else{$('#task-mode').value=currentTask;notice=result.reason;}
   preparing=false;lastFrame=performance.now();accumulator=0;lastFeed=0;updateUI();
 }
-function fitView(ids=coordinator?.selectedIds??[...stations.keys()]) {
+function fitView(ids=coordinator?.selectedIds??[...stations.keys()],{motion=preparing||Boolean(coordinator?.running)||coordinator?.state==='preparing'}={}) {
   const bounds=new THREE.Box3();
   for(const id of ids) {
     const station=stations.get(id);if(!station)continue;
     station.group.updateMatrixWorld(true);
     bounds.union(new THREE.Box3().setFromObject(station.group));
-    const envelope=STATION_VIEW_BOUNDS[id];
-    bounds.union(new THREE.Box3(new THREE.Vector3(...envelope.min),new THREE.Vector3(...envelope.max)).applyMatrix4(station.group.matrixWorld));
+    if(motion){
+      const envelope=STATION_VIEW_BOUNDS[id];
+      bounds.union(new THREE.Box3(new THREE.Vector3(...envelope.min),new THREE.Vector3(...envelope.max)).applyMatrix4(station.group.matrixWorld));
+    }
     bounds.expandByPoint(station.group.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));
     const wrist=visions.get(id)?.wrist;
     if(wrist){wrist.update(station.cameraLink);wrist.model.updateMatrixWorld(true);bounds.union(new THREE.Box3().setFromObject(wrist.model));}
   }
   if(bounds.isEmpty())return;
-  // Include preparation arms, label anchors and rigid camera housings so the
-  // tighter panorama remains complete when a task begins, not only at rest.
+  // At rest, fit the visible robots and grounded worktables closely. Before
+  // movement, reserve the full preparation envelope instead of clipping arms
+  // when they unfold. Neither view scales the models or changes local physics.
   const view=fitWorkstationView(bounds,{fov:camera.fov,aspect:camera.aspect,viewportHeight:viewport.clientHeight,near:camera.near});
   orbit.target.copy(view.target);camera.position.copy(view.position);orbit.update();
+  lastViewFit={mode:motion?'motion':'idle',ids:[...ids],distance:view.distance,bounds:{min:bounds.min.toArray(),max:bounds.max.toArray()}};
 }
 function setFocus(id) {
   if(!coordinator?.setFocus(id).ok)return;
@@ -111,18 +116,18 @@ $('#toggle-cameras').addEventListener('click',()=>{showCameras=!showCameras;$('#
 $('#randomize-pipes').addEventListener('click',()=>configureTask('pipes',{randomize:true}));
 $('#start').addEventListener('click',async()=>{
   if(!coordinator||coordinator.running||preparing)return;
-  endDrag();preparing=true;notice='正在共同检查抓取路径；检查通过后同时开始…';updateUI();
+  endDrag();preparing=true;notice='正在共同检查抓取路径；检查通过后同时开始…';updateUI();fitView(undefined,{motion:true});
   await new Promise(requestAnimationFrame);
   const armByRobot=Object.fromEntries([...stations].map(([id,station])=>[id,station.arm]));
   const result=coordinator.start({objectId:selectedObject,task:$('#task-mode').value,armByRobot,reducedMotion});
-  notice=result.ok?'':result.reason;preparing=false;lastFrame=performance.now();accumulator=0;updateUI();
+  notice=result.ok?'':result.reason;preparing=false;lastFrame=performance.now();accumulator=0;updateUI();fitView(undefined,{motion:result.ok});
 });
 $('#stop').addEventListener('click',()=>{endDrag();coordinator?.stop();notice='';updateUI();});
 $('#reset').addEventListener('click',()=>{
   endDrag();coordinator?.reset();selectedObject=pipeTask()?focused().selected:'blue';
   if(!pipeTask())for(const station of stations.values())station.select('blue');
   clearHistories();
-  accumulator=0;lastFrame=performance.now();notice='';updateUI();
+  accumulator=0;lastFrame=performance.now();notice='';updateUI();fitView(undefined,{motion:false});
 });
 
 function ray(event) {const rect=canvas.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,1-(event.clientY-rect.top)/rect.height*2);raycaster.setFromCamera(pointer,camera);}
@@ -285,7 +290,7 @@ async function boot(){
     notice=stations.size===3?'三台机器人已就绪；可单选或多选，点击开始后同时抓取。':'部分机器人加载失败；可使用已就绪的机器人，或刷新重试。';
     updateUI();fitView();
     window.multiDiagnostics=()=>({ ...coordinator.snapshot, selectedObject,preparing,drag:drag?{robotId:drag.station.id,objectId:drag.target.id,mode:drag.mode}:null,
-      camera:camera.position.toArray(),orbitEnabled:orbit.enabled,frames:{averageMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1),averageWorkMs:renderTimes.reduce((a,b)=>a+b,0)/(renderTimes.length||1),physicsSteps,backlogSeconds:accumulator},
+      camera:camera.position.toArray(),viewFit:lastViewFit,orbitEnabled:orbit.enabled,frames:{averageMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1),averageWorkMs:renderTimes.reduce((a,b)=>a+b,0)/(renderTimes.length||1),physicsSteps,backlogSeconds:accumulator},
       view:coordinator.selectedIds.map(id=>({id,origin:stations.get(id).group.position.toArray(),canonicalParent:stations.get(id).robot.parent?.name??null,objects:stations.get(id).snapshot.objects.map(object=>({...object,screen:project(new THREE.Vector3(...object.worldPosition))}))})),
       loading:Object.fromEntries(loadStates)});
   }catch(error){console.error(error);$('#loading-message').textContent=`加载失败：${error.message}`;$('#loading').querySelector('h2').textContent='场景暂时无法加载';$('#status').textContent='加载失败，请刷新重试';}

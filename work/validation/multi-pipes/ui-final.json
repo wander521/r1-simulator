@@ -289,467 +289,467 @@
       {
         "state": "spread",
         "completed": 0,
-        "value": 0.005208333333333333
+        "value": 0.004464285714285714
       },
       {
         "state": "crouch",
         "completed": 0,
-        "value": 0.015625
+        "value": 0.013392857142857142
       },
       {
         "state": "approach",
         "completed": 0,
-        "value": 0.026041666666666668
+        "value": 0.04017857142857143
       },
       {
         "state": "descend",
         "completed": 0,
-        "value": 0.036458333333333336
+        "value": 0.049107142857142856
       },
       {
         "state": "closing",
         "completed": 0,
-        "value": 0.046875
+        "value": 0.05803571428571429
       },
       {
         "state": "lift",
         "completed": 0,
-        "value": 0.057291666666666664
+        "value": 0.06696428571428571
       },
       {
         "state": "transfer",
         "completed": 0,
-        "value": 0.06770833333333333
+        "value": 0.07589285714285714
       },
       {
         "state": "place",
         "completed": 0,
-        "value": 0.078125
+        "value": 0.08482142857142858
       },
       {
         "state": "release",
         "completed": 0,
-        "value": 0.08854166666666667
+        "value": 0.09375
       },
       {
         "state": "retreat",
         "completed": 0,
-        "value": 0.09895833333333333
+        "value": 0.10267857142857142
       },
       {
         "state": "settling",
         "completed": 0,
-        "value": 0.109375
+        "value": 0.11160714285714286
       },
       {
         "state": "return",
         "completed": 0,
-        "value": 0.11979166666666667
+        "value": 0.12053571428571429
       },
       {
         "state": "spread",
         "completed": 1,
-        "value": 0.13020833333333334
+        "value": 0.12946428571428573
       },
       {
         "state": "crouch",
         "completed": 1,
-        "value": 0.140625
+        "value": 0.13839285714285715
       },
       {
         "state": "approach",
         "completed": 1,
-        "value": 0.15104166666666666
+        "value": 0.16517857142857142
       },
       {
         "state": "descend",
         "completed": 1,
-        "value": 0.16145833333333334
+        "value": 0.17410714285714285
       },
       {
         "state": "closing",
         "completed": 1,
-        "value": 0.171875
+        "value": 0.1830357142857143
       },
       {
         "state": "lift",
         "completed": 1,
-        "value": 0.18229166666666666
+        "value": 0.1919642857142857
       },
       {
         "state": "transfer",
         "completed": 1,
-        "value": 0.19270833333333331
+        "value": 0.20089285714285715
       },
       {
         "state": "place",
         "completed": 1,
-        "value": 0.203125
+        "value": 0.20982142857142858
       },
       {
         "state": "release",
         "completed": 1,
-        "value": 0.21354166666666669
+        "value": 0.21875
       },
       {
         "state": "retreat",
         "completed": 1,
-        "value": 0.22395833333333331
+        "value": 0.22767857142857142
       },
       {
         "state": "settling",
         "completed": 1,
-        "value": 0.234375
+        "value": 0.23660714285714285
       },
       {
         "state": "return",
         "completed": 1,
-        "value": 0.24479166666666669
+        "value": 0.2455357142857143
       },
       {
         "state": "spread",
         "completed": 2,
-        "value": 0.2552083333333333
+        "value": 0.2544642857142857
       },
       {
         "state": "crouch",
         "completed": 2,
-        "value": 0.265625
+        "value": 0.26339285714285715
       },
       {
         "state": "approach",
         "completed": 2,
-        "value": 0.2760416666666667
+        "value": 0.29017857142857145
       },
       {
         "state": "descend",
         "completed": 2,
-        "value": 0.2864583333333333
+        "value": 0.29910714285714285
       },
       {
         "state": "closing",
         "completed": 2,
-        "value": 0.296875
+        "value": 0.3080357142857143
       },
       {
         "state": "lift",
         "completed": 2,
-        "value": 0.3072916666666667
+        "value": 0.3169642857142857
       },
       {
         "state": "transfer",
         "completed": 2,
-        "value": 0.3177083333333333
+        "value": 0.32589285714285715
       },
       {
         "state": "place",
         "completed": 2,
-        "value": 0.328125
+        "value": 0.3348214285714286
       },
       {
         "state": "release",
         "completed": 2,
-        "value": 0.3385416666666667
+        "value": 0.34375
       },
       {
         "state": "retreat",
         "completed": 2,
-        "value": 0.3489583333333333
+        "value": 0.3526785714285714
       },
       {
         "state": "settling",
         "completed": 2,
-        "value": 0.359375
+        "value": 0.36160714285714285
       },
       {
         "state": "return",
         "completed": 2,
-        "value": 0.3697916666666667
+        "value": 0.3705357142857143
       },
       {
         "state": "spread",
         "completed": 3,
-        "value": 0.3802083333333333
+        "value": 0.3794642857142857
       },
       {
         "state": "crouch",
         "completed": 3,
-        "value": 0.390625
+        "value": 0.38839285714285715
       },
       {
         "state": "approach",
         "completed": 3,
-        "value": 0.4010416666666667
+        "value": 0.41517857142857145
       },
       {
         "state": "descend",
         "completed": 3,
-        "value": 0.4114583333333333
+        "value": 0.42410714285714285
       },
       {
         "state": "closing",
         "completed": 3,
-        "value": 0.421875
+        "value": 0.4330357142857143
       },
       {
         "state": "lift",
         "completed": 3,
-        "value": 0.4322916666666667
+        "value": 0.4419642857142857
       },
       {
         "state": "transfer",
         "completed": 3,
-        "value": 0.4427083333333333
+        "value": 0.45089285714285715
       },
       {
         "state": "place",
         "completed": 3,
-        "value": 0.453125
+        "value": 0.4598214285714286
       },
       {
         "state": "release",
         "completed": 3,
-        "value": 0.4635416666666667
+        "value": 0.46875
       },
       {
         "state": "retreat",
         "completed": 3,
-        "value": 0.4739583333333333
+        "value": 0.4776785714285714
       },
       {
         "state": "settling",
         "completed": 3,
-        "value": 0.484375
+        "value": 0.48660714285714285
       },
       {
         "state": "return",
         "completed": 3,
-        "value": 0.4947916666666667
+        "value": 0.4955357142857143
       },
       {
         "state": "spread",
         "completed": 4,
-        "value": 0.5052083333333334
+        "value": 0.5044642857142857
       },
       {
         "state": "crouch",
         "completed": 4,
-        "value": 0.515625
+        "value": 0.5133928571428571
       },
       {
         "state": "approach",
         "completed": 4,
-        "value": 0.5260416666666666
+        "value": 0.5401785714285714
       },
       {
         "state": "descend",
         "completed": 4,
-        "value": 0.5364583333333334
+        "value": 0.5491071428571429
       },
       {
         "state": "closing",
         "completed": 4,
-        "value": 0.546875
+        "value": 0.5580357142857143
       },
       {
         "state": "lift",
         "completed": 4,
-        "value": 0.5572916666666666
+        "value": 0.5669642857142857
       },
       {
         "state": "transfer",
         "completed": 4,
-        "value": 0.5677083333333334
+        "value": 0.5758928571428571
       },
       {
         "state": "place",
         "completed": 4,
-        "value": 0.578125
+        "value": 0.5848214285714286
       },
       {
         "state": "release",
         "completed": 4,
-        "value": 0.5885416666666666
+        "value": 0.59375
       },
       {
         "state": "retreat",
         "completed": 4,
-        "value": 0.5989583333333334
+        "value": 0.6026785714285714
       },
       {
         "state": "settling",
         "completed": 4,
-        "value": 0.609375
+        "value": 0.6116071428571429
       },
       {
         "state": "return",
         "completed": 4,
-        "value": 0.6197916666666666
+        "value": 0.6205357142857143
       },
       {
         "state": "spread",
         "completed": 5,
-        "value": 0.6302083333333334
+        "value": 0.6294642857142857
       },
       {
         "state": "crouch",
         "completed": 5,
-        "value": 0.640625
+        "value": 0.6383928571428571
       },
       {
         "state": "approach",
         "completed": 5,
-        "value": 0.6510416666666666
+        "value": 0.6651785714285714
       },
       {
         "state": "descend",
         "completed": 5,
-        "value": 0.6614583333333334
+        "value": 0.6741071428571429
       },
       {
         "state": "closing",
         "completed": 5,
-        "value": 0.671875
+        "value": 0.6830357142857143
       },
       {
         "state": "lift",
         "completed": 5,
-        "value": 0.6822916666666666
+        "value": 0.6919642857142857
       },
       {
         "state": "transfer",
         "completed": 5,
-        "value": 0.6927083333333334
+        "value": 0.7008928571428571
       },
       {
         "state": "place",
         "completed": 5,
-        "value": 0.703125
+        "value": 0.7098214285714286
       },
       {
         "state": "release",
         "completed": 5,
-        "value": 0.7135416666666666
+        "value": 0.71875
       },
       {
         "state": "retreat",
         "completed": 5,
-        "value": 0.7239583333333334
+        "value": 0.7276785714285714
       },
       {
         "state": "settling",
         "completed": 5,
-        "value": 0.734375
+        "value": 0.7366071428571429
       },
       {
         "state": "return",
         "completed": 5,
-        "value": 0.7447916666666666
+        "value": 0.7455357142857143
       },
       {
         "state": "spread",
         "completed": 6,
-        "value": 0.7552083333333334
+        "value": 0.7544642857142857
       },
       {
         "state": "crouch",
         "completed": 6,
-        "value": 0.765625
+        "value": 0.7633928571428571
       },
       {
         "state": "approach",
         "completed": 6,
-        "value": 0.7760416666666666
+        "value": 0.7901785714285714
       },
       {
         "state": "descend",
         "completed": 6,
-        "value": 0.7864583333333334
+        "value": 0.7991071428571429
       },
       {
         "state": "closing",
         "completed": 6,
-        "value": 0.796875
+        "value": 0.8080357142857143
       },
       {
         "state": "lift",
         "completed": 6,
-        "value": 0.8072916666666666
+        "value": 0.8169642857142857
       },
       {
         "state": "transfer",
         "completed": 6,
-        "value": 0.8177083333333334
+        "value": 0.8258928571428571
       },
       {
         "state": "place",
         "completed": 6,
-        "value": 0.828125
+        "value": 0.8348214285714286
       },
       {
         "state": "release",
         "completed": 6,
-        "value": 0.8385416666666666
+        "value": 0.84375
       },
       {
         "state": "retreat",
         "completed": 6,
-        "value": 0.8489583333333334
+        "value": 0.8526785714285714
       },
       {
         "state": "settling",
         "completed": 6,
-        "value": 0.859375
+        "value": 0.8616071428571429
       },
       {
         "state": "return",
         "completed": 6,
-        "value": 0.8697916666666666
+        "value": 0.8705357142857143
       },
       {
         "state": "spread",
         "completed": 7,
-        "value": 0.8802083333333334
+        "value": 0.8794642857142857
       },
       {
         "state": "crouch",
         "completed": 7,
-        "value": 0.890625
+        "value": 0.8883928571428571
       },
       {
         "state": "approach",
         "completed": 7,
-        "value": 0.9010416666666666
+        "value": 0.9151785714285714
       },
       {
         "state": "descend",
         "completed": 7,
-        "value": 0.9114583333333334
+        "value": 0.9241071428571429
       },
       {
         "state": "closing",
         "completed": 7,
-        "value": 0.921875
+        "value": 0.9330357142857143
       },
       {
         "state": "lift",
         "completed": 7,
-        "value": 0.9322916666666666
+        "value": 0.9419642857142857
       },
       {
         "state": "transfer",
         "completed": 7,
-        "value": 0.9427083333333334
+        "value": 0.9508928571428571
       },
       {
         "state": "place",
         "completed": 7,
-        "value": 0.953125
+        "value": 0.9598214285714286
       },
       {
         "state": "release",
         "completed": 7,
-        "value": 0.9635416666666666
+        "value": 0.96875
       },
       {
         "state": "retreat",
@@ -2005,12 +2005,12 @@
   "sourceFrozen": true,
   "sourceHashes": {
     "work/test-pipe-ui.mjs": "acfc7653a6f42cb93bcd563099b0fb40b46399f53bab0803994e249172123342",
-    "dist/multi/index.html": "4ec60aeb02235a4fec65a858ffcb18cc918dbb8e5d8a115a39ef2c92991d2b76",
-    "dist/multi/app.mjs": "3b08b6154714cdf3f91a67759892e62c48e67aff799b7ba5b8aa894a59f72a05",
+    "dist/multi/index.html": "945fd94066cf1098e290efdbad5422945703ce9c0c4fdbb449ea6416a48a6517",
+    "dist/multi/app.mjs": "a085e623aa65d36ba16464cb0ae6ea3f13712230519fa0684e66e269b5a28f33",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
-    "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
-    "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
+    "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
     "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
     "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557"
   },

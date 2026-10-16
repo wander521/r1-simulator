@@ -3,15 +3,14 @@ import {readFile} from 'node:fs/promises';
 import * as THREE from '../dist/vendor/three.module.min.js';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {R1Dynamics} from '../dist/r1/r1-dynamics.mjs';
+import {REST,REST_TORSO,SPREAD,CROUCH} from '../dist/r1/grasp-controller.mjs';
 import {loadTestRobot} from './r1-test-robot.mjs';
 const api=await createMuJoCo({locateFile:()=>new URL('../dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm',import.meta.url).pathname});
 const xml=await readFile(new URL('../dist/r1/models/r1-dynamic-scene.xml',import.meta.url),'utf8');
 const vfs=new api.MjVFS(),model=api.MjModel.from_xml_string(xml,vfs),data=new api.MjData(model);vfs.delete();
 const robot=await loadTestRobot(),dynamic=new R1Dynamics(api,model,data,robot);
-const idle={torso_joint1:0,torso_joint2:.06,torso_joint3:0,torso_joint4:0};
+const idle={...REST_TORSO,...REST.right,...REST.left};
 for(const arm of ['right','left']){
-  const s=arm==='right'?1:-1;
-  [-1.57*s,2.2,-1.4,0,0,0].forEach((v,i)=>idle[`${arm}_arm_joint${i+1}`]=v);
   [1,2].forEach(i=>idle[`${arm}_gripper_finger_joint${i}`]=.05);
 }
 const id=(type,name)=>api.mj_name2id(model,api.mjtObj[type].value,name);
@@ -61,9 +60,8 @@ assert(maxStaticError<1e-5,`Static gravity compensation error: ${maxStaticError}
 assert(maxMovingError<.003,`Smooth trajectory tracking: ${maxMovingError}`);
 // The existing visible preparation/crouch pose is substantially larger than
 // the small tracking probe above; exercise it with original effort limits.
-const spread={torso_joint1:0,torso_joint2:.06,torso_joint3:0,torso_joint4:0},crouch={torso_joint1:1.45,torso_joint2:-2.35,torso_joint3:-.8,torso_joint4:.3};
-for(const arm of ['right','left']){const s=arm==='right'?1:-1;[.64*s,1.04,-1.35,.1*s,.3*s,.02*s].forEach((v,i)=>spread[`${arm}_arm_joint${i+1}`]=v);}
-Object.assign(crouch,spread,{torso_joint1:1.45,torso_joint2:-2.35,torso_joint3:-.8,torso_joint4:.3});
+const spread={...REST_TORSO,...SPREAD.right,...SPREAD.left};
+const crouch={...spread,...CROUCH,torso_joint4:.3};
 dynamic.reset(idle);let crouchError=0,crouchFinalError=0,crouchTorque=0;
 const segments=[[idle,spread,1.4],[spread,crouch,1.5],[crouch,crouch,1],[crouch,idle,2.6],[idle,idle,.5]];
 for(const [from,to,duration] of segments)for(let step=0;step<duration/.001;step++){
