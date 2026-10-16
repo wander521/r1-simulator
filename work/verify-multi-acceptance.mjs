@@ -12,17 +12,41 @@ const check=(condition,message)=>{if(!condition)errors.push(message);};
 const finite=(value,label)=>check(typeof value==='number'&&Number.isFinite(value),`${label}: missing/non-finite number`);
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const robotIds=['r1','g1','c5'];
+const reportDirectory=process.argv?.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance';
+const physicalSuffix=process.argv?.find(arg=>arg.startsWith('--physical-suffix='))?.slice(18)??'';
+const requireBackground=process.argv?.includes('--require-background')??false;
+const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`);
+const backgroundCheckNames=[
+  'Vector3 and Quaternion prototypes survive nested structured-clone payloads',
+  'Malformed vector tags, functions and prototype injection are rejected',
+  'Cancel terminates synchronous worker work and invalidates a queued old result',
+  'A wrong request id or generation cannot finish the active request',
+  'A cached idle worker that crashes is replaced before the next request',
+  'Worker crash, message error and constructor failure fail without main-thread fallback',
+  'A finite watchdog terminates a stalled worker and the next request can succeed',
+  'Progress reports elapsed wall time and candidate counts without completing a request',
+  'Worker URDF parser retains all source joint transforms at legal sample poses',
+  ...robotIds.map(id=>`${id}: background plan and command state match the production route exactly`),
+  ...robotIds.map(id=>`${id}: a moving snapshot preserves sampled derived object poses and the exact accepted route`),
+  ...['r1','g1'].map(id=>`${id}: reused compiled pipe worlds preserve exact plans across seeds and task rebuilds`),
+  ...robotIds.map(id=>`${id}: actual background runtime only submits/polls and rejects changed state`),
+  'Reset cancels an actual runtime request and an old queued result cannot revive it',
+  'A real hard G1 pipe route runs on a worker while the main event-loop heartbeat continues',
+  'The real background runtime can cancel a hard pipe search and start a fresh request',
+  'A real unreachable target fails through the worker and reset permits a normal retry',
+];
 const evidenceReports={
-  'coordinator-final':'work/validation/performance/coordinator-final.json',
-  'physical-final':'work/validation/performance/sort-physical-final.json',
-  'stack-final':'work/validation/performance/stack-physical-final.json',
-  'r1-gripper-final':'work/validation/performance/r1-gripper-final.json',
-  'ui-static-final':'work/validation/performance/ui-static-final.json',
-  'pages-final':'work/validation/performance/pages-final.json',
-  'responsiveness-final':'work/validation/performance/responsiveness-contracts-final.json',
-  'framing-final':'work/validation/performance/framing-final.json',
-  'themes-final':'work/validation/performance/theme-contracts-final.json',
-  'release-cache-final':'work/validation/performance/release-cache-final.json',
+  'coordinator-final':`${reportDirectory}/coordinator-final.json`,
+  'physical-final':`${reportDirectory}/sort-physical${physicalSuffix}-final.json`,
+  'stack-final':`${reportDirectory}/stack-physical${physicalSuffix}-final.json`,
+  'r1-gripper-final':`${reportDirectory}/r1-gripper-final.json`,
+  'ui-static-final':`${reportDirectory}/ui-static-final.json`,
+  'pages-final':`${reportDirectory}/pages-final.json`,
+  'responsiveness-final':`${reportDirectory}/responsiveness-contracts-final.json`,
+  'framing-final':`${reportDirectory}/framing-final.json`,
+  'themes-final':`${reportDirectory}/theme-contracts-final.json`,
+  'release-cache-final':`${reportDirectory}/release-cache-final.json`,
+  'background-final':`${reportDirectory}/contracts-final.json`,
 };
 const expectedOffsets=[[0,0,2.2],[0,0,0],[0,0,-2.2]];
 const fingerTolerances={r1:.001,g1:.0002,c5:.0002};
@@ -69,8 +93,9 @@ const physicalSources=[
   'dist/r1/assets/r1.urdf','dist/g1/assets/g1_29dof_with_dex1_1.urdf','dist/c5/assets/c5-dex1.urdf',
   'dist/g1/g1-profile.mjs','dist/c5/c5-profile.mjs','work/test-r1-dynamics.mjs',
   'work/validation/browser-regressions.json',
+  ...(requireBackground?[...workerSources,'work/background-planning-node-worker.mjs']:[]),
 ];
-const uiSources=['work/test-multi-ui.mjs',...['index.html','styles.css','app.mjs','presentation.mjs',
+const uiSources=['work/test-multi-ui.mjs',...workerSources,...['index.html','styles.css','app.mjs','presentation.mjs',
   'workcell.mjs','robot-runtime.mjs','coordinator.mjs','planning.mjs','pipe-controller.mjs',
   'visuals/theme-controller.mjs','visuals/scene-environment.mjs','visuals/camera-feeds.mjs','visuals/frame-scheduler.mjs'].map(file=>`dist/multi/${file}`)];
 const pageSources=['work/test-multi-pages.mjs','dist/index.html',...uiSources.filter(path=>path.startsWith('dist/')),
@@ -130,6 +155,7 @@ async function main(){
   casesExactly(coordinator.results,coordinatorNames,'coordinator');summary.coordinatorChecks=coordinator.checks;
 
   await bind(physical,'physical',physicalSources);
+  if(requireBackground)check(physical.planningExecution?.worker===true&&physical.planningExecution.cooperative===false&&physical.planningExecution.productionBudgetOverride===false,'physical: real background worker execution is required');
   check(physical.cases===8&&physical.physicalSorts===12,'physical: expected eight cases/twelve real sorts');
   casesExactly(physical.results,physicalNames,'physical');
   check(physical.clockStepSeconds===.001,'physical: shared clock is not 1 ms');
@@ -194,6 +220,7 @@ async function main(){
   await bind(stack,'stack',['work/test-multi-stack.mjs',...physicalSources.filter(path=>
     !['work/test-multi-physical.mjs','work/test-r1-dynamics.mjs','work/validation/browser-regressions.json'].includes(path)),
     'dist/c5/assets/aubo_C5.urdf','dist/r1/mujoco-runtime.mjs','dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm']);
+  if(requireBackground)check(stack.planningExecution?.worker===true&&stack.planningExecution.cooperative===false&&stack.planningExecution.productionBudgetOverride===false,'stack: real background worker execution is required');
   check(stack.cases===2&&stack.physicalStacks===3&&stack.physicallyGraspedStackItems===9
     &&stack.initializationError===null,'stack: complete three-robot/nine-item positive and stop cases absent');
   casesExactly(stack.results,stackNames,'stack');
@@ -283,8 +310,8 @@ async function main(){
   summary.r1GripperChecks=gripper.checks;
 
   await bind(ui,'ui',uiSources);
-  check(ui.total===28&&ui.passed===28&&ui.checks?.length===28&&ui.checks.every(result=>result.pass===true)
-    &&new Set(ui.checks.map(result=>result.name)).size===28&&ui.errors?.length===0,'ui: final twenty-eight static checks incomplete');
+  check(ui.total===29&&ui.passed===29&&ui.checks?.length===29&&ui.checks.every(result=>result.pass===true)
+    &&new Set(ui.checks.map(result=>result.name)).size===29&&ui.errors?.length===0,'ui: final twenty-nine static checks incomplete');
   check(ui.scope?.includes('Node-only')&&ui.scope.includes('No browser rendering')&&ui.limitations?.length>=3,
     'ui: static evidence must not claim browser rendering or native input certification');
   for(const id of robotIds)check(Array.isArray(ui.stateCoverage?.[id])&&ui.stateCoverage[id].includes('complete')
@@ -293,8 +320,10 @@ async function main(){
 
   await bind(pages,'publication',pageSources);
   check(pages.pass===true&&pages.sourceFrozen!==false,'publication: failed or explicitly unfrozen report');
-  check(pages.checks===16&&pages.results?.length===16&&pages.results.every(result=>result.pass===true)
-    &&new Set(pages.results.map(result=>result.name)).size===16,'publication: final sixteen static checks incomplete');
+  check(pages.checks===17&&pages.results?.length===17&&pages.results.every(result=>result.pass===true)
+    &&new Set(pages.results.map(result=>result.name)).size===17,'publication: final seventeen static checks incomplete');
+  check(pages.workerEntries?.length===1&&pages.workerEntries[0].to==='multi/planning-worker.mjs'
+    &&workerSources.every(path=>pages.workerModules?.includes(path.slice(5)))&&!pages.workerModules?.includes('multi/app.mjs'),'publication: independent worker entry/transitive module graph absent');
   const freeze=pages.results?.find(result=>result.name==='All inspected source and asset bytes stayed frozen during the check');
   check(freeze?.pass===true&&freeze.files===pages.checkedFiles&&pages.checkedFiles>=137,'publication: source/asset freeze not demonstrated');
   check(equal(pages.bases,['http://127.0.0.1:4173/','https://wander521.github.io/r1-simulator/']),
@@ -316,7 +345,7 @@ async function main(){
 
   await bind(framing,'framing',['work/test-multi-framing.mjs','dist/multi/app.mjs','dist/multi/workcell.mjs',
     'dist/multi/visuals/frame-scheduler.mjs',evidenceReports['physical-final'],evidenceReports['stack-final'],
-    'work/validation/performance/pipes-physical-final.json']);
+    `${reportDirectory}/pipes-physical${physicalSuffix}-final.json`]);
   check(framing.total===113&&framing.passed===113&&framing.checks?.length===113&&framing.checks.every(row=>row.pass===true)
     &&framing.errors?.length===0&&framing.projectionCases===98&&framing.idleProjectionCases===49&&framing.motionProjectionCases===49,
     'framing: complete original numeric gates, 98 projections and camera ownership checks absent');
@@ -333,13 +362,24 @@ async function main(){
   summary.themeChecks=themes.total;
 
   await bind(releaseCache,'release cache',['work/test-release-cache.mjs','dist/multi/index.html','dist/multi/app.mjs',
-    'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/visuals/frame-scheduler.mjs']);
+    ...workerSources,'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/visuals/frame-scheduler.mjs']);
   check(releaseCache.checks===13&&releaseCache.results?.length===13&&releaseCache.results.every(row=>row.pass===true)
-    &&releaseCache.graphs?.length===6&&releaseCache.negativeFixtures?.length===4&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
+    &&releaseCache.graphs?.length===6&&releaseCache.negativeFixtures?.length===10&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
     'release cache: exact aliases, complete graph and negative stale-cache fixtures absent');
-  check(equal(releaseCache.releases,{'multi/index.html':'20261016-responsive-1','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
-    'release cache: multi responsive cohort or independent native cohorts changed');
+  check(equal(releaseCache.releases,{'multi/index.html':'20261016-worker-1','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
+    'release cache: multi worker cohort or independent native cohorts changed');
+  const workerNegatives=['unversioned-worker-entry-is-rejected','unversioned-worker-transitive-module-is-rejected','worker-cannot-inherit-document-import-map'];
+  for(const prefix of ['/','/r1-simulator/'])for(const name of workerNegatives)check(releaseCache.negativeFixtures?.some(row=>row.prefix===prefix&&row.name===name&&row.rejected),'release cache: worker stale-cache/import-map negative fixtures absent');
+  for(const graph of releaseCache.graphs??[])if(graph.page==='multi/index.html')check(graph.workerEntries?.length===1&&workerSources.every(path=>graph.workerModules?.includes(path.slice(5))),'release cache: worker entry/transitive graph absent');
   summary.releaseCacheChecks=releaseCache.checks;
+  if(requireBackground){
+    const background=await readReport('background-final');
+    const names=background.checks?.map(row=>row.name)??[];
+    check(background.pass===true&&background.sourceFrozen===true&&background.mode==='full'&&background.checkCount===names.length&&names.length>=backgroundCheckNames.length&&new Set(names).size===names.length&&background.checks.every(row=>row.pass)&&backgroundCheckNames.every(name=>names.includes(name)),'background: complete required real-worker checks absent');
+    await bind(background,'background',['work/test-background-planning.mjs','work/background-planning-node-worker.mjs',...workerSources,'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs']);
+    const heartbeat=background.measurements?.find(row=>row.scenario==='g1-pipes-592-first-route');
+    check(heartbeat&&heartbeat.elapsedMs>200&&heartbeat.heartbeats>=Math.floor(heartbeat.elapsedMs/100)&&heartbeat.maxGapMs<Math.max(250,heartbeat.elapsedMs*.2),'background: actual worker event-loop isolation evidence absent');
+  }
   // Also identify the verifier and its honest, bounded acceptance statement.
   for(const path of ['work/verify-multi-acceptance.mjs','work/test-multi-acceptance-verifier.mjs','work/MULTI-ACCEPTANCE.md'])sourceHashes[path]=await currentHash(path);
 }

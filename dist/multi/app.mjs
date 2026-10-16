@@ -187,6 +187,10 @@ function drawChart(element,values,colors,{signed=false,minMax=1}={}) {
   const scale=Math.max(minMax,...values.flatMap(row=>row.map(Math.abs)))*1.15;
   colors.forEach((color,axis)=>{ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();values.forEach((row,index)=>{const x=index*w/179,y=signed?h/2-row[axis]/scale*(h/2-5):h-5-row[axis]/scale*(h-10);index?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();});
 }
+function backgroundPlanningActive() {
+  const pending=coordinator?.runIds.map(id=>stations.get(id)).filter(station=>station?.planning)??[];
+  return pending.length>0&&pending.every(station=>station.backgroundPlanning);
+}
 function updateUI() {
   if(!coordinator)return;
   const busy=coordinator.running||coordinator.planning||preparing, selected=coordinator.selectedIds, focus=focused(),pipes=pipeTask();
@@ -194,7 +198,7 @@ function updateUI() {
   $('#selected-count').textContent=`${selected.length} 台`;
   for(const input of document.querySelectorAll('input[data-robot]')){input.checked=selected.includes(input.dataset.robot);input.disabled=busy||!stations.has(input.dataset.robot);}
   $('#select-all').disabled=busy||!stations.size;
-  $('#start').disabled=busy||!selected.length||needsNewBatch;$('#start').textContent=coordinator.planning?'路径检查中…':preparing?'准备任务中…':needsNewBatch&&!busy?'请先重新随机摆放':`${pipes?'开始执行':$('#task-mode').value==='stack'?'开始叠放':'开始抓取'} · ${selected.length} 台`;
+  $('#start').disabled=busy||!selected.length||needsNewBatch;$('#start').textContent=coordinator.planning?'后台检查路径…':preparing?'准备任务中…':needsNewBatch&&!busy?'请先重新随机摆放':`${pipes?'开始执行':$('#task-mode').value==='stack'?'开始叠放':'开始抓取'} · ${selected.length} 台`;
   $('#stop').disabled=!(coordinator.running||coordinator.planning);$('#stop').textContent=coordinator.planning?'停止规划':'全部停止';$('#reset').disabled=preparing||!stations.size;
   $('#task-mode').disabled=busy;for(const button of document.querySelectorAll('[data-object]')){button.disabled=busy||$('#task-mode').value==='stack';button.setAttribute('aria-pressed',String(button.dataset.object===selectedObject));}
   $('.object-options').hidden=pipes;$('#pipe-task-info').hidden=!pipes;$('#randomize-pipes').hidden=!pipes;$('#randomize-pipes').disabled=busy||!stations.size;
@@ -205,13 +209,13 @@ function updateUI() {
   $('#focus-hint').textContent=focus?`当前：${focus.config.label}。${pipes?(focus.id==='c5'?'单臂自动分类。':'左右臂自动交替。'):''}${pipes&&focus.controller.classification?.started?'本批次已锁定；复位或重新随机后可开启新批次。':'拖动只修改该工作台；切换观察不改变参与选择。'}`:'请先选择已就绪的机器人。';
   $('#scene-summary').textContent=`${selected.map(id=>ROBOT_CONFIGS[id].shortLabel).join(' / ')} · ${selected.length>1?'同步抓取工作站':'单机器人工作站'}`;
   for(const [id,station] of stations){const snapshot=station.snapshot,row=$(`.result-row[data-robot="${id}"]`),included=selected.includes(id),progress=taskProgress({...snapshot,itemIndex:station.controller.itemIndex});row.dataset.state=snapshot.state;
-    row.querySelector('[data-focus]').disabled=!included;row.querySelector('output').textContent=included?(station.planning?'路径规划中':STAGE_NAMES[snapshot.state]??'执行中'):'未参与';
+    row.querySelector('[data-focus]').disabled=!included;row.querySelector('output').textContent=included?(station.planning?'后台规划':STAGE_NAMES[snapshot.state]??'执行中'):'未参与';
     row.querySelector('progress').value=included?progress:0;row.querySelector('.result-track span').textContent=`${Math.round((included?progress:0)*100)}%`;
     const classification=snapshot.classification;
-    row.querySelector('.result-note').textContent=['failed','stopped'].includes(snapshot.state)?snapshot.message:classification?`已归类 ${classification.completed} / ${classification.total} 个${snapshot.running?` · ${id==='c5'?'单臂':snapshot.arm==='left'?'左臂':'右臂'}执行中`:''}`:'';
+    row.querySelector('.result-note').textContent=['failed','stopped'].includes(snapshot.state)?snapshot.message:classification?`已归类 ${classification.completed} / ${classification.total} 个${snapshot.running&&!station.planning?` · ${id==='c5'?'单臂':snapshot.arm==='left'?'左臂':'右臂'}执行中`:''}`:'';
     $(`.station-tag[data-focus="${id}"]`).setAttribute('aria-pressed',String(id===coordinator.focusId));
   }
-  const message=notice||coordinator.message;if(message!==lastStatus){$('#status').textContent=message;lastStatus=message;}
+  const message=notice||(coordinator.planning?'正在后台规划，镜头、停止和复位操作仍可用。':coordinator.message);if(message!==lastStatus){$('#status').textContent=message;lastStatus=message;}
   if(!focus||coordinator.planning)return;
   const m=focus.controller.measure(),telemetry=focus.dynamics.telemetry(focus.arm),history=histories.get(focus.id);
   history.force.push(m.forces);history.torque.push(telemetry.joints.map(joint=>joint.torque));
@@ -265,7 +269,7 @@ function frame(now) {
   renderer.render(scene,camera);
   // Prefer a spare frame, but keep a visible feed from starving on slower
   // devices. updateCameras still skips offscreen feeds and draws only one.
-  if(coordinator&&!coordinator.planning&&!wasPlanning&&!document.hidden&&now-lastFeed>110&&(performance.now()-frameStart<12||now-lastFeed>1000)){updateCameras();lastFeed=now;}
+  if(coordinator&&((!coordinator.planning&&!wasPlanning)||backgroundPlanningActive())&&!document.hidden&&now-lastFeed>110&&(performance.now()-frameStart<12||now-lastFeed>1000)){updateCameras();lastFeed=now;}
   renderTimes.push(performance.now()-frameStart);if(renderTimes.length>120)renderTimes.shift();requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
@@ -283,11 +287,11 @@ async function boot(){
     for(const id of Object.keys(ROBOT_CONFIGS)){
       try{
         let station;
-        try{station=await createRobotRuntime({id,api,offset:STATION_OFFSETS[id],onProgress:loadingProgress,cooperativePlanning:true});}
+        try{station=await createRobotRuntime({id,api,offset:STATION_OFFSETS[id],onProgress:loadingProgress,cooperativePlanning:true,backgroundPlanning:true});}
         catch(error){
           if(!/零件加载失败|场景加载失败/.test(error.message))throw error;
           loadingProgress({id,part:'model',value:0,label:`${ROBOT_CONFIGS[id].label} 连接中断，重试加载一次…`});
-          station=await createRobotRuntime({id,api,offset:STATION_OFFSETS[id],onProgress:loadingProgress,cooperativePlanning:true});
+          station=await createRobotRuntime({id,api,offset:STATION_OFFSETS[id],onProgress:loadingProgress,cooperativePlanning:true,backgroundPlanning:true});
         }
         const tableGroup=addStationTable(station);workcell.registerStationTable?.(station,tableGroup);scene.add(station.group);station.group.updateMatrixWorld(true);
         const bounds=new THREE.Box3().setFromObject(station.visualRobot);station.labelHeight=bounds.max.y+.13;

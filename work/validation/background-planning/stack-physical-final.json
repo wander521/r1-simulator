@@ -1,0 +1,1531 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-16T08:55:40.279Z",
+  "wallSeconds": 38.56345879200101,
+  "cases": 2,
+  "physicalStacks": 3,
+  "physicallyGraspedStackItems": 9,
+  "clockStepSeconds": 0.001,
+  "fingerStrokeToleranceM": {
+    "r1": 0.001,
+    "g1": 0.0002,
+    "c5": 0.0002
+  },
+  "r1LimitPolicy": "Original R1 soft-limit scene retained; explicit 1 mm finger numerical guard, not Dex1 calibration accuracy. G1/C5 Dex1 guard stays 0.2 mm. No solver or stroke threshold was widened.",
+  "collisionScope": "Actual solver contacts every 10 ms. Original G1/C5 full source collisions; R1 original finger-contact scene only. Exemptions are exact foot/floor, exact C5 base/plinth, and active fingers/current selected object. Original source adjacency exclusions remain in the untouched MJCF. Separate stations cannot physically collide across worlds.",
+  "supportScope": "Independent table→blue→red→yellow force-bearing contact normals >0.005 N; source stack speed <0.0175 m/s and saved drop error <0.012 m. Per-item actual dual normal force >0.015 N per finger and lift >0.035 m. Original 3 s controller verification plus an independent stable window and a further 3 s of common-clock physical support.",
+  "motionIntegrity": "All nine objects checked every 1 ms for finite physical state and displacement-minus-dt*max(oldSpeed,newSpeed) <1e-5 m. setObject prohibited from start preparation through the extra stability/stop window, including after individual controllers finish. Every model has zero mocap and equality constraints.",
+  "planningExecution": {
+    "worker": true,
+    "cooperative": false,
+    "productionBudgetOverride": false
+  },
+  "planningScope": "Production background controller with real worker_threads bridge and shipped worker service/parser/serialization. Initial and subsequent stack-item workers are polled asynchronously between complete global 1 ms ticks. Every poll asserts unchanged world time/qpos/qvel/ctrl. No task motion executes in a worker.",
+  "results": [
+    {
+      "name": "three-way-simultaneous-blue-red-yellow-stack",
+      "pass": true,
+      "wallSeconds": 31.360100291997195,
+      "start": {
+        "ok": true,
+        "preparing": false,
+        "runIds": [
+          "r1",
+          "g1",
+          "c5"
+        ],
+        "startTick": 300,
+        "startTimes": {
+          "r1": 0.3000000000000002,
+          "g1": 0.3000000000000002,
+          "c5": 0.3000000000000002
+        }
+      },
+      "extraStableSeconds": 3,
+      "physicalStacks": 3,
+      "physicallyGraspedItems": 9,
+      "planning": {
+        "barriers": 7,
+        "slices": 362,
+        "wallMs": 77.95328286290169,
+        "maxSliceWallMs": 2.846542000770569,
+        "workerCandidateSlices": 50,
+        "workerSegmentMs": 3237.8232439756393
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 68700,
+          "contactSamples": 6870,
+          "supportSamples": 1821,
+          "actualDualByObject": {
+            "blue": true,
+            "red": true,
+            "yellow": true
+          },
+          "objectEditsDuringTask": 0,
+          "maxObjectTranslationResidual": 6.744521018336048e-17,
+          "maxTorqueRatio": 1,
+          "maxFingerForce": 5,
+          "maxFingerLimitViolation": 0.00030735548680863034,
+          "fingerStrokeToleranceM": 0.001,
+          "maxRevoluteLimitViolation": 0,
+          "maxActualVelocityRatio": 0,
+          "maxIllegalPenetration": 0,
+          "illegalContacts": [],
+          "transitions": [
+            {
+              "time": 0.010000000000000002,
+              "key": "0/blue/idle"
+            },
+            {
+              "time": 0.3100000000000002,
+              "key": "0/blue/spread"
+            },
+            {
+              "time": 1.7099999999999225,
+              "key": "0/blue/crouch"
+            },
+            {
+              "time": 3.2199999999997564,
+              "key": "0/blue/align"
+            },
+            {
+              "time": 4.5299999999998475,
+              "key": "0/blue/approach"
+            },
+            {
+              "time": 6.940000000000652,
+              "key": "0/blue/descend"
+            },
+            {
+              "time": 8.650000000000645,
+              "key": "0/blue/closing"
+            },
+            {
+              "time": 9.650000000000091,
+              "key": "0/blue/lift"
+            },
+            {
+              "time": 11.459999999999088,
+              "key": "0/blue/transfer"
+            },
+            {
+              "time": 13.469999999997974,
+              "key": "0/blue/place"
+            },
+            {
+              "time": 15.27999999999697,
+              "key": "0/blue/release"
+            },
+            {
+              "time": 16.02999999999661,
+              "key": "0/blue/retreat"
+            },
+            {
+              "time": 17.639999999998576,
+              "key": "0/blue/settling"
+            },
+            {
+              "time": 18.039999999999065,
+              "key": "1/red/align_clear"
+            },
+            {
+              "time": 19.450000000000788,
+              "key": "1/red/align"
+            },
+            {
+              "time": 20.76000000000239,
+              "key": "1/red/approach"
+            },
+            {
+              "time": 23.170000000005334,
+              "key": "1/red/descend"
+            },
+            {
+              "time": 24.880000000007424,
+              "key": "1/red/closing"
+            },
+            {
+              "time": 25.880000000008646,
+              "key": "1/red/lift"
+            },
+            {
+              "time": 27.69000000001086,
+              "key": "1/red/transfer"
+            },
+            {
+              "time": 29.700000000013315,
+              "key": "1/red/place"
+            },
+            {
+              "time": 31.510000000015527,
+              "key": "1/red/release"
+            },
+            {
+              "time": 32.260000000015516,
+              "key": "1/red/retreat"
+            },
+            {
+              "time": 33.870000000011764,
+              "key": "1/red/settling"
+            },
+            {
+              "time": 34.27000000001083,
+              "key": "2/yellow/align_clear"
+            },
+            {
+              "time": 35.680000000007546,
+              "key": "2/yellow/align"
+            },
+            {
+              "time": 36.99000000000449,
+              "key": "2/yellow/approach"
+            },
+            {
+              "time": 39.399999999998876,
+              "key": "2/yellow/descend"
+            },
+            {
+              "time": 41.10999999999489,
+              "key": "2/yellow/closing"
+            },
+            {
+              "time": 42.10999999999256,
+              "key": "2/yellow/lift"
+            },
+            {
+              "time": 43.91999999998834,
+              "key": "2/yellow/transfer"
+            },
+            {
+              "time": 45.92999999998366,
+              "key": "2/yellow/place"
+            },
+            {
+              "time": 47.73999999997944,
+              "key": "2/yellow/release"
+            },
+            {
+              "time": 48.48999999997769,
+              "key": "2/yellow/retreat"
+            },
+            {
+              "time": 50.09999999997394,
+              "key": "2/yellow/settling"
+            },
+            {
+              "time": 50.49999999997301,
+              "key": "2/yellow/stack_settle"
+            },
+            {
+              "time": 53.50999999996599,
+              "key": "2/yellow/face_observer"
+            },
+            {
+              "time": 56.11999999995991,
+              "key": "2/yellow/happy"
+            },
+            {
+              "time": 59.01999999995315,
+              "key": "2/yellow/complete"
+            }
+          ],
+          "lastTransition": "2/yellow/complete",
+          "independentStableSeconds": 18.210000000000047,
+          "maxIndependentStableSeconds": 18.210000000000047,
+          "extraStableSamples": 300,
+          "supportMinNormalForce": {
+            "blue": 1.3438492484908464,
+            "red": 0.8533461745006303,
+            "yellow": 0.4118881965406712
+          },
+          "maxStackSpeed": 0.000034919061783833274,
+          "maxStackDropError": 0.0013131596084703188
+        },
+        "g1": {
+          "millisecondSamples": 68700,
+          "contactSamples": 6870,
+          "supportSamples": 1721,
+          "actualDualByObject": {
+            "blue": true,
+            "red": true,
+            "yellow": true
+          },
+          "objectEditsDuringTask": 0,
+          "maxObjectTranslationResidual": 1.1223864177477283e-16,
+          "maxTorqueRatio": 1,
+          "maxFingerForce": 20,
+          "maxFingerLimitViolation": 0.000012051440161340438,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxRevoluteLimitViolation": 0,
+          "maxActualVelocityRatio": 0,
+          "maxIllegalPenetration": 0,
+          "illegalContacts": [],
+          "transitions": [
+            {
+              "time": 0.010000000000000002,
+              "key": "0/blue/idle"
+            },
+            {
+              "time": 0.3100000000000002,
+              "key": "0/blue/spread"
+            },
+            {
+              "time": 1.7099999999999225,
+              "key": "0/blue/raise"
+            },
+            {
+              "time": 3.2199999999997564,
+              "key": "0/blue/ready"
+            },
+            {
+              "time": 4.219999999999744,
+              "key": "0/blue/align"
+            },
+            {
+              "time": 5.530000000000181,
+              "key": "0/blue/approach"
+            },
+            {
+              "time": 7.940000000000986,
+              "key": "0/blue/descend"
+            },
+            {
+              "time": 9.650000000000091,
+              "key": "0/blue/closing"
+            },
+            {
+              "time": 10.649999999999537,
+              "key": "0/blue/lift"
+            },
+            {
+              "time": 12.459999999998534,
+              "key": "0/blue/transfer"
+            },
+            {
+              "time": 14.46999999999742,
+              "key": "0/blue/place"
+            },
+            {
+              "time": 16.279999999996914,
+              "key": "0/blue/release"
+            },
+            {
+              "time": 17.02999999999783,
+              "key": "0/blue/retreat"
+            },
+            {
+              "time": 18.639999999999798,
+              "key": "0/blue/settling"
+            },
+            {
+              "time": 19.040000000000287,
+              "key": "1/red/recenter"
+            },
+            {
+              "time": 20.45000000000201,
+              "key": "1/red/align"
+            },
+            {
+              "time": 21.76000000000361,
+              "key": "1/red/approach"
+            },
+            {
+              "time": 24.170000000006556,
+              "key": "1/red/descend"
+            },
+            {
+              "time": 25.880000000008646,
+              "key": "1/red/closing"
+            },
+            {
+              "time": 26.88000000000987,
+              "key": "1/red/lift"
+            },
+            {
+              "time": 28.69000000001208,
+              "key": "1/red/transfer"
+            },
+            {
+              "time": 30.700000000014537,
+              "key": "1/red/place"
+            },
+            {
+              "time": 32.510000000014934,
+              "key": "1/red/release"
+            },
+            {
+              "time": 33.260000000013186,
+              "key": "1/red/retreat"
+            },
+            {
+              "time": 34.87000000000943,
+              "key": "1/red/settling"
+            },
+            {
+              "time": 35.2700000000085,
+              "key": "2/yellow/recenter"
+            },
+            {
+              "time": 36.680000000005215,
+              "key": "2/yellow/align"
+            },
+            {
+              "time": 37.99000000000216,
+              "key": "2/yellow/approach"
+            },
+            {
+              "time": 40.399999999996545,
+              "key": "2/yellow/descend"
+            },
+            {
+              "time": 42.10999999999256,
+              "key": "2/yellow/closing"
+            },
+            {
+              "time": 43.10999999999023,
+              "key": "2/yellow/lift"
+            },
+            {
+              "time": 44.91999999998601,
+              "key": "2/yellow/transfer"
+            },
+            {
+              "time": 46.92999999998133,
+              "key": "2/yellow/place"
+            },
+            {
+              "time": 48.73999999997711,
+              "key": "2/yellow/release"
+            },
+            {
+              "time": 49.48999999997536,
+              "key": "2/yellow/retreat"
+            },
+            {
+              "time": 51.09999999997161,
+              "key": "2/yellow/settling"
+            },
+            {
+              "time": 51.499999999970676,
+              "key": "2/yellow/stack_settle"
+            },
+            {
+              "time": 54.50999999996366,
+              "key": "2/yellow/reaction_clear"
+            },
+            {
+              "time": 56.11999999995991,
+              "key": "2/yellow/reaction_align"
+            },
+            {
+              "time": 57.32999999995709,
+              "key": "2/yellow/reaction_fold"
+            },
+            {
+              "time": 58.32999999995476,
+              "key": "2/yellow/reaction_wide"
+            },
+            {
+              "time": 59.83999999995124,
+              "key": "2/yellow/reaction_home"
+            },
+            {
+              "time": 61.24999999994795,
+              "key": "2/yellow/face_observer"
+            },
+            {
+              "time": 62.8599999999442,
+              "key": "2/yellow/happy"
+            },
+            {
+              "time": 65.69999999994965,
+              "key": "2/yellow/complete"
+            }
+          ],
+          "lastTransition": "2/yellow/complete",
+          "independentStableSeconds": 17.20999999999989,
+          "maxIndependentStableSeconds": 17.20999999999989,
+          "extraStableSamples": 300,
+          "supportMinNormalForce": {
+            "blue": 1.3438534687066555,
+            "red": 0.8533506031029798,
+            "yellow": 0.41189636109982714
+          },
+          "maxStackSpeed": 0.000033539835934210055,
+          "maxStackDropError": 0.002057782582310765
+        },
+        "c5": {
+          "millisecondSamples": 68700,
+          "contactSamples": 6870,
+          "supportSamples": 2755,
+          "actualDualByObject": {
+            "blue": true,
+            "red": true,
+            "yellow": true
+          },
+          "objectEditsDuringTask": 0,
+          "maxObjectTranslationResidual": 7.255387764648798e-17,
+          "maxTorqueRatio": 1,
+          "maxFingerForce": 20,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxRevoluteLimitViolation": 0,
+          "maxActualVelocityRatio": 1.0000118714622164,
+          "maxIllegalPenetration": 0,
+          "illegalContacts": [],
+          "transitions": [
+            {
+              "time": 0.010000000000000002,
+              "key": "0/blue/idle"
+            },
+            {
+              "time": 0.3100000000000002,
+              "key": "0/blue/approach"
+            },
+            {
+              "time": 2.8099999999998015,
+              "key": "0/blue/descend"
+            },
+            {
+              "time": 4.519999999999844,
+              "key": "0/blue/closing"
+            },
+            {
+              "time": 5.520000000000178,
+              "key": "0/blue/lift"
+            },
+            {
+              "time": 7.330000000000783,
+              "key": "0/blue/transfer"
+            },
+            {
+              "time": 9.340000000000263,
+              "key": "0/blue/place"
+            },
+            {
+              "time": 11.14999999999926,
+              "key": "0/blue/release"
+            },
+            {
+              "time": 11.899999999998844,
+              "key": "0/blue/retreat"
+            },
+            {
+              "time": 13.509999999997952,
+              "key": "0/blue/settling"
+            },
+            {
+              "time": 13.90999999999773,
+              "key": "1/red/approach"
+            },
+            {
+              "time": 16.419999999997085,
+              "key": "1/red/descend"
+            },
+            {
+              "time": 18.129999999999175,
+              "key": "1/red/closing"
+            },
+            {
+              "time": 19.130000000000397,
+              "key": "1/red/lift"
+            },
+            {
+              "time": 20.94000000000261,
+              "key": "1/red/transfer"
+            },
+            {
+              "time": 22.950000000005065,
+              "key": "1/red/place"
+            },
+            {
+              "time": 24.790000000007314,
+              "key": "1/red/release"
+            },
+            {
+              "time": 25.54000000000823,
+              "key": "1/red/retreat"
+            },
+            {
+              "time": 27.1500000000102,
+              "key": "1/red/settling"
+            },
+            {
+              "time": 27.550000000010687,
+              "key": "2/yellow/approach"
+            },
+            {
+              "time": 30.060000000013755,
+              "key": "2/yellow/descend"
+            },
+            {
+              "time": 31.770000000015845,
+              "key": "2/yellow/closing"
+            },
+            {
+              "time": 32.77000000001433,
+              "key": "2/yellow/lift"
+            },
+            {
+              "time": 34.58000000001011,
+              "key": "2/yellow/transfer"
+            },
+            {
+              "time": 36.590000000005425,
+              "key": "2/yellow/place"
+            },
+            {
+              "time": 38.40000000000121,
+              "key": "2/yellow/release"
+            },
+            {
+              "time": 39.14999999999946,
+              "key": "2/yellow/retreat"
+            },
+            {
+              "time": 40.759999999995706,
+              "key": "2/yellow/settling"
+            },
+            {
+              "time": 41.159999999994774,
+              "key": "2/yellow/stack_settle"
+            },
+            {
+              "time": 44.16999999998776,
+              "key": "2/yellow/reaction_home"
+            },
+            {
+              "time": 46.67999999998191,
+              "key": "2/yellow/happy"
+            },
+            {
+              "time": 49.27999999997585,
+              "key": "2/yellow/complete"
+            }
+          ],
+          "lastTransition": "2/yellow/complete",
+          "independentStableSeconds": 27.550000000001507,
+          "maxIndependentStableSeconds": 27.550000000001507,
+          "extraStableSamples": 300,
+          "supportMinNormalForce": {
+            "blue": 1.3438359162454847,
+            "red": 0.8533325080918934,
+            "yellow": 0.41187471804399867
+          },
+          "maxStackSpeed": 0.0000308159122397231,
+          "maxStackDropError": 0.0020773894588072025
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "complete",
+          "running": false,
+          "time": 68.69999999996398,
+          "message": "叠放完成：蓝色、红色、黄色已逐件释放并稳定支撑",
+          "itemIndex": 2,
+          "selected": "yellow",
+          "evidence": {
+            "lift": 0.12965643794091708,
+            "maxSpeed": 0.15646267136109518,
+            "dual": true,
+            "stable": 0
+          },
+          "stackEvidence": [
+            {
+              "id": "blue",
+              "drop": [
+                0.9,
+                0.7109952061210892,
+                0
+              ],
+              "lift": 0.12889564475169668,
+              "maxSpeed": 0.10906531664435466,
+              "dual": true,
+              "stable": 0
+            },
+            {
+              "id": "red",
+              "drop": [
+                0.9005485072138217,
+                0.7524952061212041,
+                0.00132329972854217
+              ],
+              "lift": 0.12892811715928099,
+              "maxSpeed": 0.14095505663496316,
+              "dual": true,
+              "stable": 0
+            },
+            {
+              "id": "yellow",
+              "drop": [
+                0.9002239114466027,
+                0.8009817831365896,
+                0.007643093868572778
+              ],
+              "lift": 0.12965643794091708,
+              "maxSpeed": 0.15646267136109518,
+              "dual": true,
+              "stable": 0
+            }
+          ],
+          "stackStableSeconds": 3.00999999999998,
+          "stackResultVerified": true,
+          "reaction": "happy",
+          "reactionFinished": "happy",
+          "stackCheck": {
+            "stable": true,
+            "states": [
+              {
+                "id": "blue",
+                "supported": true,
+                "speed": 0.0000010191557141636175,
+                "error": 0.0013131588426074957,
+                "position": [
+                  0.9005693524082845,
+                  0.7109868683139569,
+                  0.0011832812269579613
+                ]
+              },
+              {
+                "id": "red",
+                "supported": true,
+                "speed": 0.000004890175068321212,
+                "error": 0.00047540473563974526,
+                "position": [
+                  0.9000894879833449,
+                  0.7524692848139173,
+                  0.0014442918545242514
+                ]
+              },
+              {
+                "id": "yellow",
+                "supported": true,
+                "speed": 0.000010091118411879308,
+                "error": 0.0010414380191322106,
+                "position": [
+                  0.901048942801667,
+                  0.8009598950755095,
+                  0.00827826103053643
+                ]
+              }
+            ]
+          },
+          "history": [
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "align_clear",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "align_clear",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "stack_settle",
+            "face_observer",
+            "happy",
+            "happy",
+            "happy",
+            "happy",
+            "happy",
+            "happy"
+          ],
+          "planError": null
+        },
+        {
+          "id": "g1",
+          "state": "complete",
+          "running": false,
+          "time": 68.69999999996398,
+          "message": "叠放完成：蓝色、红色、黄色已逐件释放并稳定支撑",
+          "itemIndex": 2,
+          "selected": "yellow",
+          "evidence": {
+            "lift": 0.10939183726085344,
+            "maxSpeed": 0.12278051924012169,
+            "dual": true,
+            "stable": 0
+          },
+          "stackEvidence": [
+            {
+              "id": "blue",
+              "drop": [
+                0.44,
+                0.9189952061210893,
+                0
+              ],
+              "lift": 0.10966039853318543,
+              "maxSpeed": 0.09763602277966527,
+              "dual": true,
+              "stable": 0
+            },
+            {
+              "id": "red",
+              "drop": [
+                0.43860030085137486,
+                0.9604952061212041,
+                0.0004538058718824028
+              ],
+              "lift": 0.10975814846709797,
+              "maxSpeed": 0.10954423298683204,
+              "dual": true,
+              "stable": 0
+            },
+            {
+              "id": "yellow",
+              "drop": [
+                0.4370364199128077,
+                1.0089817681066218,
+                0.0009932950697443608
+              ],
+              "lift": 0.10939183726085344,
+              "maxSpeed": 0.12278051924012169,
+              "dual": true,
+              "stable": 0
+            }
+          ],
+          "stackStableSeconds": 3.00999999999998,
+          "stackResultVerified": true,
+          "reaction": "happy",
+          "reactionFinished": "happy",
+          "stackCheck": {
+            "stable": true,
+            "states": [
+              {
+                "id": "blue",
+                "supported": true,
+                "speed": 0.0000019917786733788602,
+                "error": 0.0016247772665621307,
+                "position": [
+                  0.43843551539551634,
+                  0.9189868683291187,
+                  0.00043842852267588856
+                ]
+              },
+              {
+                "id": "red",
+                "supported": true,
+                "speed": 0.000010471985061618523,
+                "error": 0.002057782582310765,
+                "position": [
+                  0.43661837353097166,
+                  0.9604692191784828,
+                  0.0010067596959120035
+                ]
+              },
+              {
+                "id": "yellow",
+                "supported": true,
+                "speed": 0.0000307993411414709,
+                "error": 0.0007486033089658108,
+                "position": [
+                  0.43632062946025907,
+                  1.0089618456471663,
+                  0.0012115931179353418
+                ]
+              }
+            ]
+          },
+          "history": [
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "recenter",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "recenter",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "stack_settle",
+            "reaction_clear",
+            "reaction_align",
+            "reaction_fold",
+            "reaction_wide",
+            "reaction_home",
+            "face_observer",
+            "happy",
+            "happy",
+            "happy",
+            "happy",
+            "happy",
+            "happy"
+          ],
+          "planError": null
+        },
+        {
+          "id": "c5",
+          "state": "complete",
+          "running": false,
+          "time": 68.69999999996398,
+          "message": "叠放完成：三件物体已逐件释放并稳定支撑",
+          "itemIndex": 2,
+          "selected": "yellow",
+          "evidence": {
+            "lift": 0.13922836627470025,
+            "maxSpeed": 0.15937384171328303,
+            "dual": true,
+            "stable": 0
+          },
+          "stackEvidence": [
+            {
+              "id": "blue",
+              "drop": [
+                0.55,
+                0.7389952061210893,
+                0
+              ],
+              "lift": 0.1394246809059807,
+              "maxSpeed": 0.12777098327848704,
+              "dual": true,
+              "stable": 0
+            },
+            {
+              "id": "red",
+              "drop": [
+                0.5495894184442294,
+                0.7804952061212042,
+                0.00006570976829841152
+              ],
+              "lift": 0.14000516215881653,
+              "maxSpeed": 0.15201195560731487,
+              "dual": true,
+              "stable": 0
+            },
+            {
+              "id": "yellow",
+              "drop": [
+                0.5478977535201953,
+                0.8289817667459833,
+                0.00009007150852647645
+              ],
+              "lift": 0.13922836627470025,
+              "maxSpeed": 0.15937384171328303,
+              "dual": true,
+              "stable": 0
+            }
+          ],
+          "stackStableSeconds": 3.00999999999998,
+          "stackResultVerified": true,
+          "reaction": "happy",
+          "reactionFinished": "happy",
+          "stackCheck": {
+            "stable": true,
+            "states": [
+              {
+                "id": "blue",
+                "supported": true,
+                "speed": 0.0000017378274688697258,
+                "error": 0.0005330915658243369,
+                "position": [
+                  0.5494733365120326,
+                  0.7389868683411738,
+                  0.00008211375902398745
+                ]
+              },
+              {
+                "id": "red",
+                "supported": true,
+                "speed": 0.000009209272075675154,
+                "error": 0.0020773810364215915,
+                "position": [
+                  0.5475122510448887,
+                  0.7804692141012796,
+                  0.00008026931844268905
+                ]
+              },
+              {
+                "id": "yellow",
+                "supported": true,
+                "speed": 0.0000223708168581861,
+                "error": 0.0009333647008768122,
+                "position": [
+                  0.5469651102686753,
+                  0.8289617469616879,
+                  0.00012081949177514022
+                ]
+              }
+            ]
+          },
+          "history": [
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "stack_settle",
+            "reaction_home",
+            "happy",
+            "happy",
+            "happy",
+            "happy",
+            "happy"
+          ],
+          "planError": null
+        }
+      ]
+    },
+    {
+      "name": "stop-three-way-stack-after-real-lifts-never-reports-completion",
+      "pass": true,
+      "wallSeconds": 5.105206082999707,
+      "start": {
+        "ok": true,
+        "preparing": false,
+        "runIds": [
+          "r1",
+          "g1",
+          "c5"
+        ],
+        "startTick": 300,
+        "startTimes": {
+          "r1": 0.3000000000000002,
+          "g1": 0.3000000000000002,
+          "c5": 0.3000000000000002
+        }
+      },
+      "postStopPhysicsSeconds": 3,
+      "planning": {
+        "barriers": 1,
+        "slices": 44,
+        "wallMs": 7.705335021018982,
+        "maxSliceWallMs": 0.6587090194225311,
+        "workerCandidateSlices": 14,
+        "workerSegmentMs": 883.1546269655228
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 14330,
+          "contactSamples": 1433,
+          "supportSamples": 0,
+          "actualDualByObject": {
+            "blue": true,
+            "red": false,
+            "yellow": false
+          },
+          "objectEditsDuringTask": 0,
+          "maxObjectTranslationResidual": 5.987734137655773e-17,
+          "maxTorqueRatio": 1,
+          "maxFingerForce": 5,
+          "maxFingerLimitViolation": 0.0002763336245863307,
+          "fingerStrokeToleranceM": 0.001,
+          "maxRevoluteLimitViolation": 0,
+          "maxActualVelocityRatio": 0,
+          "maxIllegalPenetration": 0,
+          "illegalContacts": [],
+          "transitions": [
+            {
+              "time": 0.010000000000000002,
+              "key": "0/yellow/idle"
+            },
+            {
+              "time": 0.3100000000000002,
+              "key": "0/blue/spread"
+            },
+            {
+              "time": 1.7099999999999225,
+              "key": "0/blue/crouch"
+            },
+            {
+              "time": 3.2199999999997564,
+              "key": "0/blue/align"
+            },
+            {
+              "time": 4.5299999999998475,
+              "key": "0/blue/approach"
+            },
+            {
+              "time": 6.940000000000652,
+              "key": "0/blue/descend"
+            },
+            {
+              "time": 8.650000000000645,
+              "key": "0/blue/closing"
+            },
+            {
+              "time": 9.650000000000091,
+              "key": "0/blue/lift"
+            },
+            {
+              "time": 11.339999999999154,
+              "key": "0/blue/stopped"
+            }
+          ],
+          "lastTransition": "0/blue/stopped",
+          "independentStableSeconds": 0,
+          "maxIndependentStableSeconds": 0,
+          "extraStableSamples": 0,
+          "supportMinNormalForce": {
+            "blue": null,
+            "red": null,
+            "yellow": null
+          },
+          "maxStackSpeed": 0,
+          "maxStackDropError": 0
+        },
+        "g1": {
+          "millisecondSamples": 14330,
+          "contactSamples": 1433,
+          "supportSamples": 0,
+          "actualDualByObject": {
+            "blue": true,
+            "red": false,
+            "yellow": false
+          },
+          "objectEditsDuringTask": 0,
+          "maxObjectTranslationResidual": 5.95633568509224e-17,
+          "maxTorqueRatio": 1,
+          "maxFingerForce": 20,
+          "maxFingerLimitViolation": 0.000008002479858430778,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxRevoluteLimitViolation": 0,
+          "maxActualVelocityRatio": 0,
+          "maxIllegalPenetration": 0,
+          "illegalContacts": [],
+          "transitions": [
+            {
+              "time": 0.010000000000000002,
+              "key": "0/yellow/idle"
+            },
+            {
+              "time": 0.3100000000000002,
+              "key": "0/blue/spread"
+            },
+            {
+              "time": 1.7099999999999225,
+              "key": "0/blue/raise"
+            },
+            {
+              "time": 3.2199999999997564,
+              "key": "0/blue/ready"
+            },
+            {
+              "time": 4.219999999999744,
+              "key": "0/blue/align"
+            },
+            {
+              "time": 5.530000000000181,
+              "key": "0/blue/approach"
+            },
+            {
+              "time": 7.940000000000986,
+              "key": "0/blue/descend"
+            },
+            {
+              "time": 9.650000000000091,
+              "key": "0/blue/closing"
+            },
+            {
+              "time": 10.649999999999537,
+              "key": "0/blue/lift"
+            },
+            {
+              "time": 11.339999999999154,
+              "key": "0/blue/stopped"
+            }
+          ],
+          "lastTransition": "0/blue/stopped",
+          "independentStableSeconds": 0,
+          "maxIndependentStableSeconds": 0,
+          "extraStableSamples": 0,
+          "supportMinNormalForce": {
+            "blue": null,
+            "red": null,
+            "yellow": null
+          },
+          "maxStackSpeed": 0,
+          "maxStackDropError": 0
+        },
+        "c5": {
+          "millisecondSamples": 14330,
+          "contactSamples": 1433,
+          "supportSamples": 0,
+          "actualDualByObject": {
+            "blue": true,
+            "red": false,
+            "yellow": false
+          },
+          "objectEditsDuringTask": 0,
+          "maxObjectTranslationResidual": 6.677510124296392e-17,
+          "maxTorqueRatio": 0.6586514796878087,
+          "maxFingerForce": 13.173029593756175,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxRevoluteLimitViolation": 0,
+          "maxActualVelocityRatio": 0.9999825149156234,
+          "maxIllegalPenetration": 0,
+          "illegalContacts": [],
+          "transitions": [
+            {
+              "time": 0.010000000000000002,
+              "key": "0/yellow/idle"
+            },
+            {
+              "time": 0.3100000000000002,
+              "key": "0/blue/approach"
+            },
+            {
+              "time": 2.8099999999998015,
+              "key": "0/blue/descend"
+            },
+            {
+              "time": 4.519999999999844,
+              "key": "0/blue/closing"
+            },
+            {
+              "time": 5.520000000000178,
+              "key": "0/blue/lift"
+            },
+            {
+              "time": 7.330000000000783,
+              "key": "0/blue/transfer"
+            },
+            {
+              "time": 9.340000000000263,
+              "key": "0/blue/place"
+            },
+            {
+              "time": 11.14999999999926,
+              "key": "0/blue/release"
+            },
+            {
+              "time": 11.339999999999154,
+              "key": "0/blue/stopped"
+            }
+          ],
+          "lastTransition": "0/blue/stopped",
+          "independentStableSeconds": 0,
+          "maxIndependentStableSeconds": 0,
+          "extraStableSamples": 0,
+          "supportMinNormalForce": {
+            "blue": null,
+            "red": null,
+            "yellow": null
+          },
+          "maxStackSpeed": 0,
+          "maxStackDropError": 0
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "stopped",
+          "running": false,
+          "time": 14.329999999997497,
+          "message": "已停止并保持当前夹爪开口",
+          "itemIndex": 0,
+          "selected": "blue",
+          "evidence": {
+            "lift": 0.12722913858924578,
+            "maxSpeed": 0.10757506855454092,
+            "dual": true,
+            "stable": 0
+          },
+          "stackEvidence": [],
+          "stackStableSeconds": 0,
+          "stackResultVerified": false,
+          "reaction": null,
+          "reactionFinished": null,
+          "stackCheck": {
+            "stable": false,
+            "states": [
+              {
+                "id": "blue",
+                "supported": false,
+                "speed": 0.00029987336985621985,
+                "error": null,
+                "position": [
+                  0.7803260393293378,
+                  0.8372902794869685,
+                  0.0011278686608019845
+                ]
+              },
+              {
+                "id": "red",
+                "supported": false,
+                "speed": 1.6447449537107768e-11,
+                "error": null,
+                "position": [
+                  0.78,
+                  0.7144952061211163,
+                  0.14
+                ]
+              },
+              {
+                "id": "yellow",
+                "supported": false,
+                "speed": 0.00003943241363484723,
+                "error": null,
+                "position": [
+                  0.7799999970109815,
+                  0.7179960688973047,
+                  -0.14000062579102135
+                ]
+              }
+            ]
+          },
+          "history": [
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift"
+          ],
+          "planError": null
+        },
+        {
+          "id": "g1",
+          "state": "stopped",
+          "running": false,
+          "time": 14.329999999997497,
+          "message": "已停止；松爪后物体按重力落桌",
+          "itemIndex": 0,
+          "selected": "blue",
+          "evidence": {
+            "lift": 0.03542774833885887,
+            "maxSpeed": 0.09127268827007771,
+            "dual": true,
+            "stable": 0
+          },
+          "stackEvidence": [],
+          "stackStableSeconds": 0,
+          "stackResultVerified": false,
+          "reaction": null,
+          "reactionFinished": null,
+          "stackCheck": {
+            "stable": false,
+            "states": [
+              {
+                "id": "blue",
+                "supported": true,
+                "speed": 2.469995014017052e-11,
+                "error": null,
+                "position": [
+                  0.3467063592762094,
+                  0.9189952061212041,
+                  -0.000542137282024569
+                ]
+              },
+              {
+                "id": "red",
+                "supported": false,
+                "speed": 1.7086442099673852e-11,
+                "error": null,
+                "position": [
+                  0.33,
+                  0.9224952061211121,
+                  0.09
+                ]
+              },
+              {
+                "id": "yellow",
+                "supported": false,
+                "speed": 0.00003545669601722025,
+                "error": null,
+                "position": [
+                  0.32999924310251566,
+                  0.9259961113552263,
+                  -0.08999992024449328
+                ]
+              }
+            ]
+          },
+          "history": [
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift"
+          ],
+          "planError": null
+        },
+        {
+          "id": "c5",
+          "state": "stopped",
+          "running": false,
+          "time": 14.329999999997497,
+          "message": "已停止；物体按重力落桌",
+          "itemIndex": 0,
+          "selected": "blue",
+          "evidence": {
+            "lift": 0.1394246809059807,
+            "maxSpeed": 0.12777098327848704,
+            "dual": true,
+            "stable": 0
+          },
+          "stackEvidence": [],
+          "stackStableSeconds": 0,
+          "stackResultVerified": false,
+          "reaction": null,
+          "reactionFinished": null,
+          "stackCheck": {
+            "stable": false,
+            "states": [
+              {
+                "id": "blue",
+                "supported": true,
+                "speed": 3.730148601040102e-12,
+                "error": null,
+                "position": [
+                  0.5496058374250155,
+                  0.7389952061212041,
+                  0.0000775329752473014
+                ]
+              },
+              {
+                "id": "red",
+                "supported": false,
+                "speed": 1.6447449537107768e-11,
+                "error": null,
+                "position": [
+                  0.38,
+                  0.7424952061211163,
+                  0.1
+                ]
+              },
+              {
+                "id": "yellow",
+                "supported": false,
+                "speed": 0.000012664920442211396,
+                "error": null,
+                "position": [
+                  0.3799992075378027,
+                  0.7459961273014051,
+                  -0.09999992784266215
+                ]
+              }
+            ]
+          },
+          "history": [
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release"
+          ],
+          "planError": null
+        }
+      ]
+    }
+  ],
+  "initializationError": null,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-stack.mjs": "6a018eea81328c73eeadea5930bd5f5e7ae0e5035b66a66dca5bbe477678e93e",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "dist/multi/robot-runtime.mjs": "edad4e516d4befa4578df540968ec9bab46a69d75ee122f39246bf5de5265c05",
+    "dist/multi/coordinator.mjs": "d207149524ec7f94550d2becfd1293de3624d9f50d0b6fffd2938fc3f7a4a4d0",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/background-planning.mjs": "97853a50ffb2e3c154e1a95a4a59ef35fc1a7867dbd7d079b5b3259b244be091",
+    "dist/multi/planning-worker.mjs": "3e8fe003ee8e2e2e15601a39ea1f38448b9cc8560beacb4dbd867852b68118c6",
+    "dist/multi/planning-worker-core.mjs": "814c1b3a1134c533c7dce147897257f04681cc01a172b998c073641e0a3665fd",
+    "dist/multi/planning-worker-transport.mjs": "85cd66734c03d19deb16d58cbb32b311e565772ca2380828cba71c25f73fc37b",
+    "dist/multi/planning-serialization.mjs": "b6453ba07ed8dbf2738b7482c4c113a47b634490d99d8dbe9fe67713454f4137",
+    "dist/multi/planning-robot.mjs": "43fd3d460bb23ab20669223409bc8bc034976c6309eb99c0d8381d2b119e575b",
+    "work/background-planning-node-worker.mjs": "43ac15e130e258db085af358f5c8b61cdf10b186759d90c3345273d77897ee89",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/assets/aubo_C5.urdf": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  }
+}

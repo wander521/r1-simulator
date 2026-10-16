@@ -197,7 +197,7 @@ await check('Start-button source disables consumed selected batches with explici
     context.selected=['r1','c5'];vm.runInContext(`this.needsNewBatch=${needsNewBatch};this.disabled=${disabled};`,context);
     assert.equal(context.needsNewBatch,false);assert.equal(context.disabled,false);
     context.coordinator.planning=true;context.busy=true;vm.runInContext(`this.disabled=${disabled};this.caption=${caption};`,context);
-    assert.equal(context.disabled,true);assert.equal(context.caption,'路径检查中…');
+    assert.equal(context.disabled,true);assert.equal(context.caption,'后台检查路径…');
   }
 });
 await check('Pointer and keyboard pipe editing remain station-local; empty-space orbit stays separate',()=>{

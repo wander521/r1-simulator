@@ -1,0 +1,50 @@
+{
+  "pass": true,
+  "checks": 5,
+  "results": [
+    {
+      "name": "All four finger source velocities are 0.25 m/s and conservative commands use 40%",
+      "pass": true
+    },
+    {
+      "name": "One-shot close/open requests persist while independent ramp history advances through real motors",
+      "pass": true
+    },
+    {
+      "name": "Rapid reversals preserve the command slew, actual state integration and original force/range bounds",
+      "pass": true
+    },
+    {
+      "name": "Reset clears both desired/ramped histories and cannot resume a stale closing request",
+      "pass": true
+    },
+    {
+      "name": "Batch stop still retains the R1 aperture and arm targets",
+      "pass": true
+    }
+  ],
+  "profile": {
+    "sourceVelocityMps": 0.25,
+    "commandFraction": 0.4,
+    "commandVelocityMps": 0.1
+  },
+  "stats": {
+    "millisecondSamples": 3050,
+    "maxCommandVelocity": 0.10000000000000286,
+    "maxActualVelocity": 0.1212679178813042,
+    "maxActualFingerRangeExcess": 0.00040864430894242687,
+    "maxEffortRatio": 0.08707100642111384
+  },
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-r1-gripper.mjs": "2fbaff23c2640b940d5168712082baca5014689d582e6a48cb2d15506899b945",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3"
+  }
+}

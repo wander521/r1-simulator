@@ -18,7 +18,10 @@ import {tcpPose as c5TCP} from '../c5/grasp-kinematics.mjs';
 import {generatePipeLayout,normalizePipeSeed} from './pipe-layout.mjs';
 import {buildPipeScene} from './pipe-model.mjs';
 import {pipeControllerClass,pipeDynamicsClass} from './pipe-controller.mjs';
-import {planningControllerClass} from './planning.mjs';
+import {planningControllerClass} from './planning.mjs?v=20261016-worker-1';
+import {backgroundPlanningControllerClass} from './background-planning.mjs?v=20261016-worker-1';
+import {createPlanningWorkerTransport} from './planning-worker-transport.mjs?v=20261016-worker-1';
+import {capturePlanningJob,planningJobStillCurrent} from './planning-serialization.mjs?v=20261016-worker-1';
 
 const url=path=>new URL(path,import.meta.url).href;
 export const ROBOT_CONFIGS=Object.freeze({
@@ -149,10 +152,13 @@ function progressOf(controller){
  * Only an independent URDF clone is translated for display. Physics and actual
  * contacts remain identical to the validated single-robot applications.
  */
-export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null,cooperativePlanning=false}){
+export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null,modelXml=sourceXml,cooperativePlanning=false,backgroundPlanning=false,planningTransportFactory=createPlanningWorkerTransport}){
   const config=configFor(id);
   if(robot.parent)throw new Error('物理机器人必须保留独立局部坐标，不能挂到可视场景');
   const group=new THREE.Group();group.name=`${id}-station`;group.position.fromArray(offset);
+  let planningTransport=null;
+  let activeModelXml=modelXml,modelPipeSeed=null;
+  const transport=()=>planningTransport??=(planningTransportFactory());
   const deferRobotSync=instance=>{
     // MuJoCo qpos/qvel and every 1 ms motor/contact update remain authoritative.
     // This detached Three tree is only needed by FK/IK and display reads; the
@@ -160,9 +166,12 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     instance.afterStep=()=>{};return instance;
   };
   const createController=(Controller,nextModel,nextData,nextTargets,nextDynamics)=>{
-    const PlanningController=planningControllerClass(Controller,{robotId:id});
+    const CooperativeController=planningControllerClass(Controller,{robotId:id});
+    const PlanningController=backgroundPlanningControllerClass(CooperativeController,{robotId:id,transport,
+      captureJob:request=>capturePlanningJob(runtime,request),isCurrent:job=>planningJobStillCurrent(runtime,job)});
     const instance=new PlanningController(api,nextModel,nextData,robot,nextTargets,nextDynamics);
     instance.cooperativePlanning=cooperativePlanning;
+    instance.backgroundPlanning=backgroundPlanning;
     // wristError temporarily evaluates desired FK, then restores actual FK.
     // Synchronize its initial read too now that rendering owns routine sync.
     const wristError=instance.wristError.bind(instance);
@@ -177,6 +186,8 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
   let disposed=false;
   const runtime={
     id,config,api,model,data,robot,visualRobot,group,targets,controller,dynamics,ready:true,
+    get sourceXml(){return sourceXml;},get modelXml(){return activeModelXml;},get modelPipeSeed(){return modelPipeSeed;},get backgroundPlanning(){return backgroundPlanning;},
+    get planningProgress(){return controller.planningProgress??null;},
     get taskMode(){return taskMode;},
     get planning(){return Boolean(controller.planning);},
     get solidMeshes(){return targets.map(target=>target.visualMesh);},
@@ -184,13 +195,13 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     get cameraLink(){return visualRobot.getObjectByName((config.cameraFrame??config.gripperLink)(controller.arm));},
     get status(){
       return {id,state:controller.state,running:controller.running,planning:Boolean(controller.planning),time:controller.time,physicsTime:data.time,
-        message:controller.message,task:taskMode==='pipes'?'pipes':controller.task,
+        message:controller.message,task:taskMode==='pipes'?'pipes':controller.task,planningProgress:runtime.planningProgress,
         classification:taskMode==='pipes'?{started:Boolean(controller.classification.started)}:null};
     },
     get snapshot(){
       const measurement=controller.measure();
       return {id,label:config.label,state:controller.state,running:controller.running,planning:Boolean(controller.planning),task:taskMode==='pipes'?'pipes':controller.task,
-        selected:controller.selected,arm:controller.arm,message:controller.message,progress:progressOf(controller),
+        selected:controller.selected,arm:controller.arm,message:controller.message,progress:progressOf(controller),planningProgress:runtime.planningProgress,
         time:controller.time,physicsTime:data.time,evidence:{...controller.evidence},history:[...controller.history],
         force:measurement.force,forces:[...measurement.forces],contactCount:measurement.count,
         distance:measurement.distance,wristError:controller.wristError(),planError:controller.planError||null,
@@ -210,7 +221,8 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
       const vfs=new api.MjVFS();
       try{
         const layout=mode==='pipes'?generatePipeLayout(config,{seed:seed??1}):null;
-        nextModel=api.MjModel.from_xml_string(layout?buildPipeScene(sourceXml,layout):sourceXml,vfs);nextData=new api.MjData(nextModel);
+        const nextModelXml=layout?buildPipeScene(sourceXml,layout):sourceXml;
+        nextModel=api.MjModel.from_xml_string(nextModelXml,vfs);nextData=new api.MjData(nextModel);
         nextTargets=layout?pipeTargets(layout,config,group):taskTargets(config,group);
         const Dynamics=layout?pipeDynamicsClass(config.Dynamics,{robotId:id}):config.Dynamics;
         nextDynamics=deferRobotSync(new Dynamics(api,nextModel,nextData,robot));
@@ -218,7 +230,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
         const nextController=createController(Controller,nextModel,nextData,nextTargets,nextDynamics);
         if(layout)nextController.setLayout(layout);nextController.arm=config.defaultArm;
         disposeTaskTargets(targets);dynamics.dispose?.();data.delete();model.delete();
-        model=nextModel;data=nextData;dynamics=nextDynamics;controller=nextController;targets=nextTargets;taskMode=mode;pipeLayout=layout;
+        model=nextModel;data=nextData;dynamics=nextDynamics;controller=nextController;targets=nextTargets;taskMode=mode;pipeLayout=layout;activeModelXml=nextModelXml;modelPipeSeed=layout?.seed??null;
         Object.assign(runtime,{model,data,dynamics,controller,targets});runtime.syncVisuals();
         return{ok:true,task:mode,seed:layout?.seed};
       }catch(error){if(nextTargets)disposeTaskTargets(nextTargets);nextDynamics?.dispose?.();nextData?.delete();nextModel?.delete();dynamics.syncRobot();return{ok:false,reason:error.message};}
@@ -295,7 +307,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
       if(controller.setObject(objectId,p,q)===false)return false;runtime.syncVisuals();return true;
     },
     dispose(){
-      if(disposed)return;controller.cancelPlanning?.('机器人已关闭，路径检查已取消');disposed=true;runtime.ready=false;group.removeFromParent();dynamics.dispose?.();data.delete();model.delete();
+      if(disposed)return;controller.cancelPlanning?.('机器人已关闭，路径检查已取消');planningTransport?.dispose();disposed=true;runtime.ready=false;group.removeFromParent();dynamics.dispose?.();data.delete();model.delete();
       const geometries=new Set(),materials=new Set();group.traverse(node=>{if(node.geometry)geometries.add(node.geometry);for(const material of(Array.isArray(node.material)?node.material:[node.material]))if(material)materials.add(material);});
       geometries.forEach(geometry=>geometry.dispose());materials.forEach(material=>material.dispose());
     },
@@ -303,13 +315,13 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
   controller.arm=config.defaultArm;runtime.syncVisuals();return runtime;
 }
 
-export async function createRobotRuntime({id,api,offset=[0,0,0],onProgress,cooperativePlanning=false}={}){
+export async function createRobotRuntime({id,api,offset=[0,0,0],onProgress,cooperativePlanning=false,backgroundPlanning=false}={}){
   const config=configFor(id);
   const [robot,physics,xml]=await Promise.all([loadRobot(config,onProgress),api||loadPhysicsAPI({onProgress}),
     fetch(config.xml).then(async response=>{if(!response.ok)throw new Error(`${config.label} 物理场景加载失败（${response.status}）`);return response.text();})]);
   const vfs=new physics.MjVFS();let model,data;
   try{model=physics.MjModel.from_xml_string(xml,vfs);data=new physics.MjData(model);
-    const runtime=createRobotRuntimeFromParts({id,api:physics,model,data,robot,offset,sourceXml:xml,cooperativePlanning});
+    const runtime=createRobotRuntimeFromParts({id,api:physics,model,data,robot,offset,sourceXml:xml,cooperativePlanning,backgroundPlanning});
     onProgress?.({id,part:'ready',value:1,label:`${config.label} 已就绪`});return runtime;
   }catch(error){data?.delete();model?.delete();throw error;}finally{vfs.delete();}
 }

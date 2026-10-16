@@ -115,9 +115,9 @@ try{
     assert.equal(f.workcell.lights.filter(l=>l.castShadow).length,1);observations.push({name:'100-switch-resources',switches:100,nodeCount:initial.nodes.length,geometryCount:initial.geometry.length,materialCount:initial.materials.length,lightCount:initial.lights.length});
   });
   check('Switching in every task phase leaves declared run, queue, physics identity and clock state untouched',()=>{
-    const f=make();for(const state of ['idle','preparing','approach','closing','transfer','settling','stopped','failed']){
+    const f=make();for(const state of ['idle','preparing','planning','approach','closing','transfer','settling','stopped','failed']){
       const forbidden=()=>assert.fail('Theme switch must not invoke task or physics APIs');
-      const sentinel={state,running:['approach','closing','transfer','settling'].includes(state),runIds:['r1','g1','c5'],seed:521,completed:3,queue:['red4','yellow2'],history:['spread','align',state],
+      const sentinel={state,running:['planning','approach','closing','transfer','settling'].includes(state),planning:state==='planning',planningGeneration:7,planningProgress:{steps:69,elapsedMs:7391},runIds:['r1','g1','c5'],seed:521,completed:3,queue:['red4','yellow2'],history:['spread','align',state],
         tick:4371,time:4.371,accumulator:.003,lastFrame:12345,camera:[7,3,1],orbit:[.4,.8,0],qpos:[.5,1.2,-.7],ctrl:[.3,.1],model:{id:1},data:{id:2},
         start:forbidden,stop:forbidden,reset:forbidden,configureTask:forbidden,setObject:forbidden};
       f.scene.userData.declaredTaskState=sentinel;const before=JSON.stringify(sentinel),model=sentinel.model,data=sentinel.data;

@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {Worker} from 'node:worker_threads';
 import * as THREE from '../dist/vendor/three.module.min.js';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {createRobotRuntimeFromParts,ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
 import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
 import {R1_FINGER_MOTION_PROFILE} from '../dist/multi/r1-safe-dynamics.mjs';
+import {createPlanningWorkerTransport} from '../dist/multi/planning-worker-transport.mjs';
 import {loadTestRobot as loadR1} from './r1-test-robot.mjs';
 import {loadG1TestRobot as loadG1} from './g1-test-robot.mjs';
 import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
@@ -15,11 +17,14 @@ import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
 // the existing per-robot suites retain their deeper source-model validations.
 const root=new URL('../',import.meta.url),ids=['r1','g1','c5'],results=[];
 const args=process.argv.slice(2),filter=args.find(arg=>arg.startsWith('--case='))?.slice(7);
+const backgroundPlanning=args.includes('--background-planning');
 const reportPath=args.find(arg=>arg.startsWith('--report='))?.slice(9)||'work/validation/performance/sort-physical-final.json';
 const paths=[
   'work/test-multi-physical.mjs','work/r1-test-robot.mjs','work/g1-test-robot.mjs','work/c5-test-robot.mjs',
   'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/r1-safe-dynamics.mjs',
   'dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`),
+  ...(backgroundPlanning?['work/background-planning-node-worker.mjs']:[]),
   ...ids.flatMap(id=>[`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
   'dist/r1/assets/r1.urdf','dist/g1/assets/g1_29dof_with_dex1_1.urdf','dist/c5/assets/c5-dex1.urdf',
@@ -39,6 +44,13 @@ const armByRobot={r1:'right',g1:'right',c5:'left'};
 // 1 mm numerical guard here, and report its actual excess separately. This is
 // not a claim that the R1 physical gripper has 1 mm calibration accuracy.
 const fingerStrokeTolerance={r1:.001,g1:.0002,c5:.0002};
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+function createNodeWorker(){
+  const worker=new Worker(new URL('./background-planning-node-worker.mjs',import.meta.url),{type:'module'});
+  const adapter={postMessage:message=>worker.postMessage(message),terminate:()=>worker.terminate(),onmessage:null,onerror:null,onmessageerror:null};
+  worker.on('message',message=>adapter.onmessage?.({data:message}));worker.on('error',error=>adapter.onerror?.({message:error.message,preventDefault(){}}));
+  worker.on('messageerror',()=>adapter.onmessageerror?.({}));return adapter;
+}
 
 function objectStates(runtime){return runtime.targets.map(target=>{
   const body=runtime.controller.bodies.get(target.id),joint=runtime.model.body_jntadr[body];
@@ -57,23 +69,27 @@ const batchSnapshot=()=>typeof coordinator.snapshot==='function'?coordinator.sna
 function freshStats(){return Object.fromEntries(ids.map(id=>[id,{millisecondSamples:0,contactSamples:0,
   actualDualForce:false,maxObjectTranslationResidual:0,objectEditsDuringTask:0,maxTorqueRatio:0,
   maxFingerLimitViolation:0,fingerStrokeToleranceM:fingerStrokeTolerance[id],maxIllegalPenetration:0,states:[]} ]));}
-function drainPlanning(){
+async function drainPlanning({allowFailure=false}={}){
   if(!coordinator.planning)return;
   planningStats.barriers++;
-  const tick=coordinator.tick,before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel]}]));
-  let slices=0;
+  const tick=coordinator.tick,before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel],ctrl:[...runtime.data.ctrl]}]));
+  let slices=0,result;
   while(coordinator.planning){
-    const start=performance.now(),result=coordinator.advancePlanning(),wallMs=performance.now()-start;
+    const active=coordinator.runIds.map(id=>stations.get(id)).find(runtime=>runtime.planning),start=performance.now();result=coordinator.advancePlanning();const wallMs=performance.now()-start;
     planningStats.slices++;planningStats.wallMs+=wallMs;planningStats.maxSliceWallMs=Math.max(planningStats.maxSliceWallMs,wallMs);
     assert.equal(coordinator.tick,tick,'Planning advanced the global 1 ms clock');
     for(const [id,runtime]of stations){const previous=before.get(id);
       assert.equal(runtime.data.time,previous.time,`${id}: planning advanced a physical world`);
       assert.deepEqual([...runtime.data.qpos],previous.qpos,`${id}: planning edited actual qpos`);
       assert.deepEqual([...runtime.data.qvel],previous.qvel,`${id}: planning edited actual qvel`);
+      assert.deepEqual([...runtime.data.ctrl],previous.ctrl,`${id}: planning edited actual controls`);
     }
+    if(backgroundPlanning&&!active.planning){planningStats.workerCandidateSlices+=active.controller.planningResult?.steps??0;planningStats.workerSegmentMs+=active.controller.planningResult?.segmentElapsedMs??0;}
     assert(++slices<10000,'Planning failed to return within a bounded number of route candidates');
-    assert(result.ok!==false,result.reason||'Cooperative path planning failed');
+    if(result.ok===false){if(allowFailure)return result;assert.fail(result.reason||'Path planning failed');}
+    if(backgroundPlanning&&coordinator.planning)await wait(10);
   }
+  return result;
 }
 function inspectContacts(runtime){
   const c=runtime.controller,s=stats[runtime.id],m=c.measure();s.contactSamples++;
@@ -99,12 +115,12 @@ function inspectContacts(runtime){
     }finally{contact.delete();}
   }}finally{contacts.delete();}
 }
-function tick(count=1){
+async function tick(count=1){
   for(let n=0;n<count;n++){
-    drainPlanning();
+    if(coordinator.planning)await drainPlanning();
     const before=new Map([...stations].map(([id,runtime])=>[id,objectStates(runtime)]));
     coordinator.step(.001);
-    drainPlanning();
+    if(coordinator.planning)await drainPlanning();
     const times=[...stations.values()].map(runtime=>runtime.data.time);
     assert(Math.max(...times)-Math.min(...times)<1e-10,'Independent worlds diverged from the common 1 ms clock');
     for(const [id,runtime]of stations){
@@ -131,9 +147,9 @@ function tick(count=1){
     if(stats.r1.millisecondSamples%100===0)for(const runtime of stations.values())runtime.syncVisuals();
   }
 }
-function reset(){coordinator.reset();stats=freshStats();planningStats={barriers:0,slices:0,wallMs:0,maxSliceWallMs:0};for(const runtime of stations.values()){
+async function reset(){coordinator.reset();stats=freshStats();planningStats={barriers:0,slices:0,wallMs:0,maxSliceWallMs:0,workerCandidateSlices:0,workerSegmentMs:0};for(const runtime of stations.values()){
   assert.equal(runtime.controller.running,false);assert.equal(runtime.controller.state,'idle');assert.equal(runtime.data.time,0);
-}tick(300);}
+}await tick(300);}
 function verifyVisualFrames(){for(const runtime of stations.values()){
   runtime.syncVisuals();assert.equal(runtime.robot.parent,null,'Canonical IK tree must not receive the visible station parent');
   assert.equal(runtime.visualRobot.parent,runtime.group);assert.notEqual(runtime.robot,runtime.visualRobot);
@@ -147,26 +163,26 @@ function verifyVisualFrames(){for(const runtime of stations.values()){
   assert(runtime.tcpWorld().distanceTo(runtime.localToWorld(runtime.config.tcp(runtime.robot,runtime.controller.arm).position))<1e-12);
 }}
 async function run(name,fn){if(filter&&!name.includes(filter))return;
-  reset();try{await fn();verifyVisualFrames();results.push({name,pass:true,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
+  await reset();try{await fn();verifyVisualFrames();results.push({name,pass:true,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:true}));
   }catch(error){results.push({name,pass:false,error:error.message,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:false,error:error.message}));}
 }
-function start(objectId,selectedIds=ids){coordinator.select(selectedIds);const before=[...stations.values()].map(runtime=>runtime.data.time);
+async function start(objectId,selectedIds=ids){coordinator.select(selectedIds);const before=[...stations.values()].map(runtime=>runtime.data.time);
   const result=coordinator.start({objectId,task:'sort',armByRobot});assert.equal(result.ok,true,result.reason);
-  drainPlanning();
+  await drainPlanning();
   assert.deepEqual(result.runIds,selectedIds);assert.deepEqual([...stations.values()].map(runtime=>runtime.data.time),before,
     'Planning/starting must not advance any one world ahead of the common clock');
   return result;
 }
-function finish(selectedIds=ids){for(let step=0;step<45000&&coordinator.running;step++)tick();
+async function finish(selectedIds=ids){for(let step=0;step<45000&&coordinator.running;step++)await tick();
   assert.equal(batchSnapshot().state,'complete',JSON.stringify(batchSnapshot().stations.map(s=>({id:s.id,state:s.state,message:s.message}))));
   for(const id of selectedIds){const runtime=stations.get(id),c=runtime.controller,m=c.measure();
     assert.equal(c.state,'complete',`${id}: ${c.message}`);assert(c.evidence.dual&&stats[id].actualDualForce,`${id}: no actual dual-finger grasp`);
     assert(c.evidence.lift>.035,`${id}: object was not physically lifted`);assert(m.table&&m.distance<.02,`${id}: released object did not reach its color frame`);
     assert.equal(stats[id].objectEditsDuringTask,0,`${id}: object edits during task`);
   }
-  tick(1000); // Objects stay supported even after all task controllers finish.
+  await tick(1000); // Objects stay supported even after all task controllers finish.
   for(const id of selectedIds){const m=stations.get(id).controller.measure();assert(m.table&&m.distance<.02);}
 }
 
@@ -174,7 +190,8 @@ try{
   for(const [index,id]of ids.entries()){
     const vfs=new api.MjVFS();let model,data;
     try{model=api.MjModel.from_xml_string(await readFile(new URL(ROBOT_CONFIGS[id].xml),'utf8'),vfs);data=new api.MjData(model);
-      const robot=await loaders[id](),runtime=createRobotRuntimeFromParts({id,api,model,data,robot,offset:[0,0,(1-index)*2.2],cooperativePlanning:true});
+      const sourceXml=await readFile(new URL(ROBOT_CONFIGS[id].xml),'utf8'),robot=await loaders[id](),runtime=createRobotRuntimeFromParts({id,api,model,data,robot,sourceXml,offset:[0,0,(1-index)*2.2],cooperativePlanning:true,backgroundPlanning,
+        planningTransportFactory:()=>createPlanningWorkerTransport({workerFactory:createNodeWorker,timeoutMs:90000})});
       const original=runtime.controller.setObject.bind(runtime.controller);
       runtime.controller.setObject=(...parameters)=>{if(runtime.controller.running){stats[id].objectEditsDuringTask++;assert.fail(`${id}: task edited object state`);}return original(...parameters);};
       stations.set(id,runtime);
@@ -195,17 +212,17 @@ try{
     assert(maxDelta(before.get('r1'),[...r1.data.qpos])>.005);
     for(const id of ['g1','c5'])assert.deepEqual([...stations.get(id).data.qpos],before.get(id),'Editing same-color R1 object modified another robot world');
   });
-  for(const objectId of ['red','blue','yellow'])await run(`three-way-simultaneous-${objectId}`,()=>{start(objectId);finish();});
-  await run('single-selected-G1-leaves-other-tasks-idle',()=>{
+  for(const objectId of ['red','blue','yellow'])await run(`three-way-simultaneous-${objectId}`,async()=>{await start(objectId);await finish();});
+  await run('single-selected-G1-leaves-other-tasks-idle',async()=>{
     const resting=new Map(['r1','c5'].map(id=>[id,objectStates(stations.get(id)).map(object=>object.position)]));
-    start('blue',['g1']);finish(['g1']);
+    await start('blue',['g1']);await finish(['g1']);
     for(const id of ['r1','c5']){const runtime=stations.get(id);assert.equal(runtime.controller.state,'idle');assert.equal(runtime.controller.history.length,0);
       objectStates(runtime).forEach((object,index)=>assert(maxDelta(object.position,resting.get(id)[index])<.001));}
   });
-  await run('two-selected-R1-C5-leaves-G1-task-idle',()=>{start('blue',['r1','c5']);finish(['r1','c5']);
+  await run('two-selected-R1-C5-leaves-G1-task-idle',async()=>{await start('blue',['r1','c5']);await finish(['r1','c5']);
     assert.equal(stations.get('g1').controller.state,'idle');assert.equal(stations.get('g1').controller.history.length,0);});
-  await run('stop-three-robots-mid-grasp-without-object-teleport-and-reset-all',()=>{
-    start('blue');for(let n=0;n<30000&&!ids.every(id=>stations.get(id).controller.evidence.lift>.035);n++)tick();
+  await run('stop-three-robots-mid-grasp-without-object-teleport-and-reset-all',async()=>{
+    await start('blue');for(let n=0;n<30000&&!ids.every(id=>stations.get(id).controller.evidence.lift>.035);n++)await tick();
     assert(ids.every(id=>stations.get(id).controller.evidence.lift>.035),'Stop fixture never reached three actual lifts');
     const before=new Map([...stations].map(([id,runtime])=>[id,objectStates(runtime).map(object=>object.position)]));
     const r1Opening=stations.get('r1').controller.opening;coordinator.stop();
@@ -213,14 +230,14 @@ try{
     assert.equal(batchSnapshot().running,false);
     for(const [id,runtime]of stations){assert.equal(runtime.controller.running,false);assert.equal(runtime.controller.state,'stopped');
       assert.deepEqual(objectStates(runtime).map(object=>object.position),before.get(id),'Stop changed actual task-object positions');}
-    tick(300);coordinator.select(['c5']);coordinator.reset();
+    await tick(300);coordinator.select(['c5']);coordinator.reset();
     for(const runtime of stations.values()){assert.equal(runtime.controller.state,'idle');assert.equal(runtime.data.time,0);
       for(const target of runtime.targets)assert(runtime.controller.objectPose(target.id).position.distanceTo(target.start)<1e-9);}
   });
-  await run('unreachable-middle-station-aborts-every-attempted-start-without-reset',()=>{
+  await run('unreachable-middle-station-aborts-every-attempted-start-without-reset',async()=>{
     const g1=stations.get('g1');assert(g1.controller.setObject('blue',new THREE.Vector3(1.8,g1.config.tableHeight+.019,0)));
     const before=new Map([...stations].map(([id,runtime])=>[id,objectStates(runtime).map(object=>object.position)]));
-    coordinator.select(ids);const result=coordinator.start({objectId:'blue',task:'sort',armByRobot});assert.equal(result.ok,false);
+    coordinator.select(ids);let result=coordinator.start({objectId:'blue',task:'sort',armByRobot});if(backgroundPlanning&&result.preparing)result=await drainPlanning({allowFailure:true});assert.equal(result.ok,false);
     assert.equal(batchSnapshot().running,false);
     for(const [id,runtime]of stations){assert.equal(runtime.controller.running,false,`${id}: failed start left a task/reaction running`);
       assert.deepEqual(objectStates(runtime).map(object=>object.position),before.get(id),'Aborted start reset/teleported an object');}
@@ -240,7 +257,8 @@ const report={pass:failures.length===0&&sourceFrozen,startedAt,wallSeconds:(perf
   r1CommandProfile:{...R1_FINGER_MOTION_PROFILE,scope:'Multi-station finger motor commands only; original R1 source scene, forces, gains, joint ranges and inertia are unchanged. Actual qpos/qvel are not clamped.'},
   r1LimitPolicy:'Original R1 default-soft-limit MJCF is preserved. Additional numerical guard is 1 mm; original R1 regressions did not specify a Dex1 0.2 mm bound. Saved original browser evidence includes 0.5419235 mm static finger tracking error. Actual range excess is reported, not hidden or clamped.',
   collisionScope:'Original per-robot scenes; G1/C5 full source collision meshes, R1 original finger contacts. Separate, non-overlapping station worlds do not collide across worlds.',
-  planningScope:'Production cooperative planning enabled. Every planning slice is drained between complete global 1 ms ticks and before evidence sampling; every world time/qpos/qvel is asserted unchanged during planning.',
+  planningExecution:{worker:backgroundPlanning,cooperative:!backgroundPlanning,productionBudgetOverride:false},
+  planningScope:backgroundPlanning?'Production background controller with real worker_threads bridge and shipped worker service/parser/serialization; workers are polled asynchronously between complete global 1 ms ticks. Every world time/qpos/qvel/ctrl is asserted unchanged during planning. No task motion is executed in a worker.':'Production cooperative planning enabled. Every planning slice is drained between complete global 1 ms ticks and before evidence sampling; every world time/qpos/qvel/ctrl is asserted unchanged during planning.',
   results,sourceHashes,sourceFrozen};
 await mkdir(new URL('.',new URL(reportPath,root)),{recursive:true});await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report));

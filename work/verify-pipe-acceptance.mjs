@@ -20,11 +20,12 @@ const requiredSources=['work/test-multi-pipes.mjs','dist/multi/robot-runtime.mjs
   'dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`);
 
 /** Read-only report validation. It does not run absent physics, certify browser
  * pixels/hardware, repair saved evidence, or treat quick/development runs as a
  * seventy-two-item full release. */
-export async function verifyPipeAcceptance(report,{rootPath=defaultRoot}={}) {
+export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireBackground=false}={}) {
   const errors=[],sourceHashes={},summary={cases:0,physicalPipeClassifications:0,simultaneousSeeds:[],
     layoutChecks:0,millisecondSamples:0,contactScans:0,minActualLiftM:null,maxReleasedSlotErrorM:0,
     maxTranslationResidualM:0,maxRotationResidualRad:0,maxIllegalPenetrationM:0,
@@ -49,6 +50,7 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot}={}) {
   try {
     check(report?.pass===true,'pipe report did not pass');check(report?.mode==='full','quick/static-only/filtered evidence cannot certify a full release');
     check(report?.sourceFrozen===true,'source was not frozen during physical acceptance');
+    if(requireBackground)check(report?.planningExecution?.worker===true&&report.planningExecution.cooperative===false&&report.planningExecution.productionBudgetOverride===false,'real background worker execution without a planning budget override is required');
     check(report?.clockStepSeconds===.001,'shared physical timestep is not 1 ms');
     check(equal(report?.fingerToleranceM,fingerTolerance),'original R1/Dex1 finger guards changed');
     check(report?.cases===8&&report?.expectedCases===8,'expected eight complete pipe-task cases');
@@ -214,7 +216,7 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot}={}) {
     summary.minActualLiftM=lifts.length?Math.min(...lifts):null;
     const hashes=report?.sourceHashes;
     check(hashes&&typeof hashes==='object'&&!Array.isArray(hashes),'source hash manifest absent');
-    for(const path of requiredSources)check(Object.hasOwn(hashes??{},path),`source binding missing: ${path}`);
+    for(const path of [...requiredSources,...(requireBackground?[...workerSources,'work/background-planning-node-worker.mjs']:[])])check(Object.hasOwn(hashes??{},path),`source binding missing: ${path}`);
     for(const [path,expected]of Object.entries(hashes??{})) {
       if(typeof path!=='string'||!path||isAbsolute(path)||path.includes('\0')){errors.push(`invalid source path: ${path}`);continue;}
       const absolute=resolve(rootPath,path),local=relative(rootPath,absolute);
@@ -233,7 +235,7 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   try {
     const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
       ??'work/validation/performance/pipes-physical-final.json';
-    const bytes=await readFile(resolve(defaultRoot,reportPath));result=await verifyPipeAcceptance(JSON.parse(bytes));
+    const bytes=await readFile(resolve(defaultRoot,reportPath));result=await verifyPipeAcceptance(JSON.parse(bytes),{requireBackground:process.argv.includes('--require-background')});
     result.reportSha256=sha(bytes);result.report=reportPath;result.verifierSha256=sha(await readFile(fileURLToPath(import.meta.url)));
   } catch(error) {result={pass:false,errors:[error.stack??error.message]};}
   const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??null;

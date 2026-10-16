@@ -1,0 +1,144 @@
+{
+  "pass": true,
+  "checks": 31,
+  "results": [
+    {
+      "name": "Current complete release reports are accepted",
+      "pass": true
+    },
+    {
+      "name": "Explicitly unfrozen coordinator evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "Old-source coordinator SHA cannot pass",
+      "pass": true
+    },
+    {
+      "name": "A duplicated physical case cannot replace the required scenario",
+      "pass": true
+    },
+    {
+      "name": "A completed animation without actual two-finger forces is rejected",
+      "pass": true
+    },
+    {
+      "name": "A claimed success with insufficient physical object lift is rejected",
+      "pass": true
+    },
+    {
+      "name": "R1 finger stroke beyond the explicit legacy 1 mm guard is rejected",
+      "pass": true
+    },
+    {
+      "name": "Dex1 finger stroke beyond 0.2 mm is independently rejected",
+      "pass": true
+    },
+    {
+      "name": "Publication reports explicitly marked unfrozen are rejected",
+      "pass": true
+    },
+    {
+      "name": "One fake per-item grasp cannot pass a nine-item stack",
+      "pass": true
+    },
+    {
+      "name": "Contact existence without force-bearing stack support is rejected",
+      "pass": true
+    },
+    {
+      "name": "A stopped stack falsely labelled complete is rejected",
+      "pass": true
+    },
+    {
+      "name": "The new planning module requires an explicit physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "The pipe controller requires an explicit sort physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "The pipe controller requires an explicit stack physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "An incomplete responsiveness report cannot certify the new scheduler",
+      "pass": true
+    },
+    {
+      "name": "A changed scheduler invalidates saved responsiveness evidence",
+      "pass": true
+    },
+    {
+      "name": "A missing framing projection cannot replace the original numeric gates",
+      "pass": true
+    },
+    {
+      "name": "An independent native cache cohort cannot be rewritten by the multi release",
+      "pass": true
+    },
+    {
+      "name": "An omitted Worker entry cannot pass as the complete publication graph",
+      "pass": true
+    },
+    {
+      "name": "Document imports cannot stand in for the isolated Worker graph",
+      "pass": true
+    },
+    {
+      "name": "Missing Worker stale-cache negative fixtures are rejected",
+      "pass": true
+    },
+    {
+      "name": "A prior multi cohort cannot replace the Worker release",
+      "pass": true
+    },
+    {
+      "name": "A cooperative physical run cannot masquerade as background execution",
+      "pass": true
+    },
+    {
+      "name": "A cooperative stack run cannot masquerade as background execution",
+      "pass": true
+    },
+    {
+      "name": "Worker physical evidence requires the actual shipped core source",
+      "pass": true
+    },
+    {
+      "name": "Contracts-only evidence cannot replace actual worker computations",
+      "pass": true
+    },
+    {
+      "name": "Moving derived-state equivalence cannot be omitted from worker acceptance",
+      "pass": true
+    },
+    {
+      "name": "Cross-seed compiled-model reuse equivalence cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "A missing actual host heartbeat cannot certify event-loop isolation",
+      "pass": true
+    },
+    {
+      "name": "Historical physical evidence cannot replace this fresh run",
+      "pass": true
+    }
+  ],
+  "verifierSha256": "9c8b94005bcb5b7160389c72a4c7a057a188a2455f3e40fe2b2919b61df2caaa",
+  "evidenceReports": {
+    "coordinator-final": "work/validation/background-planning/coordinator-final.json",
+    "physical-final": "work/validation/background-planning/sort-physical-compiled-model-final.json",
+    "stack-final": "work/validation/background-planning/stack-physical-compiled-model-final.json",
+    "r1-gripper-final": "work/validation/background-planning/r1-gripper-final.json",
+    "ui-static-final": "work/validation/background-planning/ui-static-final.json",
+    "pages-final": "work/validation/background-planning/pages-final.json",
+    "responsiveness-final": "work/validation/background-planning/responsiveness-contracts-final.json",
+    "framing-final": "work/validation/background-planning/framing-final.json",
+    "themes-final": "work/validation/background-planning/theme-contracts-final.json",
+    "release-cache-final": "work/validation/background-planning/release-cache-final.json",
+    "background-final": "work/validation/background-planning/contracts-final.json"
+  }
+}

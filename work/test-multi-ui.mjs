@@ -15,6 +15,7 @@ const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)||
 const sourcePaths=[
   'work/test-multi-ui.mjs','dist/multi/index.html','dist/multi/styles.css','dist/multi/app.mjs',
   'dist/multi/presentation.mjs','dist/multi/workcell.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`),
   'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/visuals/frame-scheduler.mjs',
   'dist/r1/grasp-controller.mjs','dist/g1/grasp-controller.mjs','dist/c5/grasp-controller.mjs',
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs','dist/r1/r1-area-light-textures.mjs',
@@ -221,6 +222,17 @@ check('One RAF advances all worlds through the coordinator and pauses hidden/pre
   assert(frame.includes('coordinator.advancePlanning()'),'Pending candidates must advance through the same animation loop');
   assert(coordinatorSource.includes('for (const station of this.stations.values()) if (ready(station)) station.step(dt)'));
   const visibility=app.match(/document\.addEventListener\('visibilitychange',([^\n]+)/)?.[1];assert(visibility?.includes('endDrag()')&&visibility.includes('.reset('));
+});
+check('Both browser runtime creation paths use isolated background planning with concise pending UI',()=>{
+  const creations=callArguments(app,'createRobotRuntime');assert.equal(creations.length,2);
+  for(const argumentsText of creations)assert(/backgroundPlanning\s*:\s*true/.test(argumentsText),'Initial load and Retry must both enable the worker');
+  assert(runtimeSource.includes('backgroundPlanningControllerClass'));
+  assert(app.includes("station.planning?'后台规划'")&&app.includes('后台检查路径'));
+  assert(app.includes('正在后台规划，镜头、停止和复位操作仍可用。'));
+  assert(!app.includes('planningDescription')&&!app.includes('个规划片段')&&!app.includes('已等待'));
+  const update=app.slice(app.indexOf('function updateUI()'),app.indexOf("$('#task-mode').addEventListener"));
+  assert(!/第\s*\$\{|planningProgress|elapsedMs|segmentElapsedMs/.test(update),'The visible planning UI must not expose item index, candidate counts, or wait time');
+  assert(app.includes('已归类 ${classification.completed} / ${classification.total}'),'Keep the existing actual completion count');
 });
 check('Public diagnostics expose snapshots only, not test actuators or physics mutation commands',()=>{
   const start=app.indexOf('window.multiDiagnostics=()=>('),end=app.indexOf('\n  }catch(error)',start);

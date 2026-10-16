@@ -12,6 +12,7 @@ const root=new URL('../',import.meta.url),ids=['r1','g1','c5'];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
   ??'work/validation/multi-responsive/contracts-final.json';
 const sourcePaths=['work/test-multi-responsiveness.mjs','dist/multi/coordinator.mjs','dist/multi/app.mjs','dist/multi/visuals/frame-scheduler.mjs',
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','robot-runtime','planning'].map(name=>`dist/multi/${name}.mjs`),
   'dist/vendor/three.module.min.js','dist/vendor/three.core.min.js'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const hashes=async()=>Object.fromEntries(await Promise.all(sourcePaths.map(async path=>[path,sha(await readFile(new URL(path,root)))])));
@@ -164,7 +165,7 @@ check('The exact production frame discards completed planning CPU time instead o
   const api=new Function('performance','coordinator','frameScheduler','renderer','scene','camera',
     `let lastFrame=1000,lastUI=1000,lastFeed=1000,physicsSteps=0,planningSlices=0,accumulator=0,preparing=false,notice='';
      const frameTimes=[],renderTimes=[],stations=new Map(),visions=new Map(),document={hidden:false},reducedMotion=false;
-     const orbit={update(){}},updateUI=()=>{},updateLabels=()=>{},updateCameras=()=>{},requestAnimationFrame=()=>{};
+     const orbit={update(){}},updateUI=()=>{},updateLabels=()=>{},updateCameras=()=>{},requestAnimationFrame=()=>{},backgroundPlanningActive=()=>false;
      ${source};return {frame,get accumulator(){return accumulator;},get physicsSteps(){return physicsSteps;},get planningSlices(){return planningSlices;}};`)
     ({now:()=>wall},coordinator,scheduler,renderer,scene,camera);
   api.frame(1000);assert.equal(ticks,0);assert.equal(api.planningSlices,1);
@@ -179,16 +180,18 @@ check('The exact production frame refreshes feeds within the slow-render fallbac
   const coordinator={get planning(){return pending;},advancePlanning(){return {pending:true,done:false,ok:true};},step(dt){assert.equal(dt,.001);}},
     renderer={shadowMap:{needsUpdate:false},render(){wall+=20;}};
   const api=new Function('performance','coordinator','frameScheduler','renderer','scene','camera','document',
-    `let lastFrame=1000,lastUI=1000,lastFeed=1000,physicsSteps=0,planningSlices=0,accumulator=0,preparing=false,notice='',feedCalls=0;
+    `let lastFrame=1000,lastUI=1000,lastFeed=1000,physicsSteps=0,planningSlices=0,accumulator=0,preparing=false,notice='',feedCalls=0,background=false;
      const frameTimes=[],renderTimes=[],stations=new Map(),visions=new Map(),reducedMotion=false;
-     const orbit={update(){}},updateUI=()=>{},updateLabels=()=>{},updateCameras=()=>{feedCalls++;},requestAnimationFrame=()=>{};
-     ${appText.slice(start,end)};return {frame,get feedCalls(){return feedCalls;}};`)
+     const orbit={update(){}},updateUI=()=>{},updateLabels=()=>{},updateCameras=()=>{feedCalls++;},requestAnimationFrame=()=>{},backgroundPlanningActive=()=>background;
+     ${appText.slice(start,end)};return {frame,setBackground(value){background=value;},get feedCalls(){return feedCalls;}};`)
     ({now:()=>wall},coordinator,scheduler,renderer,{}, {},document);
   wall=1200;api.frame(1200);assert.equal(api.feedCalls,0,'A busy frame below the fallback interval should yield the feed pass');
   wall=2101;api.frame(2101);assert.equal(api.feedCalls,1,'Expensive main rendering must not starve camera feeds indefinitely');
   document.hidden=true;wall=4000;api.frame(4000);assert.equal(api.feedCalls,1);
   document.hidden=false;pending=true;wall=7000;api.frame(7000);assert.equal(api.feedCalls,1);
-  return {mainRenderFixtureMs:20,refreshedAfterMs:1101,hiddenFeedPasses:0,planningFeedPasses:0,
+  api.setBackground(true);wall=9000;api.frame(9000);assert.equal(api.feedCalls,2,'A pending isolated Worker must not starve visible camera feeds');
+  document.hidden=true;wall=11000;api.frame(11000);assert.equal(api.feedCalls,2,'Hidden feeds remain paused even with a Worker');
+  return {mainRenderFixtureMs:20,refreshedAfterMs:1101,hiddenFeedPasses:0,cooperativePlanningFeedPasses:0,backgroundPlanningFeedPasses:1,
     scope:'Exact production frame gate with deterministic render cost; visibility and one-feed behavior are separately exercised through the production feed function.'};
 });
 check('A new item planning request stops the scheduler after one complete global tick without a second-world advance',()=>{

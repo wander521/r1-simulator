@@ -8,11 +8,12 @@ import {verifyPipeAcceptance} from './verify-pipe-acceptance.mjs';
 const root=new URL('../',import.meta.url),reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
   ??'work/validation/performance/pipes-physical-final.json';
 const bytes=await readFile(new URL(reportPath,root)),baseline=JSON.parse(bytes),results=[];
+const requireBackground=process.argv.includes('--require-background');
 const row=(report,prefix)=>report.results.find(item=>item.name.startsWith(prefix));
 const firstObject=(report,id='r1')=>Object.values(report.results[0].stats[id].objects)[0];
 async function run(name,mutate,pattern) {
   const report=structuredClone(baseline);if(mutate)mutate(report);
-  const result=await verifyPipeAcceptance(report);
+  const result=await verifyPipeAcceptance(report,{requireBackground});
   if(!mutate)assert.equal(result.pass,true,`${name}: ${JSON.stringify(result.errors)}`);
   else {assert.equal(result.pass,false,`${name}: invalid evidence was accepted`);
     assert(result.errors.some(error=>pattern.test(error)),`${name}: wrong rejection: ${JSON.stringify(result.errors)}`);}
@@ -27,6 +28,12 @@ await run('Independent simultaneous seeds are required',report=>{report.results[
 await run('Explicitly unfrozen source cannot pass',report=>{report.sourceFrozen=false;},/source was not frozen/);
 await run('Old-source SHA cannot pass',report=>{report.sourceHashes['dist/multi/pipe-controller.mjs']='0'.repeat(64);},/stale source/);
 await run('The cooperative planning module must be bound to the current physical run',report=>{delete report.sourceHashes['dist/multi/planning.mjs'];},/source binding missing: dist\/multi\/planning/);
+if(requireBackground){
+  await run('Cooperative execution cannot replace the required real worker run',report=>{report.planningExecution.worker=false;},/real background worker execution/);
+  await run('Worker-core source must be bound to the actual physical run',report=>{delete report.sourceHashes['dist/multi/planning-worker-core.mjs'];},/source binding missing: dist\/multi\/planning-worker-core/);
+  await run('A changed worker source cannot reuse saved physical success',report=>{report.sourceHashes['dist/multi/planning-worker-core.mjs']='0'.repeat(64);},/stale source/);
+  await run('A planning budget override cannot claim production worker behavior',report=>{report.planningExecution.productionBudgetOverride=true;},/real background worker execution/);
+}
 await run('Three hundred distinct layouts are required',report=>{report.layout.distinctLayouts.g1=99;},/not reproducible\/distinct/);
 await run('Fake grasp without real dual contact is rejected',report=>{firstObject(report).actualDual=false;},/no actual dual-finger force/);
 await run('One force-free finger is rejected',report=>{firstObject(report).maxFingerForcesN[0]=0;},/no actual dual-finger force/);

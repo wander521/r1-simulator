@@ -1,11 +1,13 @@
 import assert from 'node:assert/strict';
 import {readFile, readdir, mkdir, writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {Worker} from 'node:worker_threads';
 import * as THREE from '../dist/vendor/three.module.min.js';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {createRobotRuntimeFromParts, ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
 import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
 import {PLANNING_SEGMENT_BUDGET_MS,G1_PIPE_PLANNING_SEGMENT_BUDGET_MS} from '../dist/multi/planning.mjs';
+import {createPlanningWorkerTransport} from '../dist/multi/planning-worker-transport.mjs';
 import {loadTestRobot as loadR1} from './r1-test-robot.mjs';
 import {loadG1TestRobot as loadG1} from './g1-test-robot.mjs';
 import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
@@ -20,6 +22,7 @@ const loaders = {r1:loadR1, g1:loadG1, c5:loadC5};
 const args = process.argv.slice(2);
 const quick = args.includes('--quick');
 const staticOnly = args.includes('--static-only');
+const backgroundPlanning=args.includes('--background-planning');
 const filter = args.find(arg => arg.startsWith('--case='))?.slice(7);
 const mode=staticOnly?'static-only':quick?'quick':filter?'filtered':'full';
 const selectedSeed = Number(args.find(arg => arg.startsWith('--seed='))?.slice(7) ?? 521);
@@ -37,6 +40,7 @@ const taskSources = (await readdir(new URL('dist/multi/', root)))
   .filter(name => name.endsWith('.mjs') && !['app.mjs','presentation.mjs','workcell.mjs'].includes(name))
   .map(name => `dist/multi/${name}`);
 const sourcePaths = ['work/test-multi-pipes.mjs', ...taskSources,
+  ...(backgroundPlanning?['work/background-planning-node-worker.mjs']:[]),
   ...robotIds.flatMap(id => [`work/${id === 'r1' ? 'r1' : id}-test-robot.mjs`,
     `dist/${id}/grasp-controller.mjs`, `dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`, `dist/${id}/models/${id}-dynamic-scene.xml`]),
@@ -48,12 +52,20 @@ async function hashes() { return Object.fromEntries(await Promise.all(sourcePath
   [path, createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')]))); }
 const sourceHashes = await hashes();
 console.error(JSON.stringify({physicalRunStarted:startedAt,mode,report:reportPath,
-  coordinatorSha256:sourceHashes['dist/multi/coordinator.mjs'],planningSha256:sourceHashes['dist/multi/planning.mjs']}));
+  planningMode:backgroundPlanning?'worker':'cooperative',coordinatorSha256:sourceHashes['dist/multi/coordinator.mjs'],planningSha256:sourceHashes['dist/multi/planning.mjs']}));
 const api = staticOnly ? null : await createMuJoCo({locateFile:() =>
   new URL('dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm',root).pathname});
 const snapshot = runtime => typeof runtime.snapshot === 'function' ? runtime.snapshot() : runtime.snapshot;
 const distance = (a,b) => Math.hypot(...a.map((value,index) => value-b[index]));
 const arraysEqual = (a,b) => JSON.stringify(a) === JSON.stringify(b);
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+function createNodeWorker(){
+  const worker=new Worker(new URL('./background-planning-node-worker.mjs',import.meta.url),{type:'module'});
+  const adapter={postMessage:message=>worker.postMessage(message),terminate:()=>worker.terminate(),onmessage:null,onerror:null,onmessageerror:null};
+  worker.on('message',message=>adapter.onmessage?.({data:message}));
+  worker.on('error',error=>adapter.onerror?.({message:error.message,preventDefault(){}}));
+  worker.on('messageerror',()=>adapter.onmessageerror?.({}));return adapter;
+}
 
 async function productionLayout(id, seed) {
   const {generatePipeLayout}=await import('../dist/multi/pipe-layout.mjs');
@@ -145,7 +157,7 @@ function freshStats(runtime) {
     maxG1LegAngleRad:0,maxG1FootDriftM:0,visualFramesChecked:0,
     unratedWheelNames:[],maxUnratedWheelVelocityRadps:0,
     planningRejectedCandidates:0,planningRejections:[],criticalVelocityExtrema:{},
-    planning:{cooperative:true,candidateSlices:0,accumulatedSegmentMs:0,maxSliceMs:0,maxPreparationSegmentMs:0,completedPreparations:0,failedPreparations:0,slowPreparations:[]},
+    planning:{cooperative:!backgroundPlanning,worker:backgroundPlanning,candidateSlices:0,polls:0,hostPollMs:0,maxHostPollMs:0,accumulatedSegmentMs:0,maxSliceMs:0,maxPreparationSegmentMs:0,completedPreparations:0,failedPreparations:0,slowPreparations:[]},
     sequence:[],lastSelected:null,extraStableSamples:0,
     objects:Object.fromEntries(runtime.targets.map(target=>[target.id,{id:target.id,color:target.colorKey,
       start:target.start.toArray(),drop:target.drop.toArray(),frame:frameFor(target,runtime.controller.classification.bins),arms:[],states:[],actualDual:false,
@@ -265,22 +277,26 @@ function scanContacts(runtime,{requireStable=false}={}) {
   }
   if(requireStable)s.extraStableSamples++;
 }
-function drainPlanning() {
+async function drainPlanning() {
   let result={ok:true};
   while(coordinator.planning) {
     const active=coordinator.runIds.map(id=>stations.get(id)).find(runtime=>runtime.planning);
-    const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos]}]));
+    const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel],ctrl:[...runtime.data.ctrl]}]));
     const tickBefore=coordinator.tick,started=performance.now();
     result=coordinator.advancePlanning();
     const elapsed=performance.now()-started,observed=stats[active.id].planning;
-    observed.candidateSlices++;observed.accumulatedSegmentMs+=elapsed;observed.maxSliceMs=Math.max(observed.maxSliceMs,elapsed);
+    observed.polls++;observed.hostPollMs+=elapsed;observed.maxHostPollMs=Math.max(observed.maxHostPollMs,elapsed);
+    if(!backgroundPlanning){observed.candidateSlices++;observed.accumulatedSegmentMs+=elapsed;observed.maxSliceMs=Math.max(observed.maxSliceMs,elapsed);}
     assert.equal(coordinator.tick,tickBefore,'Planning advanced the shared physical tick');
     for(const [id,runtime]of stations){
       assert.equal(runtime.data.time,before.get(id).time,'Planning advanced one physical world');
       assert.deepEqual([...runtime.data.qpos],before.get(id).qpos,`${id}: a planning candidate edited physical qpos`);
+      assert.deepEqual([...runtime.data.qvel],before.get(id).qvel,`${id}: a planning candidate edited physical qvel`);
+      assert.deepEqual([...runtime.data.ctrl],before.get(id).ctrl,`${id}: a planning candidate edited physical controls`);
     }
     if(!active.planning){
       const prepared=active.controller.planningResult;
+      if(backgroundPlanning){observed.candidateSlices+=prepared?.steps??0;observed.accumulatedSegmentMs+=prepared?.segmentElapsedMs??0;}
       if(prepared?.ok)observed.completedPreparations++;else observed.failedPreparations++;
       observed.maxPreparationSegmentMs=Math.max(observed.maxPreparationSegmentMs,prepared?.segmentElapsedMs??0);
       if((prepared?.segmentElapsedMs??0)>5000||prepared?.ok===false){
@@ -291,12 +307,13 @@ function drainPlanning() {
       }
     }
     if(result.ok===false)return result;
+    if(backgroundPlanning&&coordinator.planning)await wait(10);
   }
   return result;
 }
-function tick(count=1,{stableIds=[]}={}) {
+async function tick(count=1,{stableIds=[]}={}) {
   for(let n=0;n<count;n++) {
-    const preparation=drainPlanning();assert.equal(preparation.ok,true,`${preparation.reason}; ${JSON.stringify([...stations.values()].map(robotSummary))}`);
+    const preparation=await drainPlanning();assert.equal(preparation.ok,true,`${preparation.reason}; ${JSON.stringify([...stations.values()].map(robotSummary))}`);
     coordinator.step(.001);
     const times=[...stations.values()].map(runtime=>runtime.data.time);
     assert(Math.max(...times)-Math.min(...times)<1e-10,'Selected/hidden physical worlds diverged from the shared 1 ms clock');
@@ -368,7 +385,8 @@ async function initialize() {
       }
       sourceVelocities.set(id,velocities);
       model=api.MjModel.from_xml_string(sourceXml,vfs);data=new api.MjData(model);
-      const runtime=createRobotRuntimeFromParts({id,api,model,data,sourceXml,robot:await loaders[id](),offset:[0,0,(1-index)*2.2],cooperativePlanning:true});
+      const runtime=createRobotRuntimeFromParts({id,api,model,data,sourceXml,robot:await loaders[id](),offset:[0,0,(1-index)*2.2],cooperativePlanning:true,backgroundPlanning,
+        planningTransportFactory:()=>createPlanningWorkerTransport({workerFactory:createNodeWorker,timeoutMs:90000})});
       stations.set(id,runtime);
     } catch(error) {data?.delete();model?.delete();throw error;} finally {vfs.delete();}
   }
@@ -408,15 +426,15 @@ async function configure(seed) {
       catch(error){rejectPlan(target,parameters,error);throw error;}
     };
   }
-  tick(300);
+  await tick(300);
   for(const [id,runtime]of stations)for(const object of tracked.get(id))object.initialY=runtime.controller.objectPose(object.id).position.y;
 }
-function start(ids) {
+async function start(ids) {
   coordinator.select(ids);
   const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos]}]));
   taskWindow=true;let result=coordinator.start({task:'pipes'});
   assert.equal(result.ok,true,result.reason);
-  if(result.preparing)result=drainPlanning();
+  if(result.preparing)result=await drainPlanning();
   assert.equal(result.ok,true,result.reason);assert.deepEqual(result.runIds,ids);assert.equal(new Set(Object.values(result.startTimes)).size,1);
   for(const [id,runtime]of stations){assert.equal(runtime.data.time,before.get(id).time,'Planning advanced one physical world');
     for(const object of tracked.get(id))assert(arraysEqual([...runtime.data.qpos.subarray(object.q,object.q+7)],before.get(id).qpos.slice(object.q,object.q+7)),`${id}: starting wrote a pipe pose`);}
@@ -442,9 +460,9 @@ function rejectConsumedBatch(label) {
   }
   return rejected;
 }
-function finish(ids) {
+async function finish(ids) {
   for(let n=0;n<360000&&coordinator.running;n++) {
-    tick();if(n>0&&n%60000===0)console.error(JSON.stringify({progressSeconds:coordinator.tick*.001,
+    await tick();if(n>0&&n%60000===0)console.error(JSON.stringify({progressSeconds:coordinator.tick*.001,
       robots:[...stations.values()].map(runtime=>({id:runtime.id,state:runtime.controller.state,arm:runtime.controller.arm,
         selected:runtime.controller.selected,completed:runtime.controller.classification.completed}))}));
   }
@@ -475,7 +493,7 @@ function finish(ids) {
     }
     assert.equal(s.objectEditsDuringTask,0);
   }
-  tick(3000,{stableIds:ids});
+  await tick(3000,{stableIds:ids});
   for(const id of ids) {
     assert.equal(stats[id].extraStableSamples,300);
     const runtime=stations.get(id);runtime.syncVisuals();assert.equal(runtime.robot.parent,null,'Canonical pipe IK tree received a station parent');
@@ -496,11 +514,12 @@ function finish(ids) {
 }
 async function run(name,seed,fn) {
   if(filter&&!name.includes(filter))return;
-  const began=performance.now();await configure(seed);
-  try {const detail=await fn();results.push({name,seed,pass:true,wallSeconds:(performance.now()-began)/1000,...detail,
+  const began=performance.now();
+  try {await configure(seed);const detail=await fn();results.push({name,seed,pass:true,wallSeconds:(performance.now()-began)/1000,...detail,
     stats:structuredClone(stats),robots:[...stations.values()].map(robotSummary)});console.error(JSON.stringify({scenario:name,seed,pass:true}));}
   catch(error){results.push({name,seed,pass:false,error:error.message,wallSeconds:(performance.now()-began)/1000,
     stats:structuredClone(stats),robots:[...stations.values()].map(robotSummary)});console.error(JSON.stringify({scenario:name,seed,pass:false,error:error.message}));}
+  finally{taskWindow=false;coordinator?.stop();}
 }
 
 let initializationError=null,layoutResult=null;
@@ -519,19 +538,19 @@ try {
   if(!staticOnly) {
     await initialize();
     const simultaneousSeeds=quick?[selectedSeed]:[selectedSeed,selectedSeed+37];
-    for(const seed of simultaneousSeeds)await run(`three-way-eight-pipe-classification-seed-${seed}`,seed,()=>{const initial=start(robotIds),restart=finish(robotIds);return {start:initial,...restart,selectedIds:robotIds,physicallySortedPipes:24,extraStableSeconds:3};});
+    for(const seed of simultaneousSeeds)await run(`three-way-eight-pipe-classification-seed-${seed}`,seed,async()=>{const initial=await start(robotIds),restart=await finish(robotIds);return {start:initial,...restart,selectedIds:robotIds,physicallySortedPipes:24,extraStableSeconds:3};});
     if(!quick) {
-      for(const id of robotIds)await run(`single-${id}-eight-pipe-classification`,selectedSeed+71,()=>{const initial=start([id]),restart=finish([id]);return {start:initial,...restart,selectedIds:[id],physicallySortedPipes:8,extraStableSeconds:3};});
-      await run('stop-three-way-pipe-task-after-genuine-lifts',selectedSeed+99,()=>{
-        const initial=start(robotIds),hasLifted=()=>robotIds.every(id=>Object.values(stats[id].objects).some(object=>object.actualDual&&object.maxLiftM>.035));
-        for(let n=0;n<60000&&coordinator.running&&!hasLifted();n++)tick();
+      for(const id of robotIds)await run(`single-${id}-eight-pipe-classification`,selectedSeed+71,async()=>{const initial=await start([id]),restart=await finish([id]);return {start:initial,...restart,selectedIds:[id],physicallySortedPipes:8,extraStableSeconds:3};});
+      await run('stop-three-way-pipe-task-after-genuine-lifts',selectedSeed+99,async()=>{
+        const initial=await start(robotIds),hasLifted=()=>robotIds.every(id=>Object.values(stats[id].objects).some(object=>object.actualDual&&object.maxLiftM>.035));
+        for(let n=0;n<60000&&coordinator.running&&!hasLifted();n++)await tick();
         assert(hasLifted(),'Stop fixture never reached genuine lifts at all three stations');
         const before=new Map([...stations].map(([id,runtime])=>[id,{qpos:[...runtime.data.qpos],
           completed:runtime.controller.classification.completed,selected:runtime.controller.selected}]));
         coordinator.stop();assert.equal(coordinator.state,'stopped');assert(!coordinator.running);
         for(const [id,runtime]of stations){assert(!runtime.controller.running);assert.equal(runtime.controller.state,'stopped');
           for(const object of tracked.get(id))assert.deepEqual([...runtime.data.qpos.subarray(object.q,object.q+7)],before.get(id).qpos.slice(object.q,object.q+7),'Stop wrote a task object pose');}
-        tick(3000);
+        await tick(3000);
         for(const [id,runtime]of stations){assert.equal(runtime.controller.state,'stopped');assert(!runtime.controller.classification.verified);
           assert.equal(runtime.controller.classification.started,true);
           assert.equal(runtime.controller.classification.completed,before.get(id).completed,'Stopped queue continued processing');
@@ -539,11 +558,12 @@ try {
         const restartAfterStop=rejectConsumedBatch('stopped task');
         return {start:initial,restartAfterStop,selectedIds:robotIds,postStopSeconds:3,physicallySortedPipes:0};
       });
-      await run('unreachable-pipe-preparation-aborts-all-attempted-stations',selectedSeed+117,()=>{
+      await run('unreachable-pipe-preparation-aborts-all-attempted-stations',selectedSeed+117,async()=>{
         const g1=stations.get('g1'),layout=g1.controller.classification,first=g1.targets.find(target=>target.id===(layout.queue?.[0]??g1.targets[0].id));
         taskWindow=false;assert.notEqual(g1.controller.setObject(first.id,new THREE.Vector3(1.8,g1.config.tableHeight+first.h,0)),false);
         const before=new Map([...stations].map(([id,runtime])=>[id,[...runtime.data.qpos]]));
-        coordinator.select(robotIds);taskWindow=true;const initial=coordinator.start({task:'pipes'});
+        coordinator.select(robotIds);taskWindow=true;let initial=coordinator.start({task:'pipes'});
+        if(initial.preparing)initial=await drainPlanning();
         assert.equal(initial.ok,false,'Unreachable pipe must not enter a partially running batch');assert(!coordinator.running);assert.equal(coordinator.state,'failed');
         for(const [id,runtime]of stations){assert(!runtime.controller.running);assert(!runtime.controller.classification.verified);
           for(const object of tracked.get(id))assert.deepEqual([...runtime.data.qpos.subarray(object.q,object.q+7)],before.get(id).slice(object.q,object.q+7),'Rejected start teleported a task object');}
@@ -551,9 +571,9 @@ try {
         const restartAfterFailure=rejectConsumedBatch('failed preparation');
         return {start:initial,restartAfterFailure,selectedIds:robotIds,physicallySortedPipes:0};
       });
-      await run('pipe-task-reset-randomizes-and-explicit-seed-reproduces-all-eight-starts',selectedSeed+139,()=>{
+      await run('pipe-task-reset-randomizes-and-explicit-seed-reproduces-all-eight-starts',selectedSeed+139,async()=>{
         const resetSeed=selectedSeed+139,before=new Map([...stations].map(([id,runtime])=>[id,runtime.targets.map(target=>target.start.toArray())]));
-        const initial=start(robotIds);tick(500);taskWindow=false;coordinator.reset();
+        const initial=await start(robotIds);await tick(500);taskWindow=false;coordinator.reset();
         assert.equal(coordinator.state,'idle');assert.equal(coordinator.tick,0);assert(!coordinator.running);
         for(const [id,runtime]of stations) {
           const c=runtime.controller;assert.equal(runtime.data.time,0);assert.equal(c.state,'idle');assert(!c.running);
@@ -564,7 +584,7 @@ try {
           assert.equal(c.classification.items.length,0);assert.equal(c.classification.armSequence.length,0);
           for(const target of runtime.targets)assert(c.objectPose(target.id).position.distanceTo(target.start)<1e-9,`${id}/${target.id}: reset missed its new seeded start`);
         }
-        const restartAfterReset=start(robotIds);assert.equal(restartAfterReset.ok,true);coordinator.stop();taskWindow=false;
+        const restartAfterReset=await start(robotIds);assert.equal(restartAfterReset.ok,true);coordinator.stop();taskWindow=false;
         for(const [id,runtime]of stations) {
           runtime.reset({seed:resetSeed});assert.deepEqual(runtime.targets.map(target=>target.start.toArray()),before.get(id),`${id}: explicit seed failed to reproduce the same random layout`);
           assert.equal(runtime.controller.classification.completed,0);assert(!runtime.controller.classification.verified);assert.equal(runtime.controller.classification.started,false);
@@ -583,9 +603,9 @@ const report={pass,startedAt,wallSeconds:(performance.now()-wallStart)/1000,mode
   clockStepSeconds:.001,fingerToleranceM:fingerTolerance,layout:layoutResult,results,initializationError,sourceFrozen,sourceHashes,
   scope:'Actual original-source URDF dynamics, production pipe task and independent MjModel/MjData per station. No mocap/equality attachments. Every pipe monitored at 1 ms for finite motion/integration; actual contacts monitored at 10 ms. Original R1 finger-contact model only; G1/C5 full robot collisions. Independent stations do not physically collide across worlds.',
   releaseScope:'All eight pipes, not only the last selected pipe, must have actual dual-finger forces >0.015 N per side, actual lift >35 mm, correct color/slot, actual table normal >0.005 N, released fingers and speed <0.025 m/s for a further 3 seconds.'};
-report.planningExecution={cooperative:true,productionBudgetOverride:false,
+report.planningExecution={cooperative:!backgroundPlanning,worker:backgroundPlanning,productionBudgetOverride:false,
   ordinarySegmentBudgetMs:PLANNING_SEGMENT_BUDGET_MS,g1PipeSegmentBudgetMs:G1_PIPE_PLANNING_SEGMENT_BUDGET_MS,
-  scope:'Production cooperative candidate iterator; all pending planning is drained between complete shared 1 ms ticks. Every candidate is checked for unchanged shared clock and physical qpos. 累计计算片段耗时 includes elapsed candidate/runtime synchronization time and can include OS preemption; waiting between segments is excluded.'};
+  scope:backgroundPlanning?'Production background controller, real worker_threads transport and shipped worker service/parser/serialization. Only browser file fetch is adapted to Node readFile. All pending workers are polled asynchronously between complete shared 1 ms ticks; actual qpos/qvel/ctrl/time stay unchanged while planning. Worker computation uses the unchanged cooperative candidate iterator and original gates. No task motion executes in a worker.':'Production cooperative candidate iterator; all pending planning is drained between complete shared 1 ms ticks. Every candidate is checked for unchanged shared clock and physical qpos/qvel/ctrl. 累计计算片段耗时 includes elapsed candidate/runtime synchronization time and can include OS preemption; waiting between segments is excluded.'};
 report.carryObservationScope='Actual lift/transfer dual-finger retention, longest contact-loss span and object-to-TCP relative pose are aggregated every 10 ms. Saved keyframes are every 100 ms plus every phase/contact change. Retention/drift values are observational, not silently thresholded or inferred from successful endpoints; materially ballistic transport requires explicit review and cannot be advertised as a grasp.';
 await mkdir(new URL('.',new URL(reportPath,root)),{recursive:true});
 await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');

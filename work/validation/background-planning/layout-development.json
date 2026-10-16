@@ -1,0 +1,1125 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-16T08:42:08.033Z",
+  "wallSeconds": 0.21214437499642372,
+  "mode": "static-only",
+  "cases": 0,
+  "expectedCases": 0,
+  "physicallySortedPipes": 0,
+  "clockStepSeconds": 0.001,
+  "fingerToleranceM": {
+    "r1": 0.001,
+    "g1": 0.0002,
+    "c5": 0.0002
+  },
+  "layout": {
+    "pass": true,
+    "seedsPerRobot": 100,
+    "totalLayouts": 300,
+    "distinctLayouts": {
+      "r1": 100,
+      "g1": 100,
+      "c5": 100
+    },
+    "samples": [
+      {
+        "id": "r1",
+        "seed": 521,
+        "targets": [
+          {
+            "id": "pipe-yellow-1",
+            "color": "yellow",
+            "start": [
+              0.7136265029967763,
+              0.718,
+              -0.10133285371586681
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              -0.185
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          },
+          {
+            "id": "pipe-red-1",
+            "color": "red",
+            "start": [
+              0.7275016037817114,
+              0.718,
+              0.09701791274361313
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-yellow-2",
+            "color": "yellow",
+            "start": [
+              0.6844831412727945,
+              0.718,
+              -0.03620124015724287
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              -0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          },
+          {
+            "id": "pipe-red-2",
+            "color": "red",
+            "start": [
+              0.7006163346767426,
+              0.718,
+              0.03157935005729087
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              0.185
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-red-3",
+            "color": "red",
+            "start": [
+              0.7923300591306761,
+              0.718,
+              0.10628447202965619
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-yellow-3",
+            "color": "yellow",
+            "start": [
+              0.7874695422360674,
+              0.718,
+              -0.08730012742802501
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              -0.185
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          },
+          {
+            "id": "pipe-red-4",
+            "color": "red",
+            "start": [
+              0.7984487027451396,
+              0.718,
+              0.025973637151764706
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              0.185
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-yellow-4",
+            "color": "yellow",
+            "start": [
+              0.7605995364822448,
+              0.718,
+              -0.03266720054671168
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              -0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          }
+        ]
+      },
+      {
+        "id": "r1",
+        "seed": 522,
+        "targets": [
+          {
+            "id": "pipe-red-1",
+            "color": "red",
+            "start": [
+              0.7052023452776485,
+              0.718,
+              0.11070287463255227
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-yellow-1",
+            "color": "yellow",
+            "start": [
+              0.6891082507162355,
+              0.718,
+              -0.11895995028316975
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              -0.185
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          },
+          {
+            "id": "pipe-red-2",
+            "color": "red",
+            "start": [
+              0.6805054561886937,
+              0.718,
+              0.030091029091272505
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              0.185
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-red-3",
+            "color": "red",
+            "start": [
+              0.7826717552207411,
+              0.718,
+              0.11944525089114905
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-yellow-2",
+            "color": "yellow",
+            "start": [
+              0.6869193267263473,
+              0.718,
+              -0.03178080217330717
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              -0.185
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          },
+          {
+            "id": "pipe-red-4",
+            "color": "red",
+            "start": [
+              0.7841645748615265,
+              0.718,
+              0.02585411101463251
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              0.185
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": 0.040600000000000025,
+              "maxZ": 0.2394
+            }
+          },
+          {
+            "id": "pipe-yellow-3",
+            "color": "yellow",
+            "start": [
+              0.763145169114694,
+              0.718,
+              -0.11899557817727327
+            ],
+            "drop": [
+              0.92,
+              0.718,
+              -0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          },
+          {
+            "id": "pipe-yellow-4",
+            "color": "yellow",
+            "start": [
+              0.7600796552309766,
+              0.718,
+              -0.03132508246344515
+            ],
+            "drop": [
+              0.85,
+              0.718,
+              -0.09500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.824,
+              "maxX": 1.0070000000000001,
+              "minZ": -0.2394,
+              "maxZ": -0.040600000000000025
+            }
+          }
+        ]
+      },
+      {
+        "id": "g1",
+        "seed": 521,
+        "targets": [
+          {
+            "id": "pipe-red-1",
+            "color": "red",
+            "start": [
+              0.27469232404837385,
+              0.926,
+              0.15359811552939936
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-yellow-1",
+            "color": "yellow",
+            "start": [
+              0.31200100625539195,
+              0.926,
+              -0.13315065348753707
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              -0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          },
+          {
+            "id": "pipe-yellow-2",
+            "color": "yellow",
+            "start": [
+              0.29306222038110713,
+              0.926,
+              0.05011402094550431
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              -0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          },
+          {
+            "id": "pipe-red-2",
+            "color": "red",
+            "start": [
+              0.295729261869099,
+              0.926,
+              -0.03710874573374167
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-red-3",
+            "color": "red",
+            "start": [
+              0.3561341979736462,
+              0.926,
+              0.18197348032752053
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-yellow-3",
+            "color": "yellow",
+            "start": [
+              0.37663648650236425,
+              0.926,
+              -0.18866273870412262
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              -0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          },
+          {
+            "id": "pipe-red-4",
+            "color": "red",
+            "start": [
+              0.37500609308620914,
+              0.926,
+              0.07296808804618195
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-yellow-4",
+            "color": "yellow",
+            "start": [
+              0.3764733573915437,
+              0.926,
+              -0.07148063865676522
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              -0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          }
+        ]
+      },
+      {
+        "id": "g1",
+        "seed": 522,
+        "targets": [
+          {
+            "id": "pipe-yellow-1",
+            "color": "yellow",
+            "start": [
+              0.2693659762972966,
+              0.926,
+              0.15161848920537158
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              -0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          },
+          {
+            "id": "pipe-red-1",
+            "color": "red",
+            "start": [
+              0.309383425607346,
+              0.926,
+              -0.12963745520357042
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-red-2",
+            "color": "red",
+            "start": [
+              0.28599499712465326,
+              0.926,
+              0.044228332445491104
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-yellow-2",
+            "color": "yellow",
+            "start": [
+              0.2885483607426286,
+              0.926,
+              -0.04165906824544072
+            ],
+            "drop": [
+              0.5,
+              0.926,
+              -0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          },
+          {
+            "id": "pipe-red-3",
+            "color": "red",
+            "start": [
+              0.35253640913590784,
+              0.926,
+              0.1808863692204468
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-yellow-3",
+            "color": "yellow",
+            "start": [
+              0.37425334173766894,
+              0.926,
+              -0.19398194156307727
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              -0.14500000000000002
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          },
+          {
+            "id": "pipe-red-4",
+            "color": "red",
+            "start": [
+              0.37040554015897215,
+              0.926,
+              0.05992464239522815
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": 0.006000000000000005,
+              "maxZ": 0.194
+            }
+          },
+          {
+            "id": "pipe-yellow-4",
+            "color": "yellow",
+            "start": [
+              0.3746859503430314,
+              0.926,
+              -0.06660025877971203
+            ],
+            "drop": [
+              0.44,
+              0.926,
+              -0.05500000000000001
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.4139999999999999,
+              "maxX": 0.582,
+              "minZ": -0.194,
+              "maxZ": -0.006000000000000005
+            }
+          }
+        ]
+      },
+      {
+        "id": "c5",
+        "seed": 521,
+        "targets": [
+          {
+            "id": "pipe-yellow-1",
+            "color": "yellow",
+            "start": [
+              0.39914970441721376,
+              0.746,
+              0.2725719391135499
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              -0.18
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          },
+          {
+            "id": "pipe-red-1",
+            "color": "red",
+            "start": [
+              0.4202718638256192,
+              0.746,
+              -0.031717071565799414
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              0.18
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-yellow-2",
+            "color": "yellow",
+            "start": [
+              0.39778646977152676,
+              0.746,
+              -0.2283503536880016
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              -0.18
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          },
+          {
+            "id": "pipe-red-2",
+            "color": "red",
+            "start": [
+              0.3886320701567456,
+              0.746,
+              0.11298446747940033
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              0.18
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-red-3",
+            "color": "red",
+            "start": [
+              0.3658379517495632,
+              0.746,
+              -0.1265012389421463
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              0.27
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-yellow-3",
+            "color": "yellow",
+            "start": [
+              0.3001588963763788,
+              0.746,
+              -0.25492444452829655
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              -0.27
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          },
+          {
+            "id": "pipe-red-4",
+            "color": "red",
+            "start": [
+              0.33357661290094254,
+              0.746,
+              0.192884754226543
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              0.27
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-yellow-4",
+            "color": "yellow",
+            "start": [
+              0.2901421893527731,
+              0.746,
+              0.2793900676630437
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              -0.27
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          }
+        ]
+      },
+      {
+        "id": "c5",
+        "seed": 522,
+        "targets": [
+          {
+            "id": "pipe-red-1",
+            "color": "red",
+            "start": [
+              0.3799600612139329,
+              0.746,
+              0.002347205220721662
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              0.18
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-yellow-1",
+            "color": "yellow",
+            "start": [
+              0.4088598259910941,
+              0.746,
+              -0.18434429169166833
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              -0.27
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          },
+          {
+            "id": "pipe-red-2",
+            "color": "red",
+            "start": [
+              0.318509762911126,
+              0.746,
+              -0.2841367082111537
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              0.27
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-red-3",
+            "color": "red",
+            "start": [
+              0.4241584188817069,
+              0.746,
+              0.2620890778442845
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              0.18
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-yellow-2",
+            "color": "yellow",
+            "start": [
+              0.40804333257023245,
+              0.746,
+              0.1080130268074572
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              -0.27
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          },
+          {
+            "id": "pipe-red-4",
+            "color": "red",
+            "start": [
+              0.34208921457640823,
+              0.746,
+              0.18398924769368022
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              0.27
+            ],
+            "frame": {
+              "colorKey": "red",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": 0.12560000000000002,
+              "maxZ": 0.3244
+            }
+          },
+          {
+            "id": "pipe-yellow-3",
+            "color": "yellow",
+            "start": [
+              0.2939560042880475,
+              0.746,
+              0.2704602100141346
+            ],
+            "drop": [
+              0.52,
+              0.746,
+              -0.18
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          },
+          {
+            "id": "pipe-yellow-4",
+            "color": "yellow",
+            "start": [
+              0.41541479380335655,
+              0.746,
+              -0.28301339535973963
+            ],
+            "drop": [
+              0.59,
+              0.746,
+              -0.18
+            ],
+            "frame": {
+              "colorKey": "yellow",
+              "minX": 0.49399999999999994,
+              "maxX": 0.6769999999999998,
+              "minZ": -0.3244,
+              "maxZ": -0.12560000000000002
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "results": [],
+  "initializationError": null,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-pipes.mjs": "189c26c81ba10b94623d1cbf3155e10d2138bf603f1caaa039a377ffc9f3f9c0",
+    "dist/multi/background-planning.mjs": "97853a50ffb2e3c154e1a95a4a59ef35fc1a7867dbd7d079b5b3259b244be091",
+    "dist/multi/coordinator.mjs": "d207149524ec7f94550d2becfd1293de3624d9f50d0b6fffd2938fc3f7a4a4d0",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-robot.mjs": "43fd3d460bb23ab20669223409bc8bc034976c6309eb99c0d8381d2b119e575b",
+    "dist/multi/planning-serialization.mjs": "f5e7b5ea40fdf1e41a641106d3dd20558641c82c29432fae129febb44d5a18cb",
+    "dist/multi/planning-worker-core.mjs": "814c1b3a1134c533c7dce147897257f04681cc01a172b998c073641e0a3665fd",
+    "dist/multi/planning-worker-transport.mjs": "85cd66734c03d19deb16d58cbb32b311e565772ca2380828cba71c25f73fc37b",
+    "dist/multi/planning-worker.mjs": "3e8fe003ee8e2e2e15601a39ea1f38448b9cc8560beacb4dbd867852b68118c6",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "edad4e516d4befa4578df540968ec9bab46a69d75ee122f39246bf5de5265c05",
+    "work/background-planning-node-worker.mjs": "43ac15e130e258db085af358f5c8b61cdf10b186759d90c3345273d77897ee89",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "scope": "Actual original-source URDF dynamics, production pipe task and independent MjModel/MjData per station. No mocap/equality attachments. Every pipe monitored at 1 ms for finite motion/integration; actual contacts monitored at 10 ms. Original R1 finger-contact model only; G1/C5 full robot collisions. Independent stations do not physically collide across worlds.",
+  "releaseScope": "All eight pipes, not only the last selected pipe, must have actual dual-finger forces >0.015 N per side, actual lift >35 mm, correct color/slot, actual table normal >0.005 N, released fingers and speed <0.025 m/s for a further 3 seconds.",
+  "planningExecution": {
+    "cooperative": false,
+    "worker": true,
+    "productionBudgetOverride": false,
+    "ordinarySegmentBudgetMs": 10000,
+    "g1PipeSegmentBudgetMs": 30000,
+    "scope": "Production background controller, real worker_threads transport and shipped worker service/parser/serialization. Only browser file fetch is adapted to Node readFile. All pending workers are polled asynchronously between complete shared 1 ms ticks; actual qpos/qvel/ctrl/time stay unchanged while planning. Worker computation uses the unchanged cooperative candidate iterator and original gates. No task motion executes in a worker."
+  },
+  "carryObservationScope": "Actual lift/transfer dual-finger retention, longest contact-loss span and object-to-TCP relative pose are aggregated every 10 ms. Saved keyframes are every 100 ms plus every phase/contact change. Retention/drift values are observational, not silently thresholded or inferred from successful endpoints; materially ballistic transport requires explicit review and cannot be advertised as a grasp."
+}

@@ -10,6 +10,8 @@ const bases = ['http://127.0.0.1:4173/', 'https://wander521.github.io/r1-simulat
 const cached = new Map(), directories = new Set(), checks = [], edges = [], exclusions = [];
 const sha = data => createHash('sha256').update(data).digest('hex');
 const stripQuery = path => path.replace(/[?#].*$/, '');
+const workerModules=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`multi/${name}.mjs`);
+const workerRelease='20261016-worker-1';
 async function contents(path) {
   if (!cached.has(path)) cached.set(path, await readFile(new URL(path, root)));
   assert(cached.get(path).length > 0, `Empty resource: ${path}`);
@@ -156,11 +158,18 @@ for (const page of ['multi/index.html', 'r1/index.html', 'g1/index.html', 'c5/in
 }
 assert.equal(entryModules.length, 1); assert(importMap.has('three'));
 
-const queue = [...entryModules], modules = new Set();
+const queue = entryModules.map(path=>({path,realm:'document'})), modules = new Set(),workerGraph=new Set(),seenRealms=new Set(),workerEntries=[];
 while (queue.length) {
-  const path = queue.shift(); if (modules.has(path)) continue; modules.add(path);
+  const {path,realm} = queue.shift(),identity=realm+':'+path;if(seenRealms.has(identity))continue;seenRealms.add(identity);modules.add(path);if(realm==='worker')workerGraph.add(path);
   const source = await text(path);
   for (const item of moduleReferences(source)) {
+    if(realm==='worker'&&path==='multi/robot-runtime.mjs'&&item.kind==='dynamic-import'&&item.specifier==='../vendor/URDFLoader.js'){
+      const workerCore=await text('multi/planning-worker-core.mjs');
+      assert(workerCore.includes('createRobotRuntimeFromParts(')&&workerCore.includes('parsePlanningRobot('));
+      assert(!/\b(?:createRobotRuntime|loadRobot)\s*\(/.test(workerCore));
+      assert(/async function loadRobot\(config,onProgress\)\s*\{[\s\S]*?await import\(['"]\.\.\/vendor\/URDFLoader.js['"]\)/.test(source));
+      exclusions.push({from:path,specifier:item.specifier,realm,reason:'Dynamic visual-mesh loader is confined to loadRobot/createRobotRuntime, which the Worker does not call; it uses parsePlanningRobot/createRobotRuntimeFromParts.'});continue;
+    }
     if (item.specifier.startsWith('node:')) {
       assert.equal(path, 'r1/mujoco-runtime.mjs'); assert.equal(item.specifier, 'node:module');
       exclusions.push({from: path, specifier: item.specifier, reason: 'Emscripten Node-only conditional branch, not a browser fetch'}); continue;
@@ -168,10 +177,17 @@ while (queue.length) {
     let target;
     if (/^\.?\.\//.test(item.specifier)) target = await reference(path, item.specifier, item.kind);
     else {
+      assert.notEqual(realm,'worker',`Worker imports do not inherit the document import map: ${path} -> ${item.specifier}`);
       assert(importMap.has(item.specifier), `Unmapped bare browser import: ${path} -> ${item.specifier}`);
       target = importMap.get(item.specifier); edges.push({from: path, ...item, to: target, importMap: true});
     }
-    if (item.kind.endsWith('import')) queue.push(stripQuery(target));
+    if (item.kind.endsWith('import'))queue.push({path:stripQuery(target),realm});
+    else if(item.kind==='import-meta-url'&&/[.]m?js(?:[?#]|$)/.test(item.specifier)){
+      assert.equal(path,'multi/planning-worker-transport.mjs','Unexpected executable URL resource');
+      assert(/new Worker\(PLANNING_WORKER_URL,\{type:['"]module['"]/.test(source),'The entry must be loaded as a real module Worker');
+      assert.equal(new URL(item.specifier,'https://example.test/multi/').searchParams.get('v'),workerRelease,'Worker URL is outside the release cohort');
+      if(!workerEntries.some(entry=>entry.from===path&&entry.to===stripQuery(target)))workerEntries.push({from:path,specifier:item.specifier,to:stripQuery(target)});queue.push({path:stripQuery(target),realm:'worker'});
+    }
   }
 }
 assert(modules.has('multi/robot-runtime.mjs') && modules.has('vendor/URDFLoader.js'));
@@ -179,6 +195,10 @@ for(const module of ['theme-controller','scene-environment','camera-feeds','fram
   assert(modules.has(`multi/visuals/${module}.mjs`),`New visual module missing from the recursively checked browser graph: ${module}`);
 for(const module of ['coordinator','planning','pipe-controller'])
   assert(modules.has(`multi/${module}.mjs`),`Responsive planning module missing from the recursively checked browser graph: ${module}`);
+for(const path of workerModules)assert(modules.has(path),`Background planner module missing from the checked graph: ${path}`);
+assert.equal(workerEntries.length,1);assert(workerGraph.has('multi/planning-worker.mjs')&&workerGraph.has('multi/planning-worker-core.mjs')&&workerGraph.has('multi/planning-robot.mjs'));
+assert(!workerGraph.has('multi/app.mjs'),'The isolated worker must not import the DOM application');
+check('Real module Worker entry and transitive imports resolve independently without document import maps',{entries:workerEntries,modules:workerGraph.size});
 for (const id of ['r1', 'g1', 'c5']) assert(modules.has(`${id}/grasp-controller.mjs`) && modules.has(`${id}/${id}-dynamics.mjs`));
 check('Complete multi browser module graph resolves under local and GitHub project bases', {modules: modules.size});
 check('Literal dynamic URDFLoader import is included in the checked module graph');
@@ -237,7 +257,7 @@ check('All inspected source and asset bytes stayed frozen during the check', {fi
 const report={
   pass: true, generatedAt: new Date().toISOString(), checks: checks.length, results: checks,
   scope: 'Static publication and path integrity only. No browser, rendered-pixel, pointer/touch, runtime loading, physics, grasp, or synchronization acceptance is claimed. JavaScript templates and computed non-literal resources are not statically interpreted; the known import.meta.url helper is checked through every literal call argument.',
-  bases, moduleCount: modules.size, modules: [...modules].sort(), resourceEdges: edges.length,
+  bases, moduleCount: modules.size, modules: [...modules].sort(),workerEntries,workerModules:[...workerGraph].sort(), resourceEdges: edges.length,
   edges, meshCounts, wasmBytes: wasm.length, checkedFiles: cached.size, checkedDirectories: [...directories].sort(),
   exclusions, sourceHashes,
 };
