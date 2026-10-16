@@ -7,7 +7,8 @@
   "scripts": {
     "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
     "test": "npm run test:multi && npm run test:pipes && npm run test:models",
-    "test:multi": "node work/test-multi-coordinator.mjs && node work/test-multi-ui.mjs && node work/test-multi-r1-gripper.mjs && node work/test-multi-physical.mjs && node work/test-multi-stack.mjs",
+    "test:multi": "node work/test-multi-coordinator.mjs && node work/test-multi-ui.mjs && node work/test-multi-framing.mjs && node work/test-multi-r1-gripper.mjs && node work/test-multi-physical.mjs && node work/test-multi-stack.mjs",
+    "test:framing": "node work/test-multi-framing.mjs",
     "test:pipes": "node work/test-pipe-scatter.mjs && node work/test-pipe-ui.mjs && node work/test-multi-pipes.mjs",
     "test:pipes:quick": "node work/test-multi-pipes.mjs --quick",
     "test:models": "node work/test-r1-dynamics.mjs && node work/test-g1-dynamics.mjs && node work/test-c5-dynamics.mjs && node work/test-c5-visuals.mjs",

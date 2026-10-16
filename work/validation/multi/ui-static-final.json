@@ -85,7 +85,7 @@
       "pass": true
     },
     {
-      "name": "Three station origins lie in the requested fixed row with 2.2 m gaps",
+      "name": "Three station origins lie in the requested compact row with 1.6 m gaps",
       "pass": true
     },
     {
@@ -1008,19 +1008,19 @@
         "min": [
           0.4199999856948853,
           1.2874603272372553e-8,
-          1.8200000047683718
+          1.2200000047683717
         ],
         "max": [
           1.1400000143051148,
           0.6919999988079071,
-          2.5799999952316286
+          1.9799999952316285
         ]
       },
       "tableHeight": 0.692,
       "offset": [
         0,
         0,
-        2.2
+        1.6
       ]
     },
     "g1": {
@@ -1048,30 +1048,30 @@
         "min": [
           0.2199999988079071,
           1.4305114759416426e-8,
-          -2.5499999940395357
+          -1.9499999940395356
         ],
         "max": [
           0.7800000011920929,
           0.7199999988079071,
-          -1.8500000059604647
+          -1.2500000059604646
         ]
       },
       "tableHeight": 0.72,
       "offset": [
         0,
         0,
-        -2.2
+        -1.6
       ],
       "plinth": {
         "min": [
           -0.11999999731779099,
           -1.4305114759416426e-8,
-          -2.319999997317791
+          -1.719999997317791
         ],
         "max": [
           0.11999999731779099,
           0.7200000143051147,
-          -2.080000002682209
+          -1.480000002682209
         ],
         "clearance": 0.10000000149011612
       }
@@ -1083,12 +1083,12 @@
   },
   "sourceFrozen": true,
   "sourceHashes": {
-    "work/test-multi-ui.mjs": "237cd8ba51ae39911144b89c976c0b929dc36dc75405805d2515d2f35497e499",
-    "dist/multi/index.html": "4cd10b6c4a9b72c5c622253f939b341260cf10b57e04b4adfb2bc709fbbe0fd0",
+    "work/test-multi-ui.mjs": "c4a6a29bca826b6ceb8c58edf69cc310abf50e2b28096b63716ab5ddb5e48cbf",
+    "dist/multi/index.html": "4ec60aeb02235a4fec65a858ffcb18cc918dbb8e5d8a115a39ef2c92991d2b76",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
-    "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
+    "dist/multi/app.mjs": "3b08b6154714cdf3f91a67759892e62c48e67aff799b7ba5b8aa894a59f72a05",
     "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
-    "dist/multi/workcell.mjs": "1f0705ed7763e558bd582555ea3cf2090446f328def6ece3ef75f13d7185e8e9",
+    "dist/multi/workcell.mjs": "3591f353d7ece026a8177841e370378c57ccafba37d4c8052fa3fef5b9aa6fb6",
     "dist/multi/robot-runtime.mjs": "a71200dd73ac1831fc3cff940c853f88c025776f0681f74917ac19948e1ccfff",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
     "dist/r1/grasp-controller.mjs": "c042b05bb52c2a3e8e9940e90a0742fd5048681a078ca620902f65594ba77f0f",

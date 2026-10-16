@@ -1,0 +1,43 @@
+{
+  "scope": "Root-agent native in-app browser inspection of the compact display layout, not new physical grasp evidence or an independent saved-pixel review.",
+  "url": "http://127.0.0.1:4173/multi/",
+  "sourceHashes": {
+    "dist/multi/app.mjs": "3b08b6154714cdf3f91a67759892e62c48e67aff799b7ba5b8aa894a59f72a05",
+    "dist/multi/workcell.mjs": "3591f353d7ece026a8177841e370378c57ccafba37d4c8052fa3fef5b9aa6fb6",
+    "dist/multi/index.html": "4ec60aeb02235a4fec65a858ffcb18cc918dbb8e5d8a115a39ef2c92991d2b76",
+    "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd"
+  },
+  "moduleObserved": "./app.mjs?v=20261016-compact-1",
+  "finalDesktop": {
+    "window": [1280, 720],
+    "canvas": [940, 720],
+    "documentScrollWidth": 1280,
+    "allThreeRobotsAndGroundedTablesVisible": true,
+    "labelsAboveRobotHeads": true,
+    "labelTopBottomY": {"r1": [197.2109375, 227.2109375], "g1": [246.1328125, 276.1328125], "c5": [177.671875, 207.671875]},
+    "inlineScreenshotInspected": true
+  },
+  "finalPhone": {
+    "window": [390, 844],
+    "canvas": [390, 489.515625],
+    "documentScrollWidth": 390,
+    "allThreeRobotsAndGroundedTablesVisible": true,
+    "labelsAboveRobotHeads": true,
+    "labelTopBottomY": {"r1": [158.1640625, 186.1640625], "g1": [179.4375, 207.4375], "c5": [148.96875, 176.96875]},
+    "r1FocusControlObserved": true,
+    "focusDidNotChangeThreeParticipantCheckboxes": true,
+    "inlinePanoramaAndFocusScreenshotsInspected": true
+  },
+  "intermediateInspection": {"window": [563, 844], "inlineResponsiveScreenshotInspected": true},
+  "inspectionNotes": [
+    "Viewport changes initially produced inconsistent screenshot dimensions; viewport.set followed by reload produced the final full 390x844 and 1280x720 screenshots. Temporary emulation was cleared.",
+    "The initial desktop classification task was inspected with all three stations; final screenshots cover the unchanged default task and phone focus control.",
+    "The new framing suite separately passes 59 checks and 49 subset/viewport projection cases. These numerical checks do not replace browser pixels.",
+    "No new full physics run was performed locally for presentation-only edits. Original 72-item source-bound physical evidence remains unchanged; its SHA-256 is d091550a8b04b2962d81752c128ebe5090e65363fd9b8d72b634dbb54f5f15ee."
+  ],
+  "limitations": [
+    "Screenshots were returned and inspected inline; no supported screenshot file export was available.",
+    "No independent final-pixel approval, real touch, screen reader, other-browser, arbitrary-pose or hardware-safety claim is made."
+  ],
+  "independentPixelReview": "recapture"
+}

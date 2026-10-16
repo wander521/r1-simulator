@@ -101,10 +101,10 @@ check('Idle, aborted and failed tasks never falsely display completion',()=>{
     assert.equal(taskProgress({id,state,task,itemIndex:2}),0);
 });
 
-check('Three station origins lie in the requested fixed row with 2.2 m gaps',()=>{
+check('Three station origins lie in the requested compact row with 1.6 m gaps',()=>{
   assert.deepEqual(Object.keys(STATION_OFFSETS),ids);
-  assert.deepEqual(STATION_OFFSETS,{r1:[0,0,2.2],g1:[0,0,0],c5:[0,0,-2.2]});
-  for(let index=0;index<ids.length-1;index++)near(new THREE.Vector3(...STATION_OFFSETS[ids[index]]).distanceTo(new THREE.Vector3(...STATION_OFFSETS[ids[index+1]])),2.2,'Adjacent station spacing');
+  assert.deepEqual(STATION_OFFSETS,{r1:[0,0,1.6],g1:[0,0,0],c5:[0,0,-1.6]});
+  for(let index=0;index<ids.length-1;index++)near(new THREE.Vector3(...STATION_OFFSETS[ids[index]]).distanceTo(new THREE.Vector3(...STATION_OFFSETS[ids[index+1]])),1.6,'Adjacent station spacing');
 });
 
 const scene=new THREE.Scene(),shared=createSharedWorkcell(scene),stationGroups=[];
@@ -144,7 +144,9 @@ check('Station tables introduce no duplicate global lights or floors',()=>{
 check('Adjacent grounded tables remain geometrically separate',()=>{
   for(let index=0;index<ids.length-1;index++){
     const a=geometry[ids[index]].table,b=geometry[ids[index+1]].table;
-    assert(a.min[2]-b.max[2]>1.4,`${ids[index]} and ${ids[index+1]} tables overlap`);
+    const gap=a.min[2]-b.max[2],expected=1.6-ROBOT_CONFIGS[ids[index]].tableHalfZ-ROBOT_CONFIGS[ids[index+1]].tableHalfZ;
+    near(gap,expected,'Compact station table clearance');
+    assert(gap>.8,`${ids[index]} and ${ids[index+1]} tables overlap or lose the requested clearance`);
   }
 });
 

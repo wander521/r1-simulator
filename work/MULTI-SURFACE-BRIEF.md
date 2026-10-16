@@ -2,6 +2,18 @@
 
 Mode: Operate. Ordinary extension of the existing reference workcell, not a new visual identity.
 
+## Compact workstation follow-up
+
+Bring the three stations closer to the middle and make each robot more legible
+in the panorama. Reduce display-only center spacing from 2.2 m to 1.6 m, without
+rescaling any model, table, cylinder or local physics coordinate. Keep the
+three-station row and all incumbent controls/style. Fit the real oblique camera
+frustum to all eight bounds corners, retaining HUD/head/foot margins and the
+named preparation-motion envelopes, rather than the old loose world-size
+estimate. Verify table separation, measured visual-arm clearance, all nonempty
+participant subsets, focus views and desktop/mobile framing. This is a display
+refinement, not a new grasp or cross-world collision model.
+
 ## Round-pipe classification extension
 
 2026-10-16 follow-up: initial positions must read as an irregular two-dimensional
@@ -107,3 +119,13 @@ hardware certification and hosted deployment remain outside these observations.
 视觉范围按主代理本轮实际内联查看的记录：1280×720 桌面覆盖三站聚焦俯视，390×844 手机宽度覆盖全景及聚焦视角，并检查空白处拖动和无横向溢出。此文档核对者只查看源码与报告，未查看这些像素；CUA 未提供截图文件导出，当前无保存的 desktop/mobile PNG，独立像素复核仍待重新捕获，不记为通过。
 
 初次文档核对时本轮物理验收仍在进行，未沿用上节旧布局 `78a9eb02…` 的通过记录。随后当前 `b96f0546…` 源码冻结版本已重新完成 FULL 8 个场景、72/72 件和 300 组基础布局，35/35 验收器正反例、46/46 界面契约均通过；本轮原生浏览器另以种子 2092268180 完成三机 24/24 件。当前报告已替换为本轮证据，数值和 SHA 见 [本次冻结版本结果](PIPE-ACCEPTANCE.md#本次冻结版本的结果)。独立像素复核仍为 `recapture`，不能因数值通过而提升为视觉通过；文档补充不改变上述系统继承核对及源码指纹。
+
+## 三站收拢与放大取景：本轮系统继承核对
+
+2026-10-16 本轮继续采用 Operate 模式和既有方向合同。源码差异仅将三站显示父组的相邻中心间距由 2.2m 收为 1.6m，以实际斜视相机基底拟合边界的八个角点，并纳入具名准备姿态、桌台、标签锚点与腕部相机外壳的取景保护；标签按自身高度上移至头部上方。模型、桌台、圆柱及本地物理坐标均未缩放。现有中文控件、深蓝/青色视觉、三站横排、900px 重排及 58svh 场景规则继续继承，未新增全局设计规则或修复既有样式偏差。
+
+`DESIGN.md`、`.impeccable/design.json`、`dist/multi/styles.css` 与 `dist/multi/pipe-layout.mjs` 均保留原字节及上节 SHA-256；`PRODUCT.md` 仍缺失，本轮未补造产品背景。`work/validation/multi-framing/final.json` 为 59/59，通过 7 个非空参与组合 × 7 种视口的 49 组投影检查，99 项源码哈希与当前文件一致。四种桌面视口中，三台静止机器人投影高度的平均增幅为 18.5%–24.8%；两处桌台净距约为 0.87m、0.90m。这些是源码网格、具名姿态保守边界及透视投影证据，不覆盖任意手动姿态、连续运动或跨站物理碰撞。此次设计检测记录为 `[]`，不能替代像素观察。
+
+`work/validation/multi-framing/browser-final.json` 记录主代理实际最终内联查看的 1280×720 桌面和 390×844 手机宽度，场景分别为 940×720 和 390×489.5px：三台机器人及落地桌台可见、标签位于头部上方，页面无横向溢出；手机聚焦 R1 后三项参与选择保持不变。此前视口调整后的截图尺寸不一致已通过调整视口后重新载入解决，临时模拟设置已清除。此文档核对者只核对源码与报告，未查看这些像素；截图仅内联返回、无保存的桌面/手机 PNG，独立像素复核仍为 `recapture`，不记为通过。
+
+本轮显示调整未在本地重新执行 FULL 物理验收。原圆管 72 件报告仍为既有证据，文件 SHA-256 为 `d091550a8b04b2962d81752c128ebe5090e65363fd9b8d72b634dbb54f5f15ee`，其 30 项物理源码绑定仍全部一致；原单件/堆叠报告的 26/27 项绑定也保持一致。本次追加不把旧物理结果写成新运行，不扩大到真实触摸、屏幕阅读器、其它浏览器或硬件安全结论。

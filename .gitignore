@@ -56,3 +56,8 @@ work/validation/multi-pipes/*
 !work/validation/multi-pipes/design-detector.json
 !work/validation/multi-pipes/finish-review.md
 !work/validation/multi-pipes/scatter-final.json
+work/validation/multi-framing/*
+!work/validation/multi-framing/final.json
+!work/validation/multi-framing/browser-final.json
+!work/validation/multi-framing/design-detector.json
+!work/validation/multi-framing/finish-review.md

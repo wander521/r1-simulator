@@ -4,7 +4,7 @@ import {createWristVision as r1WristVision} from '../r1/r1-workcell.mjs';
 import {createWristVision as dexWristVision} from '../g1/g1-workcell.mjs';
 import {ROBOT_CONFIGS, loadPhysicsAPI, createRobotRuntime} from './robot-runtime.mjs';
 import {MultiRobotCoordinator} from './coordinator.mjs';
-import {STATION_OFFSETS, createSharedWorkcell, addStationTable, configureRenderer} from './workcell.mjs';
+import {STATION_OFFSETS, STATION_VIEW_BOUNDS, fitWorkstationView, createSharedWorkcell, addStationTable, configureRenderer} from './workcell.mjs';
 import {STAGE_NAMES, taskProgress} from './presentation.mjs';
 
 const $ = selector => document.querySelector(selector);
@@ -59,15 +59,21 @@ async function configureTask(task,{randomize=false}={}){
 }
 function fitView(ids=coordinator?.selectedIds??[...stations.keys()]) {
   const bounds=new THREE.Box3();
-  for (const id of ids) {const station=stations.get(id);if(station){station.group.updateMatrixWorld(true);bounds.union(new THREE.Box3().setFromObject(station.group));}}
+  for(const id of ids) {
+    const station=stations.get(id);if(!station)continue;
+    station.group.updateMatrixWorld(true);
+    bounds.union(new THREE.Box3().setFromObject(station.group));
+    const envelope=STATION_VIEW_BOUNDS[id];
+    bounds.union(new THREE.Box3(new THREE.Vector3(...envelope.min),new THREE.Vector3(...envelope.max)).applyMatrix4(station.group.matrixWorld));
+    bounds.expandByPoint(station.group.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));
+    const wrist=visions.get(id)?.wrist;
+    if(wrist){wrist.update(station.cameraLink);wrist.model.updateMatrixWorld(true);bounds.union(new THREE.Box3().setFromObject(wrist.model));}
+  }
   if(bounds.isEmpty())return;
-  const center=bounds.getCenter(new THREE.Vector3()),size=bounds.getSize(new THREE.Vector3());
-  // Looking from the robots' +X/front side makes their common Z row read
-  // left-to-right. Fit horizontal and vertical extents at every viewport.
-  const tan=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
-  const distance=Math.max(size.z/(2*tan*camera.aspect),size.y/(2*tan),size.x/(2*tan))*1.35+size.x*.45;
-  const direction=new THREE.Vector3(1,.33,.10).normalize();
-  orbit.target.copy(center); camera.position.copy(center).addScaledVector(direction,distance);orbit.update();
+  // Include preparation arms, label anchors and rigid camera housings so the
+  // tighter panorama remains complete when a task begins, not only at rest.
+  const view=fitWorkstationView(bounds,{fov:camera.fov,aspect:camera.aspect,viewportHeight:viewport.clientHeight,near:camera.near});
+  orbit.target.copy(view.target);camera.position.copy(view.position);orbit.update();
 }
 function setFocus(id) {
   if(!coordinator?.setFocus(id).ok)return;
@@ -209,7 +215,7 @@ $('#task-mode').addEventListener('change',()=>configureTask($('#task-mode').valu
 
 function project(point){const p=point.clone().project(camera);return {x:(p.x+1)*viewport.clientWidth/2,y:(1-p.y)*viewport.clientHeight/2,visible:p.z>-1&&p.z<1&&Math.abs(p.x)<1&&Math.abs(p.y)<1};}
 function updateLabels(){
-  for(const [id,station]of stations){const tag=$(`.station-tag[data-focus="${id}"]`),p=project(station.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));tag.hidden=!station.group.visible||!p.visible;if(!tag.hidden){tag.style.left=`${p.x}px`;tag.style.top=`${p.y}px`;}}
+  for(const [id,station]of stations){const tag=$(`.station-tag[data-focus="${id}"]`),p=project(station.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));tag.hidden=!station.group.visible||!p.visible;if(!tag.hidden){tag.style.left=`${p.x}px`;tag.style.top=`${p.y-tag.offsetHeight}px`;}}
 }
 function updateCameras() {
   for(const [id,station]of stations){const vision=visions.get(id);vision.wrist.update(station.cameraLink);vision.wrist.setVisible(station.group.visible);}

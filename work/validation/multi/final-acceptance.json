@@ -24,12 +24,12 @@
   },
   "maxG1C5IllegalPenetrationM": 0,
   "reportHashes": {
-    "work/validation/multi/stack-final.json": "e49adf12b2cb83400edb673d14cd93cd48142743af47799073356c12222e7d79",
+    "work/validation/multi/coordinator-final.json": "3b6bb0cee2ad79ded15064fa5e357be192998a931cab88091db751e40fcfa64a",
     "work/validation/multi/physical-final.json": "0e8a86adff925ea66c1abd9fd267b1d4ccd2bcb93fd1d0fb948b16c660f46e3a",
+    "work/validation/multi/stack-final.json": "e49adf12b2cb83400edb673d14cd93cd48142743af47799073356c12222e7d79",
     "work/validation/multi/r1-gripper-final.json": "2284deda7ef727689ab60613c1639b4b9678628b46efc333dbf312026e6d2c73",
-    "work/validation/multi/ui-static-final.json": "4b7a695ccc9f41203b8090e38be1d0f6d998bf433de2926bff74f32445ca4335",
-    "work/validation/multi/pages-final.json": "44e4a9e2504aa350c8171ad15e98b6ac738cb403d9a5b72291836418f4001f22",
-    "work/validation/multi/coordinator-final.json": "3b6bb0cee2ad79ded15064fa5e357be192998a931cab88091db751e40fcfa64a"
+    "work/validation/multi/pages-final.json": "6eb5daf582cfdef0462347744ce0d308750c36898177f40e2950c6023a70a8d3",
+    "work/validation/multi/ui-static-final.json": "f395ed7c04a914c3fc6cd3669c7718ad75b5aac3d6ce7d9a44a62e4d1c7c92e3"
   },
   "sourceHashes": {
     "work/test-multi-coordinator.mjs": "8c8d2c6aade66b6b5d6f1c0e166bbaf816c383aa1fd870fad29cddeb0c274bb6",
@@ -64,12 +64,12 @@
     "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
     "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
     "work/test-multi-r1-gripper.mjs": "2c93ead0bd3dcb33b1a9f32540c53771c1f7c2d831d401c52cbd0266ec551744",
-    "work/test-multi-ui.mjs": "237cd8ba51ae39911144b89c976c0b929dc36dc75405805d2515d2f35497e499",
-    "dist/multi/index.html": "4cd10b6c4a9b72c5c622253f939b341260cf10b57e04b4adfb2bc709fbbe0fd0",
+    "work/test-multi-ui.mjs": "c4a6a29bca826b6ceb8c58edf69cc310abf50e2b28096b63716ab5ddb5e48cbf",
+    "dist/multi/index.html": "4ec60aeb02235a4fec65a858ffcb18cc918dbb8e5d8a115a39ef2c92991d2b76",
     "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
-    "dist/multi/app.mjs": "b2d26315e648cfc77f4f3aacf72b4908cc3bcfb22cf6628ea6fb5e1c7419d235",
+    "dist/multi/app.mjs": "3b08b6154714cdf3f91a67759892e62c48e67aff799b7ba5b8aa894a59f72a05",
     "dist/multi/presentation.mjs": "48b93680fabda7acb78888ed448bb8f301de7d86a23b2da89f8b80946edfd1a4",
-    "dist/multi/workcell.mjs": "1f0705ed7763e558bd582555ea3cf2090446f328def6ece3ef75f13d7185e8e9",
+    "dist/multi/workcell.mjs": "3591f353d7ece026a8177841e370378c57ccafba37d4c8052fa3fef5b9aa6fb6",
     "dist/r1/r1-workcell.mjs": "82268831c91098125d77a5f72e20e31e576a06e8ce749ef79b77dbf00cd75c45",
     "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
     "dist/r1/r1-area-light-textures.mjs": "b7de1b481e8247ff3fa30e44477ec338a90e3f79a921c8affd3c421e88538ce1",
