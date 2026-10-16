@@ -1,50 +1,1075 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-15T10:49:28Z",
-  "title": "Design System: Manipulation simulator",
+  "generatedAt": "2026-10-16T04:17:29Z",
+  "title": "Design System: Robot manipulation simulator",
   "extensions": {
-    "breakpoints": [{"name": "stacked-scene-panel", "value": "900px"}]
+    "scopes": [
+      {
+        "name": "multi",
+        "routes": [
+          "/multi/"
+        ],
+        "themeAttribute": "data-scene",
+        "themes": [
+          {
+            "id": "night",
+            "label": "深空指挥舱",
+            "default": true
+          },
+          {
+            "id": "hangar",
+            "label": "轨道机库"
+          }
+        ],
+        "tokenPrefixes": [
+          "multi-night-",
+          "multi-hangar-",
+          "multi-danger",
+          "multi-object-"
+        ],
+        "source": "dist/multi/styles.css"
+      },
+      {
+        "name": "legacy",
+        "routes": [
+          "/Rebot_Arm_AGV/",
+          "/r1/",
+          "/g1/",
+          "/c5/"
+        ],
+        "tokenPrefixes": [
+          "legacy-"
+        ],
+        "source": "dist/Rebot_Arm_AGV/assets/index-B74gtmCa.css",
+        "rule": "Retain each independent route's existing appearance and route-specific overrides."
+      }
+    ],
+    "colorMeta": {
+      "multi-night-accent": {
+        "role": "primary",
+        "displayName": "Multi Night Accent",
+        "tonalRamp": [
+          "oklch(15% 0.0991 185.91)",
+          "oklch(26% 0.0991 185.91)",
+          "oklch(38% 0.0991 185.91)",
+          "oklch(49% 0.0991 185.91)",
+          "oklch(61% 0.0991 185.91)",
+          "oklch(72% 0.0991 185.91)",
+          "oklch(84% 0.0991 185.91)",
+          "oklch(95% 0.0991 185.91)"
+        ]
+      },
+      "multi-night-selected-field": {
+        "role": "primary",
+        "displayName": "Multi Night Selected Field",
+        "tonalRamp": [
+          "oklch(15% 0.0429 226.73)",
+          "oklch(26% 0.0429 226.73)",
+          "oklch(38% 0.0429 226.73)",
+          "oklch(49% 0.0429 226.73)",
+          "oklch(61% 0.0429 226.73)",
+          "oklch(72% 0.0429 226.73)",
+          "oklch(84% 0.0429 226.73)",
+          "oklch(95% 0.0429 226.73)"
+        ]
+      },
+      "multi-night-selected-ink": {
+        "role": "primary",
+        "displayName": "Multi Night Selected Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0721 183.13)",
+          "oklch(26% 0.0721 183.13)",
+          "oklch(38% 0.0721 183.13)",
+          "oklch(49% 0.0721 183.13)",
+          "oklch(61% 0.0721 183.13)",
+          "oklch(72% 0.0721 183.13)",
+          "oklch(84% 0.0721 183.13)",
+          "oklch(95% 0.0721 183.13)"
+        ]
+      },
+      "multi-night-action": {
+        "role": "primary",
+        "displayName": "Multi Night Action",
+        "tonalRamp": [
+          "oklch(15% 0.0789 185.84)",
+          "oklch(26% 0.0789 185.84)",
+          "oklch(38% 0.0789 185.84)",
+          "oklch(49% 0.0789 185.84)",
+          "oklch(61% 0.0789 185.84)",
+          "oklch(72% 0.0789 185.84)",
+          "oklch(84% 0.0789 185.84)",
+          "oklch(95% 0.0789 185.84)"
+        ]
+      },
+      "multi-night-action-ink": {
+        "role": "primary",
+        "displayName": "Multi Night Action Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0425 212.49)",
+          "oklch(26% 0.0425 212.49)",
+          "oklch(38% 0.0425 212.49)",
+          "oklch(49% 0.0425 212.49)",
+          "oklch(61% 0.0425 212.49)",
+          "oklch(72% 0.0425 212.49)",
+          "oklch(84% 0.0425 212.49)",
+          "oklch(95% 0.0425 212.49)"
+        ]
+      },
+      "multi-night-action-hover": {
+        "role": "primary",
+        "displayName": "Multi Night Action Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0637 183.92)",
+          "oklch(26% 0.0637 183.92)",
+          "oklch(38% 0.0637 183.92)",
+          "oklch(49% 0.0637 183.92)",
+          "oklch(61% 0.0637 183.92)",
+          "oklch(72% 0.0637 183.92)",
+          "oklch(84% 0.0637 183.92)",
+          "oklch(95% 0.0637 183.92)"
+        ]
+      },
+      "multi-hangar-accent": {
+        "role": "primary",
+        "displayName": "Multi Hangar Accent",
+        "tonalRamp": [
+          "oklch(15% 0.0975 79.55)",
+          "oklch(26% 0.0975 79.55)",
+          "oklch(38% 0.0975 79.55)",
+          "oklch(49% 0.0975 79.55)",
+          "oklch(61% 0.0975 79.55)",
+          "oklch(72% 0.0975 79.55)",
+          "oklch(84% 0.0975 79.55)",
+          "oklch(95% 0.0975 79.55)"
+        ]
+      },
+      "multi-hangar-selected-field": {
+        "role": "primary",
+        "displayName": "Multi Hangar Selected Field",
+        "tonalRamp": [
+          "oklch(15% 0.0098 106.82)",
+          "oklch(26% 0.0098 106.82)",
+          "oklch(38% 0.0098 106.82)",
+          "oklch(49% 0.0098 106.82)",
+          "oklch(61% 0.0098 106.82)",
+          "oklch(72% 0.0098 106.82)",
+          "oklch(84% 0.0098 106.82)",
+          "oklch(95% 0.0098 106.82)"
+        ]
+      },
+      "multi-hangar-selected-ink": {
+        "role": "primary",
+        "displayName": "Multi Hangar Selected Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0767 80.08)",
+          "oklch(26% 0.0767 80.08)",
+          "oklch(38% 0.0767 80.08)",
+          "oklch(49% 0.0767 80.08)",
+          "oklch(61% 0.0767 80.08)",
+          "oklch(72% 0.0767 80.08)",
+          "oklch(84% 0.0767 80.08)",
+          "oklch(95% 0.0767 80.08)"
+        ]
+      },
+      "multi-hangar-action": {
+        "role": "primary",
+        "displayName": "Multi Hangar Action",
+        "tonalRamp": [
+          "oklch(15% 0.0864 78.87)",
+          "oklch(26% 0.0864 78.87)",
+          "oklch(38% 0.0864 78.87)",
+          "oklch(49% 0.0864 78.87)",
+          "oklch(61% 0.0864 78.87)",
+          "oklch(72% 0.0864 78.87)",
+          "oklch(84% 0.0864 78.87)",
+          "oklch(95% 0.0864 78.87)"
+        ]
+      },
+      "multi-hangar-action-ink": {
+        "role": "primary",
+        "displayName": "Multi Hangar Action Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0146 89.90)",
+          "oklch(26% 0.0146 89.90)",
+          "oklch(38% 0.0146 89.90)",
+          "oklch(49% 0.0146 89.90)",
+          "oklch(61% 0.0146 89.90)",
+          "oklch(72% 0.0146 89.90)",
+          "oklch(84% 0.0146 89.90)",
+          "oklch(95% 0.0146 89.90)"
+        ]
+      },
+      "multi-hangar-action-hover": {
+        "role": "primary",
+        "displayName": "Multi Hangar Action Hover",
+        "tonalRamp": [
+          "oklch(15% 0.0719 79.02)",
+          "oklch(26% 0.0719 79.02)",
+          "oklch(38% 0.0719 79.02)",
+          "oklch(49% 0.0719 79.02)",
+          "oklch(61% 0.0719 79.02)",
+          "oklch(72% 0.0719 79.02)",
+          "oklch(84% 0.0719 79.02)",
+          "oklch(95% 0.0719 79.02)"
+        ]
+      },
+      "multi-night-success": {
+        "role": "secondary",
+        "displayName": "Multi Night Success",
+        "tonalRamp": [
+          "oklch(15% 0.0937 166.24)",
+          "oklch(26% 0.0937 166.24)",
+          "oklch(38% 0.0937 166.24)",
+          "oklch(49% 0.0937 166.24)",
+          "oklch(61% 0.0937 166.24)",
+          "oklch(72% 0.0937 166.24)",
+          "oklch(84% 0.0937 166.24)",
+          "oklch(95% 0.0937 166.24)"
+        ]
+      },
+      "multi-hangar-success": {
+        "role": "secondary",
+        "displayName": "Multi Hangar Success",
+        "tonalRamp": [
+          "oklch(15% 0.0857 162.17)",
+          "oklch(26% 0.0857 162.17)",
+          "oklch(38% 0.0857 162.17)",
+          "oklch(49% 0.0857 162.17)",
+          "oklch(61% 0.0857 162.17)",
+          "oklch(72% 0.0857 162.17)",
+          "oklch(84% 0.0857 162.17)",
+          "oklch(95% 0.0857 162.17)"
+        ]
+      },
+      "multi-danger": {
+        "role": "secondary",
+        "displayName": "Multi Danger",
+        "tonalRamp": [
+          "oklch(15% 0.0869 10.15)",
+          "oklch(26% 0.0869 10.15)",
+          "oklch(38% 0.0869 10.15)",
+          "oklch(49% 0.0869 10.15)",
+          "oklch(61% 0.0869 10.15)",
+          "oklch(72% 0.0869 10.15)",
+          "oklch(84% 0.0869 10.15)",
+          "oklch(95% 0.0869 10.15)"
+        ]
+      },
+      "multi-night-page": {
+        "role": "neutral",
+        "displayName": "Multi Night Page",
+        "tonalRamp": [
+          "oklch(15% 0.0321 245.67)",
+          "oklch(26% 0.0321 245.67)",
+          "oklch(38% 0.0321 245.67)",
+          "oklch(49% 0.0321 245.67)",
+          "oklch(61% 0.0321 245.67)",
+          "oklch(72% 0.0321 245.67)",
+          "oklch(84% 0.0321 245.67)",
+          "oklch(95% 0.0321 245.67)"
+        ]
+      },
+      "multi-night-panel": {
+        "role": "neutral",
+        "displayName": "Multi Night Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0371 243.32)",
+          "oklch(26% 0.0371 243.32)",
+          "oklch(38% 0.0371 243.32)",
+          "oklch(49% 0.0371 243.32)",
+          "oklch(61% 0.0371 243.32)",
+          "oklch(72% 0.0371 243.32)",
+          "oklch(84% 0.0371 243.32)",
+          "oklch(95% 0.0371 243.32)"
+        ]
+      },
+      "multi-night-surface": {
+        "role": "neutral",
+        "displayName": "Multi Night Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0431 239.46)",
+          "oklch(26% 0.0431 239.46)",
+          "oklch(38% 0.0431 239.46)",
+          "oklch(49% 0.0431 239.46)",
+          "oklch(61% 0.0431 239.46)",
+          "oklch(72% 0.0431 239.46)",
+          "oklch(84% 0.0431 239.46)",
+          "oklch(95% 0.0431 239.46)"
+        ]
+      },
+      "multi-night-field": {
+        "role": "neutral",
+        "displayName": "Multi Night Field",
+        "tonalRamp": [
+          "oklch(15% 0.0423 243.51)",
+          "oklch(26% 0.0423 243.51)",
+          "oklch(38% 0.0423 243.51)",
+          "oklch(49% 0.0423 243.51)",
+          "oklch(61% 0.0423 243.51)",
+          "oklch(72% 0.0423 243.51)",
+          "oklch(84% 0.0423 243.51)",
+          "oklch(95% 0.0423 243.51)"
+        ]
+      },
+      "multi-night-ink": {
+        "role": "neutral",
+        "displayName": "Multi Night Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0109 234.82)",
+          "oklch(26% 0.0109 234.82)",
+          "oklch(38% 0.0109 234.82)",
+          "oklch(49% 0.0109 234.82)",
+          "oklch(61% 0.0109 234.82)",
+          "oklch(72% 0.0109 234.82)",
+          "oklch(84% 0.0109 234.82)",
+          "oklch(95% 0.0109 234.82)"
+        ]
+      },
+      "multi-night-muted": {
+        "role": "neutral",
+        "displayName": "Multi Night Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0302 236.99)",
+          "oklch(26% 0.0302 236.99)",
+          "oklch(38% 0.0302 236.99)",
+          "oklch(49% 0.0302 236.99)",
+          "oklch(61% 0.0302 236.99)",
+          "oklch(72% 0.0302 236.99)",
+          "oklch(84% 0.0302 236.99)",
+          "oklch(95% 0.0302 236.99)"
+        ]
+      },
+      "multi-night-edge": {
+        "role": "neutral",
+        "displayName": "Multi Night Edge",
+        "tonalRamp": [
+          "oklch(15% 0.0436 241.71)",
+          "oklch(26% 0.0436 241.71)",
+          "oklch(38% 0.0436 241.71)",
+          "oklch(49% 0.0436 241.71)",
+          "oklch(61% 0.0436 241.71)",
+          "oklch(72% 0.0436 241.71)",
+          "oklch(84% 0.0436 241.71)",
+          "oklch(95% 0.0436 241.71)"
+        ]
+      },
+      "multi-night-status": {
+        "role": "neutral",
+        "displayName": "Multi Night Status",
+        "tonalRamp": [
+          "oklch(15% 0.0408 229.41)",
+          "oklch(26% 0.0408 229.41)",
+          "oklch(38% 0.0408 229.41)",
+          "oklch(49% 0.0408 229.41)",
+          "oklch(61% 0.0408 229.41)",
+          "oklch(72% 0.0408 229.41)",
+          "oklch(84% 0.0408 229.41)",
+          "oklch(95% 0.0408 229.41)"
+        ]
+      },
+      "multi-night-hud": {
+        "role": "neutral",
+        "displayName": "Multi Night Hud",
+        "tonalRamp": [
+          "oklch(15% 0.0424 240.49)",
+          "oklch(26% 0.0424 240.49)",
+          "oklch(38% 0.0424 240.49)",
+          "oklch(49% 0.0424 240.49)",
+          "oklch(61% 0.0424 240.49)",
+          "oklch(72% 0.0424 240.49)",
+          "oklch(84% 0.0424 240.49)",
+          "oklch(95% 0.0424 240.49)"
+        ]
+      },
+      "multi-hangar-page": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Page",
+        "tonalRamp": [
+          "oklch(15% 0.0216 245.81)",
+          "oklch(26% 0.0216 245.81)",
+          "oklch(38% 0.0216 245.81)",
+          "oklch(49% 0.0216 245.81)",
+          "oklch(61% 0.0216 245.81)",
+          "oklch(72% 0.0216 245.81)",
+          "oklch(84% 0.0216 245.81)",
+          "oklch(95% 0.0216 245.81)"
+        ]
+      },
+      "multi-hangar-panel": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0285 244.71)",
+          "oklch(26% 0.0285 244.71)",
+          "oklch(38% 0.0285 244.71)",
+          "oklch(49% 0.0285 244.71)",
+          "oklch(61% 0.0285 244.71)",
+          "oklch(72% 0.0285 244.71)",
+          "oklch(84% 0.0285 244.71)",
+          "oklch(95% 0.0285 244.71)"
+        ]
+      },
+      "multi-hangar-surface": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0337 237.33)",
+          "oklch(26% 0.0337 237.33)",
+          "oklch(38% 0.0337 237.33)",
+          "oklch(49% 0.0337 237.33)",
+          "oklch(61% 0.0337 237.33)",
+          "oklch(72% 0.0337 237.33)",
+          "oklch(84% 0.0337 237.33)",
+          "oklch(95% 0.0337 237.33)"
+        ]
+      },
+      "multi-hangar-field": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Field",
+        "tonalRamp": [
+          "oklch(15% 0.0307 241.52)",
+          "oklch(26% 0.0307 241.52)",
+          "oklch(38% 0.0307 241.52)",
+          "oklch(49% 0.0307 241.52)",
+          "oklch(61% 0.0307 241.52)",
+          "oklch(72% 0.0307 241.52)",
+          "oklch(84% 0.0307 241.52)",
+          "oklch(95% 0.0307 241.52)"
+        ]
+      },
+      "multi-hangar-ink": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0051 228.82)",
+          "oklch(26% 0.0051 228.82)",
+          "oklch(38% 0.0051 228.82)",
+          "oklch(49% 0.0051 228.82)",
+          "oklch(61% 0.0051 228.82)",
+          "oklch(72% 0.0051 228.82)",
+          "oklch(84% 0.0051 228.82)",
+          "oklch(95% 0.0051 228.82)"
+        ]
+      },
+      "multi-hangar-muted": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0199 230.75)",
+          "oklch(26% 0.0199 230.75)",
+          "oklch(38% 0.0199 230.75)",
+          "oklch(49% 0.0199 230.75)",
+          "oklch(61% 0.0199 230.75)",
+          "oklch(72% 0.0199 230.75)",
+          "oklch(84% 0.0199 230.75)",
+          "oklch(95% 0.0199 230.75)"
+        ]
+      },
+      "multi-hangar-edge": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Edge",
+        "tonalRamp": [
+          "oklch(15% 0.0253 235.49)",
+          "oklch(26% 0.0253 235.49)",
+          "oklch(38% 0.0253 235.49)",
+          "oklch(49% 0.0253 235.49)",
+          "oklch(61% 0.0253 235.49)",
+          "oklch(72% 0.0253 235.49)",
+          "oklch(84% 0.0253 235.49)",
+          "oklch(95% 0.0253 235.49)"
+        ]
+      },
+      "multi-hangar-status": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Status",
+        "tonalRamp": [
+          "oklch(15% 0.0248 234.66)",
+          "oklch(26% 0.0248 234.66)",
+          "oklch(38% 0.0248 234.66)",
+          "oklch(49% 0.0248 234.66)",
+          "oklch(61% 0.0248 234.66)",
+          "oklch(72% 0.0248 234.66)",
+          "oklch(84% 0.0248 234.66)",
+          "oklch(95% 0.0248 234.66)"
+        ]
+      },
+      "multi-hangar-hud": {
+        "role": "neutral",
+        "displayName": "Multi Hangar Hud",
+        "tonalRamp": [
+          "oklch(15% 0.0335 242.20)",
+          "oklch(26% 0.0335 242.20)",
+          "oklch(38% 0.0335 242.20)",
+          "oklch(49% 0.0335 242.20)",
+          "oklch(61% 0.0335 242.20)",
+          "oklch(72% 0.0335 242.20)",
+          "oklch(84% 0.0335 242.20)",
+          "oklch(95% 0.0335 242.20)"
+        ]
+      },
+      "legacy-background": {
+        "role": "neutral",
+        "displayName": "Legacy Background",
+        "tonalRamp": [
+          "oklch(15% 0.0308 264.20)",
+          "oklch(26% 0.0308 264.20)",
+          "oklch(38% 0.0308 264.20)",
+          "oklch(49% 0.0308 264.20)",
+          "oklch(61% 0.0308 264.20)",
+          "oklch(72% 0.0308 264.20)",
+          "oklch(84% 0.0308 264.20)",
+          "oklch(95% 0.0308 264.20)"
+        ]
+      },
+      "legacy-text": {
+        "role": "neutral",
+        "displayName": "Legacy Text",
+        "tonalRamp": [
+          "oklch(15% 0.0175 234.49)",
+          "oklch(26% 0.0175 234.49)",
+          "oklch(38% 0.0175 234.49)",
+          "oklch(49% 0.0175 234.49)",
+          "oklch(61% 0.0175 234.49)",
+          "oklch(72% 0.0175 234.49)",
+          "oklch(84% 0.0175 234.49)",
+          "oklch(95% 0.0175 234.49)"
+        ]
+      },
+      "legacy-focus": {
+        "role": "neutral",
+        "displayName": "Legacy Focus",
+        "tonalRamp": [
+          "oklch(15% 0.0947 215.26)",
+          "oklch(26% 0.0947 215.26)",
+          "oklch(38% 0.0947 215.26)",
+          "oklch(49% 0.0947 215.26)",
+          "oklch(61% 0.0947 215.26)",
+          "oklch(72% 0.0947 215.26)",
+          "oklch(84% 0.0947 215.26)",
+          "oklch(95% 0.0947 215.26)"
+        ]
+      },
+      "legacy-selected": {
+        "role": "primary",
+        "displayName": "Legacy Selected",
+        "tonalRamp": [
+          "oklch(15% 0.1269 213.86)",
+          "oklch(26% 0.1269 213.86)",
+          "oklch(38% 0.1269 213.86)",
+          "oklch(49% 0.1269 213.86)",
+          "oklch(61% 0.1269 213.86)",
+          "oklch(72% 0.1269 213.86)",
+          "oklch(84% 0.1269 213.86)",
+          "oklch(95% 0.1269 213.86)"
+        ]
+      },
+      "legacy-selected-ink": {
+        "role": "primary",
+        "displayName": "Legacy Selected Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0215 218.61)",
+          "oklch(26% 0.0215 218.61)",
+          "oklch(38% 0.0215 218.61)",
+          "oklch(49% 0.0215 218.61)",
+          "oklch(61% 0.0215 218.61)",
+          "oklch(72% 0.0215 218.61)",
+          "oklch(84% 0.0215 218.61)",
+          "oklch(95% 0.0215 218.61)"
+        ]
+      },
+      "legacy-selected-field": {
+        "role": "primary",
+        "displayName": "Legacy Selected Field",
+        "tonalRamp": [
+          "oklch(15% 0.0828 238.38)",
+          "oklch(26% 0.0828 238.38)",
+          "oklch(38% 0.0828 238.38)",
+          "oklch(49% 0.0828 238.38)",
+          "oklch(61% 0.0828 238.38)",
+          "oklch(72% 0.0828 238.38)",
+          "oklch(84% 0.0828 238.38)",
+          "oklch(95% 0.0828 238.38)"
+        ]
+      },
+      "legacy-field": {
+        "role": "neutral",
+        "displayName": "Legacy Field",
+        "tonalRamp": [
+          "oklch(15% 0.0406 253.28)",
+          "oklch(26% 0.0406 253.28)",
+          "oklch(38% 0.0406 253.28)",
+          "oklch(49% 0.0406 253.28)",
+          "oklch(61% 0.0406 253.28)",
+          "oklch(72% 0.0406 253.28)",
+          "oklch(84% 0.0406 253.28)",
+          "oklch(95% 0.0406 253.28)"
+        ]
+      },
+      "legacy-camera": {
+        "role": "neutral",
+        "displayName": "Legacy Camera",
+        "tonalRamp": [
+          "oklch(15% 0.0321 253.03)",
+          "oklch(26% 0.0321 253.03)",
+          "oklch(38% 0.0321 253.03)",
+          "oklch(49% 0.0321 253.03)",
+          "oklch(61% 0.0321 253.03)",
+          "oklch(72% 0.0321 253.03)",
+          "oklch(84% 0.0321 253.03)",
+          "oklch(95% 0.0321 253.03)"
+        ]
+      },
+      "legacy-joint": {
+        "role": "neutral",
+        "displayName": "Legacy Joint",
+        "tonalRamp": [
+          "oklch(15% 0.0416 260.46)",
+          "oklch(26% 0.0416 260.46)",
+          "oklch(38% 0.0416 260.46)",
+          "oklch(49% 0.0416 260.46)",
+          "oklch(61% 0.0416 260.46)",
+          "oklch(72% 0.0416 260.46)",
+          "oklch(84% 0.0416 260.46)",
+          "oklch(95% 0.0416 260.46)"
+        ]
+      },
+      "legacy-muted": {
+        "role": "neutral",
+        "displayName": "Legacy Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0392 221.87)",
+          "oklch(26% 0.0392 221.87)",
+          "oklch(38% 0.0392 221.87)",
+          "oklch(49% 0.0392 221.87)",
+          "oklch(61% 0.0392 221.87)",
+          "oklch(72% 0.0392 221.87)",
+          "oklch(84% 0.0392 221.87)",
+          "oklch(95% 0.0392 221.87)"
+        ]
+      },
+      "multi-object-red": {
+        "role": "secondary",
+        "displayName": "Object Red",
+        "tonalRamp": [
+          "oklch(15% 0.2132 21.60)",
+          "oklch(26% 0.2132 21.60)",
+          "oklch(38% 0.2132 21.60)",
+          "oklch(49% 0.2132 21.60)",
+          "oklch(61% 0.2132 21.60)",
+          "oklch(72% 0.2132 21.60)",
+          "oklch(84% 0.2132 21.60)",
+          "oklch(95% 0.2132 21.60)"
+        ]
+      },
+      "multi-object-blue": {
+        "role": "secondary",
+        "displayName": "Object Blue",
+        "tonalRamp": [
+          "oklch(15% 0.1690 251.28)",
+          "oklch(26% 0.1690 251.28)",
+          "oklch(38% 0.1690 251.28)",
+          "oklch(49% 0.1690 251.28)",
+          "oklch(61% 0.1690 251.28)",
+          "oklch(72% 0.1690 251.28)",
+          "oklch(84% 0.1690 251.28)",
+          "oklch(95% 0.1690 251.28)"
+        ]
+      },
+      "multi-object-yellow": {
+        "role": "secondary",
+        "displayName": "Object Yellow",
+        "tonalRamp": [
+          "oklch(15% 0.1504 92.03)",
+          "oklch(26% 0.1504 92.03)",
+          "oklch(38% 0.1504 92.03)",
+          "oklch(49% 0.1504 92.03)",
+          "oklch(61% 0.1504 92.03)",
+          "oklch(72% 0.1504 92.03)",
+          "oklch(84% 0.1504 92.03)",
+          "oklch(95% 0.1504 92.03)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "multi-body": {
+        "displayName": "Multi body",
+        "purpose": "Chinese-capable native controls and robot names."
+      },
+      "multi-headline": {
+        "displayName": "Multi panel title",
+        "purpose": "Main laboratory title."
+      },
+      "multi-title": {
+        "displayName": "Multi section title",
+        "purpose": "Panel sections and fieldset legend."
+      },
+      "multi-label": {
+        "displayName": "Multi supporting label",
+        "purpose": "Camera captions, hints and compact metadata."
+      },
+      "multi-status": {
+        "displayName": "Multi status",
+        "purpose": "Written runtime progress and recovery."
+      },
+      "legacy-body": {
+        "displayName": "Legacy reference stack",
+        "purpose": "Independent reference workcells only; keep their route-specific size overrides."
+      },
+      "legacy-headline": {
+        "displayName": "Legacy headline",
+        "purpose": "Independent reference page title."
+      }
+    },
+    "shadows": [
+      {
+        "name": "multi-night-hud",
+        "value": "0 5px 18px #04111b30",
+        "purpose": "Night scene switcher, scene help, view controls and station tags."
+      },
+      {
+        "name": "multi-hangar-hud",
+        "value": "0 5px 18px #07121c30",
+        "purpose": "Hangar scene switcher, scene help, view controls and station tags."
+      },
+      {
+        "name": "legacy-control",
+        "value": "inset 0 1px #79dcff0d,0 10px 24px #0003",
+        "purpose": "Preserved independent reference control containers."
+      }
+    ],
+    "motion": [
+      {
+        "name": "multi-button-state",
+        "value": "background-color .18s,border-color .18s,color .18s",
+        "purpose": "Button state changes only when prefers-reduced-motion:no-preference."
+      },
+      {
+        "name": "multi-surface-state",
+        "value": "background-color .22s,color .22s",
+        "purpose": "Panel, status, scene switcher and station-tag state changes only when reduced motion is not requested."
+      },
+      {
+        "name": "multi-reduced-motion",
+        "value": "transition:none;scroll-behavior:auto",
+        "purpose": "Reduced-motion media treatment; no animated architecture or stars."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "multi-stacked-scene-panel",
+        "value": "900px",
+        "scope": "/multi/",
+        "behavior": "At or below: 58svh scene, minimum 340px, above controls."
+      },
+      {
+        "name": "multi-toolbar-single-row",
+        "value": "1280px",
+        "scope": "/multi/",
+        "behavior": "At or above: scene choices share the toolbar row with view actions."
+      },
+      {
+        "name": "legacy-r1-stacked",
+        "value": "800px",
+        "scope": "/r1/"
+      },
+      {
+        "name": "legacy-g1-c5-stacked",
+        "value": "900px",
+        "scope": "/g1/, /c5/"
+      }
+    ],
+    "themeBehavior": {
+      "default": "night",
+      "storageKey": "robot-lab-scene",
+      "invalidOrUnavailableStorage": "Use night; storage writes are optional and caught.",
+      "nativeState": "aria-pressed on scene buttons",
+      "preserve": [
+        "executing task and progress",
+        "robot placement and materials",
+        "camera and orbit state"
+      ],
+      "source": "dist/multi/visuals/theme-controller.mjs"
+    },
+    "rendering": {
+      "scope": "/multi/",
+      "source": "dist/multi/visuals/scene-environment.mjs",
+      "rendererSource": "dist/multi/workcell.mjs",
+      "toneMapping": "ACESFilmicToneMapping",
+      "outputColorSpace": "SRGBColorSpace",
+      "exposure": 1.08,
+      "environmentIntensity": 1.06,
+      "sharedLighting": {
+        "topColor": "#fffcf5",
+        "topIntensity": 34,
+        "ambient": 0.2,
+        "hemisphere": 1.12,
+        "key": 1.6,
+        "fill": 0.65,
+        "shadowKey": {
+          "mapSize": [
+            2048,
+            2048
+          ],
+          "bias": -0.00008,
+          "normalBias": 0.002,
+          "radius": 3
+        }
+      },
+      "scenes": {
+        "night": {
+          "architecture": "Static observatory aperture, ribs and restrained amber edges",
+          "background": "#283d4b",
+          "floor": "#637785",
+          "floorMetalness": 0.43,
+          "floorRoughness": 0.4,
+          "rimIntensity": 0.4,
+          "rimColor": "#ffd3a1",
+          "table": {
+            "top": "#7c929f",
+            "leg": "#4e6778",
+            "plinth": "#698493"
+          }
+        },
+        "hangar": {
+          "architecture": "Blue-steel bay door leaves, diagonal braces and warm work lights",
+          "background": "#293b49",
+          "floor": "#596d7c",
+          "floorMetalness": 0.48,
+          "floorRoughness": 0.44,
+          "rimIntensity": 0.48,
+          "rimColor": "#ffc584",
+          "table": {
+            "top": "#788d9c",
+            "leg": "#4a6274",
+            "plinth": "#657e91"
+          }
+        }
+      },
+      "chartPalettes": {
+        "night": {
+          "grid": "#465e6d",
+          "force": [
+            "#84dfd0",
+            "#edc584"
+          ],
+          "torque": [
+            "#84dfd0",
+            "#9bbcff",
+            "#edc584",
+            "#efa28c",
+            "#d0b1ec",
+            "#aad3a0",
+            "#c2d7e3"
+          ]
+        },
+        "hangar": {
+          "grid": "#536473",
+          "force": [
+            "#9bd7d8",
+            "#f0bc75"
+          ],
+          "torque": [
+            "#9bd7d8",
+            "#a8c5ef",
+            "#f0bc75",
+            "#efa28c",
+            "#d0b1ec",
+            "#bad3a0",
+            "#c2d7e3"
+          ]
+        }
+      },
+      "assets": "Architecture is Three.js geometry; floor seams and linear HDR reflection maps are procedural DataTextures. PMREM is prepared when supported. No new shipping raster asset.",
+      "limitations": "Source-derived rendering parameters are not optical calibration, device-wide visual guarantees or hardware safety evidence."
+    },
+    "provenance": {
+      "mode": "scoped merge",
+      "release": "20261016-lab-2",
+      "sources": {
+        "dist/multi/app.mjs": "f1a14d31c6f6ed4c92dddcb29d3c978ea68d59b187dabe749065ad3d248fd44d",
+        "dist/multi/index.html": "7a884404da88b07b88e03e4bca55c8a28c9c9f015358b355f74b1e2f7c0a9dc8",
+        "dist/multi/styles.css": "613c07f4ff4e52dfa8af4bc172aecf90d33586476ae302eeae86261e035b42a4",
+        "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+        "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+        "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+        "dist/multi/visuals/camera-feeds.mjs": "463854d404b82224ae7424f2d9d4c14e4863534a0a644ba34bf941a8c54a06b9"
+      },
+      "observations": "work/validation/lab-scenes/browser-final.json",
+      "captures": [
+        {
+          "scene": "night",
+          "viewport": [
+            1280,
+            720
+          ],
+          "path": ".impeccable/review/night-desktop.jpg"
+        },
+        {
+          "scene": "hangar",
+          "viewport": [
+            1280,
+            720
+          ],
+          "path": ".impeccable/review/hangar-desktop.jpg"
+        },
+        {
+          "scene": "night",
+          "viewport": [
+            390,
+            844
+          ],
+          "path": ".impeccable/review/night-mobile.jpg"
+        },
+        {
+          "scene": "hangar",
+          "viewport": [
+            390,
+            844
+          ],
+          "path": ".impeccable/review/hangar-mobile.jpg"
+        },
+        {
+          "scene": "night",
+          "viewport": [
+            520,
+            848
+          ],
+          "path": ".impeccable/review/user-520.jpg"
+        }
+      ],
+      "status": "Source extraction and recorded captures; finish-review verdict is owned by the separate review report.",
+      "finishReview": "work/validation/lab-scenes/finish-review.md"
+    },
+    "previewNotes": "Each multi snippet carries locally scoped source-derived theme variables and both theme previews, so it works without the application stylesheet or a framework runtime. Preview values are static. Tonal ramps are synthesized metadata, not additional shipping palette tokens."
   },
   "components": [
     {
-      "name": "Joint annotation",
-      "kind": "chip",
-      "description": "Measured joint label; actual UI expands to a checked target slider.",
-      "html": "<button class=\"ds-joint\">J1　0.0°</button>",
-      "css": ".ds-joint{padding:5px 7px;border:1px solid #8ae8ff;border-radius:10px;background:#030b1de0;color:#eaf7ff;font-variant-numeric:tabular-nums}.ds-joint:hover{border-color:#46d9f6}.ds-joint:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}"
-    },
-    {
-      "name": "Selected task",
+      "name": "Multi · primary action",
       "kind": "button",
-      "description": "Reference task selection style, always paired with a written object label.",
-      "html": "<button class=\"ds-task\" aria-pressed=\"true\">蓝色长方块</button>",
-      "css": ".ds-task{padding:7px 8px;border:1px solid #46d9f6;border-radius:12px;color:#e6f9ff;background:#104f71a3}.ds-task:hover{border-color:#8ae8ff}.ds-task:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}"
+      "refersTo": "multi-night-primary",
+      "description": "Source-derived start-action treatment in both /multi scenes; buttons are preview samples, not simulation commands.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><button class=\"ds-button ds-primary\" type=\"button\">开始抓取 · 3 台</button></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><button class=\"ds-button ds-primary\" type=\"button\">开始抓取 · 3 台</button></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-edge:#3d5669;--ds-surface:#233c4d;--ds-selected-field:#2a4956;--ds-selected:#82eade;--ds-field:#142a3b;--ds-focus:#82eade;--ds-action:#9ae9df;--ds-action-ink:#12363d;--ds-action-hover:#b9f7ed}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-edge:#52626c;--ds-surface:#304451;--ds-selected-field:#4c4c46;--ds-selected:#f3ca86;--ds-field:#1d2d39;--ds-focus:#f3ca86;--ds-action:#f1cc91;--ds-action-ink:#302d25;--ds-action-hover:#ffe0af}.ds-button{font:550 14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:9px 12px;min-height:40px;border:1px solid var(--ds-edge);border-radius:8px;color:var(--ds-ink);background:var(--ds-surface);cursor:pointer;touch-action:manipulation}.ds-button:hover:not(:disabled){background:var(--ds-selected-field);border-color:var(--ds-selected)}.ds-button:active:not(:disabled){background:var(--ds-field)}.ds-button:focus-visible{outline:2px solid var(--ds-focus);outline-offset:3px}.ds-button:disabled{opacity:.45;cursor:not-allowed}@media(prefers-reduced-motion:no-preference){.ds-button{transition:background-color .18s,border-color .18s,color .18s}}.ds-primary{color:var(--ds-action-ink);background:var(--ds-action);border-color:transparent;font-weight:700;min-height:44px}.ds-primary:hover:not(:disabled){background:var(--ds-action-hover);border-color:transparent}.ds-primary:active:not(:disabled){background:var(--ds-action)}"
     },
     {
-      "name": "Camera feed frame",
-      "kind": "custom",
-      "description": "Camera heading and framed image surface; this snippet is not a simulated live feed.",
-      "html": "<figure class=\"ds-camera\"><figcaption>G1 夹爪前置相机</figcaption></figure>",
-      "css": ".ds-camera{margin:0;overflow:hidden;border:1px solid rgba(35,116,160,.55);border-radius:9px;background:#010713;color:#eaf7ff}.ds-camera figcaption{padding:8px;font-size:11px}"
+      "name": "Multi · secondary action",
+      "kind": "button",
+      "refersTo": "multi-night-secondary",
+      "description": "Bordered operation with hover, active, focus and disabled states; companion preview shows its native disabled state.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><button class=\"ds-button\" type=\"button\">全部停止</button> <button class=\"ds-button\" type=\"button\" disabled>复位</button></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><button class=\"ds-button\" type=\"button\">全部停止</button> <button class=\"ds-button\" type=\"button\" disabled>复位</button></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-edge:#3d5669;--ds-surface:#233c4d;--ds-selected-field:#2a4956;--ds-selected:#82eade;--ds-field:#142a3b;--ds-focus:#82eade}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-edge:#52626c;--ds-surface:#304451;--ds-selected-field:#4c4c46;--ds-selected:#f3ca86;--ds-field:#1d2d39;--ds-focus:#f3ca86}.ds-button{font:550 14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:9px 12px;min-height:40px;border:1px solid var(--ds-edge);border-radius:8px;color:var(--ds-ink);background:var(--ds-surface);cursor:pointer;touch-action:manipulation}.ds-button:hover:not(:disabled){background:var(--ds-selected-field);border-color:var(--ds-selected)}.ds-button:active:not(:disabled){background:var(--ds-field)}.ds-button:focus-visible{outline:2px solid var(--ds-focus);outline-offset:3px}.ds-button:disabled{opacity:.45;cursor:not-allowed}@media(prefers-reduced-motion:no-preference){.ds-button{transition:background-color .18s,border-color .18s,color .18s}}"
     },
     {
-      "name": "Control container",
-      "kind": "card",
-      "description": "Existing reference panel grouping, retained rather than redesigned.",
-      "html": "<section class=\"ds-control\">接触与受力</section>",
-      "css": ".ds-control{margin-top:12px;padding:12px;border:1px solid rgba(28,112,165,.68);border-radius:12px;background:linear-gradient(145deg,#051b30eb,#030c1bf5);color:#eaf7ff;box-shadow:inset 0 1px #79dcff0d,0 10px 24px #0003}"
+      "name": "Multi · scene switcher",
+      "kind": "nav",
+      "description": "Two labeled native buttons with aria-pressed; self-contained night and hangar previews expose both selected treatments.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><div class=\"ds-switcher\" role=\"group\" aria-label=\"实验场景\"><button type=\"button\" aria-pressed=\"true\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M20 14.1A8.3 8.3 0 0 1 9.9 4 8.4 8.4 0 1 0 20 14.1Z\"/></svg>深空指挥舱</button><button type=\"button\" aria-pressed=\"false\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 21V6l9-3 9 3v15M7 21V9h10v12M7 13h10M7 17h10\"/></svg>轨道机库</button></div></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><div class=\"ds-switcher\" role=\"group\" aria-label=\"实验场景\"><button type=\"button\" aria-pressed=\"false\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M20 14.1A8.3 8.3 0 0 1 9.9 4 8.4 8.4 0 1 0 20 14.1Z\"/></svg>深空指挥舱</button><button type=\"button\" aria-pressed=\"true\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 21V6l9-3 9 3v15M7 21V9h10v12M7 13h10M7 17h10\"/></svg>轨道机库</button></div></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-hud:#233b4cf5;--ds-hud-shadow:0 5px 18px #04111b30;--ds-selected-field:#2a4956;--ds-selected-ink:#b8fff3;--ds-focus:#82eade}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-hud:#2e404ef5;--ds-hud-shadow:0 5px 18px #07121c30;--ds-selected-field:#4c4c46;--ds-selected-ink:#ffdfaa;--ds-focus:#f3ca86}.ds-switcher{display:flex;gap:3px;padding:3px;border-radius:10px;background:var(--ds-hud);box-shadow:var(--ds-hud-shadow)}.ds-switcher button{display:flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:7px 10px;border:0;border-radius:7px;background:transparent;color:var(--ds-muted);font:550 12px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;cursor:pointer;touch-action:manipulation}.ds-switcher button[aria-pressed=true]{background:var(--ds-selected-field);color:var(--ds-selected-ink)}.ds-switcher button:hover{color:var(--ds-ink)}.ds-switcher button:active{background:var(--ds-selected-field)}.ds-switcher button:focus-visible{outline:2px solid var(--ds-focus);outline-offset:3px}.ds-switcher svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}@media(prefers-reduced-motion:no-preference){.ds-switcher,.ds-switcher button{transition:background-color .22s,color .22s}}"
     },
     {
-      "name": "Joint target slider",
+      "name": "Multi · native task field",
       "kind": "input",
-      "description": "Bounded target, never a direct write to the actual joint state.",
-      "html": "<label class=\"ds-slider\">目标角度<input aria-label=\"目标角度\" type=\"range\" min=\"-1\" max=\"1\" step=\"0.01\" value=\"0\"></label>",
-      "css": ".ds-slider{display:block;color:#a7c8d4;font-size:11px}.ds-slider input{display:block;min-height:28px;margin:0;cursor:pointer;touch-action:pan-y}.ds-slider input:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}.ds-slider input:disabled{cursor:not-allowed;opacity:.5}"
+      "description": "Native labeled select; preserves keyboard affordances and disabled/focus treatments without a custom menu runtime.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><label class=\"ds-field\">任务<select><option>放入同色框</option><option>蓝 → 红 → 黄叠放</option><option>圆管分类</option></select></label></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><label class=\"ds-field\">任务<select><option>放入同色框</option><option>蓝 → 红 → 黄叠放</option><option>圆管分类</option></select></label></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-edge:#3d5669;--ds-field:#142a3b;--ds-focus:#82eade}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-edge:#52626c;--ds-field:#1d2d39;--ds-focus:#f3ca86}.ds-field{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0;font-size:13px}.ds-field select{flex:1;min-width:0;max-width:210px;padding:8px 10px;min-height:42px;border:1px solid var(--ds-edge);border-radius:8px;color:var(--ds-ink);background:var(--ds-field);font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;touch-action:manipulation}.ds-field select:focus-visible{outline:2px solid var(--ds-focus);outline-offset:3px}.ds-field select:disabled{opacity:.45;cursor:not-allowed}"
+    },
+    {
+      "name": "Multi · participant row",
+      "kind": "input",
+      "description": "Labeled native checkbox and source-derived selected row. Readiness is shown as a static sample of the real runtime field.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><div class=\"ds-participant\"><label><input type=\"checkbox\" checked><span class=\"ds-robot-code\">R1</span><span><strong>星海图 R1</strong><small>双臂移动操作机器人</small></span></label><span class=\"ds-load-state\">已就绪</span></div></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><div class=\"ds-participant\"><label><input type=\"checkbox\" checked><span class=\"ds-robot-code\">R1</span><span><strong>星海图 R1</strong><small>双臂移动操作机器人</small></span></label><span class=\"ds-load-state\">已就绪</span></div></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-selected:#82eade;--ds-selected-field:#2a4956;--ds-selected-ink:#b8fff3;--ds-danger:#ffb5bf;--ds-focus:#82eade}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-selected:#f3ca86;--ds-selected-field:#4c4c46;--ds-selected-ink:#ffdfaa;--ds-danger:#ffb5bf;--ds-focus:#f3ca86}.ds-participant{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px;padding:8px;border-radius:8px}.ds-participant:has(input:checked){background:var(--ds-selected-field)}.ds-participant label{display:flex;align-items:center;gap:8px;min-height:36px;min-width:0;cursor:pointer}.ds-participant input{width:18px;height:18px;flex:none;accent-color:var(--ds-selected);cursor:pointer;touch-action:manipulation}.ds-participant input:focus-visible{outline:2px solid var(--ds-focus);outline-offset:3px}.ds-participant input:disabled{cursor:not-allowed}.ds-robot-code{width:27px;flex:none;color:var(--ds-selected-ink);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}.ds-participant strong{font-size:14px;font-weight:650}.ds-participant small{display:block;font-size:12px;color:var(--ds-muted)}.ds-load-state{max-width:66px;color:var(--ds-muted);font-size:12px;text-align:right}.ds-load-state.ds-error{color:var(--ds-danger)}"
+    },
+    {
+      "name": "Multi · object choice",
+      "kind": "button",
+      "refersTo": "multi-night-selected",
+      "description": "Selected task choice pairs its physical-object swatch with a written label. Theme changes selection chrome only.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><button class=\"ds-button ds-object\" type=\"button\" aria-pressed=\"true\"><i class=\"ds-swatch\" aria-hidden=\"true\"></i>蓝色长方块</button></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><button class=\"ds-button ds-object\" type=\"button\" aria-pressed=\"true\"><i class=\"ds-swatch\" aria-hidden=\"true\"></i>蓝色长方块</button></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-edge:#3d5669;--ds-surface:#233c4d;--ds-selected-field:#2a4956;--ds-selected:#82eade;--ds-field:#142a3b;--ds-focus:#82eade;--ds-selected-ink:#b8fff3}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-edge:#52626c;--ds-surface:#304451;--ds-selected-field:#4c4c46;--ds-selected:#f3ca86;--ds-field:#1d2d39;--ds-focus:#f3ca86;--ds-selected-ink:#ffdfaa}.ds-button{font:550 14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:9px 12px;min-height:40px;border:1px solid var(--ds-edge);border-radius:8px;color:var(--ds-ink);background:var(--ds-surface);cursor:pointer;touch-action:manipulation}.ds-button:hover:not(:disabled){background:var(--ds-selected-field);border-color:var(--ds-selected)}.ds-button:active:not(:disabled){background:var(--ds-field)}.ds-button:focus-visible{outline:2px solid var(--ds-focus);outline-offset:3px}.ds-button:disabled{opacity:.45;cursor:not-allowed}@media(prefers-reduced-motion:no-preference){.ds-button{transition:background-color .18s,border-color .18s,color .18s}}.ds-object{font-size:12px;padding:9px 3px;display:flex;flex-direction:column;gap:7px;align-items:center;white-space:nowrap;font-weight:500}.ds-object[aria-pressed=true]{border-color:var(--ds-selected);background:var(--ds-selected-field);color:var(--ds-selected-ink)}.ds-swatch{display:block;width:13px;height:13px;border:1px solid #172e3c25;background:#218ae9}"
+    },
+    {
+      "name": "Multi · camera frame",
+      "kind": "card",
+      "description": "Caption and 4:3 display surface from /multi. The explicitly labeled static canvas contains no fabricated live-camera pixels.",
+      "html": "<div class=\"ds-previews\"><div class=\"ds-lab\" data-scene=\"night\"><p class=\"ds-scene-name\">深空指挥舱</p><figure class=\"ds-camera\"><figcaption>工作台俯视</figcaption><canvas width=\"240\" height=\"180\" role=\"img\" aria-label=\"相机框样例，未连接实时画面\"></canvas></figure></div><div class=\"ds-lab\" data-scene=\"hangar\"><p class=\"ds-scene-name\">轨道机库</p><figure class=\"ds-camera\"><figcaption>工作台俯视</figcaption><canvas width=\"240\" height=\"180\" role=\"img\" aria-label=\"相机框样例，未连接实时画面\"></canvas></figure></div></div>",
+      "css": ".ds-previews{display:flex;flex-wrap:wrap;gap:12px}.ds-lab{color-scheme:dark;font:14px/1.55 -apple-system,BlinkMacSystemFont,\"PingFang SC\",\"Microsoft YaHei\",sans-serif;padding:12px;color:var(--ds-ink);background:var(--ds-panel)}.ds-scene-name{font-size:12px;color:var(--ds-muted);margin:0 0 8px}.ds-lab[data-scene=\"night\"]{--ds-ink:#edf5fa;--ds-panel:#1b2e3d;--ds-muted:#b3c8d6;--ds-edge:#3d5669;--ds-surface:#233c4d}.ds-lab[data-scene=\"hangar\"]{--ds-ink:#f0f4f6;--ds-panel:#273541;--ds-muted:#bac9d1;--ds-edge:#52626c;--ds-surface:#304451}.ds-camera{margin:0;max-width:240px;overflow:hidden;border:1px solid var(--ds-edge);border-radius:8px;background:var(--ds-surface)}.ds-camera figcaption{padding:7px;font-size:12px;color:var(--ds-ink)}.ds-camera canvas{display:block;width:100%;height:auto;aspect-ratio:4/3;background:#0b1520}"
+    },
+    {
+      "name": "Legacy · joint annotation and target",
+      "kind": "chip",
+      "description": "Preserved reference joint chip and native bounded slider; values are static examples, not measured live output. Independent R1/G1/C5 scope only.",
+      "html": "<div class=\"ds-legacy-joint\"><button class=\"ds-joint\" type=\"button\" aria-expanded=\"false\">J1　0.0°</button><label class=\"ds-slider\">目标角度<input aria-label=\"目标角度\" type=\"range\" min=\"-1\" max=\"1\" step=\"0.01\" value=\"0\"></label></div>",
+      "css": ".ds-legacy-joint{font:11px/1.4 \"SF Pro Text\",\"PingFang SC\",\"Hiragino Sans\",\"Noto Sans JP\",\"Microsoft YaHei\",sans-serif;color:#eaf7ff}.ds-joint{padding:5px 7px;border:1px solid var(--callout-color,#3b4a44);border-radius:10px;background:#030b1de0;color:#eaf7ff;font:inherit;font-variant-numeric:tabular-nums;cursor:pointer;touch-action:manipulation}.ds-joint:hover{border-color:#46d9f6}.ds-joint:active{background:#051324}.ds-joint:focus-visible,.ds-slider input:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}.ds-slider{display:block;margin-top:10px;color:#a7c8d4;font-size:11px}.ds-slider input{display:block;min-height:28px;margin:0;cursor:pointer;touch-action:pan-y}.ds-slider input:disabled{cursor:not-allowed;opacity:.5}"
+    },
+    {
+      "name": "Legacy · selected task",
+      "kind": "button",
+      "refersTo": "legacy-selected-task",
+      "description": "Preserved independent-workcell selection style, paired with a written object label; does not adopt either multi scene palette.",
+      "html": "<button class=\"ds-legacy-task\" type=\"button\" aria-pressed=\"true\">蓝色长方块</button>",
+      "css": ".ds-legacy-task{padding:6px 3px;border:1px solid #46d9f6;border-radius:8px;color:#e6f9ff;background:#104f71a3;font:11px/1.4 \"SF Pro Text\",\"PingFang SC\",\"Hiragino Sans\",\"Noto Sans JP\",\"Microsoft YaHei\",sans-serif;cursor:pointer;touch-action:manipulation}.ds-legacy-task:hover{border-color:#8ae8ff}.ds-legacy-task:active{background:#051324}.ds-legacy-task:focus-visible{outline:2px solid #8ae8ff;outline-offset:3px}.ds-legacy-task:disabled{cursor:not-allowed;opacity:.5}"
+    },
+    {
+      "name": "Legacy · control container and camera",
+      "kind": "card",
+      "refersTo": "legacy-camera-frame",
+      "description": "Preserved reference gradient control container and framed feed; the canvas is a static frame sample, not a live camera.",
+      "html": "<section class=\"ds-legacy-control\"><h2>实时相机</h2><figure class=\"ds-legacy-camera\"><figcaption>G1 夹爪前置相机</figcaption><canvas width=\"240\" height=\"180\" role=\"img\" aria-label=\"独立工作台相机框样例，未连接实时画面\"></canvas></figure></section>",
+      "css": ".ds-legacy-control{margin-top:12px;padding:12px;border:1px solid rgba(28,112,165,.68);border-radius:12px;background:linear-gradient(145deg,#051b30eb,#030c1bf5);color:#eaf7ff;box-shadow:inset 0 1px #79dcff0d,0 10px 24px #0003;font:11px/1.4 \"SF Pro Text\",\"PingFang SC\",\"Hiragino Sans\",\"Noto Sans JP\",\"Microsoft YaHei\",sans-serif}.ds-legacy-control h2{font-size:13px;margin:0 0 10px}.ds-legacy-camera{margin:0;overflow:hidden;border:1px solid rgba(35,116,160,.55);border-radius:9px;background:#010713}.ds-legacy-camera figcaption{min-height:32px;padding:5px 6px;font-size:11px}.ds-legacy-camera canvas{display:block;width:100%;height:auto;max-width:240px;aspect-ratio:4/3;background:#010713}"
     }
   ],
   "narrative": {
-    "overview": "Preserve the supplied reference workcell and extend its working controls to G1. This is not a visual redesign.",
-    "dos": ["Keep blank-space camera gestures separate from object editing.", "Preserve Chinese labels and task-colored physical objects."],
-    "donts": ["Do not claim a rendered visual pass from geometry tests.", "Do not change the preserved R1 page when extending G1."]
+    "northStar": "Lit orbital robot laboratory",
+    "overview": "The multi-robot route (`/multi/`) presents real robot finishes and working manipulation inside a grounded, illuminated orbital laboratory. 深空指挥舱 is the default: graphite-blue structure, a static observatory aperture, neutral-white overhead pools and mint controls. 轨道机库 is its companion: blue-steel bay doors, structural braces, warmer work-light details and champagne controls. Both preserve the approved depth and clear shell lighting; the owner rejected the overly white 极昼实验室.\n\nThis is a scoped merge of the built multi-robot design and the incumbent system. `/Rebot_Arm_AGV/`, `/r1/`, `/g1/` and `/c5/` retain the supplied dark-blue/cyan reference appearance. Tokens prefixed `multi-` apply only to `/multi/`; `legacy-` tokens preserve the independent reference workcells. Object swatches are shared by the two multi scenes and describe task choices. The route-specific composition and direction decision live in `work/MULTI-SURFACE-BRIEF.md`.",
+    "keyCharacteristics": [
+      "Clearly lit robot shells against graphite and steel-blue architecture.",
+      "Compact, Chinese-labeled native controls with visible selected and focus states.",
+      "One in-place scene choice changes the set, floor, light and interface together.",
+      "Independent reference workcells keep their existing visual identity."
+    ],
+    "rules": [
+      {
+        "name": "The Route Scope Rule",
+        "body": "Apply each token family only to its named routes; this document does not recolor the independent workcells.",
+        "section": "overview"
+      },
+      {
+        "name": "The Object Meaning Rule",
+        "body": "Theme changes must preserve red/blue/yellow object meaning and written labels. Scene accents never replace robot finishes or task colors.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measurement Rule",
+        "body": "Use tabular numerals for counts, progress, angles and measured output. Keep source units and state honest: radians/degrees, N, N·m and mm stay attached to the corresponding values; unavailable measurements display a placeholder rather than fabricated telemetry.",
+        "section": "typography"
+      },
+      {
+        "name": "The Shell Legibility Rule",
+        "body": "Reveal original robot materials with light and reflection; do not repaint the robot with an emissive theme color.",
+        "section": "elevation"
+      },
+      {
+        "name": "The In-Place Scene Rule",
+        "body": "Scene choice is presentation only: it changes the environment, floor, lighting, interface and chart palette without resetting an executing task, moving the robots or replacing the current camera view. Remember a valid choice when browser storage is available; unavailable or invalid storage falls back to 深空指挥舱.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do apply the two orbital laboratory palettes only to `/multi/` and preserve the independent reference routes.",
+      "Do keep neutral overhead lighting, readable original robot finishes and grounded worktables in both multi scenes.",
+      "Do pair task colors, status colors and scene selection with written labels and exposed native states.",
+      "Do preserve keyboard focus, native form behavior, reduced-motion handling and reachable scene choices at phone widths.",
+      "Do keep blank-space camera gestures separate from object editing and scene switching separate from task state.",
+      "Do keep measurements tied to real simulation output and distinguish software evidence from hardware behavior."
+    ],
+    "donts": [
+      "Don't reintroduce the rejected white 极昼实验室 as the companion to 深空指挥舱.",
+      "Don't recolor robot meshes, task objects or independent workcells with the scene accent.",
+      "Don't add invented telemetry, fake live-feed imagery or decorative perpetual motion.",
+      "Don't reset tasks, alter robot placement or replace the current view when switching scenes.",
+      "Don't infer visual, touch, optical or real-robot approval from numerical simulation tests.",
+      "Don't approximate supplied robot silhouettes or replace G1 Dex1 with photographed five-finger hands."
+    ]
   }
 }

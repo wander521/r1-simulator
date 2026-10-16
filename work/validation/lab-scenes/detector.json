@@ -1,0 +1,11 @@
+{
+  "invocations": 1,
+  "exitCode": 0,
+  "primaryFindings": 0,
+  "advisoryScope": "New multi-only palette, radius and font scale compared against the incumbent legacy DESIGN.md before approved redesign documentation.",
+  "capturedOutputTruncated": true,
+  "originalOutputTokens": 9057,
+  "rawPartialOutput": "work/validation/lab-scenes/detector-output-truncated.txt",
+  "targets": ["dist/multi/index.html", "dist/multi/styles.css", "dist/multi/app.mjs", "dist/multi/workcell.mjs", "dist/multi/visuals"],
+  "limitation": "Only the single command exit status and partial emitted advisory details are retained; no exact advisory count is claimed. Detector was not rerun."
+}

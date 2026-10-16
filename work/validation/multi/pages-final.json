@@ -1,6 +1,6 @@
 {
   "pass": true,
-  "generatedAt": "2026-10-16T02:52:04.865Z",
+  "generatedAt": "2026-10-16T04:12:50.394Z",
   "checks": 16,
   "results": [
     {
@@ -30,7 +30,7 @@
     {
       "name": "Complete multi browser module graph resolves under local and GitHub project bases",
       "pass": true,
-      "modules": 34
+      "modules": 37
     },
     {
       "name": "Literal dynamic URDFLoader import is included in the checked module graph",
@@ -72,7 +72,7 @@
     {
       "name": "All inspected source and asset bytes stayed frozen during the check",
       "pass": true,
-      "files": 141
+      "files": 144
     }
   ],
   "scope": "Static publication and path integrity only. No browser, rendered-pixel, pointer/touch, runtime loading, physics, grasp, or synchronization acceptance is claimed. JavaScript templates and computed non-literal resources are not statically interpreted; the known import.meta.url helper is checked through every literal call argument.",
@@ -80,7 +80,7 @@
     "http://127.0.0.1:4173/",
     "https://wander521.github.io/r1-simulator/"
   ],
-  "moduleCount": 34,
+  "moduleCount": 37,
   "modules": [
     "c5/c5-3ds.mjs",
     "c5/c5-dynamics.mjs",
@@ -102,6 +102,9 @@
     "multi/presentation.mjs",
     "multi/r1-safe-dynamics.mjs",
     "multi/robot-runtime.mjs",
+    "multi/visuals/camera-feeds.mjs",
+    "multi/visuals/scene-environment.mjs",
+    "multi/visuals/theme-controller.mjs",
     "multi/workcell.mjs",
     "r1/grasp-controller.mjs",
     "r1/grasp-kinematics.mjs",
@@ -117,7 +120,7 @@
     "vendor/three.core.min.js",
     "vendor/three.module.min.js"
   ],
-  "resourceEdges": 318,
+  "resourceEdges": 353,
   "edges": [
     {
       "from": "index.html",
@@ -139,265 +142,451 @@
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/robot-runtime.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/robot-runtime.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/presentation.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/presentation.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/presentation.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/presentation.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-kinematics.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-kinematics.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-kinematics.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-profile.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-profile.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-profile.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-profile.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/robot-runtime.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/presentation.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/presentation.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../multi/workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "multi/workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/grasp-kinematics.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "r1/r1-workcell.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-app.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-app.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/grasp-controller.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
       "kind": "import-map",
       "to": "c5/c5-profile.mjs"
     },
     {
       "from": "multi/index.html",
-      "specifier": "./styles.css?v=20261016-compact-1",
+      "specifier": "../multi/app.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261016-lab-2",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "./styles.css?v=20261016-lab-2",
       "kind": "html-resource",
       "to": "multi/styles.css"
     },
     {
       "from": "multi/index.html",
-      "specifier": "./app.mjs?v=20261016-native-camera-3",
+      "specifier": "./app.mjs?v=20261016-lab-2",
       "kind": "html-resource",
       "to": "multi/app.mjs"
     },
@@ -1050,6 +1239,18 @@
       "to": "multi/presentation.mjs"
     },
     {
+      "from": "multi/app.mjs",
+      "specifier": "./visuals/theme-controller.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./visuals/camera-feeds.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
       "from": "vendor/three.module.min.js",
       "specifier": "./three.core.min.js",
       "kind": "static-import",
@@ -1220,9 +1421,15 @@
     },
     {
       "from": "multi/workcell.mjs",
-      "specifier": "../g1/g1-workcell.mjs",
+      "specifier": "./visuals/scene-environment.mjs",
       "kind": "static-import",
-      "to": "g1/g1-workcell.mjs"
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/visuals/camera-feeds.mjs",
+      "specifier": "../../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
     },
     {
       "from": "r1/mujoco-runtime.mjs",
@@ -1423,6 +1630,12 @@
       "specifier": "./URDFClasses.js",
       "kind": "static-import",
       "to": "vendor/URDFClasses.js"
+    },
+    {
+      "from": "multi/visuals/scene-environment.mjs",
+      "specifier": "../../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
     },
     {
       "from": "vendor/STLLoader.js",
@@ -2039,7 +2252,7 @@
     "c5": 19
   },
   "wasmBytes": 10125422,
-  "checkedFiles": 141,
+  "checkedFiles": 144,
   "checkedDirectories": [
     "multi/",
     "r1/assets"
@@ -2127,17 +2340,20 @@
     "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
     "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
     "dist/index.html": "54fbaaad13e88f3dce82715c813a762676d795e7c3c660f11c29039bd3c911df",
-    "dist/multi/app.mjs": "a085e623aa65d36ba16464cb0ae6ea3f13712230519fa0684e66e269b5a28f33",
+    "dist/multi/app.mjs": "f1a14d31c6f6ed4c92dddcb29d3c978ea68d59b187dabe749065ad3d248fd44d",
     "dist/multi/coordinator.mjs": "753f29ce1ce3c674dc2e90b219b0727c69ced712a48410ee7dc0e472a4538abc",
-    "dist/multi/index.html": "945fd94066cf1098e290efdbad5422945703ce9c0c4fdbb449ea6416a48a6517",
+    "dist/multi/index.html": "7a884404da88b07b88e03e4bca55c8a28c9c9f015358b355f74b1e2f7c0a9dc8",
     "dist/multi/pipe-controller.mjs": "4ab6cfa0b5955ea14d091167af0b2b990ef51ea15db479b963cbb92ba50de557",
     "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
     "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
     "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
     "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
     "dist/multi/robot-runtime.mjs": "f0f56f07d714b29517c4940371f9bdf1f5ef8492718bea5697c4a0d7c01099f7",
-    "dist/multi/styles.css": "ea466c85d41a4c3a7ad459276a60199206c76e95f9a8c88127ef38ec0f9e94cd",
-    "dist/multi/workcell.mjs": "bd2f968634d10cb606935ee78fd70c931882d12a549c30e91353915d0d64fcfc",
+    "dist/multi/styles.css": "613c07f4ff4e52dfa8af4bc172aecf90d33586476ae302eeae86261e035b42a4",
+    "dist/multi/visuals/camera-feeds.mjs": "463854d404b82224ae7424f2d9d4c14e4863534a0a644ba34bf941a8c54a06b9",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
     "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",
     "dist/r1/assets/meshes/left_arm_base_link.STL": "50c9cb62e64318590dac0a27bc537dc1241cb25df242777ccd5d477cba918c1c",
     "dist/r1/assets/meshes/left_arm_link1.STL": "58174ba705d63833d699f4b3c2f0ef331c58ef66c7fa93e249dab999d9857bc9",
@@ -2193,6 +2409,6 @@
     "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
     "dist/vendor/URDFClasses.js": "791a4cc6e9eb35bfe26ea9b37e422c375a0d75302c594badd78815ff24032680",
     "dist/vendor/URDFLoader.js": "46f09a13c310c8c9ec4d19e4f0413ef580c6b5136690f5dc8710eae766dd6181",
-    "work/test-multi-pages.mjs": "6a80105647fb3f88e063768b4013df73ab89d7d443ccf8d5b4e97384cd235f91"
+    "work/test-multi-pages.mjs": "556eca295fa5185920d95d9233b592594bc065358451b5b5b539f8019ba67e3d"
   }
 }

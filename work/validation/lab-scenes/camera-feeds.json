@@ -1,0 +1,281 @@
+{
+  "pass": true,
+  "checks": 13,
+  "results": [
+    {
+      "name": "Real display shader embeds bundled ACES and sRGB chunks exactly once without automatic double encoding",
+      "pass": true,
+      "detail": {
+        "threeRevision": "180",
+        "toneChunkSHA256": "0e82e57cbc2747a20901ef227078f8d440edd6fb7cab807c525e09e5fe000e78",
+        "colorChunkSHA256": "d04a499add70b59ba722840e0d826dfa0c294a166ef57e8036c76049b7f0aab5"
+      }
+    },
+    {
+      "name": "CPU reference retains bundled matrix order, ACES exposure scale and exact OETF coefficients",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "linear": [
+              0,
+              0,
+              0
+            ],
+            "exposure": 1,
+            "expected": [
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "linear": [
+              0.003,
+              0.003,
+              0.003
+            ],
+            "exposure": 1,
+            "expected": [
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "linear": [
+              0.18,
+              0.18,
+              0.18
+            ],
+            "exposure": 1,
+            "expected": [
+              127,
+              127,
+              127
+            ]
+          },
+          {
+            "linear": [
+              0.18,
+              0.18,
+              0.18
+            ],
+            "exposure": 2.4,
+            "expected": [
+              188,
+              188,
+              188
+            ]
+          },
+          {
+            "linear": [
+              1,
+              1,
+              1
+            ],
+            "exposure": 1,
+            "expected": [
+              226,
+              226,
+              226
+            ]
+          },
+          {
+            "linear": [
+              4,
+              4,
+              4
+            ],
+            "exposure": 1,
+            "expected": [
+              250,
+              250,
+              250
+            ]
+          },
+          {
+            "linear": [
+              4,
+              0.18,
+              0.02
+            ],
+            "exposure": 1,
+            "expected": [
+              255,
+              187,
+              107
+            ]
+          },
+          {
+            "linear": [
+              0.02,
+              0.18,
+              4
+            ],
+            "exposure": 2.4,
+            "expected": [
+              210,
+              200,
+              255
+            ]
+          }
+        ],
+        "scope": "Independent CPU calculation of bundled GLSL coefficients; no GPU precision/readback claim."
+      }
+    },
+    {
+      "name": "HDR capability uses one linear HalfFloat scene target followed by one explicit RGBA8 display target",
+      "pass": true
+    },
+    {
+      "name": "Feed draws disable automatic mapping/XR/shadow refresh while original renderer and target state are restored",
+      "pass": true
+    },
+    {
+      "name": "Caller receives display-encoded bytes in the same supplied buffer, with no flip or canvas/context operation",
+      "pass": true
+    },
+    {
+      "name": "New theme exposures are read on every render without replacing targets, geometry, material, or renderer",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 fallback still transforms display color and explicitly reports unrecoverable HDR clipping",
+      "pass": true,
+      "detail": {
+        "hdrWhite4": [
+          250,
+          250,
+          250
+        ],
+        "fallbackWhite4": [
+          226,
+          226,
+          226
+        ],
+        "limitationExposed": true
+      }
+    },
+    {
+      "name": "Absent extension API conservatively selects the same declared LDR fallback",
+      "pass": true
+    },
+    {
+      "name": "Scene draw, display draw and readback failures restore all tested state and leave the pass reusable",
+      "pass": true
+    },
+    {
+      "name": "Invalid dimensions, buffers, exposure and non-ACES main mapping fail before renderer mutations",
+      "pass": true
+    },
+    {
+      "name": "Reentrant rendering and in-render disposal are rejected without losing the outer pass state",
+      "pass": true
+    },
+    {
+      "name": "Idempotent disposal releases exactly the four owned resources and no scene, renderer or original target resource",
+      "pass": true
+    },
+    {
+      "name": "Module ownership and application integration boundary remain restricted to the new visual pass",
+      "pass": true
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/multi/visuals/camera-feeds.mjs": "463854d404b82224ae7424f2d9d4c14e4863534a0a644ba34bf941a8c54a06b9",
+    "work/test-multi-camera-feeds.mjs": "ad2bf7e233150b66022982e6a0431d428416fcc1fadb026ce70ccf0a17376066",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "gpuExecuted": false,
+  "shaderCompileExecuted": false,
+  "scope": "Actual production shader source embeds bundled THREE r180 chunks. Independent CPU coefficient/golden reference plus declared renderer-contract fixtures verify two-pass ordering, capability fallback, current exposure, state restoration, resource reuse and ownership. Fixture bytes are CPU-generated, not GPU readback.",
+  "nativeFollowUp": "Completed separately: native night/hangar HDR execution, desktop/phone captures and active-task night-to-hangar switching are recorded in work/validation/lab-scenes/browser-final.json. This CPU/contract report does not execute GPU shaders; RGBA8 fallback remains contract-tested and was not triggered on that GPU.",
+  "recordedAt": "2026-10-16",
+  "integration": {
+    "import": "import {createCameraFeedPass} from './visuals/camera-feeds.mjs';",
+    "create": "const cameraFeedPass = createCameraFeedPass(renderer);",
+    "render": "cameraFeedPass.render(scene, camera, feedPixels);",
+    "preserve": "Caller keeps the existing bottom-up row flip and putImageData, and owns the main renderer and task state.",
+    "mode": "hdr-half-float or ldr-rgba8-fallback; capabilities includes dimensions, transform and explicit fallback limitation.",
+    "mainMapping": "Requires main renderer.toneMapping === THREE.ACESFilmicToneMapping; latest toneMappingExposure is sampled every render."
+  },
+  "nativeReview": {
+    "status": "passed-native-hdr-night-hangar",
+    "report": "work/validation/lab-scenes/browser-final.json",
+    "reportSHA256": "db2994f41cf03d490191adc4be2228d7465c9392f0db192a876d9e9b0b3aaeb9",
+    "performedBy": "Root via native Codex in-app Chromium/CUA; separate from this CPU/contract suite.",
+    "release": "20261016-lab-2",
+    "sourceAndImageBindings": 13,
+    "sourceAndImageMismatches": [],
+    "gpuExecuted": true,
+    "shaderCompilationObserved": true,
+    "feedMode": "hdr-half-float",
+    "environmentMode": "prebaked-pmrem",
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "captureCoverage": [
+      {
+        "scene": "night",
+        "viewport": [
+          1280,
+          720
+        ],
+        "fullPage": false
+      },
+      {
+        "scene": "hangar",
+        "viewport": [
+          1280,
+          720
+        ],
+        "fullPage": false
+      },
+      {
+        "scene": "night",
+        "viewport": [
+          390,
+          844
+        ],
+        "fullPage": true
+      },
+      {
+        "scene": "hangar",
+        "viewport": [
+          390,
+          844
+        ],
+        "fullPage": true
+      },
+      {
+        "scene": "night",
+        "viewport": [
+          520,
+          848
+        ],
+        "fullPage": false
+      }
+    ],
+    "actualTaskThemeSwitch": {
+      "task": "sort",
+      "before": "night",
+      "after": "hangar",
+      "finalState": "complete",
+      "returnedTheme": "night"
+    },
+    "fallback": {
+      "status": "contract-tested-only",
+      "gpuExecuted": false,
+      "triggeredOnObservedGPU": false
+    },
+    "independentPixelPassByThisCPUReviewer": false,
+    "limitations": [
+      "One actual native blue sort run with three robots; not a new full sorting/stacking/72-cylinder physical regression.",
+      "The second theme switch back to night was observed after the run completed; only night→hangar was observed during active movement.",
+      "GPU HalfFloat feed path executed; RGBA8 fallback is contract-tested, not exercised on this GPU.",
+      "Software exposure and camera geometry are not hardware optical calibration."
+    ]
+  }
+}

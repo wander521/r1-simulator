@@ -1,10 +1,14 @@
 import * as THREE from '../vendor/three.module.min.js';
-import {createWorkcell, configureRenderer} from '../g1/g1-workcell.mjs';
+import {createSceneEnvironment,SCENE_PALETTES} from './visuals/scene-environment.mjs';
 
 // Only display transforms differ between stations. Their original metres,
 // tabletop heights and local physical coordinates are retained exactly.
 export const STATION_OFFSETS = Object.freeze({r1:[0,0,1.6], g1:[0,0,0], c5:[0,0,-1.6]});
-export {configureRenderer};
+export function configureRenderer(renderer,{THREE:engine=THREE}={}) {
+  renderer.toneMapping=engine.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=SCENE_PALETTES.night.exposure;
+  renderer.outputColorSpace=engine.SRGBColorSpace;
+}
 
 // Display envelopes measured from source visual meshes in named preparation
 // poses (R1 additionally samples crouched waist yaw -1..1 in .1 rad steps
@@ -38,19 +42,8 @@ export function fitWorkstationView(bounds,{fov=42,aspect=1,viewportHeight=720,ne
   return{target,position:target.clone().addScaledVector(direction,distance),distance,fillX,fillY};
 }
 
-export function createSharedWorkcell(scene) {
-  const base = createWorkcell(scene, {THREE, TABLE_HEIGHT:.9});
-  base.table.removeFromParent();
-  base.table.traverse(node => {node.geometry?.dispose(); if (node.material) node.material.dispose();});
-  base.group.name = 'shared-three-robot-workcell';
-  const key = base.lights.find(light => light.isDirectionalLight && light.castShadow);
-  if (key) {
-    key.position.set(3,4.8,1);
-    Object.assign(key.shadow.camera, {left:-4.2, right:4.2, top:4.2, bottom:-4.2, far:12});
-    key.shadow.camera.updateProjectionMatrix();
-  }
-  for (const light of base.lights) if (light.isRectAreaLight) light.width *= 3;
-  return base;
+export function createSharedWorkcell(scene,{renderer,initialScene='night'}={}) {
+  return createSceneEnvironment(scene,{renderer,initialScene});
 }
 
 export function addStationTable(station) {

@@ -9,6 +9,8 @@ __pycache__/
 !.env.example
 coverage/
 outputs/*
+# Local design-direction calibration cache is not part of the release evidence.
+/.impeccable/questions/
 # Keep final source-bound G1 evidence; intermediate probes are reproducible
 # local development output, not release acceptance records.
 work/validation/g1/*

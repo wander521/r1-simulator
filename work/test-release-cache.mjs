@@ -5,11 +5,15 @@ import {createServer} from 'node:http';
 
 // URL/import-map resolution and a deliberately stale HTTP-body cache model.
 // This is not a browser engine, native cache inspection or rendered-pixel QA.
-const root=new URL('../dist/',import.meta.url),release='20261016-native-camera-3';
+const root=new URL('../dist/',import.meta.url);
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'../work/validation/release-cache/final.json';
+const releases={'multi/index.html':'20261016-lab-2','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'};
+const visualPaths=['multi/visuals/theme-controller.mjs','multi/visuals/scene-environment.mjs','multi/visuals/camera-feeds.mjs'];
 const protectedPaths=['multi/app.mjs','multi/robot-runtime.mjs','multi/presentation.mjs','multi/workcell.mjs',
   'r1/r1-app.mjs','r1/grasp-controller.mjs','r1/grasp-kinematics.mjs','r1/r1-workcell.mjs',
   'c5/c5-app.mjs','c5/grasp-controller.mjs','c5/c5-profile.mjs'];
-const protectedSet=new Set(protectedPaths),pages=['multi/index.html','r1/index.html','c5/index.html'];
+const protectedSet=new Set([...protectedPaths,...visualPaths]),pages=Object.keys(releases);
+const protectedFor=page=>page.startsWith('multi/')?[...protectedPaths,...visualPaths]:protectedPaths;
 const bytesByPath=new Map(),sourceHashes={},checks=[],graphs=[],negativeFixtures=[],requests=[];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function bytes(path){
@@ -58,29 +62,37 @@ check('Reference scanner excludes prose/comments and covers literal static/dynam
 });
 const htmlByPage=new Map();for(const page of pages)htmlByPage.set(page,(await bytes(page)).toString('utf8'));
 for(const base of ['http://127.0.0.1:4173/','https://wander521.github.io/r1-simulator/'])for(const page of pages)check(`${base}${page}: exact aliases share one release identity`,()=>{
-  const pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapFor(html,pageURL),entries=[...html.matchAll(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"][^>]*>/gi)];assert.equal(entries.length,1);assert.equal(new URL(entries[0][1],pageURL).searchParams.get('v'),release);
-  for(const path of protectedPaths){const canonical=new URL(path,base).href,target=new URL(`${path}?v=${release}`,base).href;assert.equal(map.get(canonical),target);assert.equal(map.get(target),target);}
+  const release=releases[page],pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapFor(html,pageURL),entries=[...html.matchAll(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"][^>]*>/gi)];assert.equal(entries.length,1);assert.equal(new URL(entries[0][1],pageURL).searchParams.get('v'),release);
+  for(const path of protectedFor(page)){const canonical=new URL(path,base).href,target=new URL(`${path}?v=${release}`,base).href;assert.equal(map.get(canonical),target);assert.equal(map.get(target),target);}
+  if(page==='multi/index.html'){
+    for(const path of protectedFor(page))assert.equal(map.get(new URL(`${path}?v=20261016-lab-1`,base).href),new URL(`${path}?v=${release}`,base).href,'Previously opened lab-1 module aliases must advance to the new multi cohort');
+    const stylesheet=html.match(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];assert(stylesheet);
+    assert.equal(new URL(stylesheet,pageURL).searchParams.get('v'),release,'The replacement multi stylesheet must advance with the entry cohort');
+  }
   assert.equal(map.get('three'),new URL('vendor/three.module.min.js',base).href);
   assert.equal(map.get('three/examples/jsm/loaders/STLLoader.js'),new URL('vendor/STLLoader.js',base).href);
   for(const[key,target]of map){assert(!target.includes('/g1/')&&!/[.]wasm(?:[?]|$)|[.]urdf(?:[?]|$)|[.]STL(?:[?]|$)/.test(target),'Do not bust unchanged G1/source assets');if(key.startsWith('http')){assert.equal(new URL(target).searchParams.get('v'),release);assert.equal(new URL(target).pathname,new URL(key).pathname);}}
 });
 const server=createServer(async(request,response)=>{try{
   const url=new URL(request.url,'http://test.invalid'),path=decodeURIComponent(url.pathname.replace(/^\/r1-simulator\//,'').replace(/^\//,''));
-  const stale=protectedSet.has(path)&&url.searchParams.get('v')!==release;
+  const cohort=String(request.headers['x-release-cache-cohort']??'');assert(Object.values(releases).includes(cohort));
+  const stale=protectedSet.has(path)&&url.searchParams.get('v')!==cohort;
   const body=stale?Buffer.from(`/* STALE_HTTP_BODY:${path} */ export const __staleRelease = true;\n`):await bytes(path);
-  response.writeHead(200,{'Content-Type':path.endsWith('.html')?'text/html; charset=utf-8':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=31536000, immutable','X-Release-Cache-Fixture':stale?'old-body':'current-body'});response.end(body);requests.push({url:request.url,path,stale});
+  response.writeHead(200,{'Content-Type':path.endsWith('.html')?'text/html; charset=utf-8':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=31536000, immutable','X-Release-Cache-Fixture':stale?'old-body':'current-body'});response.end(body);requests.push({url:request.url,path,cohort,stale});
 }catch(error){response.writeHead(404);response.end(error.message);}});
 await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});
 const origin=`http://127.0.0.1:${server.address().port}`,bodyCache=new Map(),parsed=new Map(),observedPaths=new Set();
 let hits=0,misses=0;
-async function cachedHTTP(url){
-  if(bodyCache.has(url)){hits++;return bodyCache.get(url);}
-  misses++;const response=await fetch(url);assert(response.ok,`${response.status} ${url}`);const record={body:await response.text(),stale:response.headers.get('X-Release-Cache-Fixture')==='old-body',cacheControl:response.headers.get('Cache-Control')};bodyCache.set(url,record);return record;
+async function cachedHTTP(url,cohort){
+  // Explicitly separate emulated immutable-cache sessions for the independently
+  // published pages. Their releases need not be equal or rewrite each other.
+  const key=cohort+' '+url;if(bodyCache.has(key)){hits++;return bodyCache.get(key);}
+  misses++;const response=await fetch(url,{headers:{'X-Release-Cache-Cohort':cohort}});assert(response.ok,`${response.status} ${url}`);const record={body:await response.text(),stale:response.headers.get('X-Release-Cache-Fixture')==='old-body',cacheControl:response.headers.get('Cache-Control')};bodyCache.set(key,record);return record;
 }
 async function walk(page,base,mapOverride){
-  const pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapOverride??mapFor(html,pageURL),entry=html.match(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"]/i)[1];
+  const release=releases[page],pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapOverride??mapFor(html,pageURL),entry=html.match(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"]/i)[1];
   const queue=[new URL(entry,pageURL).href],visited=new Set(),protectedIdentities=new Map();let edges=0;
-  while(queue.length){const url=queue.shift();if(visited.has(url))continue;visited.add(url);const record=await cachedHTTP(url);assert(!record.stale,`Stale protected dependency reached: ${url}`);
+  while(queue.length){const url=queue.shift();if(visited.has(url))continue;visited.add(url);const record=await cachedHTTP(url,release);assert(!record.stale,`Stale protected dependency reached: ${url}`);
     const path=new URL(url).pathname.slice(new URL(base).pathname.length);observedPaths.add(path);
     if(protectedSet.has(path)){assert.equal(new URL(url).searchParams.get('v'),release);const identities=protectedIdentities.get(path)??new Set();identities.add(url);protectedIdentities.set(path,identities);}
     const key=sha(record.body);if(!parsed.has(key))parsed.set(key,references(record.body));
@@ -88,7 +100,8 @@ async function walk(page,base,mapOverride){
   }
   for(const[path,identities]of protectedIdentities)assert.equal(identities.size,1,`${path}: duplicated release identity`);
   if(page==='c5/index.html'||page==='multi/index.html')assert(protectedIdentities.has('c5/c5-profile.mjs'));
-  return{page,base,modules:visited.size,edges,protectedIdentities:Object.fromEntries([...protectedIdentities].map(([path,ids])=>[path,[...ids]]))};
+  if(page==='multi/index.html')for(const path of visualPaths)assert(protectedIdentities.has(path),`New visual dependency not exercised: ${path}`);
+  return{page,release,base,modules:visited.size,edges,protectedIdentities:Object.fromEntries([...protectedIdentities].map(([path,ids])=>[path,[...ids]]))};
 }
 try{
   for(const prefix of ['/','/r1-simulator/']){
@@ -96,22 +109,23 @@ try{
     // Prewarm every canonical/old-query alias with an explicitly old body.
     // The server keeps returning old bodies for these URLs throughout the run;
     // only a new, uniformly mapped release URL can reach current source bytes.
-    const allMap=mapFor(htmlByPage.get('multi/index.html'),new URL('multi/index.html',base));
-    for(const[key]of allMap)if(key.startsWith(origin)&&new URL(key).searchParams.get('v')!==release){const old=await cachedHTTP(key);assert(old.stale);assert.match(old.cacheControl,/max-age=31536000/);}
-    const oldURL=new URL('r1/r1-workcell.mjs',base).href;assert((await cachedHTTP(oldURL)).stale);
+    const release=releases['multi/index.html'],allMap=mapFor(htmlByPage.get('multi/index.html'),new URL('multi/index.html',base));
+    for(const page of pages){const cohort=releases[page],map=mapFor(htmlByPage.get(page),new URL(page,base));
+      for(const[key]of map)if(key.startsWith(origin)&&new URL(key).searchParams.get('v')!==cohort){const old=await cachedHTTP(key,cohort);assert(old.stale);assert.match(old.cacheControl,/max-age=31536000/);}}
+    const oldURL=new URL('r1/r1-workcell.mjs',base).href;assert((await cachedHTTP(oldURL,release)).stale);
     for(const page of pages){const detail=await walk(page,base);graphs.push(detail);check(`${prefix}${page}: fresh graph bypasses still-stale HTTP dependencies`,()=>detail);}
     const htmlOnly=new Map([...allMap].filter(([key])=>!key.startsWith('http')));
     await assert.rejects(walk('multi/index.html',base,htmlOnly),/Stale protected dependency/);negativeFixtures.push({prefix,name:'entry-only-version-does-not-refresh-grandchildren',rejected:true});
     const c5Map=mapFor(htmlByPage.get('c5/index.html'),new URL('c5/index.html',base));c5Map.delete(new URL('c5/c5-profile.mjs?v=20261015-c5-3',base).href);
     await assert.rejects(walk('c5/index.html',base,c5Map),/Stale protected dependency/);negativeFixtures.push({prefix,name:'missing-old-profile-query-alias-is-rejected',rejected:true});
-    assert((await cachedHTTP(oldURL)).stale,'The old canonical body must remain stale after successful fresh entry loads');
+    assert((await cachedHTTP(oldURL,release)).stale,'The old canonical body must remain stale after successful fresh entry loads');
   }
-  for(const path of protectedPaths)assert(observedPaths.has(path),`Protected module not exercised: ${path}`);
+  for(const path of protectedSet)assert(observedPaths.has(path),`Protected module not exercised: ${path}`);
   for(const[path,value]of bytesByPath)assert.equal(sha(await readFile(new URL(path,root))),sha(value),`Source changed during release-cache verification: ${path}`);
   sourceHashes['work/test-release-cache.mjs']=sha(await readFile(new URL(import.meta.url)));
-  const report={pass:true,release,checks:checks.length,results:checks,negativeFixtures,graphs,sourceHashes,sourceFrozen:true,
-    httpCacheSimulation:{actualLoopbackHTTP:true,bodyCacheEmulated:true,oldCanonicalAndQueryAliasesRemainStale:true,cacheHits:hits,cacheMisses:misses,httpRequests:requests.length,staleHTTPRequests:requests.filter(row=>row.stale).length},
+  const report={pass:true,releases,checks:checks.length,results:checks,negativeFixtures,graphs,sourceHashes,sourceFrozen:true,
+    httpCacheSimulation:{actualLoopbackHTTP:true,bodyCacheEmulated:true,pageCohortSessions:true,oldCanonicalAndQueryAliasesRemainStale:true,cacheHits:hits,cacheMisses:misses,httpRequests:requests.length,staleHTTPRequests:requests.filter(row=>row.stale).length},
     scope:'Standard exact-URL/import-map normalization at local and GitHub subpath bases, literal source module-graph traversal, plus actual loopback HTTP responses and an explicitly emulated immutable body cache. Not a browser module loader, browser HTTP-cache inspection, executed app, rendered-pixel or physical test.'};
-  const directory=new URL('../work/validation/release-cache/',root);await mkdir(directory,{recursive:true});await writeFile(new URL('final.json',directory),JSON.stringify(report,null,2)+'\n');
-  console.log(JSON.stringify({pass:true,release,checks:checks.length,graphs:graphs.length,negativeFixtures:negativeFixtures.length,sourceFrozen:true,cacheHits:hits}));
+  const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});await writeFile(destination,JSON.stringify(report,null,2)+'\n');
+  console.log(JSON.stringify({pass:true,releases,checks:checks.length,graphs:graphs.length,negativeFixtures:negativeFixtures.length,sourceFrozen:true,cacheHits:hits}));
 }finally{await new Promise(resolve=>server.close(resolve));}

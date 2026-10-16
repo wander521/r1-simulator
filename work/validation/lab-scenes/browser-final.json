@@ -1,0 +1,204 @@
+{
+  "kind": "native-browser-observation",
+  "observedAt": "2026-10-16",
+  "origin": "http://127.0.0.1:4173/multi/",
+  "browser": "Codex in-app Chromium via CUA",
+  "release": "20261016-lab-2",
+  "sources": {
+    "dist/multi/app.mjs": "f1a14d31c6f6ed4c92dddcb29d3c978ea68d59b187dabe749065ad3d248fd44d",
+    "dist/multi/index.html": "7a884404da88b07b88e03e4bca55c8a28c9c9f015358b355f74b1e2f7c0a9dc8",
+    "dist/multi/styles.css": "613c07f4ff4e52dfa8af4bc172aecf90d33586476ae302eeae86261e035b42a4",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/multi/visuals/camera-feeds.mjs": "463854d404b82224ae7424f2d9d4c14e4863534a0a644ba34bf941a8c54a06b9",
+    ".impeccable/review/night-desktop.jpg": "a88cc4d0911fd321f29daba7d7166c81b2942409b7ba796c8ce850c7af0fcfe9",
+    ".impeccable/review/hangar-desktop.jpg": "bb578a04d8452346820b99adb94b21effe1a3e56e2d8c34bcd0a5cb46df9c863",
+    ".impeccable/review/night-mobile.jpg": "153e07816d082f1819ac66bba706001154931d9fa7140c190085bb3a5808bb71",
+    ".impeccable/review/hangar-mobile.jpg": "98d27bab0b58388c160859126885615ff58fa86a3387179e5ab066df31d99376",
+    ".impeccable/review/user-520.jpg": "b4641e341aea9faf6e1ac5cf9cf1c7f60b7a65106d8833ebfa45c06c63263600",
+    ".impeccable/review/running-switch.jpg": "5aed587c89b69626c8cd929c524be3a131cd220dfb10045a09cfa102c9075426"
+  },
+  "captureMatrix": [
+    {
+      "scene": "night",
+      "viewport": [
+        1280,
+        720
+      ],
+      "path": ".impeccable/review/night-desktop.jpg"
+    },
+    {
+      "scene": "hangar",
+      "viewport": [
+        1280,
+        720
+      ],
+      "path": ".impeccable/review/hangar-desktop.jpg"
+    },
+    {
+      "scene": "night",
+      "viewport": [
+        390,
+        844
+      ],
+      "capture": [
+        390,
+        2443
+      ],
+      "fullPage": true,
+      "path": ".impeccable/review/night-mobile.jpg"
+    },
+    {
+      "scene": "hangar",
+      "viewport": [
+        390,
+        844
+      ],
+      "capture": [
+        390,
+        2443
+      ],
+      "fullPage": true,
+      "path": ".impeccable/review/hangar-mobile.jpg"
+    },
+    {
+      "scene": "night",
+      "viewport": [
+        520,
+        848
+      ],
+      "path": ".impeccable/review/user-520.jpg"
+    }
+  ],
+  "validation": {
+    "allCapturesSavedAndOpened": true,
+    "mobileDocumentWidth": 390,
+    "mobileViewportWidth": 390,
+    "loadingComplete": true,
+    "consoleWarnings": [],
+    "consoleErrors": [],
+    "gpuExecuted": true,
+    "feedMode": "hdr-half-float",
+    "environmentMode": "prebaked-pmrem",
+    "environmentError": null,
+    "environmentResources": {
+      "geometries": 28,
+      "materials": 13,
+      "textures": 4,
+      "environmentTargets": 2,
+      "lights": 8,
+      "topLights": 3,
+      "shadowLights": 1
+    }
+  },
+  "runningSwitch": {
+    "task": "sort",
+    "object": "blue",
+    "participantIds": [
+      "r1",
+      "g1",
+      "c5"
+    ],
+    "before": {
+      "theme": "night",
+      "tick": 107988,
+      "simTime": 107.988,
+      "batch": 1,
+      "startTick": 92297,
+      "startTimes": {
+        "r1": 92.29700000007665,
+        "g1": 92.29700000007665,
+        "c5": 92.29700000007665
+      },
+      "camera": [
+        6.740719603159606,
+        3.006029923378717,
+        0.5618931761895767
+      ],
+      "state": "running",
+      "stationStates": [
+        "release",
+        "place",
+        "return"
+      ],
+      "progress": [
+        0.75,
+        0.6785714285714286,
+        0.9642857142857143
+      ],
+      "historyLengths": [
+        10,
+        10,
+        10
+      ]
+    },
+    "after": {
+      "theme": "hangar",
+      "tick": 108298,
+      "simTime": 108.298,
+      "batch": 1,
+      "startTick": 92297,
+      "startTimes": {
+        "r1": 92.29700000007665,
+        "g1": 92.29700000007665,
+        "c5": 92.29700000007665
+      },
+      "camera": [
+        6.740719603159606,
+        3.006029923378717,
+        0.5618931761895767
+      ],
+      "state": "running",
+      "stationStates": [
+        "retreat",
+        "release",
+        "return"
+      ],
+      "progress": [
+        0.8214285714285714,
+        0.75,
+        0.9642857142857143
+      ],
+      "historyLengths": [
+        11,
+        11,
+        10
+      ]
+    },
+    "capture": ".impeccable/review/running-switch.jpg",
+    "returnedTheme": "night",
+    "final": {
+      "tick": 127039,
+      "state": "complete",
+      "batch": 1,
+      "startTick": 92297,
+      "stationStates": [
+        "complete",
+        "complete",
+        "complete"
+      ],
+      "dualContact": [
+        true,
+        true,
+        true
+      ],
+      "liftMetres": [
+        0.12889564475169601,
+        0.10966039853319332,
+        0.13942472849686838
+      ],
+      "planErrors": [
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "limitations": [
+    "One actual native blue sort run with three robots; not a new full sorting/stacking/72-cylinder physical regression.",
+    "The second theme switch back to night was observed after the run completed; only night→hangar was observed during active movement.",
+    "GPU HalfFloat feed path executed; RGBA8 fallback is contract-tested, not exercised on this GPU.",
+    "Software exposure and camera geometry are not hardware optical calibration."
+  ]
+}

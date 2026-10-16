@@ -6,6 +6,8 @@ import {ROBOT_CONFIGS, loadPhysicsAPI, createRobotRuntime} from './robot-runtime
 import {MultiRobotCoordinator} from './coordinator.mjs';
 import {STATION_OFFSETS, STATION_VIEW_BOUNDS, fitWorkstationView, createSharedWorkcell, addStationTable, configureRenderer} from './workcell.mjs';
 import {STAGE_NAMES, taskProgress} from './presentation.mjs';
+import {createThemeController} from './visuals/theme-controller.mjs';
+import {createCameraFeedPass} from './visuals/camera-feeds.mjs';
 
 const $ = selector => document.querySelector(selector);
 const canvas = $('#main-view'), viewport = $('#viewport');
@@ -14,7 +16,8 @@ const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
 renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 configureRenderer(renderer,{THREE}); camera.layers.enable(1);
-const workcell = createSharedWorkcell(scene);
+const workcell = createSharedWorkcell(scene,{renderer,initialScene:'night'});
+const sceneThemes = createThemeController({workcell,root:document.documentElement,buttons:document.querySelectorAll('[data-scene-switch]')});
 const orbit = new OrbitControls(camera,canvas);
 orbit.enableDamping=true; orbit.dampingFactor=.12;
 orbit.minDistance=.6; orbit.maxDistance=22; orbit.maxPolarAngle=Math.PI*.485;
@@ -28,7 +31,7 @@ let lastFrame=0, accumulator=0, lastUI=0, lastFeed=0, lastStatus='', physicsStep
 const frameTimes=[], renderTimes=[];
 let lastViewFit=null;
 const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
-const feedTarget=new THREE.WebGLRenderTarget(240,180), feedPixels=new Uint8Array(240*180*4);
+const cameraFeedPass=createCameraFeedPass(renderer), feedPixels=new Uint8Array(240*180*4);
 const feeds=[$('#overhead-feed'),$('#wrist-feed')].map(element=>({element,ctx:element.getContext('2d'),image:new ImageData(240,180)}));
 const contactGroup=new THREE.Group();scene.add(contactGroup);
 const contactGeometry=new THREE.SphereGeometry(.004,8,6), contactMaterial=new THREE.MeshBasicMaterial({color:0x5ee8c9});
@@ -37,7 +40,7 @@ const contactMarkers=Array.from({length:24},()=>{const marker=new THREE.Mesh(con
 for (const config of Object.values(ROBOT_CONFIGS)) {
   loadStates.set(config.id,{progress:0,message:'准备加载'});
   const row=document.createElement('div'); row.className='robot-option'; row.dataset.robot=config.id;
-  row.innerHTML=`<label><input type="checkbox" data-robot="${config.id}" checked disabled><span><strong>${config.label}</strong><small>${config.id==='c5'?'六轴机械臂 · DEX1':config.id==='g1'?'固定站位 · DEX1':'双臂移动操作机器人'}</small></span></label><span class="load-state" id="load-${config.id}">准备加载</span>`;
+  row.innerHTML=`<label><input type="checkbox" data-robot="${config.id}" checked disabled><span class="robot-code" aria-hidden="true">${config.id.toUpperCase()}</span><span><strong>${config.label}</strong><small>${config.id==='c5'?'六轴机械臂 · DEX1':config.id==='g1'?'固定站位 · DEX1':'双臂移动操作机器人'}</small></span></label><span class="load-state" id="load-${config.id}">准备加载</span>`;
   $('#robot-options').append(row);
   const result=document.createElement('div'); result.className='result-row'; result.dataset.robot=config.id;
   result.innerHTML=`<div class="result-head"><button type="button" data-focus="${config.id}" disabled>${config.label}</button><output>加载中</output></div><div class="result-track"><progress max="1" value="0" aria-label="${config.label}抓取进度"></progress><span>0%</span></div><p class="result-note"></p>`;
@@ -176,7 +179,7 @@ window.addEventListener('keydown',event=>{
 
 function drawChart(element,values,colors,{signed=false,minMax=1}={}) {
   const ctx=element.getContext('2d'),w=element.width,h=element.height;ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle='#264658';ctx.lineWidth=1;for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(0,h*i/4);ctx.lineTo(w,h*i/4);ctx.stroke();}
+  ctx.strokeStyle=workcell.palette.chartGrid;ctx.lineWidth=1;for(let i=1;i<4;i++){ctx.beginPath();ctx.moveTo(0,h*i/4);ctx.lineTo(w,h*i/4);ctx.stroke();}
   const scale=Math.max(minMax,...values.flatMap(row=>row.map(Math.abs)))*1.15;
   colors.forEach((color,axis)=>{ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();values.forEach((row,index)=>{const x=index*w/179,y=signed?h/2-row[axis]/scale*(h/2-5):h-5-row[axis]/scale*(h-10);index?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.stroke();});
 }
@@ -210,8 +213,8 @@ function updateUI() {
   history.force.push(m.forces);history.torque.push(telemetry.joints.map(joint=>joint.torque));
   if(history.force.length>180){history.force.shift();history.torque.shift();}
   $('#contact-count').textContent=m.count;$('#contact-force').textContent=`${m.force.toFixed(2)} N`;$('#tcp-error').textContent=`${(focus.controller.wristError()*1000).toFixed(2)} mm`;
-  drawChart($('#force-chart'),history.force,['#5ee0ff','#f5d76e'],{minMax:1});
-  drawChart($('#torque-chart'),history.torque,['#5ee0ff','#8fd7c1','#f4d471','#ff9b79','#e1a3f4','#7fa5ff','#d5edf6'].slice(0,telemetry.joints.length),{signed:true,minMax:2});
+  drawChart($('#force-chart'),history.force,workcell.palette.chartForce,{minMax:1});
+  drawChart($('#torque-chart'),history.torque,workcell.palette.chartTorque.slice(0,telemetry.joints.length),{signed:true,minMax:2});
   $('#joint-readout').textContent=telemetry.joints.map((joint,index)=>`J${index+1} ${(joint.actual*180/Math.PI).toFixed(1)}°`).join(' · ');
   $('#single-link').href=`../${focus.id}/`;$('#single-link').textContent=`打开 ${focus.config.shortLabel} 独立控制页`;
   contactMarkers.forEach((marker,index)=>{const contact=m.contacts[index];marker.visible=Boolean(contact&&contact.force>.015);if(contact){marker.position.copy(focus.localToWorld(contact.position));marker.scale.setScalar(1+Math.min(contact.force,5)*.15);}});
@@ -229,7 +232,7 @@ function updateCameras() {
   vision.overhead.position.copy(top);vision.overhead.up.set(1,0,0);vision.overhead.lookAt(focus.localToWorld(new THREE.Vector3(focus.config.tableCenter,focus.config.tableHeight,0)));vision.overhead.updateMatrixWorld(true);
   const shadowUpdate=renderer.shadowMap.autoUpdate;renderer.shadowMap.autoUpdate=false;
   for(const [index,camera]of [vision.overhead,vision.camera].entries()){
-    renderer.setRenderTarget(feedTarget);renderer.render(scene,camera);renderer.readRenderTargetPixels(feedTarget,0,0,240,180,feedPixels);
+    cameraFeedPass.render(scene,camera,feedPixels);
     const image=feeds[index].image;for(let row=0;row<180;row++)image.data.set(feedPixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4);
     feeds[index].ctx.putImageData(image,0,0);
   }
@@ -274,7 +277,7 @@ async function boot(){
           loadingProgress({id,part:'model',value:0,label:`${ROBOT_CONFIGS[id].label} 连接中断，重试加载一次…`});
           station=await createRobotRuntime({id,api,offset:STATION_OFFSETS[id],onProgress:loadingProgress});
         }
-        addStationTable(station);scene.add(station.group);station.group.updateMatrixWorld(true);
+        const tableGroup=addStationTable(station);workcell.registerStationTable?.(station,tableGroup);scene.add(station.group);station.group.updateMatrixWorld(true);
         const bounds=new THREE.Box3().setFromObject(station.visualRobot);station.labelHeight=bounds.max.y+.13;
         const wristCamera=new THREE.PerspectiveCamera(65,4/3,.008,12),overhead=new THREE.PerspectiveCamera(70,4/3,.02,12);overhead.layers.enable(1);
         const wrist=(id==='r1'?r1WristVision:dexWristVision)({scene,THREE,camera:wristCamera});
@@ -290,7 +293,7 @@ async function boot(){
     notice=stations.size===3?'三台机器人已就绪；可单选或多选，点击开始后同时抓取。':'部分机器人加载失败；可使用已就绪的机器人，或刷新重试。';
     updateUI();fitView();
     window.multiDiagnostics=()=>({ ...coordinator.snapshot, selectedObject,preparing,drag:drag?{robotId:drag.station.id,objectId:drag.target.id,mode:drag.mode}:null,
-      camera:camera.position.toArray(),viewFit:lastViewFit,orbitEnabled:orbit.enabled,frames:{averageMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1),averageWorkMs:renderTimes.reduce((a,b)=>a+b,0)/(renderTimes.length||1),physicsSteps,backlogSeconds:accumulator},
+      camera:camera.position.toArray(),viewFit:lastViewFit,orbitEnabled:orbit.enabled,sceneTheme:sceneThemes.activeId,cameraFeedMode:cameraFeedPass.mode,scenePresentation:{environmentMode:workcell.environmentMode,environmentError:workcell.environmentError,resources:workcell.resourceStats},frames:{averageMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1),averageWorkMs:renderTimes.reduce((a,b)=>a+b,0)/(renderTimes.length||1),physicsSteps,backlogSeconds:accumulator},
       view:coordinator.selectedIds.map(id=>({id,origin:stations.get(id).group.position.toArray(),canonicalParent:stations.get(id).robot.parent?.name??null,objects:stations.get(id).snapshot.objects.map(object=>({...object,screen:project(new THREE.Vector3(...object.worldPosition))}))})),
       loading:Object.fromEntries(loadStates)});
   }catch(error){console.error(error);$('#loading-message').textContent=`加载失败：${error.message}`;$('#loading').querySelector('h2').textContent='场景暂时无法加载';$('#status').textContent='加载失败，请刷新重试';}

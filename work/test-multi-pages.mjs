@@ -174,6 +174,8 @@ while (queue.length) {
   }
 }
 assert(modules.has('multi/robot-runtime.mjs') && modules.has('vendor/URDFLoader.js'));
+for(const module of ['theme-controller','scene-environment','camera-feeds'])
+  assert(modules.has(`multi/visuals/${module}.mjs`),`New visual module missing from the recursively checked browser graph: ${module}`);
 for (const id of ['r1', 'g1', 'c5']) assert(modules.has(`${id}/grasp-controller.mjs`) && modules.has(`${id}/${id}-dynamics.mjs`));
 check('Complete multi browser module graph resolves under local and GitHub project bases', {modules: modules.size});
 check('Literal dynamic URDFLoader import is included in the checked module graph');

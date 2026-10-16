@@ -15,6 +15,7 @@ const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)||
 const sourcePaths=[
   'work/test-multi-ui.mjs','dist/multi/index.html','dist/multi/styles.css','dist/multi/app.mjs',
   'dist/multi/presentation.mjs','dist/multi/workcell.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs',
+  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs',
   'dist/r1/grasp-controller.mjs','dist/g1/grasp-controller.mjs','dist/c5/grasp-controller.mjs',
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs','dist/r1/r1-area-light-textures.mjs',
   'dist/g1/g1-profile.mjs','dist/c5/c5-profile.mjs','dist/vendor/three.module.min.js',
@@ -27,6 +28,7 @@ const [html,app,css,runtimeSource,coordinatorSource]=await Promise.all([
   text('dist/multi/index.html'),text('dist/multi/app.mjs'),text('dist/multi/styles.css'),
   text('dist/multi/robot-runtime.mjs'),text('dist/multi/coordinator.mjs'),
 ]);
+const feedSource=await text('dist/multi/visuals/camera-feeds.mjs');
 const controllers=Object.fromEntries(await Promise.all(ids.map(async id=>[id,await text(`dist/${id}/grasp-controller.mjs`)])));
 const checks=[],errors=[],stateCoverage={},progressTraces={},geometry={};
 function check(name,fn){try{const detail=fn();checks.push({name,pass:true,...(detail===undefined?{}:{detail})});}
@@ -112,10 +114,11 @@ const lights=()=>{const result=[];scene.traverse(node=>{if(node.isLight)result.p
 const initialLights=lights();
 check('One shared environment owns one floor and one shadow-casting key light',()=>{
   assert.equal(scene.children.filter(child=>child===shared.group).length,1);
-  const floors=[];scene.traverse(node=>{if(node.name==='reference-blue-grid-floor')floors.push(node);});
+  assert(shared.floor?.isMesh,'The environment must expose its actual shared floor, independent of visual theme/name');
+  const floors=[];scene.traverse(node=>{if(node===shared.floor)floors.push(node);});
   assert.equal(floors.length,1);assert.equal(shared.table.parent,null);assert.equal(initialLights.length,shared.lights.length);
   assert.equal(initialLights.filter(light=>light.castShadow).length,1);assert(initialLights.length>=5);
-  assert.equal((app.match(/createSharedWorkcell\(scene\)/g)||[]).length,1);
+  assert.equal((app.match(/createSharedWorkcell\(scene(?:,|\))/g)||[]).length,1);
 });
 for(const id of ids){
   const station={id,config:ROBOT_CONFIGS[id],group:new THREE.Group()};station.group.position.fromArray(STATION_OFFSETS[id]);scene.add(station.group);stationGroups.push(station.group);
@@ -139,7 +142,7 @@ for(const id of ids){
 check('Station tables introduce no duplicate global lights or floors',()=>{
   assert.deepEqual(lights().map(light=>light.uuid),initialLights.map(light=>light.uuid));
   for(const group of stationGroups)group.traverse(node=>assert(!node.isLight));
-  const floors=[];scene.traverse(node=>{if(node.name==='reference-blue-grid-floor')floors.push(node);});assert.equal(floors.length,1);
+  const floors=[];scene.traverse(node=>{if(node===shared.floor)floors.push(node);});assert.equal(floors.length,1);
 });
 check('Adjacent grounded tables remain geometrically separate',()=>{
   for(let index=0;index<ids.length-1;index++){
@@ -192,7 +195,11 @@ check('Pointer cleanup and keyboard controls have source-level interruption safe
 });
 check('Two camera feeds and actual measured force/torque charts remain connected',()=>{
   for(const id of ['overhead-feed','wrist-feed','force-chart','torque-chart'])assert(html.includes(`id="${id}"`));
-  assert(app.includes('renderer.readRenderTargetPixels(feedTarget,0,0,240,180,feedPixels)'));
+  assert(app.includes('cameraFeedPass=createCameraFeedPass(renderer)'));
+  assert(app.includes('cameraFeedPass.render(scene,camera,feedPixels)'));
+  assert(feedSource.includes('renderer.readRenderTargetPixels(displayTarget, 0, 0, width, height, pixels)'));
+  assert(app.includes('image.data.set(feedPixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4)'));
+  assert(app.includes('feeds[index].ctx.putImageData(image,0,0)'));
   assert(app.includes('history.force.push(m.forces)'));assert(app.includes('telemetry.joints.map(joint=>joint.torque)'));
   assert(app.includes('vision.wrist.update(station.cameraLink)'));assert(app.includes('vision.wrist.setVisible(station.group.visible)'));
   assert(app.includes('({scene,THREE,camera:wristCamera})'));assert(runtimeSource.includes('get cameraLink(){return visualRobot.getObjectByName('));

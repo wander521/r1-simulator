@@ -21,9 +21,10 @@ import {createWristVision as dexWristVision} from '../dist/g1/g1-workcell.mjs';
 // loaded from disk; no browser, GPU, contacts or physical simulation is mocked.
 // Named source poses are not a claim about every possible joint configuration.
 const root=new URL('../',import.meta.url),rootPath=fileURLToPath(root),ids=['r1','g1','c5'];
-const reportPath='work/validation/multi-framing/final.json';
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/multi-framing/final.json';
 const paths=new Set(['work/test-multi-framing.mjs','dist/multi/workcell.mjs','dist/multi/app.mjs',
-  'dist/multi/robot-runtime.mjs','dist/multi/styles.css','dist/vendor/three.module.min.js',
+  'dist/multi/robot-runtime.mjs','dist/multi/styles.css',
+  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/vendor/three.module.min.js',
   'dist/vendor/three.core.min.js','dist/vendor/STLLoader.js','dist/c5/c5-3ds.mjs',
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs',
   ...ids.flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`]),
