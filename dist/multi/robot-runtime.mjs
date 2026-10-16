@@ -18,6 +18,7 @@ import {tcpPose as c5TCP} from '../c5/grasp-kinematics.mjs';
 import {generatePipeLayout,normalizePipeSeed} from './pipe-layout.mjs';
 import {buildPipeScene} from './pipe-model.mjs';
 import {pipeControllerClass,pipeDynamicsClass} from './pipe-controller.mjs';
+import {planningControllerClass} from './planning.mjs';
 
 const url=path=>new URL(path,import.meta.url).href;
 export const ROBOT_CONFIGS=Object.freeze({
@@ -148,12 +149,28 @@ function progressOf(controller){
  * Only an independent URDF clone is translated for display. Physics and actual
  * contacts remain identical to the validated single-robot applications.
  */
-export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null}){
+export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null,cooperativePlanning=false}){
   const config=configFor(id);
   if(robot.parent)throw new Error('物理机器人必须保留独立局部坐标，不能挂到可视场景');
   const group=new THREE.Group();group.name=`${id}-station`;group.position.fromArray(offset);
-  let targets=taskTargets(config,group),dynamics=new config.Dynamics(api,model,data,robot);
-  let controller=new config.Controller(api,model,data,robot,targets,dynamics),taskMode='legacy',pipeLayout=null;
+  const deferRobotSync=instance=>{
+    // MuJoCo qpos/qvel and every 1 ms motor/contact update remain authoritative.
+    // This detached Three tree is only needed by FK/IK and display reads; the
+    // single-robot dynamics classes keep their original afterStep behavior.
+    instance.afterStep=()=>{};return instance;
+  };
+  const createController=(Controller,nextModel,nextData,nextTargets,nextDynamics)=>{
+    const PlanningController=planningControllerClass(Controller,{robotId:id});
+    const instance=new PlanningController(api,nextModel,nextData,robot,nextTargets,nextDynamics);
+    instance.cooperativePlanning=cooperativePlanning;
+    // wristError temporarily evaluates desired FK, then restores actual FK.
+    // Synchronize its initial read too now that rendering owns routine sync.
+    const wristError=instance.wristError.bind(instance);
+    instance.wristError=(...args)=>{nextDynamics.syncRobot();return wristError(...args);};
+    return instance;
+  };
+  let targets=taskTargets(config,group),dynamics=deferRobotSync(new config.Dynamics(api,model,data,robot));
+  let controller=createController(config.Controller,model,data,targets,dynamics),taskMode='legacy',pipeLayout=null;
   visualRobot??=robot.clone(true);group.add(visualRobot);visualRobot.name=`${id}-visible-robot`;
   const sourceNodes=[],displayNodes=[];
   if(!visualRobot.setJointValues){robot.traverse(node=>sourceNodes.push(node));visualRobot.traverse(node=>displayNodes.push(node));if(sourceNodes.length!==displayNodes.length)throw new Error('可视镜像结构与物理机器人不匹配');}
@@ -161,12 +178,18 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
   const runtime={
     id,config,api,model,data,robot,visualRobot,group,targets,controller,dynamics,ready:true,
     get taskMode(){return taskMode;},
+    get planning(){return Boolean(controller.planning);},
     get solidMeshes(){return targets.map(target=>target.visualMesh);},
     get selected(){return controller.selected;},get running(){return controller.running;},get arm(){return controller.arm;},
     get cameraLink(){return visualRobot.getObjectByName((config.cameraFrame??config.gripperLink)(controller.arm));},
+    get status(){
+      return {id,state:controller.state,running:controller.running,planning:Boolean(controller.planning),time:controller.time,physicsTime:data.time,
+        message:controller.message,task:taskMode==='pipes'?'pipes':controller.task,
+        classification:taskMode==='pipes'?{started:Boolean(controller.classification.started)}:null};
+    },
     get snapshot(){
       const measurement=controller.measure();
-      return {id,label:config.label,state:controller.state,running:controller.running,task:taskMode==='pipes'?'pipes':controller.task,
+      return {id,label:config.label,state:controller.state,running:controller.running,planning:Boolean(controller.planning),task:taskMode==='pipes'?'pipes':controller.task,
         selected:controller.selected,arm:controller.arm,message:controller.message,progress:progressOf(controller),
         time:controller.time,physicsTime:data.time,evidence:{...controller.evidence},history:[...controller.history],
         force:measurement.force,forces:[...measurement.forces],contactCount:measurement.count,
@@ -178,6 +201,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
           bins:controller.classification.bins.map(bin=>({id:bin.id,colorKey:bin.colorKey,label:bin.label,color:bin.color,center:bin.center.toArray(),halfX:bin.halfX,halfZ:bin.halfZ,slots:bin.slots.map(slot=>slot.toArray())}))}:null};
     },
     configureTask(task,{seed}={}){
+      if(!disposed)controller.cancelPlanning?.('工作台已切换，路径检查已取消');
       if(disposed||controller.running)return{ok:false,reason:'任务执行中不能切换工作台'};
       const mode=task==='pipes'?'pipes':'legacy';
       if(mode===taskMode){runtime.reset({seed:mode==='pipes'?seed??pipeLayout.seed:undefined});return{ok:true,task:mode,seed:pipeLayout?.seed};}
@@ -189,9 +213,9 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
         nextModel=api.MjModel.from_xml_string(layout?buildPipeScene(sourceXml,layout):sourceXml,vfs);nextData=new api.MjData(nextModel);
         nextTargets=layout?pipeTargets(layout,config,group):taskTargets(config,group);
         const Dynamics=layout?pipeDynamicsClass(config.Dynamics,{robotId:id}):config.Dynamics;
-        nextDynamics=new Dynamics(api,nextModel,nextData,robot);
+        nextDynamics=deferRobotSync(new Dynamics(api,nextModel,nextData,robot));
         const Controller=layout?pipeControllerClass(config.Controller,{robotId:id}):config.Controller;
-        const nextController=new Controller(api,nextModel,nextData,robot,nextTargets,nextDynamics);
+        const nextController=createController(Controller,nextModel,nextData,nextTargets,nextDynamics);
         if(layout)nextController.setLayout(layout);nextController.arm=config.defaultArm;
         disposeTaskTargets(targets);dynamics.dispose?.();data.delete();model.delete();
         model=nextModel;data=nextData;dynamics=nextDynamics;controller=nextController;targets=nextTargets;taskMode=mode;pipeLayout=layout;
@@ -212,8 +236,14 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
       const accepted=task==='stack'?controller.startStack(side,{observerYaw,reducedMotion}):controller.start(side,objectId);
       runtime.syncVisuals();return accepted;
     },
+    advancePlanning(){
+      if(disposed)return{pending:false,done:true,ok:false,reason:'机器人已关闭'};
+      const result=controller.advancePlanning?.()??{pending:false,done:true,ok:true};
+      runtime.syncVisuals();return result;
+    },
     stop(){
       if(disposed)return;
+      controller.cancelPlanning?.('已停止路径检查');
       if(id==='r1'){
         // The legacy single-R1 stop command requests a full opening step.
         // In a synchronized stop keep its present, already-ramped command;
@@ -225,6 +255,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     },
     reset({seed}={}){
       if(disposed)return;
+      controller.cancelPlanning?.('已复位，路径检查已取消');
       if(taskMode==='pipes'){
         const layout=generatePipeLayout(config,{seed:seed??normalizePipeSeed(pipeLayout.seed+1)});
         for(const target of targets){const source=layout.targets.find(t=>t.id===target.id);target.start.copy(source.start);target.drop.copy(source.drop);target.rotation.copy(source.rotation);}
@@ -240,7 +271,8 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
       if(visualRobot.setJointValues)visualRobot.setJointValues(actual);
       else sourceNodes.forEach((node,index)=>{displayNodes[index].position.copy(node.position);displayNodes[index].quaternion.copy(node.quaternion);displayNodes[index].scale.copy(node.scale);});
       for(const target of targets){const pose=controller.objectPose(target.id);target.mesh.position.copy(pose.position);target.mesh.quaternion.copy(pose.quaternion);target.visualMesh.position.copy(pose.position);target.visualMesh.quaternion.copy(pose.quaternion);}
-      group.updateMatrixWorld(true);
+      // The renderer refreshes its visible scene once per frame. World-space
+      // queries (camera links, bounds and picking) refresh their own ancestors.
     },
     animate(now,{reducedMotion=false}={}){
       const pulse=reducedMotion ? .5 : .5+.5*Math.sin(now*.006);
@@ -249,7 +281,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     },
     localToWorld(position){group.updateWorldMatrix(true,false);return group.localToWorld(position.clone());},
     worldToLocal(position){group.updateWorldMatrix(true,false);return group.worldToLocal(position.clone());},
-    tcpWorld(){return runtime.localToWorld(config.tcp(robot,controller.arm).position);},
+    tcpWorld(){dynamics.syncRobot();return runtime.localToWorld(config.tcp(robot,controller.arm).position);},
     moveObject(objectId,position,quaternion){
       if(disposed||controller.running)return false;
       if(taskMode==='pipes'&&controller.classification.started){controller.message='请先复位或重新随机摆放，再编辑圆管';return false;}
@@ -263,7 +295,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
       if(controller.setObject(objectId,p,q)===false)return false;runtime.syncVisuals();return true;
     },
     dispose(){
-      if(disposed)return;disposed=true;runtime.ready=false;group.removeFromParent();dynamics.dispose?.();data.delete();model.delete();
+      if(disposed)return;controller.cancelPlanning?.('机器人已关闭，路径检查已取消');disposed=true;runtime.ready=false;group.removeFromParent();dynamics.dispose?.();data.delete();model.delete();
       const geometries=new Set(),materials=new Set();group.traverse(node=>{if(node.geometry)geometries.add(node.geometry);for(const material of(Array.isArray(node.material)?node.material:[node.material]))if(material)materials.add(material);});
       geometries.forEach(geometry=>geometry.dispose());materials.forEach(material=>material.dispose());
     },
@@ -271,13 +303,13 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
   controller.arm=config.defaultArm;runtime.syncVisuals();return runtime;
 }
 
-export async function createRobotRuntime({id,api,offset=[0,0,0],onProgress}={}){
+export async function createRobotRuntime({id,api,offset=[0,0,0],onProgress,cooperativePlanning=false}={}){
   const config=configFor(id);
   const [robot,physics,xml]=await Promise.all([loadRobot(config,onProgress),api||loadPhysicsAPI({onProgress}),
     fetch(config.xml).then(async response=>{if(!response.ok)throw new Error(`${config.label} 物理场景加载失败（${response.status}）`);return response.text();})]);
   const vfs=new physics.MjVFS();let model,data;
   try{model=physics.MjModel.from_xml_string(xml,vfs);data=new physics.MjData(model);
-    const runtime=createRobotRuntimeFromParts({id,api:physics,model,data,robot,offset,sourceXml:xml});
+    const runtime=createRobotRuntimeFromParts({id,api:physics,model,data,robot,offset,sourceXml:xml,cooperativePlanning});
     onProgress?.({id,part:'ready',value:1,label:`${config.label} 已就绪`});return runtime;
   }catch(error){data?.delete();model?.delete();throw error;}finally{vfs.delete();}
 }

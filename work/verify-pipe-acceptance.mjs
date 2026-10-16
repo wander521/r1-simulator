@@ -1,4 +1,4 @@
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -10,7 +10,7 @@ const robotIds=['r1','g1','c5'],fingerTolerance={r1:.001,g1:.0002,c5:.0002};
 const fixedNames=['single-r1-eight-pipe-classification','single-g1-eight-pipe-classification','single-c5-eight-pipe-classification',
   'stop-three-way-pipe-task-after-genuine-lifts','unreachable-pipe-preparation-aborts-all-attempted-stations',
   'pipe-task-reset-randomizes-and-explicit-seed-reproduces-all-eight-starts'];
-const requiredSources=['work/test-multi-pipes.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs',
+const requiredSources=['work/test-multi-pipes.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs','dist/multi/planning.mjs',
   'dist/multi/pipe-layout.mjs','dist/multi/pipe-controller.mjs','dist/multi/pipe-model.mjs','dist/multi/r1-safe-dynamics.mjs',
   ...robotIds.flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
@@ -232,9 +232,11 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   let result;
   try {
     const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-      ??'work/validation/multi-pipes/physical-final.json';
+      ??'work/validation/performance/pipes-physical-final.json';
     const bytes=await readFile(resolve(defaultRoot,reportPath));result=await verifyPipeAcceptance(JSON.parse(bytes));
     result.reportSha256=sha(bytes);result.report=reportPath;result.verifierSha256=sha(await readFile(fileURLToPath(import.meta.url)));
   } catch(error) {result={pass:false,errors:[error.stack??error.message]};}
+  const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??null;
+  if(outputPath){const destination=resolve(defaultRoot,outputPath);await mkdir(resolve(destination,'..'),{recursive:true});await writeFile(destination,JSON.stringify(result,null,2)+'\n');}
   console.log(JSON.stringify(result,null,2));if(!result.pass)process.exitCode=1;
 }

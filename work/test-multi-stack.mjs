@@ -12,10 +12,11 @@ import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
 // their source-built MuJoCo scenes advance together, without kinematic carries,
 // synthetic contacts, weakened collision geometry or injected object poses.
 const root=new URL('../',import.meta.url),ids=['r1','g1','c5'],order=['blue','red','yellow'];
-const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)||'work/validation/multi/stack-final.json';
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)||'work/validation/performance/stack-physical-final.json';
 const sourcePaths=[
   'work/test-multi-stack.mjs','work/r1-test-robot.mjs','work/g1-test-robot.mjs','work/c5-test-robot.mjs',
   'dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs','dist/multi/r1-safe-dynamics.mjs',
+  'dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
   ...ids.flatMap(id=>[`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
   'dist/r1/assets/r1.urdf','dist/g1/assets/g1_29dof_with_dex1_1.urdf','dist/c5/assets/c5-dex1.urdf',
@@ -31,7 +32,7 @@ const armByRobot={r1:'right',g1:'right',c5:'left'};
 // Retain the already-declared legacy R1 numerical guard. Its soft-limit MJCF
 // has not been modified or represented as the tighter Dex1 mechanism.
 const fingerTolerance={r1:.001,g1:.0002,c5:.0002};
-const results=[];let coordinator,stats,trackedObjects,taskWindow=false,activeCase='initialization';
+const results=[];let coordinator,stats,trackedObjects,planningStats,taskWindow=false,activeCase='initialization';
 
 function compact(runtime){
   const c=runtime.controller;
@@ -102,9 +103,29 @@ function inspectContacts(runtime,{requireStable=false}={}){
     }finally{contact.delete();}
   }}finally{contacts.delete();}
 }
+function drainPlanning(){
+  if(!coordinator.planning)return;
+  planningStats.barriers++;
+  const tick=coordinator.tick,before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel]}]));
+  let slices=0;
+  while(coordinator.planning){
+    const start=performance.now(),result=coordinator.advancePlanning(),wallMs=performance.now()-start;
+    planningStats.slices++;planningStats.wallMs+=wallMs;planningStats.maxSliceWallMs=Math.max(planningStats.maxSliceWallMs,wallMs);
+    assert.equal(coordinator.tick,tick,'Planning advanced the global 1 ms clock');
+    for(const [id,runtime]of stations){const previous=before.get(id);
+      assert.equal(runtime.data.time,previous.time,`${id}: planning advanced a physical world`);
+      assert.deepEqual([...runtime.data.qpos],previous.qpos,`${id}: planning edited actual qpos`);
+      assert.deepEqual([...runtime.data.qvel],previous.qvel,`${id}: planning edited actual qvel`);
+    }
+    assert(++slices<10000,'Planning failed to return within a bounded number of route candidates');
+    assert(result.ok!==false,result.reason||'Cooperative path planning failed');
+  }
+}
 function tick(count=1,{requireStable=false}={}){
   for(let n=0;n<count;n++){
+    drainPlanning();
     coordinator.step(.001);
+    drainPlanning();
     const times=[...stations.values()].map(runtime=>runtime.data.time);
     assert(Math.max(...times)-Math.min(...times)<1e-10,'Three worlds diverged from their shared one-millisecond clock');
     for(const [id,runtime]of stations){
@@ -138,14 +159,16 @@ function tick(count=1,{requireStable=false}={}){
   }
 }
 function reset(){
-  taskWindow=false;coordinator.reset();stats=freshStats();trackedObjects=new Map([...stations].map(([id,runtime])=>[id,objectState(runtime)]));
+  taskWindow=false;coordinator.reset();stats=freshStats();planningStats={barriers:0,slices:0,wallMs:0,maxSliceWallMs:0};trackedObjects=new Map([...stations].map(([id,runtime])=>[id,objectState(runtime)]));
   for(const runtime of stations.values()){assert.equal(runtime.data.time,0);assert.equal(runtime.controller.state,'idle');}
   tick(300);
 }
 function startStack(){
   coordinator.select(ids);const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,objects:objectState(runtime).map(object=>[...runtime.data.qpos.subarray(object.q,object.q+7)])}]));
   taskWindow=true;
-  const result=coordinator.start({task:'stack',objectId:'blue',armByRobot});assert.equal(result.ok,true,result.reason);
+  const accepted=coordinator.start({task:'stack',objectId:'blue',armByRobot});assert.equal(accepted.ok,true,accepted.reason);
+  drainPlanning();
+  const result={...accepted,preparing:false,startTick:coordinator.startTick,startTimes:{...coordinator.startTimes}};
   assert.deepEqual(result.runIds,ids);assert.equal(result.startTick,coordinator.tick);
   assert.equal(new Set(Object.values(result.startTimes)).size,1,'All stack tasks must begin at the same simulation time');
   for(const [id,runtime]of stations){assert.equal(runtime.data.time,before.get(id).time,'Planning advanced a world ahead of the common clock');
@@ -155,9 +178,9 @@ function startStack(){
 }
 async function run(name,fn){
   activeCase=name;reset();const began=performance.now();
-  try{const detail=await fn();results.push({name,pass:true,wallSeconds:(performance.now()-began)/1000,...detail,stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
+  try{const detail=await fn();results.push({name,pass:true,wallSeconds:(performance.now()-began)/1000,...detail,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:true,simTime:coordinator.tick*.001}));return true;
-  }catch(error){results.push({name,pass:false,error:error.message,wallSeconds:(performance.now()-began)/1000,stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
+  }catch(error){results.push({name,pass:false,error:error.message,wallSeconds:(performance.now()-began)/1000,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:false,error:error.message}));return false;}
 }
 
@@ -167,7 +190,7 @@ try{
     const vfs=new api.MjVFS();let model,data;
     try{
       model=api.MjModel.from_xml_string(await readFile(new URL(ROBOT_CONFIGS[id].xml),'utf8'),vfs);data=new api.MjData(model);
-      const runtime=createRobotRuntimeFromParts({id,api,model,data,robot:await loaders[id](),offset:[0,0,(1-index)*2.2]});
+      const runtime=createRobotRuntimeFromParts({id,api,model,data,robot:await loaders[id](),offset:[0,0,(1-index)*2.2],cooperativePlanning:true});
       const original=runtime.controller.setObject.bind(runtime.controller);
       runtime.controller.setObject=(...parameters)=>{
         if(taskWindow||runtime.controller.running){stats[id].objectEditsDuringTask++;assert.fail(`${id}: setObject called inside the task/extra-stability window`);}
@@ -227,8 +250,9 @@ const report={pass:!initializationError&&results.length===2&&results.every(resul
   collisionScope:'Actual solver contacts every 10 ms. Original G1/C5 full source collisions; R1 original finger-contact scene only. Exemptions are exact foot/floor, exact C5 base/plinth, and active fingers/current selected object. Original source adjacency exclusions remain in the untouched MJCF. Separate stations cannot physically collide across worlds.',
   supportScope:'Independent table→blue→red→yellow force-bearing contact normals >0.005 N; source stack speed <0.0175 m/s and saved drop error <0.012 m. Per-item actual dual normal force >0.015 N per finger and lift >0.035 m. Original 3 s controller verification plus an independent stable window and a further 3 s of common-clock physical support.',
   motionIntegrity:'All nine objects checked every 1 ms for finite physical state and displacement-minus-dt*max(oldSpeed,newSpeed) <1e-5 m. setObject prohibited from start preparation through the extra stability/stop window, including after individual controllers finish. Every model has zero mocap and equality constraints.',
+  planningScope:'Production cooperative planning enabled. Initial and subsequent stack-item planning drains between complete global 1 ms ticks before evidence sampling. Every planning slice asserts unchanged world time/qpos/qvel.',
   results,initializationError:initializationError??null,sourceFrozen,sourceHashes};
-await mkdir(new URL('work/validation/multi/',root),{recursive:true});await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
+await mkdir(new URL('.',new URL(reportPath,root)),{recursive:true});await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,cases:report.cases,physicalStacks:report.physicalStacks,physicallyGraspedStackItems:report.physicallyGraspedStackItems,
   sourceFrozen,report:reportPath,failures:results.filter(result=>!result.pass).map(result=>({name:result.name,error:result.error})),initializationError:report.initializationError},null,2));
 if(!report.pass)process.exitCode=1;

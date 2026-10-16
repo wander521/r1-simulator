@@ -87,3 +87,16 @@ At finish replace/merge DESIGN.md and its sidecar with the implemented multi the
 tokens and components, explicitly retaining the legacy style scope for independent
 R1/G1/C5/reference routes. No shipping image asset is needed: robot assets remain
 original, and the new set/lighting are real Three.js geometry and procedural maps.
+
+## Later scoped runtime refinement · 2026-10-16
+
+The owner subsequently requested fixes for three-robot lag, automatic camera jumps
+and unreachable-object hangs. This authorizes the multi runtime/planning wrapper
+changes documented in `work/validation/performance/README.md`, superseding the
+redesign-only scheduling restriction above for this separate fix. The approved
+two visual worlds, independent robot pages, models and physical precision gates
+remain unchanged. Start/reset/task/resize preserve user camera position; initial
+load, participant changes and explicit view controls may refit it. Cooperative
+planning is visible and cancellable between complete candidates; no promise of
+frame-sized planning or arbitrary reachability is introduced. Current physical
+evidence was rerun into new paths; retained older reports remain historical.

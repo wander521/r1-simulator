@@ -30,10 +30,7 @@ jobs:
         run: npm test
       - name: Verify saved acceptance evidence
         run: |
-          node work/test-multi-acceptance-verifier.mjs
-          node work/verify-multi-acceptance.mjs
-          node work/test-pipe-acceptance-verifier.mjs
-          node work/verify-pipe-acceptance.mjs
+          npm run test:acceptance
           node work/verify-acceptance.mjs
           node work/verify-g1-acceptance.mjs
           node work/verify-c5-acceptance.mjs

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
 
@@ -7,6 +7,7 @@ import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
 // test-multi-physical suite uses the three production MuJoCo controllers.
 const ids=['r1','g1','c5'],checks=[];
 const root=new URL('../',import.meta.url);
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??null;
 const sourcePaths=['work/test-multi-coordinator.mjs','dist/multi/coordinator.mjs'];
 const sourceHashes=Object.fromEntries(await Promise.all(sourcePaths.map(async path=>[path,
   createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));
@@ -158,4 +159,6 @@ run('all completed selected controllers aggregate to complete and can be reselec
 const finalHashes=Object.fromEntries(await Promise.all(sourcePaths.map(async path=>[path,
   createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));
 assert.deepEqual(finalHashes,sourceHashes,'Orchestrator source changed during contract verification');
-console.log(JSON.stringify({pass:true,checks:checks.length,results:checks,sourceHashes,sourceFrozen:true}));
+const report={pass:true,checks:checks.length,results:checks,sourceHashes,sourceFrozen:true};
+if(reportPath){const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});await writeFile(destination,JSON.stringify(report,null,2)+'\n');}
+console.log(JSON.stringify(reportPath?{pass:true,checks:checks.length,sourceFrozen:true,report:reportPath}:report));

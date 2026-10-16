@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import * as THREE from '../dist/vendor/three.module.min.js';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
@@ -15,9 +15,11 @@ import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
 // the existing per-robot suites retain their deeper source-model validations.
 const root=new URL('../',import.meta.url),ids=['r1','g1','c5'],results=[];
 const args=process.argv.slice(2),filter=args.find(arg=>arg.startsWith('--case='))?.slice(7);
+const reportPath=args.find(arg=>arg.startsWith('--report='))?.slice(9)||'work/validation/performance/sort-physical-final.json';
 const paths=[
   'work/test-multi-physical.mjs','work/r1-test-robot.mjs','work/g1-test-robot.mjs','work/c5-test-robot.mjs',
   'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/r1-safe-dynamics.mjs',
+  'dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
   ...ids.flatMap(id=>[`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
   'dist/r1/assets/r1.urdf','dist/g1/assets/g1_29dof_with_dex1_1.urdf','dist/c5/assets/c5-dex1.urdf',
@@ -26,7 +28,7 @@ const paths=[
 ];
 async function hashes(){return Object.fromEntries(await Promise.all(paths.map(async path=>[path,
   createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));}
-const sourceHashes=await hashes();
+const sourceHashes=await hashes(),startedAt=new Date().toISOString(),wallStart=performance.now();
 const api=await createMuJoCo({locateFile:()=>new URL('dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm',root).pathname});
 const loaders={r1:loadR1,g1:loadG1,c5:loadC5},stations=new Map();
 const armByRobot={r1:'right',g1:'right',c5:'left'};
@@ -50,11 +52,29 @@ const compact=runtime=>{
     time:runtime.data.time,evidence:{...c.evidence},measurement:{count:m.count,forces:[...m.forces],
       position:m.position.toArray(),distance:m.distance,speed:m.speed,table:m.table,support:m.support}};
 };
-let coordinator,stats;
+let coordinator,stats,planningStats;
 const batchSnapshot=()=>typeof coordinator.snapshot==='function'?coordinator.snapshot():coordinator.snapshot;
 function freshStats(){return Object.fromEntries(ids.map(id=>[id,{millisecondSamples:0,contactSamples:0,
   actualDualForce:false,maxObjectTranslationResidual:0,objectEditsDuringTask:0,maxTorqueRatio:0,
   maxFingerLimitViolation:0,fingerStrokeToleranceM:fingerStrokeTolerance[id],maxIllegalPenetration:0,states:[]} ]));}
+function drainPlanning(){
+  if(!coordinator.planning)return;
+  planningStats.barriers++;
+  const tick=coordinator.tick,before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel]}]));
+  let slices=0;
+  while(coordinator.planning){
+    const start=performance.now(),result=coordinator.advancePlanning(),wallMs=performance.now()-start;
+    planningStats.slices++;planningStats.wallMs+=wallMs;planningStats.maxSliceWallMs=Math.max(planningStats.maxSliceWallMs,wallMs);
+    assert.equal(coordinator.tick,tick,'Planning advanced the global 1 ms clock');
+    for(const [id,runtime]of stations){const previous=before.get(id);
+      assert.equal(runtime.data.time,previous.time,`${id}: planning advanced a physical world`);
+      assert.deepEqual([...runtime.data.qpos],previous.qpos,`${id}: planning edited actual qpos`);
+      assert.deepEqual([...runtime.data.qvel],previous.qvel,`${id}: planning edited actual qvel`);
+    }
+    assert(++slices<10000,'Planning failed to return within a bounded number of route candidates');
+    assert(result.ok!==false,result.reason||'Cooperative path planning failed');
+  }
+}
 function inspectContacts(runtime){
   const c=runtime.controller,s=stats[runtime.id],m=c.measure();s.contactSamples++;
   if(m.count===2&&m.forces.every(force=>force>.015))s.actualDualForce=true;
@@ -81,8 +101,10 @@ function inspectContacts(runtime){
 }
 function tick(count=1){
   for(let n=0;n<count;n++){
+    drainPlanning();
     const before=new Map([...stations].map(([id,runtime])=>[id,objectStates(runtime)]));
     coordinator.step(.001);
+    drainPlanning();
     const times=[...stations.values()].map(runtime=>runtime.data.time);
     assert(Math.max(...times)-Math.min(...times)<1e-10,'Independent worlds diverged from the common 1 ms clock');
     for(const [id,runtime]of stations){
@@ -109,7 +131,7 @@ function tick(count=1){
     if(stats.r1.millisecondSamples%100===0)for(const runtime of stations.values())runtime.syncVisuals();
   }
 }
-function reset(){coordinator.reset();stats=freshStats();for(const runtime of stations.values()){
+function reset(){coordinator.reset();stats=freshStats();planningStats={barriers:0,slices:0,wallMs:0,maxSliceWallMs:0};for(const runtime of stations.values()){
   assert.equal(runtime.controller.running,false);assert.equal(runtime.controller.state,'idle');assert.equal(runtime.data.time,0);
 }tick(300);}
 function verifyVisualFrames(){for(const runtime of stations.values()){
@@ -125,13 +147,14 @@ function verifyVisualFrames(){for(const runtime of stations.values()){
   assert(runtime.tcpWorld().distanceTo(runtime.localToWorld(runtime.config.tcp(runtime.robot,runtime.controller.arm).position))<1e-12);
 }}
 async function run(name,fn){if(filter&&!name.includes(filter))return;
-  reset();try{await fn();verifyVisualFrames();results.push({name,pass:true,stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
+  reset();try{await fn();verifyVisualFrames();results.push({name,pass:true,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:true}));
-  }catch(error){results.push({name,pass:false,error:error.message,stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
+  }catch(error){results.push({name,pass:false,error:error.message,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:false,error:error.message}));}
 }
 function start(objectId,selectedIds=ids){coordinator.select(selectedIds);const before=[...stations.values()].map(runtime=>runtime.data.time);
   const result=coordinator.start({objectId,task:'sort',armByRobot});assert.equal(result.ok,true,result.reason);
+  drainPlanning();
   assert.deepEqual(result.runIds,selectedIds);assert.deepEqual([...stations.values()].map(runtime=>runtime.data.time),before,
     'Planning/starting must not advance any one world ahead of the common clock');
   return result;
@@ -151,7 +174,7 @@ try{
   for(const [index,id]of ids.entries()){
     const vfs=new api.MjVFS();let model,data;
     try{model=api.MjModel.from_xml_string(await readFile(new URL(ROBOT_CONFIGS[id].xml),'utf8'),vfs);data=new api.MjData(model);
-      const robot=await loaders[id](),runtime=createRobotRuntimeFromParts({id,api,model,data,robot,offset:[0,0,(1-index)*2.2]});
+      const robot=await loaders[id](),runtime=createRobotRuntimeFromParts({id,api,model,data,robot,offset:[0,0,(1-index)*2.2],cooperativePlanning:true});
       const original=runtime.controller.setObject.bind(runtime.controller);
       runtime.controller.setObject=(...parameters)=>{if(runtime.controller.running){stats[id].objectEditsDuringTask++;assert.fail(`${id}: task edited object state`);}return original(...parameters);};
       stations.set(id,runtime);
@@ -208,8 +231,8 @@ try{
 
 assert(results.length>0,'No physical scenario selected');
 const finalHashes=await hashes(),sourceFrozen=JSON.stringify(finalHashes)===JSON.stringify(sourceHashes);
-const failures=results.filter(result=>!result.pass);assert(sourceFrozen,'Multi-robot source changed during the physical regression');
-console.log(JSON.stringify({pass:failures.length===0,cases:results.length,physicalSorts:results.filter(result=>result.pass&&result.name.includes('simultaneous')).length*3
+const failures=results.filter(result=>!result.pass);
+const report={pass:failures.length===0&&sourceFrozen,startedAt,wallSeconds:(performance.now()-wallStart)/1000,cases:results.length,physicalSorts:results.filter(result=>result.pass&&result.name.includes('simultaneous')).length*3
   +results.filter(result=>result.pass&&result.name.startsWith('single-selected')).length
   +results.filter(result=>result.pass&&result.name.startsWith('two-selected')).length*2,
   clockStepSeconds:.001,renderOffsets:[[0,0,2.2],[0,0,0],[0,0,-2.2]],
@@ -217,5 +240,9 @@ console.log(JSON.stringify({pass:failures.length===0,cases:results.length,physic
   r1CommandProfile:{...R1_FINGER_MOTION_PROFILE,scope:'Multi-station finger motor commands only; original R1 source scene, forces, gains, joint ranges and inertia are unchanged. Actual qpos/qvel are not clamped.'},
   r1LimitPolicy:'Original R1 default-soft-limit MJCF is preserved. Additional numerical guard is 1 mm; original R1 regressions did not specify a Dex1 0.2 mm bound. Saved original browser evidence includes 0.5419235 mm static finger tracking error. Actual range excess is reported, not hidden or clamped.',
   collisionScope:'Original per-robot scenes; G1/C5 full source collision meshes, R1 original finger contacts. Separate, non-overlapping station worlds do not collide across worlds.',
-  results,sourceHashes,sourceFrozen}));
+  planningScope:'Production cooperative planning enabled. Every planning slice is drained between complete global 1 ms ticks and before evidence sampling; every world time/qpos/qvel is asserted unchanged during planning.',
+  results,sourceHashes,sourceFrozen};
+await mkdir(new URL('.',new URL(reportPath,root)),{recursive:true});await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify(report));
+assert(sourceFrozen,'Multi-robot source changed during the physical regression');
 assert.equal(failures.length,0,`${failures.length} multi-robot physical cases failed`);

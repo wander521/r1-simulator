@@ -14,8 +14,8 @@ const root=new URL('../',import.meta.url),ids=['r1','g1','c5'];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)||'work/validation/multi/ui-static-final.json';
 const sourcePaths=[
   'work/test-multi-ui.mjs','dist/multi/index.html','dist/multi/styles.css','dist/multi/app.mjs',
-  'dist/multi/presentation.mjs','dist/multi/workcell.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs',
-  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs',
+  'dist/multi/presentation.mjs','dist/multi/workcell.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
+  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/visuals/frame-scheduler.mjs',
   'dist/r1/grasp-controller.mjs','dist/g1/grasp-controller.mjs','dist/c5/grasp-controller.mjs',
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs','dist/r1/r1-area-light-textures.mjs',
   'dist/g1/g1-profile.mjs','dist/c5/c5-profile.mjs','dist/vendor/three.module.min.js',
@@ -162,10 +162,17 @@ check('Native checkboxes, labelled focus/arm selects and status/progress semanti
 check('Busy/loading states disable selection/start/editing, while focus and stop remain independent',()=>{
   assert(app.includes('input.disabled=busy||!stations.has(input.dataset.robot)'));
   assert(app.includes("$('#start').disabled=busy||!selected.length"));
-  assert(app.includes("$('#stop').disabled=!coordinator.running"));
-  assert(app.includes("$('#reset').disabled=preparing||!stations.size"));
+  const busyExpression=app.match(/\bconst busy=([^,;]+)/)?.[1];assert(busyExpression,'Missing busy-state expression');
+  const assignment=id=>{const value=app.match(new RegExp(`\\$\\('#${id}'\\)\\.disabled=([^;]+)`))?.[1];assert(value,`Missing ${id} disabled expression`);return value;};
+  const enabled=(expression,{running=false,planning=false,preparing=false,size=3}={})=>
+    !new Function('coordinator','preparing','stations',`return (${expression});`)({running,planning},preparing,{size});
+  for(const state of [{running:true},{planning:true},{preparing:true}])assert.equal(enabled(busyExpression,state),false,'Preparing/running must lock task edits');
+  assert.equal(enabled(assignment('stop')),false);assert.equal(enabled(assignment('stop'),{running:true}),true);
+  assert.equal(enabled(assignment('stop'),{planning:true}),true,'Stop must remain available during candidate planning');
+  assert.equal(enabled(assignment('reset'),{planning:true}),true,'Reset must be able to cancel candidate planning');
+  assert.equal(enabled(assignment('reset'),{size:0}),false);
   assert(app.includes("$('#arm-select').disabled=busy"));
-  assert(app.includes('if(!coordinator||coordinator.running||preparing)return;'));
+  assert([...app.matchAll(/if\(!coordinator\|\|([^\n;]+)\)return;/g)].some(match=>match[1].includes('coordinator.running')&&match[1].includes('preparing')));
   assert(app.includes("$('#focus-robot').disabled=!focus"));
 });
 check('Actual selection/focus coordinator contract rejects empty selection and locks active runs',()=>{
@@ -196,20 +203,24 @@ check('Pointer cleanup and keyboard controls have source-level interruption safe
 check('Two camera feeds and actual measured force/torque charts remain connected',()=>{
   for(const id of ['overhead-feed','wrist-feed','force-chart','torque-chart'])assert(html.includes(`id="${id}"`));
   assert(app.includes('cameraFeedPass=createCameraFeedPass(renderer)'));
-  assert(app.includes('cameraFeedPass.render(scene,camera,feedPixels)'));
+  assert(app.includes('cameraFeedPass.render(scene,[vision.overhead,vision.camera][index],feedPixels)'));
+  assert(app.includes('cameraFeedVisible(feed.element.getBoundingClientRect()')&&app.includes('nextFeed=(index+1)%2'));
   assert(feedSource.includes('renderer.readRenderTargetPixels(displayTarget, 0, 0, width, height, pixels)'));
   assert(app.includes('image.data.set(feedPixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4)'));
   assert(app.includes('feeds[index].ctx.putImageData(image,0,0)'));
   assert(app.includes('history.force.push(m.forces)'));assert(app.includes('telemetry.joints.map(joint=>joint.torque)'));
-  assert(app.includes('vision.wrist.update(station.cameraLink)'));assert(app.includes('vision.wrist.setVisible(station.group.visible)'));
+  assert(/\b(?:vision|v)\.wrist\.update\(station\.cameraLink\)/.test(app));assert(/\b(?:vision|v)\.wrist\.setVisible\(station\.group\.visible\)/.test(app));
   assert(app.includes('({scene,THREE,camera:wristCamera})'));assert(runtimeSource.includes('get cameraLink(){return visualRobot.getObjectByName('));
 });
 check('One RAF advances all worlds through the coordinator and pauses hidden/preparing backlog',()=>{
   assert.equal((app.match(/function frame\(/g)||[]).length,1);
-  assert(app.includes('if(coordinator&&!document.hidden&&!preparing)'));
-  assert(app.includes('while(accumulator>=.001&&steps<40&&performance.now()-start<12){coordinator.step();accumulator-=.001;'));
+  assert(app.includes('createFrameScheduler'));
+  const start=app.indexOf('function frame('),end=app.indexOf('\nasync function boot(',start),frame=app.slice(start,end);
+  assert(frame.includes('document.hidden')&&frame.includes('preparing')&&frame.includes('planning'));
+  assert(/\.advance\((?:wasPlanning\?performance\.now\(\):)?now,\s*\{/.test(frame)&&/coordinator\.step\(dt\)/.test(frame));
+  assert(frame.includes('coordinator.advancePlanning()'),'Pending candidates must advance through the same animation loop');
   assert(coordinatorSource.includes('for (const station of this.stations.values()) if (ready(station)) station.step(dt)'));
-  assert(app.includes("document.addEventListener('visibilitychange',()=>{endDrag();lastFrame=performance.now();accumulator=0;})"));
+  const visibility=app.match(/document\.addEventListener\('visibilitychange',([^\n]+)/)?.[1];assert(visibility?.includes('endDrag()')&&visibility.includes('.reset('));
 });
 check('Public diagnostics expose snapshots only, not test actuators or physics mutation commands',()=>{
   const start=app.indexOf('window.multiDiagnostics=()=>('),end=app.indexOf('\n  }catch(error)',start);
@@ -226,8 +237,8 @@ const report={pass:errors.length===0,scope:'Node-only static UI wiring, real Thr
   limitations:['Rendered desktop/mobile appearance and camera pixels are not verified by this suite.','Pointer/touch gestures require separate browser or physical-device verification.','Real contacts and grasp outcomes are verified by the separate physical suite, not these coordinator contract fixtures.'],
   total:checks.length,passed:checks.filter(item=>item.pass).length,checks,stateCoverage,progressTraces,geometry,
   sharedLights:{count:initialLights.length,shadowCasting:initialLights.filter(light=>light.castShadow).length},sourceFrozen,sourceHashes,errors};
-await mkdir(new URL('work/validation/multi/',root),{recursive:true});
-await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
+const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});
+await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,total:report.total,passed:report.passed,sourceFrozen,report:reportPath,errors},null,2));
 shared.dispose();
 if(!report.pass)process.exitCode=1;

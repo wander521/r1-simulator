@@ -63,3 +63,7 @@ work/validation/multi-framing/*
 !work/validation/multi-framing/browser-final.json
 !work/validation/multi-framing/design-detector.json
 !work/validation/multi-framing/finish-review.md
+# Intermediate responsiveness/preflight probes remain local; the final reports
+# are published under work/validation/performance with current source bindings.
+work/validation/multi-responsive/
+work/validation/performance/framing-preflight.json

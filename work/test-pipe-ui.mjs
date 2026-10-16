@@ -10,10 +10,10 @@ import {pipeControllerClass} from '../dist/multi/pipe-controller.mjs';
 // surrogate. Small source functions execute in explicit orchestration fixtures;
 // they prove wiring and pure contracts, not rendered pixels or physical grasps.
 const root=new URL('../',import.meta.url),ids=['r1','g1','c5'];
-const reportPath='work/validation/multi-pipes/ui-final.json';
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/multi-pipes/ui-final.json';
 const sourcePaths=['work/test-pipe-ui.mjs','dist/multi/index.html','dist/multi/app.mjs',
   'dist/multi/styles.css','dist/multi/presentation.mjs','dist/multi/coordinator.mjs',
-  'dist/multi/robot-runtime.mjs','dist/multi/pipe-layout.mjs','dist/multi/pipe-controller.mjs'];
+  'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/pipe-layout.mjs','dist/multi/pipe-controller.mjs','dist/multi/visuals/frame-scheduler.mjs'];
 async function hashes(){return Object.fromEntries(await Promise.all(sourcePaths.map(async path=>
   [path,createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));}
 const sourceHashes=await hashes(),source=Object.fromEntries(await Promise.all(sourcePaths.slice(1).map(async path=>
@@ -90,7 +90,10 @@ await check('Pipe mode hides manual arm and legacy single-object choices but pre
   assert(app.includes("pipes?'开始执行'"));assert(app.includes("${selected.length} 台"));
 });
 await check('Randomize/task/participant controls lock while preparing or running, not observation focus',()=>{
-  assert(app.includes('const busy=coordinator.running||preparing'));
+  const expression=app.match(/\bconst busy=([^,;]+)/)?.[1];assert(expression);
+  for(const state of [{running:true,planning:false},{running:false,planning:true},{running:false,planning:false}]){
+    for(const preparing of [false,true])assert.equal(new Function('coordinator','preparing',`return (${expression});`)(state,preparing),state.running||state.planning||preparing);
+  }
   assert(app.includes("$('#randomize-pipes').disabled=busy||!stations.size"));
   assert(app.includes("$('#task-mode').disabled=busy"));
   assert(app.includes('input.disabled=busy||!stations.has(input.dataset.robot)'));
@@ -110,10 +113,11 @@ await check('Start forwards the selected unified task without requiring a legacy
 });
 
 function configureFixture({running=false,busy=false,ok=true}={}){
-  const calls={configure:[],endDrag:0,updates:0,clear:0,fit:0,random:0},taskSelect={value:'pipes'};
+  const calls={configure:[],endDrag:0,updates:0,clear:0,fit:0,random:0,clockReset:[]},taskSelect={value:'pipes'};
   const globals={coordinator:{running,configureTask(task,options){calls.configure.push({task,options:{...options}});return ok?{ok:true}:{ok:false,reason:'测试准备失败'};}},
     preparing:busy,currentTask:'sort',selectedObject:'blue',notice:'',lastFrame:0,accumulator:5,lastFeed:3,
     focused:()=>({selected:'pipe-yellow-2'}),endDrag:()=>calls.endDrag++,updateUI:()=>calls.updates++,clearHistories:()=>calls.clear++,fitView:()=>calls.fit++,
+    renderer:{shadowMap:{needsUpdate:false}},frameScheduler:{reset:timestamp=>calls.clockReset.push(timestamp)},
     requestAnimationFrame:callback=>callback(123),performance:{now:()=>456},Uint32Array,
     crypto:{getRandomValues(array){calls.random++;array[0]=0xdecafbad;return array;}},$:selector=>{assert.equal(selector,'#task-mode');return taskSelect;}};
   return {context:functionFixture('configureTask',globals),calls,taskSelect};
@@ -121,7 +125,8 @@ function configureFixture({running=false,busy=false,ok=true}={}){
 await check('Actual source task configuration forwards cryptographic random seed and resets UI clocks after preparation',async()=>{
   const {context,calls}=configureFixture();await context.invoke('pipes',{randomize:true});
   assert.equal(calls.configure.length,1);assert.deepEqual(calls.configure[0],{task:'pipes',options:{seed:0xdecafbad}});
-  assert.equal(calls.random,1);assert.equal(calls.endDrag,1);assert.equal(calls.clear,1);assert.equal(calls.fit,1);
+  assert.equal(calls.random,1);assert.equal(calls.endDrag,1);assert.equal(calls.clear,1);assert.equal(calls.fit,0,'Task configuration must preserve the user camera');
+  assert.deepEqual(calls.clockReset,[456]);assert.equal(context.renderer.shadowMap.needsUpdate,true);
   assert.equal(context.currentTask,'pipes');assert.equal(context.selectedObject,'pipe-yellow-2');
   assert.equal(context.preparing,false);assert.equal(context.accumulator,0);assert.equal(context.lastFrame,456);assert.equal(context.lastFeed,0);
 });
@@ -185,12 +190,14 @@ await check('Start-button source disables consumed selected batches with explici
   const caption=app.match(/\$\('#start'\)\.textContent=([^;]+);/)?.[1];assert(caption);
   for(const consumed of [false,true]){
     const stations=new Map(ids.map(id=>[id,{controller:{classification:{started:id==='g1'&&consumed}}}]));
-    const context=vm.createContext({pipes:true,selected:ids,stations,busy:false,preparing:false});
+    const context=vm.createContext({pipes:true,selected:ids,stations,busy:false,preparing:false,coordinator:{planning:false}});
     vm.runInContext(`this.needsNewBatch=${needsNewBatch};this.disabled=${disabled};this.caption=${caption};`,context);
     assert.equal(context.needsNewBatch,consumed);assert.equal(context.disabled,consumed);
     assert.equal(context.caption,consumed?'请先重新随机摆放':'开始执行 · 3 台');
     context.selected=['r1','c5'];vm.runInContext(`this.needsNewBatch=${needsNewBatch};this.disabled=${disabled};`,context);
     assert.equal(context.needsNewBatch,false);assert.equal(context.disabled,false);
+    context.coordinator.planning=true;context.busy=true;vm.runInContext(`this.disabled=${disabled};this.caption=${caption};`,context);
+    assert.equal(context.disabled,true);assert.equal(context.caption,'路径检查中…');
   }
 });
 await check('Pointer and keyboard pipe editing remain station-local; empty-space orbit stays separate',()=>{
@@ -362,7 +369,7 @@ const report={pass:errors.length===0,scope:'Static HTML/application wiring, extr
     'Coordinator station fixtures verify calls, clocks, cancellation and aggregate state only; their counters do not prove physical sorting or arm trajectories.',
     'Cylinder layout/collision/reachability, alternating real arm execution, stable bin support and non-teleporting transport require the separate production MuJoCo acceptance suite.'],
   total:checks.length,passed:checks.filter(item=>item.pass).length,checks,contractTraces,progressTraces,sourceFrozen,sourceHashes,errors};
-await mkdir(new URL('work/validation/multi-pipes/',root),{recursive:true});
-await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
+const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});
+await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,total:report.total,passed:report.passed,sourceFrozen,report:reportPath,errors},null,2));
 if(!report.pass)process.exitCode=1;

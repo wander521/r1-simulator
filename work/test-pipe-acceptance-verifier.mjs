@@ -6,7 +6,7 @@ import {verifyPipeAcceptance} from './verify-pipe-acceptance.mjs';
 // Exercise the real release verifier using in-memory mutations of a completed
 // physical report. These are report-rejection tests, not substitute grasp runs.
 const root=new URL('../',import.meta.url),reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-  ??'work/validation/multi-pipes/physical-final.json';
+  ??'work/validation/performance/pipes-physical-final.json';
 const bytes=await readFile(new URL(reportPath,root)),baseline=JSON.parse(bytes),results=[];
 const row=(report,prefix)=>report.results.find(item=>item.name.startsWith(prefix));
 const firstObject=(report,id='r1')=>Object.values(report.results[0].stats[id].objects)[0];
@@ -26,6 +26,7 @@ await run('Duplicate cases cannot replace a required scenario',report=>{report.r
 await run('Independent simultaneous seeds are required',report=>{report.results[1].seed=report.results[0].seed;},/distinct simultaneous/);
 await run('Explicitly unfrozen source cannot pass',report=>{report.sourceFrozen=false;},/source was not frozen/);
 await run('Old-source SHA cannot pass',report=>{report.sourceHashes['dist/multi/pipe-controller.mjs']='0'.repeat(64);},/stale source/);
+await run('The cooperative planning module must be bound to the current physical run',report=>{delete report.sourceHashes['dist/multi/planning.mjs'];},/source binding missing: dist\/multi\/planning/);
 await run('Three hundred distinct layouts are required',report=>{report.layout.distinctLayouts.g1=99;},/not reproducible\/distinct/);
 await run('Fake grasp without real dual contact is rejected',report=>{firstObject(report).actualDual=false;},/no actual dual-finger force/);
 await run('One force-free finger is rejected',report=>{firstObject(report).maxFingerForcesN[0]=0;},/no actual dual-finger force/);
@@ -53,10 +54,13 @@ await run('A stopped batch requires reset before restart',report=>{row(report,'s
 await run('A completed batch requires reset before restart',report=>{report.results[0].restartAfterComplete.ok=true;},/completed batch accepted a restart/);
 await run('Reset must clear consumed-batch state',report=>{row(report,'pipe-task-reset-').robots[0].classification.started=true;},/reset left a task\/evidence active/);
 await run('Unselected stations cannot secretly execute a task',report=>{row(report,'single-g1-').robots.find(robot=>robot.id==='r1').state='complete';},/unselected station received a task/);
+const historical=JSON.parse(await readFile(new URL('work/validation/multi-pipes/physical-final.json',root),'utf8'));
+await run('Historical physical pipe evidence cannot replace the fresh cooperative run',report=>{Object.assign(report,structuredClone(historical));},/stale source|source binding missing/);
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const sourceHashes=Object.fromEntries(await Promise.all(['work/test-pipe-acceptance-verifier.mjs','work/verify-pipe-acceptance.mjs'].map(async path=>[path,sha(await readFile(new URL(path,root)))])));
 const report={pass:true,scope:'Positive/negative validation of a real saved physical report; not new physics, browser or hardware evidence',
   checks:results.length,results,physicalReport:reportPath,physicalReportSha256:sha(bytes),sourceHashes};
-await mkdir(new URL('work/validation/multi-pipes/',root),{recursive:true});
-await writeFile(new URL('work/validation/multi-pipes/verifier-final.json',root),JSON.stringify(report,null,2)+'\n');
+const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??'work/validation/performance/pipe-verifier-final.json';
+const destination=new URL(outputPath,root);await mkdir(new URL('./',destination),{recursive:true});
+await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report,null,2));

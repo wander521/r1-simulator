@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-16T05:27:19.458Z",
+  "command": "node work/test-multi-runtime-performance.mjs",
+  "baselineCommit": "d2e3b5beac42bcd90060c8cbb677af59f8cc5920",
+  "method": "Paired production multi-runtime worlds with the comparator restoring legacy afterStep -> syncRobot. Default synchronous planning used for both. Alternating per-tick execution order reduces ordering/JIT bias. All actual state coordinates checked every tick. Before/after SHA-256 checks bind this actual rerun to frozen final sources.",
+  "limitation": "Mesh-free source URDF joint-tree fixtures. These numbers describe CPU stepping only, not rendered browser frame rate, GPU work, or full mesh traversal cost. A single timing run; no speed threshold is imposed.",
+  "sourceHashes": {
+    "dist/multi/robot-runtime.mjs": "523c45b24aa34757de7123929521d7cce6d2c4d5f4611dc2fff5d47fad3a58ed",
+    "work/test-multi-runtime-performance.mjs": "b21e98ec09bab29f3355d69faf9bdd15e4f332f1ddf6a7c146146cfbd047f901",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "result": {
+    "pass": true,
+    "clockStepSeconds": 0.001,
+    "fixtures": "Mesh-free source URDF joint trees and production MuJoCo worlds; CPU step comparison only, not rendered frame rate.",
+    "comparison": "All qpos/qvel coordinates compared after every 1 ms tick; identical complete blue sort history/evidence per robot. Comparator restores legacy afterStep->syncRobot only.",
+    "checks": [
+      "r1: deferred idle FK, explicit TCP/snapshot sync, lightweight status, synchronous default start",
+      "g1: deferred idle FK, explicit TCP/snapshot sync, lightweight status, synchronous default start",
+      "c5: deferred idle FK, explicit TCP/snapshot sync, lightweight status, synchronous default start",
+      "r1: reconfigured pipe dynamics also defer per-tick FK",
+      "g1: reconfigured pipe dynamics also defer per-tick FK",
+      "c5: reconfigured pipe dynamics also defer per-tick FK"
+    ],
+    "results": [
+      {
+        "id": "r1",
+        "ticks": 32000,
+        "baselineStepMs": 3466.6350158154964,
+        "deferredStepMs": 2820.625364124775,
+        "maxQposDelta": 0,
+        "maxQvelDelta": 0,
+        "planningMs": [
+          426.0504999756813,
+          408.6585409939289
+        ],
+        "reductionPercent": 18.63506393789637,
+        "state": "complete",
+        "history": [
+          "spread",
+          "crouch",
+          "align",
+          "approach",
+          "descend",
+          "closing",
+          "lift",
+          "transfer",
+          "place",
+          "release",
+          "retreat",
+          "settling",
+          "return"
+        ],
+        "evidence": {
+          "lift": 0.12889564475169668,
+          "maxSpeed": 0.10906531664435466,
+          "dual": true,
+          "stable": 0
+        }
+      },
+      {
+        "id": "g1",
+        "ticks": 32000,
+        "baselineStepMs": 5320.727644890547,
+        "deferredStepMs": 4341.570001393557,
+        "maxQposDelta": 0,
+        "maxQvelDelta": 0,
+        "planningMs": [
+          190.12808299064636,
+          190.16162499785423
+        ],
+        "reductionPercent": 18.40270182664334,
+        "state": "complete",
+        "history": [
+          "spread",
+          "raise",
+          "ready",
+          "align",
+          "approach",
+          "descend",
+          "closing",
+          "lift",
+          "transfer",
+          "place",
+          "release",
+          "retreat",
+          "settling",
+          "return_clear",
+          "return_align",
+          "return_fold",
+          "return_wide",
+          "return",
+          "return_center"
+        ],
+        "evidence": {
+          "lift": 0.10966039853318543,
+          "maxSpeed": 0.09763602277966527,
+          "dual": true,
+          "stable": 0
+        }
+      },
+      {
+        "id": "c5",
+        "ticks": 32000,
+        "baselineStepMs": 2198.66205188632,
+        "deferredStepMs": 1948.4428417086601,
+        "maxQposDelta": 0,
+        "maxQvelDelta": 0,
+        "planningMs": [
+          223.7260830104351,
+          212.42383301258087
+        ],
+        "reductionPercent": 11.380521620545869,
+        "state": "complete",
+        "history": [
+          "approach",
+          "descend",
+          "closing",
+          "lift",
+          "transfer",
+          "place",
+          "release",
+          "retreat",
+          "settling",
+          "return"
+        ],
+        "evidence": {
+          "lift": 0.1394246809059807,
+          "maxSpeed": 0.12777098327848704,
+          "dual": true,
+          "stable": 0
+        }
+      }
+    ],
+    "totals": {
+      "baselineStepMs": 10986.024712592363,
+      "deferredStepMs": 9110.638207226992,
+      "reductionPercent": 17.070656169340058
+    }
+  },
+  "originalBaselineDiagnostics": {
+    "clockStepSeconds": 0.001,
+    "idle5000StepsMs": {
+      "r1": 416.1581249833107,
+      "g1": 594.83587500453,
+      "c5": 239.4360409975052,
+      "allCoordinator": 1276.4742499887943
+    },
+    "threeRobotBlueStartMs": 1210.9332080185413,
+    "unreachableBlueAtX2_5Meters": {
+      "r1": {
+        "wallMs": 14831.442042022943,
+        "planCalls": 200,
+        "planMs": 14827.913463115692
+      },
+      "g1": {
+        "wallMs": 6.866542011499405,
+        "planCalls": 90
+      },
+      "c5": {
+        "wallMs": 6.03125,
+        "planCalls": 135
+      }
+    },
+    "note": "Read-only diagnosis at the original baseline using production modules and mesh-free source URDF fixtures. The far-target R1 block spent its time planning; no physics steps advanced."
+  },
+  "startedAt": "2026-10-16T05:26:51.707Z",
+  "sourceFrozen": true,
+  "pass": true
+}

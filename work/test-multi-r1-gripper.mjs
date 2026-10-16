@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {createRobotRuntimeFromParts} from '../dist/multi/robot-runtime.mjs';
@@ -7,8 +7,9 @@ import {R1SafeDynamics,R1_FINGER_MOTION_PROFILE as profile} from '../dist/multi/
 import {loadTestRobot} from './r1-test-robot.mjs';
 
 const root=new URL('../',import.meta.url),paths=['work/test-multi-r1-gripper.mjs','dist/multi/r1-safe-dynamics.mjs',
-  'dist/multi/robot-runtime.mjs','dist/r1/r1-dynamics.mjs','dist/r1/grasp-controller.mjs',
+  'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/r1/r1-dynamics.mjs','dist/r1/grasp-controller.mjs',
   'dist/r1/assets/r1.urdf','dist/r1/models/r1-dynamic-scene.xml','work/r1-test-robot.mjs'];
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??null;
 async function hashes(){return Object.fromEntries(await Promise.all(paths.map(async path=>[path,
   createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));}
 const sourceHashes=await hashes(),urdf=await readFile(new URL('dist/r1/assets/r1.urdf',root),'utf8');
@@ -61,4 +62,6 @@ try{
   pass('Batch stop still retains the R1 aperture and arm targets');
 }finally{runtime.dispose();}
 const sourceFrozen=JSON.stringify(await hashes())===JSON.stringify(sourceHashes);assert(sourceFrozen);
-console.log(JSON.stringify({pass:true,checks:results.length,results,profile,stats,sourceFrozen,sourceHashes},null,2));
+const report={pass:true,checks:results.length,results,profile,stats,sourceFrozen,sourceHashes};
+if(reportPath){const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});await writeFile(destination,JSON.stringify(report,null,2)+'\n');}
+console.log(JSON.stringify(reportPath?{pass:true,checks:results.length,sourceFrozen,report:reportPath}:report,null,2));

@@ -1,6 +1,6 @@
 // Verify explicit release evidence against the current checkout. This does not
 // run missing tests, accept development probes, or certify unseen browser pixels.
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -12,6 +12,18 @@ const check=(condition,message)=>{if(!condition)errors.push(message);};
 const finite=(value,label)=>check(typeof value==='number'&&Number.isFinite(value),`${label}: missing/non-finite number`);
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const robotIds=['r1','g1','c5'];
+const evidenceReports={
+  'coordinator-final':'work/validation/performance/coordinator-final.json',
+  'physical-final':'work/validation/performance/sort-physical-final.json',
+  'stack-final':'work/validation/performance/stack-physical-final.json',
+  'r1-gripper-final':'work/validation/performance/r1-gripper-final.json',
+  'ui-static-final':'work/validation/performance/ui-static-final.json',
+  'pages-final':'work/validation/performance/pages-final.json',
+  'responsiveness-final':'work/validation/performance/responsiveness-contracts-final.json',
+  'framing-final':'work/validation/performance/framing-final.json',
+  'themes-final':'work/validation/performance/theme-contracts-final.json',
+  'release-cache-final':'work/validation/performance/release-cache-final.json',
+};
 const expectedOffsets=[[0,0,2.2],[0,0,0],[0,0,-2.2]];
 const fingerTolerances={r1:.001,g1:.0002,c5:.0002};
 const coordinatorNames=[
@@ -51,7 +63,7 @@ const stackNames=['three-way-simultaneous-blue-red-yellow-stack',
   'stop-three-way-stack-after-real-lifts-never-reports-completion'];
 const physicalSources=[
   'work/test-multi-physical.mjs','work/r1-test-robot.mjs','work/g1-test-robot.mjs','work/c5-test-robot.mjs',
-  'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/r1-safe-dynamics.mjs',
+  'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs','dist/multi/r1-safe-dynamics.mjs',
   ...robotIds.flatMap(id=>[`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
   'dist/r1/assets/r1.urdf','dist/g1/assets/g1_29dof_with_dex1_1.urdf','dist/c5/assets/c5-dex1.urdf',
@@ -59,7 +71,8 @@ const physicalSources=[
   'work/validation/browser-regressions.json',
 ];
 const uiSources=['work/test-multi-ui.mjs',...['index.html','styles.css','app.mjs','presentation.mjs',
-  'workcell.mjs','robot-runtime.mjs','coordinator.mjs'].map(file=>`dist/multi/${file}`)];
+  'workcell.mjs','robot-runtime.mjs','coordinator.mjs','planning.mjs','pipe-controller.mjs',
+  'visuals/theme-controller.mjs','visuals/scene-environment.mjs','visuals/camera-feeds.mjs','visuals/frame-scheduler.mjs'].map(file=>`dist/multi/${file}`)];
 const pageSources=['work/test-multi-pages.mjs','dist/index.html',...uiSources.filter(path=>path.startsWith('dist/')),
   'dist/multi/r1-safe-dynamics.mjs','dist/vendor/URDFLoader.js','dist/vendor/URDFClasses.js','dist/vendor/three.module.min.js',
   'dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm'];
@@ -88,7 +101,8 @@ async function bind(report,label,required){
   }
 }
 async function readReport(name){
-  const path=`work/validation/multi/${name}.json`,bytes=await readFile(resolve(root,path));
+  const path=evidenceReports[name];if(!path)throw new Error(`Unknown release evidence: ${name}`);
+  const bytes=await readFile(resolve(root,path));
   reportHashes[path]=sha(bytes);return JSON.parse(bytes);
 }
 function casesExactly(rows,expected,label){
@@ -98,14 +112,16 @@ function casesExactly(rows,expected,label){
 }
 
 const summary={coordinatorChecks:0,physicalCases:0,physicalSorts:0,stackCases:0,physicalStacks:0,physicallyGraspedStackItems:0,
-  r1GripperChecks:0,staticUIChecks:0,publicationChecks:0,stackMillisecondSamples:0,stackContactScans:0,
+  r1GripperChecks:0,staticUIChecks:0,publicationChecks:0,responsivenessChecks:0,framingChecks:0,themeChecks:0,releaseCacheChecks:0,stackMillisecondSamples:0,stackContactScans:0,
   millisecondSamples:0,contactScans:0,minActualLiftM:null,maxReleasedFrameErrorM:0,
   maxObjectTranslationResidualM:0,maxFingerLimitViolationM:{r1:0,g1:0,c5:0},maxG1C5IllegalPenetrationM:0};
 
 async function main(){
-  const [coordinator,physical,stack,gripper,ui,pages]=await Promise.all([
-    readReport('coordinator-final'),readReport('physical-final'),readReport('stack-final'),readReport('r1-gripper-final'),readReport('ui-static-final'),readReport('pages-final')]);
-  for(const [label,report]of [['coordinator',coordinator],['physical',physical],['stack',stack],['r1 gripper',gripper],['ui',ui]]){
+  const [coordinator,physical,stack,gripper,ui,pages,responsiveness,framing,themes,releaseCache]=await Promise.all([
+    readReport('coordinator-final'),readReport('physical-final'),readReport('stack-final'),readReport('r1-gripper-final'),readReport('ui-static-final'),readReport('pages-final'),
+    readReport('responsiveness-final'),readReport('framing-final'),readReport('themes-final'),readReport('release-cache-final')]);
+  for(const [label,report]of [['coordinator',coordinator],['physical',physical],['stack',stack],['r1 gripper',gripper],['ui',ui],
+    ['responsiveness',responsiveness],['framing',framing],['themes',themes],['release cache',releaseCache]]){
     check(report.pass===true,`${label}: report did not pass`);
     check(report.sourceFrozen===true,`${label}: source was not frozen during verification`);
   }
@@ -248,7 +264,7 @@ async function main(){
   check(summary.physicalStacks===3&&summary.physicallyGraspedStackItems===9,'stack: three complete physical stacks/nine genuine grasps not individually verified');
 
   await bind(gripper,'r1 gripper',['work/test-multi-r1-gripper.mjs','dist/multi/r1-safe-dynamics.mjs',
-    'dist/multi/robot-runtime.mjs','dist/r1/r1-dynamics.mjs','dist/r1/grasp-controller.mjs',
+    'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/r1/r1-dynamics.mjs','dist/r1/grasp-controller.mjs',
     'dist/r1/assets/r1.urdf','dist/r1/models/r1-dynamic-scene.xml','work/r1-test-robot.mjs']);
   check(gripper.checks===5,'r1 gripper: five smoothing/reset/motion-integrity cases missing');
   casesExactly(gripper.results,[
@@ -288,13 +304,52 @@ async function main(){
   check(pages.scope?.includes('Static publication')&&pages.scope.includes('No browser'),
     'publication: static paths must not be misrepresented as browser/runtime acceptance');
   summary.publicationChecks=pages.checks;
+
+  await bind(responsiveness,'responsiveness',['work/test-multi-responsiveness.mjs','dist/multi/coordinator.mjs',
+    'dist/multi/app.mjs','dist/multi/visuals/frame-scheduler.mjs']);
+  check(responsiveness.total===20&&responsiveness.passed===20&&responsiveness.checks?.length===20
+    &&responsiveness.checks.every(row=>row.pass===true)&&new Set(responsiveness.checks.map(row=>row.name)).size===20
+    &&responsiveness.errors?.length===0,'responsiveness: twenty bounded-planning, cancellation, clock, feed and camera contracts incomplete');
+  check(responsiveness.scope?.includes('explicit fake stations')&&responsiveness.scope.includes('No real contacts'),
+    'responsiveness: declared fixtures must not claim real physical or native-browser success');
+  summary.responsivenessChecks=responsiveness.total;
+
+  await bind(framing,'framing',['work/test-multi-framing.mjs','dist/multi/app.mjs','dist/multi/workcell.mjs',
+    'dist/multi/visuals/frame-scheduler.mjs',evidenceReports['physical-final'],evidenceReports['stack-final'],
+    'work/validation/performance/pipes-physical-final.json']);
+  check(framing.total===113&&framing.passed===113&&framing.checks?.length===113&&framing.checks.every(row=>row.pass===true)
+    &&framing.errors?.length===0&&framing.projectionCases===98&&framing.idleProjectionCases===49&&framing.motionProjectionCases===49,
+    'framing: complete original numeric gates, 98 projections and camera ownership checks absent');
+  check(framing.comparisons?.historical?.minimumAverageHeightRatio===1.15
+    &&framing.comparisons.historical.magnifications?.length===4
+    &&framing.comparisons.historical.magnifications.every(row=>row.averageHeightRatio>=1.15),
+    'framing: original fifteen-percent historical camera gate changed');
+  summary.framingChecks=framing.total;
+
+  await bind(themes,'themes',['work/test-multi-themes.mjs','dist/multi/app.mjs','dist/multi/index.html','dist/multi/workcell.mjs',
+    'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/frame-scheduler.mjs']);
+  check(themes.total===15&&themes.passed===15&&themes.checks?.length===15&&themes.checks.every(row=>row.pass===true)
+    &&themes.errors?.length===0,'themes: complete actual theme-controller contracts absent');
+  summary.themeChecks=themes.total;
+
+  await bind(releaseCache,'release cache',['work/test-release-cache.mjs','dist/multi/index.html','dist/multi/app.mjs',
+    'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/visuals/frame-scheduler.mjs']);
+  check(releaseCache.checks===13&&releaseCache.results?.length===13&&releaseCache.results.every(row=>row.pass===true)
+    &&releaseCache.graphs?.length===6&&releaseCache.negativeFixtures?.length===4&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
+    'release cache: exact aliases, complete graph and negative stale-cache fixtures absent');
+  check(equal(releaseCache.releases,{'multi/index.html':'20261016-responsive-1','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
+    'release cache: multi responsive cohort or independent native cohorts changed');
+  summary.releaseCacheChecks=releaseCache.checks;
   // Also identify the verifier and its honest, bounded acceptance statement.
   for(const path of ['work/verify-multi-acceptance.mjs','work/test-multi-acceptance-verifier.mjs','work/MULTI-ACCEPTANCE.md'])sourceHashes[path]=await currentHash(path);
 }
 
 try{await main();}catch(error){errors.push(error.stack||error.message);}
-console.log(JSON.stringify({pass:errors.length===0,scope:'Current-source numerical, orchestration, static UI and publication-path acceptance; not rendered-browser or hardware acceptance',
+const result={pass:errors.length===0,scope:'Current-source numerical, orchestration, static UI, framing, responsiveness and publication-path acceptance; not rendered-browser or hardware acceptance',
   ...summary,reportHashes,sourceHashes,sourceCount:Object.keys(sourceHashes).length,
   unverified:['Desktop/mobile rendered appearance and camera pixels','Native pointer/touch and accessibility-tree interactions',
-    'Cross-station robot/object collisions','Real-hardware calibration, controls or safety'],errors},null,2));
+    'Cross-station robot/object collisions','Real-hardware calibration, controls or safety'],errors};
+const outputPath=process.argv?.find(arg=>arg.startsWith('--output='))?.slice(9)??null;
+if(outputPath){const destination=resolve(root,canonical(outputPath));await mkdir(resolve(destination,'..'),{recursive:true});await writeFile(destination,JSON.stringify(result,null,2)+'\n');}
+console.log(JSON.stringify(result,null,2));
 if(errors.length)process.exitCode=1;

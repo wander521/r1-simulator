@@ -5,6 +5,7 @@ import * as THREE from '../dist/vendor/three.module.min.js';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {createRobotRuntimeFromParts, ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
 import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
+import {PLANNING_SEGMENT_BUDGET_MS,G1_PIPE_PLANNING_SEGMENT_BUDGET_MS} from '../dist/multi/planning.mjs';
 import {loadTestRobot as loadR1} from './r1-test-robot.mjs';
 import {loadG1TestRobot as loadG1} from './g1-test-robot.mjs';
 import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
@@ -46,6 +47,8 @@ const sourcePaths = ['work/test-multi-pipes.mjs', ...taskSources,
 async function hashes() { return Object.fromEntries(await Promise.all(sourcePaths.map(async path =>
   [path, createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')]))); }
 const sourceHashes = await hashes();
+console.error(JSON.stringify({physicalRunStarted:startedAt,mode,report:reportPath,
+  coordinatorSha256:sourceHashes['dist/multi/coordinator.mjs'],planningSha256:sourceHashes['dist/multi/planning.mjs']}));
 const api = staticOnly ? null : await createMuJoCo({locateFile:() =>
   new URL('dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm',root).pathname});
 const snapshot = runtime => typeof runtime.snapshot === 'function' ? runtime.snapshot() : runtime.snapshot;
@@ -142,6 +145,7 @@ function freshStats(runtime) {
     maxG1LegAngleRad:0,maxG1FootDriftM:0,visualFramesChecked:0,
     unratedWheelNames:[],maxUnratedWheelVelocityRadps:0,
     planningRejectedCandidates:0,planningRejections:[],criticalVelocityExtrema:{},
+    planning:{cooperative:true,candidateSlices:0,accumulatedSegmentMs:0,maxSliceMs:0,maxPreparationSegmentMs:0,completedPreparations:0,failedPreparations:0,slowPreparations:[]},
     sequence:[],lastSelected:null,extraStableSamples:0,
     objects:Object.fromEntries(runtime.targets.map(target=>[target.id,{id:target.id,color:target.colorKey,
       start:target.start.toArray(),drop:target.drop.toArray(),frame:frameFor(target,runtime.controller.classification.bins),arms:[],states:[],actualDual:false,
@@ -189,6 +193,9 @@ function robotSummary(runtime) {
     history:[...c.history],planError:c.planError??null};
 }
 function scanContacts(runtime,{requireStable=false}={}) {
+  // Carry observations use actual FK at this physical sample. Routine visual
+  // synchronization is deferred by the production multi-robot runtime.
+  runtime.dynamics.syncRobot();
   const c=runtime.controller,s=stats[runtime.id],table=c.id('mjOBJ_BODY','task_table');
   const byBody=new Map(tracked.get(runtime.id).map(object=>[object.body,object]));
   const support=Object.fromEntries(runtime.targets.map(target=>[target.id,{normal:0,finger:[0,0],allFingerNormal:0}]));
@@ -258,8 +265,38 @@ function scanContacts(runtime,{requireStable=false}={}) {
   }
   if(requireStable)s.extraStableSamples++;
 }
+function drainPlanning() {
+  let result={ok:true};
+  while(coordinator.planning) {
+    const active=coordinator.runIds.map(id=>stations.get(id)).find(runtime=>runtime.planning);
+    const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos]}]));
+    const tickBefore=coordinator.tick,started=performance.now();
+    result=coordinator.advancePlanning();
+    const elapsed=performance.now()-started,observed=stats[active.id].planning;
+    observed.candidateSlices++;observed.accumulatedSegmentMs+=elapsed;observed.maxSliceMs=Math.max(observed.maxSliceMs,elapsed);
+    assert.equal(coordinator.tick,tickBefore,'Planning advanced the shared physical tick');
+    for(const [id,runtime]of stations){
+      assert.equal(runtime.data.time,before.get(id).time,'Planning advanced one physical world');
+      assert.deepEqual([...runtime.data.qpos],before.get(id).qpos,`${id}: a planning candidate edited physical qpos`);
+    }
+    if(!active.planning){
+      const prepared=active.controller.planningResult;
+      if(prepared?.ok)observed.completedPreparations++;else observed.failedPreparations++;
+      observed.maxPreparationSegmentMs=Math.max(observed.maxPreparationSegmentMs,prepared?.segmentElapsedMs??0);
+      if((prepared?.segmentElapsedMs??0)>5000||prepared?.ok===false){
+        const detail={id:active.id,seed:active.controller.classification.seed,selected:active.selected,
+          completed:active.controller.classification.completed,segmentElapsedMs:prepared?.segmentElapsedMs,steps:prepared?.steps,
+          ok:prepared?.ok,error:prepared?.error??null};
+        observed.slowPreparations.push(detail);console.error(JSON.stringify({planningPreparation:detail}));
+      }
+    }
+    if(result.ok===false)return result;
+  }
+  return result;
+}
 function tick(count=1,{stableIds=[]}={}) {
   for(let n=0;n<count;n++) {
+    const preparation=drainPlanning();assert.equal(preparation.ok,true,`${preparation.reason}; ${JSON.stringify([...stations.values()].map(robotSummary))}`);
     coordinator.step(.001);
     const times=[...stations.values()].map(runtime=>runtime.data.time);
     assert(Math.max(...times)-Math.min(...times)<1e-10,'Selected/hidden physical worlds diverged from the shared 1 ms clock');
@@ -331,7 +368,7 @@ async function initialize() {
       }
       sourceVelocities.set(id,velocities);
       model=api.MjModel.from_xml_string(sourceXml,vfs);data=new api.MjData(model);
-      const runtime=createRobotRuntimeFromParts({id,api,model,data,sourceXml,robot:await loaders[id](),offset:[0,0,(1-index)*2.2]});
+      const runtime=createRobotRuntimeFromParts({id,api,model,data,sourceXml,robot:await loaders[id](),offset:[0,0,(1-index)*2.2],cooperativePlanning:true});
       stations.set(id,runtime);
     } catch(error) {data?.delete();model?.delete();throw error;} finally {vfs.delete();}
   }
@@ -357,14 +394,18 @@ async function configure(seed) {
       if(taskWindow||runtime.controller.running){stats[runtime.id].objectEditsDuringTask++;assert.fail(`${runtime.id}: setObject inside a task/extra-support window`);}
       return original(...parameters);
     };
+    const rejectPlan=(target,parameters,error)=>{const s=stats[runtime.id];s.planningRejectedCandidates++;
+      if(s.planningRejections.length<12)s.planningRejections.push({id:target.id,parameters,
+        message:error.message,detail:JSON.parse(JSON.stringify(error.detail??null))});};
     const originalPlan=runtime.controller.plan.bind(runtime.controller);
     runtime.controller.plan=(target,...parameters)=>{
       try{return originalPlan(target,...parameters);}
-      catch(error){const s=stats[runtime.id];s.planningRejectedCandidates++;
-        if(s.planningRejections.length<12)s.planningRejections.push({id:target.id,parameters,
-          message:error.message,detail:JSON.parse(JSON.stringify(error.detail??null))});
-        throw error;
-      }
+      catch(error){rejectPlan(target,parameters,error);throw error;}
+    };
+    const originalCandidates=runtime.controller.planCandidates.bind(runtime.controller);
+    runtime.controller.planCandidates=function*(target,...parameters){
+      try{return yield* originalCandidates(target,...parameters);}
+      catch(error){rejectPlan(target,parameters,error);throw error;}
     };
   }
   tick(300);
@@ -373,7 +414,9 @@ async function configure(seed) {
 function start(ids) {
   coordinator.select(ids);
   const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos]}]));
-  taskWindow=true;const result=coordinator.start({task:'pipes'});
+  taskWindow=true;let result=coordinator.start({task:'pipes'});
+  assert.equal(result.ok,true,result.reason);
+  if(result.preparing)result=drainPlanning();
   assert.equal(result.ok,true,result.reason);assert.deepEqual(result.runIds,ids);assert.equal(new Set(Object.values(result.startTimes)).size,1);
   for(const [id,runtime]of stations){assert.equal(runtime.data.time,before.get(id).time,'Planning advanced one physical world');
     for(const object of tracked.get(id))assert(arraysEqual([...runtime.data.qpos.subarray(object.q,object.q+7)],before.get(id).qpos.slice(object.q,object.q+7)),`${id}: starting wrote a pipe pose`);}
@@ -540,8 +583,11 @@ const report={pass,startedAt,wallSeconds:(performance.now()-wallStart)/1000,mode
   clockStepSeconds:.001,fingerToleranceM:fingerTolerance,layout:layoutResult,results,initializationError,sourceFrozen,sourceHashes,
   scope:'Actual original-source URDF dynamics, production pipe task and independent MjModel/MjData per station. No mocap/equality attachments. Every pipe monitored at 1 ms for finite motion/integration; actual contacts monitored at 10 ms. Original R1 finger-contact model only; G1/C5 full robot collisions. Independent stations do not physically collide across worlds.',
   releaseScope:'All eight pipes, not only the last selected pipe, must have actual dual-finger forces >0.015 N per side, actual lift >35 mm, correct color/slot, actual table normal >0.005 N, released fingers and speed <0.025 m/s for a further 3 seconds.'};
+report.planningExecution={cooperative:true,productionBudgetOverride:false,
+  ordinarySegmentBudgetMs:PLANNING_SEGMENT_BUDGET_MS,g1PipeSegmentBudgetMs:G1_PIPE_PLANNING_SEGMENT_BUDGET_MS,
+  scope:'Production cooperative candidate iterator; all pending planning is drained between complete shared 1 ms ticks. Every candidate is checked for unchanged shared clock and physical qpos. 累计计算片段耗时 includes elapsed candidate/runtime synchronization time and can include OS preemption; waiting between segments is excluded.'};
 report.carryObservationScope='Actual lift/transfer dual-finger retention, longest contact-loss span and object-to-TCP relative pose are aggregated every 10 ms. Saved keyframes are every 100 ms plus every phase/contact change. Retention/drift values are observational, not silently thresholded or inferred from successful endpoints; materially ballistic transport requires explicit review and cannot be advertised as a grasp.';
-await mkdir(new URL('work/validation/multi-pipes/',root),{recursive:true});
+await mkdir(new URL('.',new URL(reportPath,root)),{recursive:true});
 await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass,mode:report.mode,cases:report.cases,physicallySortedPipes:report.physicallySortedPipes,
   sourceFrozen,report:reportPath,initializationError,failures:results.filter(result=>!result.pass).map(({name,error})=>({name,error}))},null,2));

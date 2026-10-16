@@ -118,14 +118,15 @@ export function pipeControllerClass(LegacyController,{robotId}){
       // contact body IDs and collision-ignore sets remain unique for all eight.
       return super.objectPose(this._pipeCylinderShape&&id==='yellow'?this.selected:id);
     }
-    plan(target,...args){
+    *planCandidates(target,...args){
       if(robotId==='g1'){
-        let error;for(const reverse of [false,true])for(const tilt of [0,12,20,-12,28]){try{return planG1Pipe(this,target,...args,tilt,reverse);}catch(caught){error=caught;}}throw error;
+        let error;for(const reverse of [false,true])for(const tilt of [0,12,20,-12,28]){try{return planG1Pipe(this,target,...args,tilt,reverse);}catch(caught){error=caught;}yield;}throw error;
       }
       this._pipeCylinderShape=target.shape==='cylinder';
       try{return super.plan(this._pipeCylinderShape?{...target,id:'yellow'}:target,...args);}
       finally{this._pipeCylinderShape=false;}
     }
+    plan(target,...args){const candidates=this.planCandidates(target,...args);let step;do{step=candidates.next();}while(!step.done);return step.value;}
     startClassification(){
       if(this.running||!this.pipeLayout)return false;
       if(this.classification.started){this.message='请先复位或重新随机摆放，再开始新批次';return false;}

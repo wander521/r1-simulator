@@ -1,0 +1,137 @@
+{
+  "pass": true,
+  "total": 20,
+  "passed": 20,
+  "checks": [
+    {
+      "name": "Staged start freezes every world and commits one shared batch only after every selected plan accepts",
+      "pass": true,
+      "detail": {
+        "candidateSlices": 6,
+        "startTick": 7,
+        "physicsStepsDuringPreparation": 0
+      }
+    },
+    {
+      "name": "Selection, task changes and repeated Start reject without mutating an in-progress preparation",
+      "pass": true
+    },
+    {
+      "name": "Stop cancels every pending participant and later drains cannot restart or commit the cancelled batch",
+      "pass": true
+    },
+    {
+      "name": "Reset invalidates pending work before a new selection and preserves a clean next start",
+      "pass": true
+    },
+    {
+      "name": "A staged rejection stops all attempted stations without committing or resetting objects",
+      "pass": true
+    },
+    {
+      "name": "A staged rejection without an explicit result reason stops all attempted stations without committing or resetting objects",
+      "pass": true
+    },
+    {
+      "name": "A thrown candidate error follows the same cancellation path and retains the actionable reason",
+      "pass": true
+    },
+    {
+      "name": "stack: a later item begins planning after one complete global step, then pauses all worlds until ready",
+      "pass": true
+    },
+    {
+      "name": "pipes: a later item begins planning after one complete global step, then pauses all worlds until ready",
+      "pass": true
+    },
+    {
+      "name": "Unselected ready worlds retain the same 1 ms clock while only selected stations receive preparation",
+      "pass": true
+    },
+    {
+      "name": "The production scheduler caps wall backlog and advances only fixed 1 ms physical ticks",
+      "pass": true,
+      "detail": {
+        "maxStepsPerFrame": 24,
+        "fixedPhysicalStep": 0.001,
+        "maximumBacklogSeconds": 0.05,
+        "droppedWallSeconds": 0.95
+      }
+    },
+    {
+      "name": "The 8 ms production work budget yields after the last complete physical tick",
+      "pass": true,
+      "detail": {
+        "tickCostFixtureMs": 3,
+        "completedTicks": 3,
+        "cpuFixtureMs": 9,
+        "scope": "A tick completes atomically; the budget is checked before each tick, not inside physics."
+      }
+    },
+    {
+      "name": "Hidden and preparing frames discard catch-up work, and reset resumes from the new frame time",
+      "pass": true
+    },
+    {
+      "name": "The exact production frame discards completed planning CPU time instead of catching it up as physics",
+      "pass": true,
+      "detail": {
+        "planningStartedAtMs": 1000,
+        "planningEndedAtMs": 1600,
+        "nextFrameAtMs": 1616,
+        "physicalTicks": 16,
+        "droppedWallSeconds": 0,
+        "scope": "Exact production frame function with deterministic wall/RAF clocks and a declared completing planner fixture."
+      }
+    },
+    {
+      "name": "The exact production frame refreshes feeds within the slow-render fallback while hidden and planning states still pause them",
+      "pass": true,
+      "detail": {
+        "mainRenderFixtureMs": 20,
+        "refreshedAfterMs": 1101,
+        "hiddenFeedPasses": 0,
+        "planningFeedPasses": 0,
+        "scope": "Exact production frame gate with deterministic render cost; visibility and one-feed behavior are separately exercised through the production feed function."
+      }
+    },
+    {
+      "name": "A new item planning request stops the scheduler after one complete global tick without a second-world advance",
+      "pass": true
+    },
+    {
+      "name": "Invalid frame times reject and backwards timestamps do not manufacture physical time",
+      "pass": true
+    },
+    {
+      "name": "Camera-feed eligibility skips zero-area and offscreen feeds while retaining partial intersections",
+      "pass": true
+    },
+    {
+      "name": "The exact production camera-feed pass renders one visible feed at a time and restores renderer state on success or failure",
+      "pass": true,
+      "detail": {
+        "visibleFeedAlternation": true,
+        "offscreenRenders": 0,
+        "hiddenRenders": 0,
+        "rendererStateRestored": true,
+        "scope": "Exact production feed function with declared canvas/renderer fixtures and real Three cameras; no GPU or browser pixels."
+      }
+    },
+    {
+      "name": "The camera policy preserves an orbited view through Start, reset, task changes and resize until an explicit framing action",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-responsiveness.mjs": "e7a10b2fc0a0a64a0bf5e5d742dd705c59bb13bbb8f95b782d8d49e974014712",
+    "dist/multi/coordinator.mjs": "d207149524ec7f94550d2becfd1293de3624d9f50d0b6fffd2938fc3f7a4a4d0",
+    "dist/multi/app.mjs": "7df402fd6342701ce4396570a6cf54c038aac5733017cd3b971128c67d4a5eaa",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "scope": "Production coordinator, frame scheduler, camera-feed visibility and camera ownership policies with explicit fake stations, rectangles and clocks. No real contacts, physical grasp, native browser interaction, rendered pixels or device responsiveness is certified."
+}

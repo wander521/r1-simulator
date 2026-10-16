@@ -222,10 +222,11 @@ const pass=errors.length===0&&robots.length===3&&robots.every(robot=>robot.pass)
 const report={pass,startedAt,mode:'static-scatter-quality',scope:'Deterministic production-layout statistics and geometric clearance only; not IK, physical grasp, native interaction or rendered-pixel evidence',
   attemptedLayouts,seedsPerRobot:thresholds.seedsPerRobot,seeds,thresholds,baseline,fixtureChecks,robots,
   sourceFrozen,sourceHashes,errors};
-await mkdir(new URL('work/validation/multi-pipes/',root),{recursive:true});
-await writeFile(new URL('work/validation/multi-pipes/scatter-final.json',root),JSON.stringify(report,null,2)+'\n');
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/multi-pipes/scatter-final.json';
+const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});
+await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass,attemptedLayouts,sourceFrozen,fixtureChecks:fixtureChecks.checks.map(({name,pass})=>({name,pass})),
   robots:robots.map(robot=>({id:robot.id,pass:robot.pass,medianBestTwoRowsRmsM:robot.statistics.medianBestTwoRowsRmsM,
     seedsBeyondTwoRows:robot.statistics.seedsBeyondTwoRows,geometryFailingSeeds:robot.geometryFailures.length,
-    errors:robot.statistics.errors.slice(0,12)})),errors,report:'work/validation/multi-pipes/scatter-final.json'},null,2));
+    errors:robot.statistics.errors.slice(0,12)})),errors,report:reportPath},null,2));
 if(!pass)process.exitCode=1;

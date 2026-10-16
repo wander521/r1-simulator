@@ -7,6 +7,7 @@ import * as THREE from '../dist/vendor/three.module.min.js';
 import {parseC5_3DS} from '../dist/c5/c5-3ds.mjs';
 import {ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
 import * as workcell from '../dist/multi/workcell.mjs';
+import {shouldRefitCamera} from '../dist/multi/visuals/frame-scheduler.mjs';
 import {loadTestRobot as loadR1} from './r1-test-robot.mjs';
 import {loadG1TestRobot as loadG1} from './g1-test-robot.mjs';
 import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
@@ -22,9 +23,12 @@ import {createWristVision as dexWristVision} from '../dist/g1/g1-workcell.mjs';
 // Named source poses are not a claim about every possible joint configuration.
 const root=new URL('../',import.meta.url),rootPath=fileURLToPath(root),ids=['r1','g1','c5'];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/multi-framing/final.json';
+const physicalReportPaths=process.argv.find(arg=>arg.startsWith('--physical-reports='))?.slice(19).split(',')
+  ??['work/validation/multi/physical-final.json','work/validation/multi/stack-final.json','work/validation/multi-pipes/physical-final.json'];
+assert.equal(physicalReportPaths.length,3,'Supply one fresh sort, stack and pipe physical report');
 const paths=new Set(['work/test-multi-framing.mjs','dist/multi/workcell.mjs','dist/multi/app.mjs',
-  'dist/multi/robot-runtime.mjs','dist/multi/styles.css',
-  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/vendor/three.module.min.js',
+  'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs','dist/multi/styles.css',
+  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/visuals/frame-scheduler.mjs','dist/vendor/three.module.min.js',
   'dist/vendor/three.core.min.js','dist/vendor/STLLoader.js','dist/c5/c5-3ds.mjs',
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs',
   ...ids.flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`]),
@@ -219,17 +223,20 @@ await check('The station row uses exact 1.6 metre display offsets and the applic
     'fitWorkstationView(bounds,{fov:camera.fov,aspect:camera.aspect,viewportHeight:viewport.clientHeight,near:camera.near})',
     'orbit.target.copy(view.target);camera.position.copy(view.position)'])assert(fitSource.includes(fragment),`Application fit omits ${fragment}`);
   assert(app.includes('p.y-tag.offsetHeight'),'Station labels must end at their world anchor instead of extending over the robot');
-  assert(fitSource.includes("{motion=preparing||Boolean(coordinator?.running)||coordinator?.state==='preparing'}"),'Fit policy must follow preparation/running state');
+  assert(fitSource.includes('preparing')&&fitSource.includes('coordinator?.running'),'Explicit fit policy must follow preparation/running state');
   assert(/if\(motion\)\{\s*const envelope=STATION_VIEW_BOUNDS\[id\];/.test(fitSource),'Only motion mode may add the conservative preparation envelope');
   const startHandler=app.slice(app.indexOf("$('#start').addEventListener"),app.indexOf("$('#stop').addEventListener"));
-  assert(startHandler.includes('updateUI();fitView(undefined,{motion:true});'),'Preparing must expand the view before yielding a frame');
-  assert(startHandler.includes('fitView(undefined,{motion:result.ok})'),'Accepted starts must retain motion view and rejected starts must refit actual geometry');
+  assert(!/\bfitView\s*\(/.test(startHandler),'Starting or rejecting a task must preserve the user camera');
   const resetHandler=app.slice(app.indexOf("$('#reset').addEventListener"),app.indexOf('\nfunction ray('));
-  assert(resetHandler.includes('coordinator?.reset()')&&resetHandler.includes('fitView(undefined,{motion:false})'),'Reset must return to the actual standby fit');
+  assert(resetHandler.includes('coordinator?.reset()')&&!/\bfitView\s*\(/.test(resetHandler),'Reset must preserve the user camera');
   const configure=app.slice(app.indexOf('async function configureTask('),start);
-  assert(configure.includes('fitView(undefined,{motion:false})'),'Task/randomization preparation must not leave an unnecessary motion envelope at rest');
-  assert(app.includes("$('#fit-view').addEventListener('click',()=>fitView())")&&app.includes("$('#focus-view').addEventListener('click',()=>fitView([coordinator?.focusId]))"),'Panorama/focus must use the state-aware policy');
-  assert(app.includes('if(coordinator)fitView();'),'Resize must refit with the state-aware policy');
+  assert(!/\bfitView\s*\(/.test(configure),'Task changes and randomization must preserve the user camera');
+  const panorama=app.slice(app.indexOf("$('#fit-view').addEventListener"),app.indexOf("$('#toggle-cameras').addEventListener"));
+  assert(panorama.includes('fitView(')&&panorama.includes("$('#focus-view').addEventListener"),'Explicit panorama and focus actions must retain camera fitting');
+  const resizeStart=app.indexOf('function resize('),resizeEnd=app.indexOf('new ResizeObserver(',resizeStart),resizeSource=app.slice(resizeStart,resizeEnd);
+  assert(resizeStart>=0&&resizeSource.includes('camera.updateProjectionMatrix()')&&!/\bfitView\s*\(/.test(resizeSource),'Resize must update projection while preserving the user camera');
+  for(const reason of ['start','reset','task','resize'])assert.equal(shouldRefitCamera(reason),false);
+  for(const reason of ['initial','participants','panorama','focus'])assert.equal(shouldRefitCamera(reason),true);
   assert.equal(typeof workcell.fitWorkstationView,'function');
   for(const bad of [{aspect:0},{viewportHeight:0},{fov:180},{near:0}])
     assert.throws(()=>workcell.fitWorkstationView(new THREE.Box3(new THREE.Vector3(),new THREE.Vector3(1,1,1)),bad),RangeError);
@@ -244,15 +251,20 @@ await check('The exact production fit function selects current geometry at rest 
   mesh.position.set(.3,.5,0);group.position.fromArray(workcell.STATION_OFFSETS.r1);group.add(mesh);group.updateMatrixWorld(true);
   const station={group,labelHeight:.9},fixtureStations=new Map([['r1',station]]),fixtureVisions=new Map(),coordinator={selectedIds:['r1'],running:false,state:'idle'};
   const viewport={clientHeight:720},camera=new THREE.PerspectiveCamera(42,940/720,.02,40),orbit={target:new THREE.Vector3(),update(){}};
-  function fixtureFit(preparing=false){return new Function('THREE','stations','visions','coordinator','preparing','STATION_VIEW_BOUNDS','fitWorkstationView','viewport','camera','orbit',
+  function fixtureFit(preparing=false){return new Function('THREE','stations','visions','coordinator','preparing','STATION_VIEW_BOUNDS','fitWorkstationView','viewport','camera','orbit','shouldRefitCamera',
     `let lastViewFit=null;${source};return (ids,options)=>{fitView(ids,options);return lastViewFit;};`)
-    (THREE,fixtureStations,fixtureVisions,coordinator,preparing,workcell.STATION_VIEW_BOUNDS,workcell.fitWorkstationView,viewport,camera,orbit);}
+    (THREE,fixtureStations,fixtureVisions,coordinator,preparing,workcell.STATION_VIEW_BOUNDS,workcell.fitWorkstationView,viewport,camera,orbit,shouldRefitCamera);}
   const run=fixtureFit(),idle=run();assert.equal(idle.mode,'idle');assert.deepEqual(idle.ids,['r1']);
   const actual=new THREE.Box3().setFromObject(group);actual.expandByPoint(group.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));
   assert.deepEqual(idle.bounds,serial(actual),'Standby fit must use actual object bounds, without the future envelope');
   coordinator.running=true;const running=run();assert.equal(running.mode,'motion');assert(running.distance>idle.distance);
   coordinator.running=false;assert.equal(fixtureFit(true)().mode,'motion');coordinator.state='preparing';assert.equal(run().mode,'motion');
   coordinator.state='idle';assert.equal(run(undefined,{motion:false}).mode,'idle');assert.equal(run(undefined,{motion:true}).mode,'motion');
+  camera.position.set(2.7,1.3,-.6);orbit.target.set(.7,.8,.1);const userView={position:camera.position.toArray(),target:orbit.target.toArray()};
+  for(const reason of ['start','reset','task','resize']){
+    run(undefined,{reason});assert.deepEqual({position:camera.position.toArray(),target:orbit.target.toArray()},userView,`${reason} changed the user view`);
+  }
+  run(undefined,{reason:'focus'});assert.notDeepEqual(camera.position.toArray(),userView.position,'Explicit focus must remain able to fit the scene');
   mesh.geometry.dispose();mesh.material.dispose();
   return {idleDistance:idle.distance,motionDistance:running.distance,preparingAndRunningBranchesChecked:true,
     scope:'Exact production function with a declared box-only state-contract fixture; no robot rendering or physical execution.'};
@@ -318,12 +330,12 @@ await check('Only the independent display parent receives the station translatio
     assert(world.distanceTo(local.clone().add(new THREE.Vector3(...workcell.STATION_OFFSETS[id])))<1e-12);
     assert(group.worldToLocal(world).distanceTo(untouched)<1e-12);assert(local.equals(untouched));}
   const preserved=[];
-  for(const path of ['work/validation/multi/physical-final.json','work/validation/multi/stack-final.json','work/validation/multi-pipes/physical-final.json']){
-    const report=JSON.parse(await readFile(new URL(path,root),'utf8'));assert.equal(report.pass,true);
+  for(const path of physicalReportPaths){
+    const report=JSON.parse((await boundBytes(path)).toString('utf8'));assert.equal(report.pass,true);
     for(const [source,hash]of Object.entries(report.sourceHashes)){assert.equal(sha(await readFile(new URL(source,root))),hash,`${path}: physical source changed: ${source}`);}
     preserved.push({path,sourceCount:Object.keys(report.sourceHashes).length});
   }
-  return {preserved,scope:'Current immutable physical-source bindings plus display transform round-trips; no new physical execution.'};
+  return {preserved,scope:'Explicit physical-report source bindings plus display transform round-trips; this framing suite performs no physical execution.'};
 });
 await check('Grounded tables retain a positive independently measured inter-station gap',()=>{
   const gaps=[];for(let i=0;i<ids.length-1;i++){
@@ -400,8 +412,8 @@ const report={schemaVersion:3,pass:errors.length===0,scope:'Current-source visua
       stationOffsets:workcell.STATION_OFFSETS,magnifications:idleFramingGains,
       scope:'Camera-only counterfactual: identical current standby source geometry, source-camera attachments, 1.6m offsets, lens settings and HUD margins on both sides; frozen b271a9a always-motion guards versus new actual-idle fit. Newly widened motion guards are not used to inflate this gain. This does not compare different robot poses or reproduce historical browser pixels.'},
   },checks,errors};
-await mkdir(new URL('work/validation/multi-framing/',root),{recursive:true});
-await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
+const destination=new URL(reportPath,root);await mkdir(new URL('./',destination),{recursive:true});
+await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,total:report.total,passed:report.passed,projectionCases:projections.length,
   historicalMagnifications:historicalMagnifications.map(({viewport,averageHeightRatio})=>({viewport,averageHeightRatio})),
   currentPoseObservations:currentPoseMagnifications.map(({viewport,averageHeightRatio})=>({viewport,averageHeightRatio})),

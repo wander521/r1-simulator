@@ -7,13 +7,14 @@ import {createServer} from 'node:http';
 // This is not a browser engine, native cache inspection or rendered-pixel QA.
 const root=new URL('../dist/',import.meta.url);
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'../work/validation/release-cache/final.json';
-const releases={'multi/index.html':'20261016-lab-2','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'};
-const visualPaths=['multi/visuals/theme-controller.mjs','multi/visuals/scene-environment.mjs','multi/visuals/camera-feeds.mjs'];
+const releases={'multi/index.html':'20261016-responsive-1','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'};
+const visualPaths=['multi/visuals/theme-controller.mjs','multi/visuals/scene-environment.mjs','multi/visuals/camera-feeds.mjs','multi/visuals/frame-scheduler.mjs'];
+const responsivePaths=['multi/coordinator.mjs','multi/planning.mjs','multi/pipe-controller.mjs','multi/pipe-layout.mjs','multi/pipe-model.mjs','multi/r1-safe-dynamics.mjs'];
 const protectedPaths=['multi/app.mjs','multi/robot-runtime.mjs','multi/presentation.mjs','multi/workcell.mjs',
   'r1/r1-app.mjs','r1/grasp-controller.mjs','r1/grasp-kinematics.mjs','r1/r1-workcell.mjs',
   'c5/c5-app.mjs','c5/grasp-controller.mjs','c5/c5-profile.mjs'];
-const protectedSet=new Set([...protectedPaths,...visualPaths]),pages=Object.keys(releases);
-const protectedFor=page=>page.startsWith('multi/')?[...protectedPaths,...visualPaths]:protectedPaths;
+const protectedSet=new Set([...protectedPaths,...visualPaths,...responsivePaths]),pages=Object.keys(releases);
+const protectedFor=page=>page.startsWith('multi/')?[...protectedPaths,...visualPaths,...responsivePaths]:protectedPaths;
 const bytesByPath=new Map(),sourceHashes={},checks=[],graphs=[],negativeFixtures=[],requests=[];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function bytes(path){
@@ -65,7 +66,8 @@ for(const base of ['http://127.0.0.1:4173/','https://wander521.github.io/r1-simu
   const release=releases[page],pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapFor(html,pageURL),entries=[...html.matchAll(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"][^>]*>/gi)];assert.equal(entries.length,1);assert.equal(new URL(entries[0][1],pageURL).searchParams.get('v'),release);
   for(const path of protectedFor(page)){const canonical=new URL(path,base).href,target=new URL(`${path}?v=${release}`,base).href;assert.equal(map.get(canonical),target);assert.equal(map.get(target),target);}
   if(page==='multi/index.html'){
-    for(const path of protectedFor(page))assert.equal(map.get(new URL(`${path}?v=20261016-lab-1`,base).href),new URL(`${path}?v=${release}`,base).href,'Previously opened lab-1 module aliases must advance to the new multi cohort');
+    for(const prior of ['20261016-lab-1','20261016-lab-2'])for(const path of protectedFor(page))
+      assert.equal(map.get(new URL(`${path}?v=${prior}`,base).href),new URL(`${path}?v=${release}`,base).href,`Previously opened ${prior} module aliases must advance to the new multi cohort`);
     const stylesheet=html.match(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];assert(stylesheet);
     assert.equal(new URL(stylesheet,pageURL).searchParams.get('v'),release,'The replacement multi stylesheet must advance with the entry cohort');
   }
@@ -100,7 +102,7 @@ async function walk(page,base,mapOverride){
   }
   for(const[path,identities]of protectedIdentities)assert.equal(identities.size,1,`${path}: duplicated release identity`);
   if(page==='c5/index.html'||page==='multi/index.html')assert(protectedIdentities.has('c5/c5-profile.mjs'));
-  if(page==='multi/index.html')for(const path of visualPaths)assert(protectedIdentities.has(path),`New visual dependency not exercised: ${path}`);
+  if(page==='multi/index.html')for(const path of [...visualPaths,...responsivePaths])assert(protectedIdentities.has(path),`New multi dependency not exercised: ${path}`);
   return{page,release,base,modules:visited.size,edges,protectedIdentities:Object.fromEntries([...protectedIdentities].map(([path,ids])=>[path,[...ids]]))};
 }
 try{

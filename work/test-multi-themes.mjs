@@ -11,7 +11,7 @@ import {createThemeController} from '../dist/multi/visuals/theme-controller.mjs'
 const root=new URL('../',import.meta.url),checks=[],errors=[],observations=[];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/multi-themes/contracts-final.json';
 const sources=['work/test-multi-themes.mjs','dist/multi/workcell.mjs','dist/multi/app.mjs','dist/multi/index.html','dist/multi/styles.css',
-  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs',
+  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/visuals/frame-scheduler.mjs',
   'dist/vendor/three.module.min.js','dist/vendor/three.core.min.js'];
 async function hashes(){return Object.fromEntries(await Promise.all(sources.map(async p=>[p,createHash('sha256').update(await readFile(new URL(p,root))).digest('hex')])));}
 const sourceHashes=await hashes(),themeSource=await readFile(new URL('dist/multi/visuals/theme-controller.mjs',root),'utf8'),app=await readFile(new URL('dist/multi/app.mjs',root),'utf8');
@@ -132,7 +132,7 @@ try{
   check('Reduced-motion styling preserves useful state and production fixed-step/measurement updates',()=>{
     assert(css.includes('prefers-reduced-motion:reduce')||css.includes('prefers-reduced-motion: reduce'));
     assert(!/animation-duration\s*:\s*0?\.0*1ms|transition-duration\s*:\s*0?\.0*1ms/.test(css),'Do not replace every useful state change with a global tiny-duration kill');
-    assert(app.includes('station.animate(now,{reducedMotion})'));assert(app.includes('while(accumulator>=.001&&steps<40&&performance.now()-start<12){coordinator.step();accumulator-=.001;'));
+    assert(app.includes('station.animate(now,{reducedMotion})'));assert(app.includes('createFrameScheduler')&&/coordinator\.step\(dt\)/.test(app));
     assert(app.includes('history.force.push(m.forces)'));assert(app.includes('telemetry.joints.map(joint=>joint.torque)'));
   });
   check('Both named native scene controls expose independent accessible pressed states',()=>{

@@ -1,0 +1,99 @@
+{
+  "pass": true,
+  "checks": 20,
+  "results": [
+    {
+      "name": "Current complete release reports are accepted",
+      "pass": true
+    },
+    {
+      "name": "Explicitly unfrozen coordinator evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "Old-source coordinator SHA cannot pass",
+      "pass": true
+    },
+    {
+      "name": "A duplicated physical case cannot replace the required scenario",
+      "pass": true
+    },
+    {
+      "name": "A completed animation without actual two-finger forces is rejected",
+      "pass": true
+    },
+    {
+      "name": "A claimed success with insufficient physical object lift is rejected",
+      "pass": true
+    },
+    {
+      "name": "R1 finger stroke beyond the explicit legacy 1 mm guard is rejected",
+      "pass": true
+    },
+    {
+      "name": "Dex1 finger stroke beyond 0.2 mm is independently rejected",
+      "pass": true
+    },
+    {
+      "name": "Publication reports explicitly marked unfrozen are rejected",
+      "pass": true
+    },
+    {
+      "name": "One fake per-item grasp cannot pass a nine-item stack",
+      "pass": true
+    },
+    {
+      "name": "Contact existence without force-bearing stack support is rejected",
+      "pass": true
+    },
+    {
+      "name": "A stopped stack falsely labelled complete is rejected",
+      "pass": true
+    },
+    {
+      "name": "The new planning module requires an explicit physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "The pipe controller requires an explicit sort physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "The pipe controller requires an explicit stack physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "An incomplete responsiveness report cannot certify the new scheduler",
+      "pass": true
+    },
+    {
+      "name": "A changed scheduler invalidates saved responsiveness evidence",
+      "pass": true
+    },
+    {
+      "name": "A missing framing projection cannot replace the original numeric gates",
+      "pass": true
+    },
+    {
+      "name": "An independent native cache cohort cannot be rewritten by the multi release",
+      "pass": true
+    },
+    {
+      "name": "Historical physical evidence cannot replace this fresh cooperative run",
+      "pass": true
+    }
+  ],
+  "verifierSha256": "1c05e410a9898843f9d4af83aabe6f6a0a9d33f86440f9d5994665bcb21be9cc",
+  "evidenceReports": {
+    "coordinator-final": "work/validation/performance/coordinator-final.json",
+    "physical-final": "work/validation/performance/sort-physical-final.json",
+    "stack-final": "work/validation/performance/stack-physical-final.json",
+    "r1-gripper-final": "work/validation/performance/r1-gripper-final.json",
+    "ui-static-final": "work/validation/performance/ui-static-final.json",
+    "pages-final": "work/validation/performance/pages-final.json",
+    "responsiveness-final": "work/validation/performance/responsiveness-contracts-final.json",
+    "framing-final": "work/validation/performance/framing-final.json",
+    "themes-final": "work/validation/performance/theme-contracts-final.json",
+    "release-cache-final": "work/validation/performance/release-cache-final.json"
+  }
+}

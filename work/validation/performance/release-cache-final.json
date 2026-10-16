@@ -1,0 +1,569 @@
+{
+  "pass": true,
+  "releases": {
+    "multi/index.html": "20261016-responsive-1",
+    "r1/index.html": "20261016-native-camera-3",
+    "c5/index.html": "20261016-native-camera-3"
+  },
+  "checks": 13,
+  "results": [
+    {
+      "name": "Reference scanner excludes prose/comments and covers literal static/dynamic imports",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/multi/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/r1/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/c5/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/multi/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/r1/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/c5/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "/multi/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "multi/index.html",
+        "release": "20261016-responsive-1",
+        "base": "http://127.0.0.1:52621/",
+        "modules": 39,
+        "edges": 81,
+        "protectedIdentities": {
+          "multi/app.mjs": [
+            "http://127.0.0.1:52621/multi/app.mjs?v=20261016-responsive-1"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:52621/r1/r1-workcell.mjs?v=20261016-responsive-1"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:52621/multi/robot-runtime.mjs?v=20261016-responsive-1"
+          ],
+          "multi/coordinator.mjs": [
+            "http://127.0.0.1:52621/multi/coordinator.mjs?v=20261016-responsive-1"
+          ],
+          "multi/workcell.mjs": [
+            "http://127.0.0.1:52621/multi/workcell.mjs?v=20261016-responsive-1"
+          ],
+          "multi/presentation.mjs": [
+            "http://127.0.0.1:52621/multi/presentation.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/theme-controller.mjs": [
+            "http://127.0.0.1:52621/multi/visuals/theme-controller.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/camera-feeds.mjs": [
+            "http://127.0.0.1:52621/multi/visuals/camera-feeds.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/frame-scheduler.mjs": [
+            "http://127.0.0.1:52621/multi/visuals/frame-scheduler.mjs?v=20261016-responsive-1"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/r1/grasp-controller.mjs?v=20261016-responsive-1"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/c5/grasp-controller.mjs?v=20261016-responsive-1"
+          ],
+          "multi/r1-safe-dynamics.mjs": [
+            "http://127.0.0.1:52621/multi/r1-safe-dynamics.mjs?v=20261016-responsive-1"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:52621/c5/c5-profile.mjs?v=20261016-responsive-1"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:52621/r1/grasp-kinematics.mjs?v=20261016-responsive-1"
+          ],
+          "multi/pipe-layout.mjs": [
+            "http://127.0.0.1:52621/multi/pipe-layout.mjs?v=20261016-responsive-1"
+          ],
+          "multi/pipe-model.mjs": [
+            "http://127.0.0.1:52621/multi/pipe-model.mjs?v=20261016-responsive-1"
+          ],
+          "multi/pipe-controller.mjs": [
+            "http://127.0.0.1:52621/multi/pipe-controller.mjs?v=20261016-responsive-1"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:52621/multi/planning.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/scene-environment.mjs": [
+            "http://127.0.0.1:52621/multi/visuals/scene-environment.mjs?v=20261016-responsive-1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "r1/index.html",
+        "release": "20261016-native-camera-3",
+        "base": "http://127.0.0.1:52621/",
+        "modules": 15,
+        "edges": 24,
+        "protectedIdentities": {
+          "r1/r1-app.mjs": [
+            "http://127.0.0.1:52621/r1/r1-app.mjs?v=20261016-native-camera-3"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:52621/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:52621/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/c5/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "c5/index.html",
+        "release": "20261016-native-camera-3",
+        "base": "http://127.0.0.1:52621/",
+        "modules": 21,
+        "edges": 40,
+        "protectedIdentities": {
+          "c5/c5-app.mjs": [
+            "http://127.0.0.1:52621/c5/c5-app.mjs?v=20261016-native-camera-3"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:52621/c5/c5-profile.mjs?v=20261016-native-camera-3"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/multi/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "multi/index.html",
+        "release": "20261016-responsive-1",
+        "base": "http://127.0.0.1:52621/r1-simulator/",
+        "modules": 39,
+        "edges": 81,
+        "protectedIdentities": {
+          "multi/app.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/app.mjs?v=20261016-responsive-1"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/r1-workcell.mjs?v=20261016-responsive-1"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/robot-runtime.mjs?v=20261016-responsive-1"
+          ],
+          "multi/coordinator.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/coordinator.mjs?v=20261016-responsive-1"
+          ],
+          "multi/workcell.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/workcell.mjs?v=20261016-responsive-1"
+          ],
+          "multi/presentation.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/presentation.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/theme-controller.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/visuals/theme-controller.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/camera-feeds.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/frame-scheduler.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261016-responsive-1"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/grasp-controller.mjs?v=20261016-responsive-1"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/c5/grasp-controller.mjs?v=20261016-responsive-1"
+          ],
+          "multi/r1-safe-dynamics.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261016-responsive-1"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/c5/c5-profile.mjs?v=20261016-responsive-1"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-responsive-1"
+          ],
+          "multi/pipe-layout.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/pipe-layout.mjs?v=20261016-responsive-1"
+          ],
+          "multi/pipe-model.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/pipe-model.mjs?v=20261016-responsive-1"
+          ],
+          "multi/pipe-controller.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/pipe-controller.mjs?v=20261016-responsive-1"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/planning.mjs?v=20261016-responsive-1"
+          ],
+          "multi/visuals/scene-environment.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/multi/visuals/scene-environment.mjs?v=20261016-responsive-1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/r1/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "r1/index.html",
+        "release": "20261016-native-camera-3",
+        "base": "http://127.0.0.1:52621/r1-simulator/",
+        "modules": 15,
+        "edges": 24,
+        "protectedIdentities": {
+          "r1/r1-app.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/r1-app.mjs?v=20261016-native-camera-3"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/c5/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "c5/index.html",
+        "release": "20261016-native-camera-3",
+        "base": "http://127.0.0.1:52621/r1-simulator/",
+        "modules": 21,
+        "edges": 40,
+        "protectedIdentities": {
+          "c5/c5-app.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/c5/c5-app.mjs?v=20261016-native-camera-3"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:52621/r1-simulator/c5/c5-profile.mjs?v=20261016-native-camera-3"
+          ]
+        }
+      }
+    }
+  ],
+  "negativeFixtures": [
+    {
+      "prefix": "/",
+      "name": "entry-only-version-does-not-refresh-grandchildren",
+      "rejected": true
+    },
+    {
+      "prefix": "/",
+      "name": "missing-old-profile-query-alias-is-rejected",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "entry-only-version-does-not-refresh-grandchildren",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "missing-old-profile-query-alias-is-rejected",
+      "rejected": true
+    }
+  ],
+  "graphs": [
+    {
+      "page": "multi/index.html",
+      "release": "20261016-responsive-1",
+      "base": "http://127.0.0.1:52621/",
+      "modules": 39,
+      "edges": 81,
+      "protectedIdentities": {
+        "multi/app.mjs": [
+          "http://127.0.0.1:52621/multi/app.mjs?v=20261016-responsive-1"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:52621/r1/r1-workcell.mjs?v=20261016-responsive-1"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:52621/multi/robot-runtime.mjs?v=20261016-responsive-1"
+        ],
+        "multi/coordinator.mjs": [
+          "http://127.0.0.1:52621/multi/coordinator.mjs?v=20261016-responsive-1"
+        ],
+        "multi/workcell.mjs": [
+          "http://127.0.0.1:52621/multi/workcell.mjs?v=20261016-responsive-1"
+        ],
+        "multi/presentation.mjs": [
+          "http://127.0.0.1:52621/multi/presentation.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/theme-controller.mjs": [
+          "http://127.0.0.1:52621/multi/visuals/theme-controller.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/camera-feeds.mjs": [
+          "http://127.0.0.1:52621/multi/visuals/camera-feeds.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/frame-scheduler.mjs": [
+          "http://127.0.0.1:52621/multi/visuals/frame-scheduler.mjs?v=20261016-responsive-1"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/r1/grasp-controller.mjs?v=20261016-responsive-1"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/c5/grasp-controller.mjs?v=20261016-responsive-1"
+        ],
+        "multi/r1-safe-dynamics.mjs": [
+          "http://127.0.0.1:52621/multi/r1-safe-dynamics.mjs?v=20261016-responsive-1"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:52621/c5/c5-profile.mjs?v=20261016-responsive-1"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:52621/r1/grasp-kinematics.mjs?v=20261016-responsive-1"
+        ],
+        "multi/pipe-layout.mjs": [
+          "http://127.0.0.1:52621/multi/pipe-layout.mjs?v=20261016-responsive-1"
+        ],
+        "multi/pipe-model.mjs": [
+          "http://127.0.0.1:52621/multi/pipe-model.mjs?v=20261016-responsive-1"
+        ],
+        "multi/pipe-controller.mjs": [
+          "http://127.0.0.1:52621/multi/pipe-controller.mjs?v=20261016-responsive-1"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:52621/multi/planning.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/scene-environment.mjs": [
+          "http://127.0.0.1:52621/multi/visuals/scene-environment.mjs?v=20261016-responsive-1"
+        ]
+      }
+    },
+    {
+      "page": "r1/index.html",
+      "release": "20261016-native-camera-3",
+      "base": "http://127.0.0.1:52621/",
+      "modules": 15,
+      "edges": 24,
+      "protectedIdentities": {
+        "r1/r1-app.mjs": [
+          "http://127.0.0.1:52621/r1/r1-app.mjs?v=20261016-native-camera-3"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:52621/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:52621/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+        ]
+      }
+    },
+    {
+      "page": "c5/index.html",
+      "release": "20261016-native-camera-3",
+      "base": "http://127.0.0.1:52621/",
+      "modules": 21,
+      "edges": 40,
+      "protectedIdentities": {
+        "c5/c5-app.mjs": [
+          "http://127.0.0.1:52621/c5/c5-app.mjs?v=20261016-native-camera-3"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:52621/c5/c5-profile.mjs?v=20261016-native-camera-3"
+        ]
+      }
+    },
+    {
+      "page": "multi/index.html",
+      "release": "20261016-responsive-1",
+      "base": "http://127.0.0.1:52621/r1-simulator/",
+      "modules": 39,
+      "edges": 81,
+      "protectedIdentities": {
+        "multi/app.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/app.mjs?v=20261016-responsive-1"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/r1-workcell.mjs?v=20261016-responsive-1"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/robot-runtime.mjs?v=20261016-responsive-1"
+        ],
+        "multi/coordinator.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/coordinator.mjs?v=20261016-responsive-1"
+        ],
+        "multi/workcell.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/workcell.mjs?v=20261016-responsive-1"
+        ],
+        "multi/presentation.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/presentation.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/theme-controller.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/visuals/theme-controller.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/camera-feeds.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/frame-scheduler.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261016-responsive-1"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/grasp-controller.mjs?v=20261016-responsive-1"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/c5/grasp-controller.mjs?v=20261016-responsive-1"
+        ],
+        "multi/r1-safe-dynamics.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261016-responsive-1"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/c5/c5-profile.mjs?v=20261016-responsive-1"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-responsive-1"
+        ],
+        "multi/pipe-layout.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/pipe-layout.mjs?v=20261016-responsive-1"
+        ],
+        "multi/pipe-model.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/pipe-model.mjs?v=20261016-responsive-1"
+        ],
+        "multi/pipe-controller.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/pipe-controller.mjs?v=20261016-responsive-1"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/planning.mjs?v=20261016-responsive-1"
+        ],
+        "multi/visuals/scene-environment.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/multi/visuals/scene-environment.mjs?v=20261016-responsive-1"
+        ]
+      }
+    },
+    {
+      "page": "r1/index.html",
+      "release": "20261016-native-camera-3",
+      "base": "http://127.0.0.1:52621/r1-simulator/",
+      "modules": 15,
+      "edges": 24,
+      "protectedIdentities": {
+        "r1/r1-app.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/r1-app.mjs?v=20261016-native-camera-3"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+        ]
+      }
+    },
+    {
+      "page": "c5/index.html",
+      "release": "20261016-native-camera-3",
+      "base": "http://127.0.0.1:52621/r1-simulator/",
+      "modules": 21,
+      "edges": 40,
+      "protectedIdentities": {
+        "c5/c5-app.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/c5/c5-app.mjs?v=20261016-native-camera-3"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:52621/r1-simulator/c5/c5-profile.mjs?v=20261016-native-camera-3"
+        ]
+      }
+    }
+  ],
+  "sourceHashes": {
+    "dist/multi/index.html": "8833b4b9b855461cb177e4c88ee5a756cbcc867ee95b1e130baaba0d6f7cf5d0",
+    "dist/r1/index.html": "bdc42fb50ab454685e1527f659aaee7faca31c86ea8026e6a094e63f292a6fd2",
+    "dist/c5/index.html": "83a6cc5bf6a3daaf19fe312237e8e38a5be304f2e3a16b13b0afe6cf03dfcc46",
+    "dist/multi/app.mjs": "7df402fd6342701ce4396570a6cf54c038aac5733017cd3b971128c67d4a5eaa",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/OrbitControls.js": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
+    "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+    "dist/multi/robot-runtime.mjs": "523c45b24aa34757de7123929521d7cce6d2c4d5f4611dc2fff5d47fad3a58ed",
+    "dist/multi/coordinator.mjs": "d207149524ec7f94550d2becfd1293de3624d9f50d0b6fffd2938fc3f7a4a4d0",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/multi/visuals/camera-feeds.mjs": "463854d404b82224ae7424f2d9d4c14e4863534a0a644ba34bf941a8c54a06b9",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "dist/r1/r1-area-light-textures.mjs": "b7de1b481e8247ff3fa30e44477ec338a90e3f79a921c8affd3c421e88538ce1",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/r1/r1-materials.mjs": "c1a830b2b8fd4f75f8580918fc2c1d1d5eb5cdd02fff660d3c81079b8796befd",
+    "dist/g1/g1-materials.mjs": "b9f5cc2a982574979536cd56f706704162708b25901e16a358294bc39e5420f3",
+    "dist/c5/c5-materials.mjs": "6270d2a0bbbef2af24f210cfbf6333cee72db8a0ae302737eda2a379471f272e",
+    "dist/c5/c5-3ds.mjs": "ba2c44f32fd032bc1e8a4b708101bb66da6441b10259c4c69683440e444fbd02",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/vendor/URDFLoader.js": "46f09a13c310c8c9ec4d19e4f0413ef580c6b5136690f5dc8710eae766dd6181",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/STLLoader.js": "023ed97f848b633d8bcd53d4db3b996d29d0c644088700691297c552257d480b",
+    "dist/vendor/URDFClasses.js": "791a4cc6e9eb35bfe26ea9b37e422c375a0d75302c594badd78815ff24032680",
+    "dist/r1/r1-app.mjs": "1a7483ff1f0ddf318b8c8e1c7371de73c67ac9b82fc4a4126d5d5ef055a85821",
+    "dist/r1/r1-joint-ui.mjs": "995b7ee0a0c9e8615e833d0ba8e1f1e71c4f62d76475b56397168ab9f55d644c",
+    "dist/c5/c5-app.mjs": "0ce63c36b4dd95fb5fcdce7488c75c4c74cd85dcda8d8e564ea9f90de7e874a9",
+    "dist/c5/c5-joint-ui.mjs": "fad5bf0f08b122e3c6f0a220e317680f197daafc3ed7fc7f4003b571d99f7315",
+    "dist/c5/c5-workcell.mjs": "cdf17185ec30ade459e870d2580db9a8bf8af3edbc056cbaf30ca9275aab4bca",
+    "work/test-release-cache.mjs": "622adbd20bd1640e9556d9aa04b4844541058eef96193cc5ef5ef489a5e649bd"
+  },
+  "sourceFrozen": true,
+  "httpCacheSimulation": {
+    "actualLoopbackHTTP": true,
+    "bodyCacheEmulated": true,
+    "pageCohortSessions": true,
+    "oldCanonicalAndQueryAliasesRemainStale": true,
+    "cacheHits": 128,
+    "cacheMisses": 398,
+    "httpRequests": 398,
+    "staleHTTPRequests": 264
+  },
+  "scope": "Standard exact-URL/import-map normalization at local and GitHub subpath bases, literal source module-graph traversal, plus actual loopback HTTP responses and an explicitly emulated immutable body cache. Not a browser module loader, browser HTTP-cache inspection, executed app, rendered-pixel or physical test."
+}

@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {readFile, stat} from 'node:fs/promises';
+import {readFile, stat, mkdir, writeFile} from 'node:fs/promises';
 
 // Dependency-free, read-only publication checks. This does not instantiate the
 // physics runtime or certify rendered pixels, interaction, or successful tasks.
 const root = new URL('../dist/', import.meta.url);
+const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??null;
 const bases = ['http://127.0.0.1:4173/', 'https://wander521.github.io/r1-simulator/'];
 const cached = new Map(), directories = new Set(), checks = [], edges = [], exclusions = [];
 const sha = data => createHash('sha256').update(data).digest('hex');
@@ -174,8 +175,10 @@ while (queue.length) {
   }
 }
 assert(modules.has('multi/robot-runtime.mjs') && modules.has('vendor/URDFLoader.js'));
-for(const module of ['theme-controller','scene-environment','camera-feeds'])
+for(const module of ['theme-controller','scene-environment','camera-feeds','frame-scheduler'])
   assert(modules.has(`multi/visuals/${module}.mjs`),`New visual module missing from the recursively checked browser graph: ${module}`);
+for(const module of ['coordinator','planning','pipe-controller'])
+  assert(modules.has(`multi/${module}.mjs`),`Responsive planning module missing from the recursively checked browser graph: ${module}`);
 for (const id of ['r1', 'g1', 'c5']) assert(modules.has(`${id}/grasp-controller.mjs`) && modules.has(`${id}/${id}-dynamics.mjs`));
 check('Complete multi browser module graph resolves under local and GitHub project bases', {modules: modules.size});
 check('Literal dynamic URDFLoader import is included in the checked module graph');
@@ -231,10 +234,12 @@ for (const [path, bytes] of [...cached].sort(([a], [b]) => a.localeCompare(b))) 
 sourceHashes['work/test-multi-pages.mjs'] = sha(await readFile(new URL(import.meta.url)));
 check('All inspected source and asset bytes stayed frozen during the check', {files: cached.size});
 
-console.log(JSON.stringify({
+const report={
   pass: true, generatedAt: new Date().toISOString(), checks: checks.length, results: checks,
   scope: 'Static publication and path integrity only. No browser, rendered-pixel, pointer/touch, runtime loading, physics, grasp, or synchronization acceptance is claimed. JavaScript templates and computed non-literal resources are not statically interpreted; the known import.meta.url helper is checked through every literal call argument.',
   bases, moduleCount: modules.size, modules: [...modules].sort(), resourceEdges: edges.length,
   edges, meshCounts, wasmBytes: wasm.length, checkedFiles: cached.size, checkedDirectories: [...directories].sort(),
   exclusions, sourceHashes,
-}, null, 2));
+};
+if(reportPath){const destination=new URL(reportPath,new URL('../',import.meta.url));await mkdir(new URL('./',destination),{recursive:true});await writeFile(destination,JSON.stringify(report,null,2)+'\n');}
+console.log(JSON.stringify(reportPath?{pass:true,checks:checks.length,moduleCount:modules.size,sourceFrozen:true,report:reportPath}:report,null,2));
