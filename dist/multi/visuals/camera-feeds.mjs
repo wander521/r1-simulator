@@ -38,8 +38,10 @@ export function createCameraFeedPass(renderer, {width = 240, height = 180} = {})
   }
   const hdr = renderer.extensions?.has('EXT_color_buffer_float') === true;
   const mode = hdr ? 'hdr-half-float' : 'ldr-rgba8-fallback';
+  const asynchronous = typeof renderer.readRenderTargetPixelsAsync === 'function';
+  const readbackMode = asynchronous ? 'async-pbo' : 'sync-fallback';
   const capabilities = Object.freeze({
-    mode, hdr, width, height,
+    mode, hdr, width, height, readbackMode,
     displayTransform: 'Bundled THREE ACESFilmicToneMapping + sRGBTransferOETF',
     exposure: 'Reads the current renderer.toneMappingExposure for every feed render.',
     limitation: hdr ? null : 'EXT_color_buffer_float is unavailable: linear RGBA8 clips scene values above 1 before ACES. The explicit ACES/sRGB transform remains active, but HDR highlights cannot be recovered.',
@@ -72,11 +74,11 @@ export function createCameraFeedPass(renderer, {width = 240, height = 180} = {})
   const displayScene = new THREE.Scene(); displayScene.add(quad);
   const displayCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const savedCurrentViewport = new THREE.Vector4(), savedTargetViewport = new THREE.Vector4(), savedClearColor = new THREE.Color();
-  let disposed = false, rendering = false;
+  let disposed = false, rendering = false, readbackPending = false;
 
-  function render(scene, camera, pixels) {
+  function render(scene, camera, pixels, asyncRead = false) {
     if (disposed) throw new Error('Camera feed pass is disposed.');
-    if (rendering) throw new Error('Camera feed rendering cannot be re-entered.');
+    if (rendering || readbackPending) throw new Error('Camera feed rendering cannot be re-entered.');
     if (!(pixels instanceof Uint8Array) || pixels.length !== width * height * 4) {
       throw new TypeError(`Camera feed readback needs a Uint8Array of ${width * height * 4} bytes.`);
     }
@@ -111,6 +113,20 @@ export function createCameraFeedPass(renderer, {width = 240, height = 180} = {})
       renderer.render(scene, camera);
       renderer.setRenderTarget(displayTarget);
       renderer.render(displayScene, displayCamera);
+      if (asyncRead) {
+        // The bundled renderer submits a PBO read and restores its framebuffer
+        // before waiting on the GPU fence. Restore ALL pass state below in this
+        // same synchronous turn; a later completion must not overwrite the
+        // viewport, exposure or render target used by a newer main-view frame.
+        readbackPending = true;
+        let readback;
+        try { readback = renderer.readRenderTargetPixelsAsync(displayTarget, 0, 0, width, height, pixels); }
+        catch (error) { readbackPending = false; throw error; }
+        return Promise.resolve(readback).then(result => {
+          if (result !== pixels) throw new Error('Camera feed readback did not return the requested buffer.');
+          return pixels;
+        }).finally(() => { readbackPending = false; });
+      }
       renderer.readRenderTargetPixels(displayTarget, 0, 0, width, height, pixels);
       return pixels;
     } finally {
@@ -133,10 +149,16 @@ export function createCameraFeedPass(renderer, {width = 240, height = 180} = {})
   }
 
   return {
-    render, mode, capabilities,
+    render, mode, capabilities, readbackMode,
+    get readbackPending() { return readbackPending; },
+    renderAsync(scene, camera, pixels) {
+      // Preserve the old synchronous API and its exact color path for callers
+      // and renderers without asynchronous readback support.
+      return asynchronous ? render(scene, camera, pixels, true) : Promise.resolve(render(scene, camera, pixels));
+    },
     dispose() {
       if (disposed) return;
-      if (rendering) throw new Error('Cannot dispose a camera feed pass while it renders.');
+      if (rendering || readbackPending) throw new Error('Cannot dispose a camera feed pass while it renders.');
       disposed = true;
       displayScene.remove(quad);
       geometry.dispose(); material.dispose(); linearTarget.dispose(); displayTarget.dispose();

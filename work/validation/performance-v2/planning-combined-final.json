@@ -1,0 +1,424 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T03:05:04.789Z",
+  "wallSeconds": 195.81085420799255,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-planning-performance-v2.mjs": "5ffc8edaf90befaa19ebd716eae852536914e4ec907693fe0e6f189842ce6110",
+    "work/planning-cache-experiment.mjs": "6b0b7da8d9d26fbb40c60750374702b0452d5f5d8a10a3734a4c97bfa03c9528",
+    "dist/multi/robot-runtime.mjs": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "eb853f820c0d784630404df2ec89eef550b3de657ab968ea152d4322f91f5faf",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "endSourceHashes": {
+    "work/test-planning-performance-v2.mjs": "5ffc8edaf90befaa19ebd716eae852536914e4ec907693fe0e6f189842ce6110",
+    "work/planning-cache-experiment.mjs": "6b0b7da8d9d26fbb40c60750374702b0452d5f5d8a10a3734a4c97bfa03c9528",
+    "dist/multi/robot-runtime.mjs": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "eb853f820c0d784630404df2ec89eef550b3de657ab968ea152d4322f91f5faf",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "inputPath": "work/validation/performance-v2/g1-pipe592-snapshots.json",
+  "inputHash": "eb613c832587d06a5d5083112dfcf476cc1823f426cfb1b7a884b49ed4414be8",
+  "trials": 2,
+  "scope": "Actual shipped Worker parser and 512-entry/2MiB encoded-text bounded job memo versus default original parser/no memo, on all four genuine G1 pipe592 snapshots. Original controllers, physics models, IK precision, collision gates, candidate order and planning budgets unchanged. Every safety input/result, final plan/command and all authoritative physics/derived arrays compare exactly. Additional actual worker-service run reuses one private world for all four jobs. Node paired timings include exact trace encoding and are not browser FPS.",
+  "rows": [
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "trial": 1,
+      "order": [
+        "original",
+        "worker-optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 6684.43516600132,
+        "steps": 69,
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5290.0107499957085,
+        "steps": 69,
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "bypasses": 0,
+          "evictions": 5256,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1462640,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "c262e4872383126de57ec625e97480bccca1ce1cf998118f6161ea3b77298ca6",
+      "speedup": 1.2635957622594136
+    },
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "trial": 2,
+      "order": [
+        "worker-optimized",
+        "original"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 6764.602958977222,
+        "steps": 69,
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5877.31054097414,
+        "steps": 69,
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "bypasses": 0,
+          "evictions": 5256,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1462640,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "c262e4872383126de57ec625e97480bccca1ce1cf998118f6161ea3b77298ca6",
+      "speedup": 1.1509691230057102
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "trial": 1,
+      "order": [
+        "original",
+        "worker-optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 14963.21829199791,
+        "steps": 137,
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 10975.993749976158,
+        "steps": 137,
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "bypasses": 0,
+          "evictions": 19186,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1466338,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "800acf81632d1493c502fb31a927e99bbeb19ba3b6ce9df4f328a526b478a265",
+      "speedup": 1.3632677489480542
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "trial": 2,
+      "order": [
+        "worker-optimized",
+        "original"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 16611.465665996075,
+        "steps": 137,
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 10868.47070801258,
+        "steps": 137,
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "bypasses": 0,
+          "evictions": 19186,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1466338,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "800acf81632d1493c502fb31a927e99bbeb19ba3b6ce9df4f328a526b478a265",
+      "speedup": 1.5284087441805014
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 1,
+      "order": [
+        "original",
+        "worker-optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5735.849416017532,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5222.216583013535,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2468,
+          "evaluations": 1596,
+          "hits": 872,
+          "bypasses": 0,
+          "evictions": 1084,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1459570,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "0aad1bf8b26564442ab3f52eea5bfe5bab756800cc17cd1879ef918c82aad69c",
+      "speedup": 1.0983553295500434
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 2,
+      "order": [
+        "worker-optimized",
+        "original"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5710.193250000477,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5663.736791968346,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2468,
+          "evaluations": 1596,
+          "hits": 872,
+          "bypasses": 0,
+          "evictions": 1084,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1459570,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "0aad1bf8b26564442ab3f52eea5bfe5bab756800cc17cd1879ef918c82aad69c",
+      "speedup": 1.0082024394385718
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 1,
+      "order": [
+        "original",
+        "worker-optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 6857.641166031361,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 6346.840084016323,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2464,
+          "evaluations": 1603,
+          "hits": 861,
+          "bypasses": 0,
+          "evictions": 1091,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1465758,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "99126c0b862b4c8a239b824dc22df42f7dc99e293ca56c702a003668d7349891",
+      "speedup": 1.0804811646824728
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 2,
+      "order": [
+        "worker-optimized",
+        "original"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 6768.5947080254555,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": null
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5674.046582996845,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2464,
+          "evaluations": 1603,
+          "hits": 861,
+          "bypasses": 0,
+          "evictions": 1091,
+          "invalidations": 0,
+          "entries": 0,
+          "bytes": 0,
+          "peakEntries": 512,
+          "peakBytes": 1465758,
+          "disposed": true
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "safetyTraceHash": "99126c0b862b4c8a239b824dc22df42f7dc99e293ca56c702a003668d7349891",
+      "speedup": 1.1929043248091393
+    }
+  ],
+  "serviceRows": [
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "steps": 69,
+      "wallMs": 7749.4176669716835,
+      "exactPlanAndCommand": true,
+      "unchangedAllPhysicsArrays": true,
+      "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98"
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "steps": 137,
+      "wallMs": 10912.004166960716,
+      "exactPlanAndCommand": true,
+      "unchangedAllPhysicsArrays": true,
+      "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d"
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "steps": 201,
+      "wallMs": 5385.893333017826,
+      "exactPlanAndCommand": true,
+      "unchangedAllPhysicsArrays": true,
+      "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235"
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "steps": 267,
+      "wallMs": 6559.204374969006,
+      "exactPlanAndCommand": true,
+      "unchangedAllPhysicsArrays": true,
+      "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8"
+    }
+  ]
+}

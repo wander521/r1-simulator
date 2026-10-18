@@ -1,0 +1,47 @@
+{
+  "capturedAt": "2026-10-18T03:07:33.710Z",
+  "sourceHashes": {
+    "dist/multi/app.mjs": "4b7cf5b061eb6069ab0715f623a750d9f7d1f9609ab2f8459f555ad118ef638d",
+    "dist/multi/index.html": "baec8b4d8d12745e0be80c9100a819b9bb555ac40269b95cb03c58207a1f0ef4",
+    "dist/multi/robot-runtime.mjs": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "dist/multi/planning-worker-core.mjs": "eb853f820c0d784630404df2ec89eef550b3de657ab968ea152d4322f91f5faf",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938"
+  },
+  "measurement": {
+    "pass": true,
+    "mode": "hdr-half-float",
+    "readbackMode": "async-pbo",
+    "kind": "actual browser WebGL2 fixed-scene pixel equality; not FPS or robot evidence",
+    "cases": [
+      {
+        "exposure": 0.6,
+        "changedBytes": 0,
+        "maxByteDifference": 0,
+        "immediateStateRestored": true,
+        "newerStateRetained": true,
+        "glError": 0
+      },
+      {
+        "exposure": 1.15,
+        "changedBytes": 0,
+        "maxByteDifference": 0,
+        "immediateStateRestored": true,
+        "newerStateRetained": true,
+        "glError": 0
+      },
+      {
+        "exposure": 2,
+        "changedBytes": 0,
+        "maxByteDifference": 0,
+        "immediateStateRestored": true,
+        "newerStateRetained": true,
+        "glError": 0
+      }
+    ]
+  }
+}

@@ -67,3 +67,7 @@ work/validation/multi-framing/*
 # are published under work/validation/performance with current source bindings.
 work/validation/multi-responsive/
 work/validation/performance/framing-preflight.json
+# Large generated profiling input stays local; regenerate it with
+# node work/benchmark-planning-hotspots.mjs --snapshots-only.
+work/validation/performance-v2/g1-pipe592-snapshots.json
+work/validation/performance-v2/browser/cdp-cropped/

@@ -8,14 +8,17 @@ import {fileURLToPath} from 'node:url';
 // production source or saved report is edited to exercise rejection paths.
 const root=fileURLToPath(new URL('../',import.meta.url));
 const verifierPath='work/verify-multi-acceptance.mjs';
-const args=process.argv.slice(2),reportDirectory=args.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance',requireBackground=args.includes('--require-background');
-const physicalSuffix=args.find(arg=>arg.startsWith('--physical-suffix='))?.slice(18)??'';
+const args=process.argv.slice(2),reportDirectory=args.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance-v2',requireBackground=args.includes('--require-background');
+const physicalSuffix=args.find(arg=>arg.startsWith('--physical-suffix='))?.slice(18)??'-compiled-model';
 const evidenceReports={
   'coordinator-final':'coordinator-final','physical-final':`sort-physical${physicalSuffix}-final`,'stack-final':`stack-physical${physicalSuffix}-final`,
   'r1-gripper-final':'r1-gripper-final','ui-static-final':'ui-static-final','pages-final':'pages-final',
   'responsiveness-final':'responsiveness-contracts-final','framing-final':'framing-final',
   'themes-final':'theme-contracts-final','release-cache-final':'release-cache-final',
   'background-final':'contracts-final',
+  'camera-async-final':'camera-feed-async-contracts',
+  'planning-cache-final':'planning-check-cache-contracts',
+  'camera-queue-final':'camera-feed-queue-contracts',
 };
 const raw=await readFile(resolve(root,verifierPath),'utf8');
 const source=raw.replace(/^import .*;\r?\n/gm,'').replace(/^const root=.*;$/m,'const root=rootOverride;');
@@ -60,11 +63,18 @@ await run('An omitted Worker entry cannot pass as the complete publication graph
 await run('Document imports cannot stand in for the isolated Worker graph',{target:'pages-final',mutate:r=>{r.workerModules=[];},errorPattern:/independent worker entry/});
 await run('Missing Worker stale-cache negative fixtures are rejected',{target:'release-cache-final',mutate:r=>{r.negativeFixtures=r.negativeFixtures.filter(row=>row.name!=='unversioned-worker-entry-is-rejected');},errorPattern:/worker stale-cache\/import-map/});
 await run('A prior multi cohort cannot replace the Worker release',{target:'release-cache-final',mutate:r=>{r.releases['multi/index.html']='20261016-responsive-1';},errorPattern:/multi worker cohort/});
+await run('The exact planning cache source cannot be omitted from the Worker graph',{target:'pages-final',mutate:r=>{r.workerModules=r.workerModules.filter(path=>!path.endsWith('/planning-check-cache.mjs'));},errorPattern:/independent worker entry/});
+await run('The camera queue source is required in current UI evidence',{target:'ui-static-final',mutate:r=>{delete r.sourceHashes['dist/multi/visuals/camera-feed-queue.mjs'];},errorPattern:/missing current-source binding.*camera-feed-queue/});
+await run('Failed async camera restoration contracts cannot pass release acceptance',{target:'camera-async-final',mutate:r=>{r.results[0].pass=false;},errorPattern:/async camera: complete/});
+await run('Missing camera-queue stale-frame protection cannot pass release acceptance',{target:'camera-queue-final',mutate:r=>{r.results=r.results.filter(row=>!row.name.startsWith('Invalidation suppresses'));r.checks=r.results.length;},errorPattern:/camera queue: complete/});
+await run('Missing planning-cache invalidation contracts cannot pass release acceptance',{target:'planning-cache-final',mutate:r=>{r.checks=[];},errorPattern:/planning cache: exact/});
 if(requireBackground){
   await run('A cooperative physical run cannot masquerade as background execution',{target:'physical-final',mutate:r=>{r.planningExecution.worker=false;},errorPattern:/real background worker execution/});
   await run('A cooperative stack run cannot masquerade as background execution',{target:'stack-final',mutate:r=>{r.planningExecution.worker=false;},errorPattern:/real background worker execution/});
   await run('Worker physical evidence requires the actual shipped core source',{target:'physical-final',mutate:r=>{delete r.sourceHashes['dist/multi/planning-worker-core.mjs'];},errorPattern:/missing current-source binding.*planning-worker-core/});
+  await run('Worker physical evidence requires the exact per-job collision cache source',{target:'physical-final',mutate:r=>{delete r.sourceHashes['dist/multi/planning-check-cache.mjs'];},errorPattern:/missing current-source binding.*planning-check-cache/});
   await run('Contracts-only evidence cannot replace actual worker computations',{target:'background-final',mutate:r=>{r.mode='contracts-only';},errorPattern:/complete required real-worker checks/});
+  await run('Worker-only exact joint reuse equivalence cannot be omitted',{target:'background-final',mutate:r=>{r.checks=r.checks.filter(row=>row.name!=='Worker-only exact joint reuse preserves default parser behavior and every world matrix');r.checkCount=r.checks.length;},errorPattern:/complete required real-worker checks/});
   await run('Moving derived-state equivalence cannot be omitted from worker acceptance',{target:'background-final',mutate:r=>{r.checks=r.checks.filter(row=>!row.name.startsWith('g1: a moving snapshot'));r.checkCount=r.checks.length;},errorPattern:/complete required real-worker checks/});
   await run('Cross-seed compiled-model reuse equivalence cannot be omitted',{target:'background-final',mutate:r=>{r.checks=r.checks.filter(row=>!row.name.startsWith('g1: reused compiled pipe worlds'));r.checkCount=r.checks.length;},errorPattern:/complete required real-worker checks/});
   await run('A missing actual host heartbeat cannot certify event-loop isolation',{target:'background-final',mutate:r=>{r.measurements=r.measurements.filter(row=>row.scenario!=='g1-pipes-592-first-route');},errorPattern:/actual worker event-loop isolation/});

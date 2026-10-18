@@ -13,7 +13,7 @@ const root=new URL('../',import.meta.url),ids=['r1','g1','c5'];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/multi-pipes/ui-final.json';
 const sourcePaths=['work/test-pipe-ui.mjs','dist/multi/index.html','dist/multi/app.mjs',
   'dist/multi/styles.css','dist/multi/presentation.mjs','dist/multi/coordinator.mjs',
-  'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/pipe-layout.mjs','dist/multi/pipe-controller.mjs','dist/multi/visuals/frame-scheduler.mjs'];
+  'dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/pipe-layout.mjs','dist/multi/pipe-controller.mjs','dist/multi/visuals/frame-scheduler.mjs','dist/multi/visuals/camera-feed-queue.mjs'];
 async function hashes(){return Object.fromEntries(await Promise.all(sourcePaths.map(async path=>
   [path,createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));}
 const sourceHashes=await hashes(),source=Object.fromEntries(await Promise.all(sourcePaths.slice(1).map(async path=>
@@ -113,11 +113,11 @@ await check('Start forwards the selected unified task without requiring a legacy
 });
 
 function configureFixture({running=false,busy=false,ok=true}={}){
-  const calls={configure:[],endDrag:0,updates:0,clear:0,fit:0,random:0,clockReset:[]},taskSelect={value:'pipes'};
+  const calls={configure:[],endDrag:0,updates:0,clear:0,fit:0,random:0,clockReset:[],feedInvalidations:0},taskSelect={value:'pipes'};
   const globals={coordinator:{running,configureTask(task,options){calls.configure.push({task,options:{...options}});return ok?{ok:true}:{ok:false,reason:'测试准备失败'};}},
     preparing:busy,currentTask:'sort',selectedObject:'blue',notice:'',lastFrame:0,accumulator:5,lastFeed:3,
     focused:()=>({selected:'pipe-yellow-2'}),endDrag:()=>calls.endDrag++,updateUI:()=>calls.updates++,clearHistories:()=>calls.clear++,fitView:()=>calls.fit++,
-    renderer:{shadowMap:{needsUpdate:false}},frameScheduler:{reset:timestamp=>calls.clockReset.push(timestamp)},
+    renderer:{shadowMap:{needsUpdate:false}},frameScheduler:{reset:timestamp=>calls.clockReset.push(timestamp)},cameraFeedQueue:{invalidate(){calls.feedInvalidations++;}},
     requestAnimationFrame:callback=>callback(123),performance:{now:()=>456},Uint32Array,
     crypto:{getRandomValues(array){calls.random++;array[0]=0xdecafbad;return array;}},$:selector=>{assert.equal(selector,'#task-mode');return taskSelect;}};
   return {context:functionFixture('configureTask',globals),calls,taskSelect};
@@ -126,6 +126,7 @@ await check('Actual source task configuration forwards cryptographic random seed
   const {context,calls}=configureFixture();await context.invoke('pipes',{randomize:true});
   assert.equal(calls.configure.length,1);assert.deepEqual(calls.configure[0],{task:'pipes',options:{seed:0xdecafbad}});
   assert.equal(calls.random,1);assert.equal(calls.endDrag,1);assert.equal(calls.clear,1);assert.equal(calls.fit,0,'Task configuration must preserve the user camera');
+  assert.equal(calls.feedInvalidations,1,'Preparing a new task must reject a pending old camera image');
   assert.deepEqual(calls.clockReset,[456]);assert.equal(context.renderer.shadowMap.needsUpdate,true);
   assert.equal(context.currentTask,'pipes');assert.equal(context.selectedObject,'pipe-yellow-2');
   assert.equal(context.preparing,false);assert.equal(context.accumulator,0);assert.equal(context.lastFrame,456);assert.equal(context.lastFeed,0);

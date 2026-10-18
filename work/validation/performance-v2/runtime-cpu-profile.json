@@ -1,0 +1,338 @@
+{
+  "pass": true,
+  "profileFile": "/var/folders/l7/hh8tyk3n33zgtj3rhcc8mbj80000gn/T/r1-runtime-perf-v2-lkDpKv/runtime.cpuprofile",
+  "profileTotalMs": 24496.542,
+  "bucketMs": {
+    "initialization-or-unclassified": 3452.631,
+    "fixture-assertions": 1805.726,
+    "garbage-collection": 227.71,
+    "canonical-or-display-FK-sync": 346.954,
+    "controller-step-other-JS": 1163.716,
+    "physical-step-Wasm": 13223.565,
+    "live-state-and-telemetry-read": 1262.328,
+    "motor-command-beforeStep": 1129.703,
+    "route-search-and-safety-preparation": 1884.209
+  },
+  "productionStepSampleShares": {
+    "controller-step-other-JS": 0.06979323087537632,
+    "physical-step-Wasm": 0.7930760813124041,
+    "live-state-and-telemetry-read": 0.052969497113009745,
+    "motor-command-beforeStep": 0.06759834580861936,
+    "route-search-and-safety-preparation": 0.016562844890590404
+  },
+  "topSelfFunctions": [
+    {
+      "functionName": "mju_dot",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 1077,
+      "selfMs": 1341.631
+    },
+    {
+      "functionName": "mju_mulMatMat",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 634,
+      "selfMs": 789.335
+    },
+    {
+      "functionName": "mju_mulMatTVec",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 603,
+      "selfMs": 753.742
+    },
+    {
+      "functionName": "mju_copy",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 556,
+      "selfMs": 689.683
+    },
+    {
+      "functionName": "keyCheck",
+      "url": "node:internal/util/comparisons",
+      "line": 266,
+      "samples": 478,
+      "selfMs": 596.029
+    },
+    {
+      "functionName": "compare",
+      "url": "file://./work/test-multi-runtime-perf-v2.mjs",
+      "line": 48,
+      "samples": 438,
+      "selfMs": 545.504
+    },
+    {
+      "functionName": "mjc_hillclimbSupport",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 433,
+      "selfMs": 541.891
+    },
+    {
+      "functionName": "mju_sqrMatTD_impl",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 370,
+      "selfMs": 461.536
+    },
+    {
+      "functionName": "mju_zero",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 347,
+      "selfMs": 434.483
+    },
+    {
+      "functionName": "o",
+      "url": "file://./dist/r1/mujoco-runtime.mjs",
+      "line": 17,
+      "samples": 321,
+      "selfMs": 397.009
+    },
+    {
+      "functionName": "mju_sub",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 300,
+      "selfMs": 372.171
+    },
+    {
+      "functionName": "decfloat",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 290,
+      "selfMs": 367.082
+    },
+    {
+      "functionName": "fmodl",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 268,
+      "selfMs": 338.246
+    },
+    {
+      "functionName": "gjk",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 260,
+      "selfMs": 324.835
+    },
+    {
+      "functionName": "multiplyMatrices",
+      "url": "file://./dist/vendor/three.core.min.js",
+      "line": 6,
+      "samples": 251,
+      "selfMs": 313.376
+    },
+    {
+      "functionName": "mj_constraintUpdate_impl",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 249,
+      "selfMs": 308.588
+    },
+    {
+      "functionName": "get",
+      "url": "",
+      "line": 0,
+      "samples": 232,
+      "selfMs": 290.875
+    },
+    {
+      "functionName": "mj_broadphase",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 222,
+      "selfMs": 275.212
+    },
+    {
+      "functionName": "updateMatrixWorld",
+      "url": "file://./dist/vendor/three.core.min.js",
+      "line": 6,
+      "samples": 219,
+      "selfMs": 271.21
+    },
+    {
+      "functionName": "objEquiv",
+      "url": "node:internal/util/comparisons",
+      "line": 534,
+      "samples": 215,
+      "selfMs": 267.993
+    },
+    {
+      "functionName": "eo",
+      "url": "file://./dist/r1/mujoco-runtime.mjs",
+      "line": 22,
+      "samples": 205,
+      "selfMs": 253.67
+    },
+    {
+      "functionName": "mj_solPrimal",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 204,
+      "selfMs": 253.631
+    },
+    {
+      "functionName": "(garbage collector)",
+      "url": "",
+      "line": 0,
+      "samples": 181,
+      "selfMs": 227.71
+    },
+    {
+      "functionName": "mj_makeImpedance",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 182,
+      "selfMs": 225.003
+    },
+    {
+      "functionName": "epa",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 177,
+      "selfMs": 219.079
+    },
+    {
+      "functionName": "beforeStep",
+      "url": "file://./dist/g1/g1-dynamics.mjs",
+      "line": 23,
+      "samples": 171,
+      "selfMs": 211.832
+    },
+    {
+      "functionName": "mjCBoundingVolumeHierarchy::MakeBVH(std::__2::__wrap_iter<mjCBoundingVolumeHierarchy::BVElement*>, std::__2::__wrap_iter<mjCBoundingVolumeHierarchy::BVElement*>, int, mjCModel*, mjCBase const*)",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 160,
+      "selfMs": 202.498
+    },
+    {
+      "functionName": "mj_island",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 162,
+      "selfMs": 202.083
+    },
+    {
+      "functionName": "mix",
+      "url": "file://./dist/g1/grasp-controller.mjs",
+      "line": 18,
+      "samples": 160,
+      "selfMs": 199.838
+    },
+    {
+      "functionName": "Qe",
+      "url": "file://./dist/r1/mujoco-runtime.mjs",
+      "line": 2,
+      "samples": 159,
+      "selfMs": 196.755
+    },
+    {
+      "functionName": "get",
+      "url": "file://./dist/r1/mujoco-runtime.mjs",
+      "line": 17,
+      "samples": 154,
+      "selfMs": 190.837
+    },
+    {
+      "functionName": "innerDeepEqual",
+      "url": "node:internal/util/comparisons",
+      "line": 134,
+      "samples": 153,
+      "selfMs": 189.666
+    },
+    {
+      "functionName": "mj_solveLD",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 147,
+      "selfMs": 183.914
+    },
+    {
+      "functionName": "beforeStep",
+      "url": "file://./dist/r1/r1-dynamics.mjs",
+      "line": 30,
+      "samples": 147,
+      "selfMs": 182.997
+    },
+    {
+      "functionName": "mju_mulMatVec",
+      "url": "wasm://wasm/mujoco.wasm-026a01ba",
+      "line": 1,
+      "samples": 143,
+      "selfMs": 176.917
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/multi/background-planning.mjs": "97853a50ffb2e3c154e1a95a4a59ef35fc1a7867dbd7d079b5b3259b244be091",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-multi-runtime-perf-v2.mjs": "e33b92d2007894e56788328c0921a4ec0477d852d659226ca09ebabbb9512e46",
+    "work/test-multi-runtime-performance.mjs": "b21e98ec09bab29f3355d69faf9bdd15e4f332f1ddf6a7c146146cfbd047f901"
+  },
+  "endSourceHashes": {
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/multi/background-planning.mjs": "97853a50ffb2e3c154e1a95a4a59ef35fc1a7867dbd7d079b5b3259b244be091",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-multi-runtime-perf-v2.mjs": "e33b92d2007894e56788328c0921a4ec0477d852d659226ca09ebabbb9512e46",
+    "work/test-multi-runtime-performance.mjs": "b21e98ec09bab29f3355d69faf9bdd15e4f332f1ddf6a7c146146cfbd047f901"
+  },
+  "limitations": "V8 sampling of the paired baseline/test-only view-cache fixture, not a browser profile. Route preparation, explicit display/snapshot probes and strict assertion overhead are separated from step samples; sample shares are estimates, not exact nested timers or FPS. The experiment includes a test-only object-swap wrapper; production sources remain unchanged."
+}

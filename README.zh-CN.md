@@ -64,7 +64,8 @@ npm start
 | 进一步阅读 | 内容 |
 | --- | --- |
 | [工程指南](GUIDE.zh-CN.md) · [English](GUIDE.md) | 机器人模型、控制、架构、启动与部署 |
-| [后台规划证据](work/validation/background-planning/README.md) | 源码绑定报告、取消及编译模型一致性 |
+| [当前性能优化证据](work/validation/performance-v2/README.md) | 精确结果规划缓存、异步相机读回与发布回归范围 |
+| [上一版后台规划](work/validation/background-planning/README.md) | 历史源码绑定报告、取消及编译模型一致性 |
 | [实现历史](TECHNICAL_NOTES.zh-CN.md) | 保留的版本与分支记录 |
 
 ## 验证与参与
@@ -75,7 +76,7 @@ npm run test:pages
 npm run test:acceptance
 ```
 
-完整物理测试需要较长时间。已有 **2026-10-16** 后台规划版本记录包括 **72/72 根圆管、12 次普通抓取及 3 次叠放**；这是限定场景下的既有仿真结果，不是本次文档整理重新执行的测试。[完整范围](work/validation/background-planning/README.md)。
+完整物理测试需要较长时间。上一版 **2026-10-16** 后台规划记录包括 **72/72 根圆管、12 次普通抓取及 3 次叠放**，保留为历史证据；当前优化版将新结果写入 [performance-v2](work/validation/performance-v2/README.md)，GitHub Actions 必须完整回归通过才会发布。
 
 `main` 默认进入 `/multi/`，保留 `/r1/`、`/g1/`、`/c5/`。GitHub Actions 验证后发布 `dist/`。问题反馈请附机器人、任务、布局/种子、浏览器及复现步骤。
 

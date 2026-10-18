@@ -6,7 +6,7 @@ import {verifyPipeAcceptance} from './verify-pipe-acceptance.mjs';
 // Exercise the real release verifier using in-memory mutations of a completed
 // physical report. These are report-rejection tests, not substitute grasp runs.
 const root=new URL('../',import.meta.url),reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-  ??'work/validation/performance/pipes-physical-final.json';
+  ??'work/validation/performance-v2/pipes-physical-compiled-model-final.json';
 const bytes=await readFile(new URL(reportPath,root)),baseline=JSON.parse(bytes),results=[];
 const requireBackground=process.argv.includes('--require-background');
 const row=(report,prefix)=>report.results.find(item=>item.name.startsWith(prefix));
@@ -31,6 +31,7 @@ await run('The cooperative planning module must be bound to the current physical
 if(requireBackground){
   await run('Cooperative execution cannot replace the required real worker run',report=>{report.planningExecution.worker=false;},/real background worker execution/);
   await run('Worker-core source must be bound to the actual physical run',report=>{delete report.sourceHashes['dist/multi/planning-worker-core.mjs'];},/source binding missing: dist\/multi\/planning-worker-core/);
+  await run('The exact collision-cache source must be bound to the actual physical run',report=>{delete report.sourceHashes['dist/multi/planning-check-cache.mjs'];},/source binding missing: dist\/multi\/planning-check-cache/);
   await run('A changed worker source cannot reuse saved physical success',report=>{report.sourceHashes['dist/multi/planning-worker-core.mjs']='0'.repeat(64);},/stale source/);
   await run('A planning budget override cannot claim production worker behavior',report=>{report.planningExecution.productionBudgetOverride=true;},/real background worker execution/);
 }
@@ -67,7 +68,7 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const sourceHashes=Object.fromEntries(await Promise.all(['work/test-pipe-acceptance-verifier.mjs','work/verify-pipe-acceptance.mjs'].map(async path=>[path,sha(await readFile(new URL(path,root)))])));
 const report={pass:true,scope:'Positive/negative validation of a real saved physical report; not new physics, browser or hardware evidence',
   checks:results.length,results,physicalReport:reportPath,physicalReportSha256:sha(bytes),sourceHashes};
-const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??'work/validation/performance/pipe-verifier-final.json';
+const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??'work/validation/performance-v2/pipe-verifier-final.json';
 const destination=new URL(outputPath,root);await mkdir(new URL('./',destination),{recursive:true});
 await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report,null,2));

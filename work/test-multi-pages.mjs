@@ -10,8 +10,8 @@ const bases = ['http://127.0.0.1:4173/', 'https://wander521.github.io/r1-simulat
 const cached = new Map(), directories = new Set(), checks = [], edges = [], exclusions = [];
 const sha = data => createHash('sha256').update(data).digest('hex');
 const stripQuery = path => path.replace(/[?#].*$/, '');
-const workerModules=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`multi/${name}.mjs`);
-const workerRelease='20261016-worker-1';
+const workerModules=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`multi/${name}.mjs`);
+const workerRelease='20261018-perf-2';
 async function contents(path) {
   if (!cached.has(path)) cached.set(path, await readFile(new URL(path, root)));
   assert(cached.get(path).length > 0, `Empty resource: ${path}`);
@@ -191,7 +191,7 @@ while (queue.length) {
   }
 }
 assert(modules.has('multi/robot-runtime.mjs') && modules.has('vendor/URDFLoader.js'));
-for(const module of ['theme-controller','scene-environment','camera-feeds','frame-scheduler'])
+for(const module of ['theme-controller','scene-environment','camera-feeds','camera-feed-queue','frame-scheduler'])
   assert(modules.has(`multi/visuals/${module}.mjs`),`New visual module missing from the recursively checked browser graph: ${module}`);
 for(const module of ['coordinator','planning','pipe-controller'])
   assert(modules.has(`multi/${module}.mjs`),`Responsive planning module missing from the recursively checked browser graph: ${module}`);

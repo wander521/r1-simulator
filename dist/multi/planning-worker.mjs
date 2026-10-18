@@ -1,4 +1,4 @@
-import {createPlanningWorkerService} from './planning-worker-core.mjs?v=20261016-worker-1';
+import {createPlanningWorkerService} from './planning-worker-core.mjs?v=20261018-perf-2';
 
 const service=createPlanningWorkerService();
 self.onmessage=async event=>{

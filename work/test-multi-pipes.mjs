@@ -48,6 +48,7 @@ const sourcePaths = ['work/test-multi-pipes.mjs', ...taskSources,
   'dist/g1/g1-profile.mjs','dist/c5/c5-profile.mjs','dist/r1/mujoco-runtime.mjs',
   'dist/vendor/three.module.min.js',
   'dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm'];
+assert(sourcePaths.includes('dist/multi/planning-check-cache.mjs'),'Worker safety-cache source must be bound to physical evidence');
 async function hashes() { return Object.fromEntries(await Promise.all(sourcePaths.map(async path =>
   [path, createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')]))); }
 const sourceHashes = await hashes();

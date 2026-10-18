@@ -8,6 +8,7 @@ import {STATION_OFFSETS, STATION_VIEW_BOUNDS, fitWorkstationView, createSharedWo
 import {STAGE_NAMES, taskProgress} from './presentation.mjs';
 import {createThemeController} from './visuals/theme-controller.mjs';
 import {createCameraFeedPass} from './visuals/camera-feeds.mjs';
+import {createCameraFeedQueue} from './visuals/camera-feed-queue.mjs';
 import {createFrameScheduler,cameraFeedVisible,shouldRefitCamera} from './visuals/frame-scheduler.mjs';
 
 const $ = selector => document.querySelector(selector);
@@ -33,10 +34,23 @@ let lastFrame=0, accumulator=0, lastUI=0, lastFeed=0, lastStatus='', physicsStep
 const frameTimes=[], renderTimes=[];
 const frameScheduler=createFrameScheduler();
 let nextFeed=0,feedRenderCount=0,planningSlices=0;
+let lastFeedError=null;
 let lastViewFit=null;
 const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
 const cameraFeedPass=createCameraFeedPass(renderer), feedPixels=new Uint8Array(240*180*4);
-const feeds=[$('#overhead-feed'),$('#wrist-feed')].map(element=>({element,ctx:element.getContext('2d'),image:new ImageData(240,180)}));
+const feeds=[$('#overhead-feed'),$('#wrist-feed')].map(element=>{
+  const caption=element.closest('figure').querySelector('figcaption');
+  return{element,caption,label:caption.textContent,ctx:element.getContext('2d'),image:new ImageData(240,180)};
+});
+const cameraFeedQueue=createCameraFeedQueue({
+  render:({camera})=>cameraFeedPass.renderAsync(scene,camera,feedPixels),
+  isCurrent:({station,controller,arm,theme})=>showCameras&&!document.hidden&&focused()===station&&station.controller===controller&&station.arm===arm&&sceneThemes.activeId===theme,
+  present:(pixels,{index})=>{
+    const feed=feeds[index];for(let row=0;row<180;row++)feed.image.data.set(pixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4);
+    feed.ctx.putImageData(feed.image,0,0);feed.caption.textContent=feed.label;lastFeedError=null;feedRenderCount++;
+  },
+  onError:(error,{index})=>{lastFeedError=error.message;feeds[index].caption.textContent=`${feeds[index].label} · 画面暂时不可用`;},
+});
 const contactGroup=new THREE.Group();scene.add(contactGroup);
 const contactGeometry=new THREE.SphereGeometry(.004,8,6), contactMaterial=new THREE.MeshBasicMaterial({color:0x5ee8c9});
 const contactMarkers=Array.from({length:24},()=>{const marker=new THREE.Mesh(contactGeometry,contactMaterial);marker.visible=false;contactGroup.add(marker);return marker;});
@@ -55,10 +69,10 @@ for (const config of Object.values(ROBOT_CONFIGS)) {
 function status(message){notice=message; updateUI();}
 function focused(){return stations.get(coordinator?.focusId);}
 function pipeTask(){return $('#task-mode').value==='pipes';}
-function clearHistories(){for(const history of histories.values())history.force.length=history.torque.length=0;}
+function clearHistories(){cameraFeedQueue.invalidate();for(const history of histories.values())history.force.length=history.torque.length=0;}
 async function configureTask(task,{randomize=false}={}){
   if(!coordinator||coordinator.running||preparing)return;
-  endDrag();preparing=true;notice=task==='pipes'?'正在准备随机圆管与分类工作区…':'正在恢复原工作台…';updateUI();
+  endDrag();cameraFeedQueue.invalidate();preparing=true;notice=task==='pipes'?'正在准备随机圆管与分类工作区…':'正在恢复原工作台…';updateUI();
   await new Promise(requestAnimationFrame);
   const result=coordinator.configureTask(task,task==='pipes'?{seed:crypto.getRandomValues(new Uint32Array(1))[0]}:{});
   if(result.ok){currentTask=task;selectedObject=task==='pipes'?focused().selected:'blue';clearHistories();notice='';renderer.shadowMap.needsUpdate=true;}
@@ -90,6 +104,7 @@ function fitView(ids=coordinator?.selectedIds??[...stations.keys()],{motion=prep
 }
 function setFocus(id) {
   if(!coordinator?.setFocus(id).ok)return;
+  cameraFeedQueue.invalidate();
   $('#focus-robot').value=id; updateUI(); lastFeed=0;
 }
 function selectObject(id) {
@@ -111,25 +126,27 @@ $('#robot-options').addEventListener('change',event=>{
   endDrag();
   const ids=[...document.querySelectorAll('input[data-robot]:checked')].map(input=>input.dataset.robot);
   const result=coordinator.select(ids); notice=result.ok?'':result.reason;
+  if(result.ok)cameraFeedQueue.invalidate();
   updateUI(); if(result.ok)fitView(undefined,{reason:'participants'});
 });
-$('#select-all').addEventListener('click',()=>{const result=coordinator.select([...stations.keys()]);notice=result.ok?'':result.reason;updateUI();if(result.ok)fitView(undefined,{reason:'participants'});});
+$('#select-all').addEventListener('click',()=>{const result=coordinator.select([...stations.keys()]);notice=result.ok?'':result.reason;updateUI();if(result.ok){cameraFeedQueue.invalidate();fitView(undefined,{reason:'participants'});}});
 document.querySelectorAll('[data-object]').forEach(button=>button.addEventListener('click',()=>selectObject(button.dataset.object)));
 document.querySelectorAll('[data-focus]').forEach(button=>button.addEventListener('click',()=>setFocus(button.dataset.focus)));
 $('#focus-robot').addEventListener('change',()=>setFocus($('#focus-robot').value));
-$('#arm-select').addEventListener('change',()=>{const runtime=focused();if(runtime&&!coordinator.running){runtime.setArm($('#arm-select').value);status(`已选择${runtime.config.label}的${runtime.arm==='right'?'右臂':'左臂'}`);}});
+$('#arm-select').addEventListener('change',()=>{const runtime=focused();if(runtime&&!coordinator.running){runtime.setArm($('#arm-select').value);cameraFeedQueue.invalidate();status(`已选择${runtime.config.label}的${runtime.arm==='right'?'右臂':'左臂'}`);}});
 $('#fit-view').addEventListener('click',()=>fitView());
 $('#focus-view').addEventListener('click',()=>fitView([coordinator?.focusId],{reason:'focus'}));
-$('#toggle-cameras').addEventListener('click',()=>{showCameras=!showCameras;$('#camera-feeds').hidden=!showCameras;$('#toggle-cameras').textContent=showCameras?'隐藏画面':'显示画面';$('#toggle-cameras').setAttribute('aria-pressed',String(showCameras));});
+$('#toggle-cameras').addEventListener('click',()=>{cameraFeedQueue.invalidate();showCameras=!showCameras;$('#camera-feeds').hidden=!showCameras;$('#toggle-cameras').textContent=showCameras?'隐藏画面':'显示画面';$('#toggle-cameras').setAttribute('aria-pressed',String(showCameras));lastFeed=0;});
+document.querySelectorAll('[data-scene-switch]').forEach(button=>button.addEventListener('click',()=>cameraFeedQueue.invalidate()));
 $('#randomize-pipes').addEventListener('click',()=>configureTask('pipes',{randomize:true}));
 $('#start').addEventListener('click',()=>{
   if(!coordinator||coordinator.running||preparing)return;
-  endDrag();preparing=true;notice='正在共同检查抓取路径；检查通过后同时开始…';updateUI();
+  endDrag();cameraFeedQueue.invalidate();preparing=true;notice='正在共同检查抓取路径；检查通过后同时开始…';updateUI();
   const armByRobot=Object.fromEntries([...stations].map(([id,station])=>[id,station.arm]));
   const result=coordinator.start({objectId:selectedObject,task:$('#task-mode').value,armByRobot,reducedMotion});
   notice=result.ok?'':result.reason;preparing=false;lastFrame=performance.now();accumulator=0;frameScheduler.reset(lastFrame);updateUI();
 });
-$('#stop').addEventListener('click',()=>{endDrag();coordinator?.stop();notice='';updateUI();});
+$('#stop').addEventListener('click',()=>{endDrag();cameraFeedQueue.invalidate();coordinator?.stop();notice='';updateUI();});
 $('#reset').addEventListener('click',()=>{
   endDrag();coordinator?.reset();selectedObject=pipeTask()?focused().selected:'blue';
   if(!pipeTask())for(const station of stations.values())station.select('blue');
@@ -170,7 +187,7 @@ function endDrag(event) {
 }
 canvas.addEventListener('pointerdown',down,{capture:true});canvas.addEventListener('lostpointercapture',endDrag);
 window.addEventListener('pointermove',move);window.addEventListener('pointerup',endDrag);window.addEventListener('pointercancel',endDrag);window.addEventListener('blur',()=>endDrag());
-document.addEventListener('visibilitychange',()=>{endDrag();lastFrame=performance.now();accumulator=0;frameScheduler.reset(lastFrame);});
+document.addEventListener('visibilitychange',()=>{endDrag();cameraFeedQueue.invalidate();lastFrame=performance.now();accumulator=0;frameScheduler.reset(lastFrame);});
 canvas.addEventListener('contextmenu',event=>event.preventDefault());
 window.addEventListener('keydown',event=>{
   if(event.code==='Escape'){endDrag();return;}
@@ -234,18 +251,13 @@ function updateLabels(){
   for(const [id,station]of stations){const tag=$(`.station-tag[data-focus="${id}"]`),p=project(station.localToWorld(new THREE.Vector3(0,station.labelHeight,0)));tag.hidden=!station.group.visible||!p.visible;if(!tag.hidden){tag.style.left=`${p.x}px`;tag.style.top=`${p.y-tag.offsetHeight}px`;}}
 }
 function updateCameras() {
-  const focus=focused(), vision=visions.get(focus?.id);if(!focus||!vision||!showCameras)return;
+  const focus=focused(), vision=visions.get(focus?.id);if(!focus||!vision||!showCameras||cameraFeedQueue.pending)return;
   const visible=feeds.map((feed,index)=>cameraFeedVisible(feed.element.getBoundingClientRect(),{width:innerWidth,height:innerHeight})?index:-1).filter(index=>index>=0);
   if(!visible.length)return;
   const index=visible.includes(nextFeed)?nextFeed:visible[0];nextFeed=(index+1)%2;
   const top=focus.localToWorld(new THREE.Vector3(focus.config.tableCenter,focus.config.tableHeight+.72,0));
   vision.overhead.position.copy(top);vision.overhead.up.set(1,0,0);vision.overhead.lookAt(focus.localToWorld(new THREE.Vector3(focus.config.tableCenter,focus.config.tableHeight,0)));vision.overhead.updateMatrixWorld(true);
-  const shadowUpdate=renderer.shadowMap.autoUpdate;renderer.shadowMap.autoUpdate=false;
-  try{
-    cameraFeedPass.render(scene,[vision.overhead,vision.camera][index],feedPixels);feedRenderCount++;
-    const image=feeds[index].image;for(let row=0;row<180;row++)image.data.set(feedPixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4);
-    feeds[index].ctx.putImageData(image,0,0);
-  }finally{renderer.setRenderTarget(null);renderer.shadowMap.autoUpdate=shadowUpdate;}
+  cameraFeedQueue.request({station:focus,controller:focus.controller,arm:focus.arm,theme:sceneThemes.activeId,index,camera:[vision.overhead,vision.camera][index]});
 }
 function resize(){const rect=viewport.getBoundingClientRect();renderer.setSize(rect.width,rect.height,false);camera.aspect=rect.width/rect.height;camera.updateProjectionMatrix();}
 new ResizeObserver(resize).observe(viewport);resize();
@@ -309,7 +321,7 @@ async function boot(){
     notice=stations.size===3?'三台机器人已就绪；可单选或多选，点击开始后同时抓取。':'部分机器人加载失败；可使用已就绪的机器人，或刷新重试。';
     updateUI();fitView(undefined,{reason:'initial'});
     window.multiDiagnostics=()=>({ ...coordinator.snapshot, selectedObject,preparing,drag:drag?{robotId:drag.station.id,objectId:drag.target.id,mode:drag.mode}:null,
-      camera:camera.position.toArray(),viewFit:lastViewFit,orbitEnabled:orbit.enabled,sceneTheme:sceneThemes.activeId,cameraFeedMode:cameraFeedPass.mode,scenePresentation:{environmentMode:workcell.environmentMode,environmentError:workcell.environmentError,resources:workcell.resourceStats},frames:{averageMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1),averageWorkMs:renderTimes.reduce((a,b)=>a+b,0)/(renderTimes.length||1),maxWorkMs:Math.max(0,...renderTimes),physicsSteps,backlogSeconds:accumulator,droppedWallSeconds:frameScheduler.droppedWallSeconds,feedRenderCount,planningSlices},
+      camera:camera.position.toArray(),viewFit:lastViewFit,orbitEnabled:orbit.enabled,sceneTheme:sceneThemes.activeId,cameraFeedMode:cameraFeedPass.mode,cameraFeedReadback:{mode:cameraFeedPass.readbackMode,pending:cameraFeedQueue.pending,error:lastFeedError},scenePresentation:{environmentMode:workcell.environmentMode,environmentError:workcell.environmentError,resources:workcell.resourceStats},frames:{averageMs:frameTimes.reduce((a,b)=>a+b,0)/(frameTimes.length||1),averageWorkMs:renderTimes.reduce((a,b)=>a+b,0)/(renderTimes.length||1),maxWorkMs:Math.max(0,...renderTimes),physicsSteps,backlogSeconds:accumulator,droppedWallSeconds:frameScheduler.droppedWallSeconds,feedRenderCount,planningSlices},
       view:coordinator.selectedIds.map(id=>({id,origin:stations.get(id).group.position.toArray(),canonicalParent:stations.get(id).robot.parent?.name??null,objects:stations.get(id).snapshot.objects.map(object=>({...object,screen:project(new THREE.Vector3(...object.worldPosition))}))})),
       loading:Object.fromEntries(loadStates)});
   }catch(error){console.error(error);$('#loading-message').textContent=`加载失败：${error.message}`;$('#loading').querySelector('h2').textContent='场景暂时无法加载';$('#status').textContent='加载失败，请刷新重试';}

@@ -12,10 +12,10 @@ const check=(condition,message)=>{if(!condition)errors.push(message);};
 const finite=(value,label)=>check(typeof value==='number'&&Number.isFinite(value),`${label}: missing/non-finite number`);
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const robotIds=['r1','g1','c5'];
-const reportDirectory=process.argv?.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance';
-const physicalSuffix=process.argv?.find(arg=>arg.startsWith('--physical-suffix='))?.slice(18)??'';
+const reportDirectory=process.argv?.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance-v2';
+const physicalSuffix=process.argv?.find(arg=>arg.startsWith('--physical-suffix='))?.slice(18)??'-compiled-model';
 const requireBackground=process.argv?.includes('--require-background')??false;
-const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`);
+const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`);
 const backgroundCheckNames=[
   'Vector3 and Quaternion prototypes survive nested structured-clone payloads',
   'Malformed vector tags, functions and prototype injection are rejected',
@@ -26,6 +26,7 @@ const backgroundCheckNames=[
   'A finite watchdog terminates a stalled worker and the next request can succeed',
   'Progress reports elapsed wall time and candidate counts without completing a request',
   'Worker URDF parser retains all source joint transforms at legal sample poses',
+  'Worker-only exact joint reuse preserves default parser behavior and every world matrix',
   ...robotIds.map(id=>`${id}: background plan and command state match the production route exactly`),
   ...robotIds.map(id=>`${id}: a moving snapshot preserves sampled derived object poses and the exact accepted route`),
   ...['r1','g1'].map(id=>`${id}: reused compiled pipe worlds preserve exact plans across seeds and task rebuilds`),
@@ -47,6 +48,9 @@ const evidenceReports={
   'themes-final':`${reportDirectory}/theme-contracts-final.json`,
   'release-cache-final':`${reportDirectory}/release-cache-final.json`,
   'background-final':`${reportDirectory}/contracts-final.json`,
+  'camera-async-final':`${reportDirectory}/camera-feed-async-contracts.json`,
+  'planning-cache-final':`${reportDirectory}/planning-check-cache-contracts.json`,
+  'camera-queue-final':`${reportDirectory}/camera-feed-queue-contracts.json`,
 };
 const expectedOffsets=[[0,0,2.2],[0,0,0],[0,0,-2.2]];
 const fingerTolerances={r1:.001,g1:.0002,c5:.0002};
@@ -97,7 +101,7 @@ const physicalSources=[
 ];
 const uiSources=['work/test-multi-ui.mjs',...workerSources,...['index.html','styles.css','app.mjs','presentation.mjs',
   'workcell.mjs','robot-runtime.mjs','coordinator.mjs','planning.mjs','pipe-controller.mjs',
-  'visuals/theme-controller.mjs','visuals/scene-environment.mjs','visuals/camera-feeds.mjs','visuals/frame-scheduler.mjs'].map(file=>`dist/multi/${file}`)];
+  'visuals/theme-controller.mjs','visuals/scene-environment.mjs','visuals/camera-feeds.mjs','visuals/camera-feed-queue.mjs','visuals/frame-scheduler.mjs'].map(file=>`dist/multi/${file}`)];
 const pageSources=['work/test-multi-pages.mjs','dist/index.html',...uiSources.filter(path=>path.startsWith('dist/')),
   'dist/multi/r1-safe-dynamics.mjs','dist/vendor/URDFLoader.js','dist/vendor/URDFClasses.js','dist/vendor/three.module.min.js',
   'dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm'];
@@ -335,7 +339,7 @@ async function main(){
   summary.publicationChecks=pages.checks;
 
   await bind(responsiveness,'responsiveness',['work/test-multi-responsiveness.mjs','dist/multi/coordinator.mjs',
-    'dist/multi/app.mjs','dist/multi/visuals/frame-scheduler.mjs']);
+    'dist/multi/app.mjs','dist/multi/visuals/frame-scheduler.mjs','dist/multi/visuals/camera-feed-queue.mjs','dist/multi/visuals/camera-feeds.mjs']);
   check(responsiveness.total===20&&responsiveness.passed===20&&responsiveness.checks?.length===20
     &&responsiveness.checks.every(row=>row.pass===true)&&new Set(responsiveness.checks.map(row=>row.name)).size===20
     &&responsiveness.errors?.length===0,'responsiveness: twenty bounded-planning, cancellation, clock, feed and camera contracts incomplete');
@@ -362,16 +366,62 @@ async function main(){
   summary.themeChecks=themes.total;
 
   await bind(releaseCache,'release cache',['work/test-release-cache.mjs','dist/multi/index.html','dist/multi/app.mjs',
-    ...workerSources,'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/visuals/frame-scheduler.mjs']);
+    ...workerSources,'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/visuals/frame-scheduler.mjs','dist/multi/visuals/camera-feed-queue.mjs']);
   check(releaseCache.checks===13&&releaseCache.results?.length===13&&releaseCache.results.every(row=>row.pass===true)
     &&releaseCache.graphs?.length===6&&releaseCache.negativeFixtures?.length===10&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
     'release cache: exact aliases, complete graph and negative stale-cache fixtures absent');
-  check(equal(releaseCache.releases,{'multi/index.html':'20261016-worker-1','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
+  check(equal(releaseCache.releases,{'multi/index.html':'20261018-perf-2','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
     'release cache: multi worker cohort or independent native cohorts changed');
   const workerNegatives=['unversioned-worker-entry-is-rejected','unversioned-worker-transitive-module-is-rejected','worker-cannot-inherit-document-import-map'];
   for(const prefix of ['/','/r1-simulator/'])for(const name of workerNegatives)check(releaseCache.negativeFixtures?.some(row=>row.prefix===prefix&&row.name===name&&row.rejected),'release cache: worker stale-cache/import-map negative fixtures absent');
   for(const graph of releaseCache.graphs??[])if(graph.page==='multi/index.html')check(graph.workerEntries?.length===1&&workerSources.every(path=>graph.workerModules?.includes(path.slice(5))),'release cache: worker entry/transitive graph absent');
   summary.releaseCacheChecks=releaseCache.checks;
+  const cameraAsync=await readReport('camera-async-final');
+  await bind(cameraAsync,'async camera',['work/test-camera-feed-async-perf-v2.mjs','dist/multi/visuals/camera-feeds.mjs','dist/vendor/three.module.min.js','dist/vendor/three.core.min.js']);
+  const cameraNames=cameraAsync.results?.map(row=>row.name)??[];
+  const requiredCameraNames=[
+    'Async readback submits two passes synchronously and restores every caller state before its promise settles',
+    'Delayed result returns the supplied RGBA8 buffer and uses submission-time ACES exposure without changing later main-view state',
+    'One in-flight frame rejects sync/async reentry and disposal until completion without another draw or release',
+    'Deferred readback rejection restores pending lifetime and allows a subsequent successful frame',
+    'A synchronous legacy renderer has an explicit compatible Promise fallback with unchanged color and restoration contracts',
+    'Sync and async paths reuse identical HDR/display targets, bundled shader, geometry and material across exposure changes',
+    'Successful async disposal is idempotent, owns exactly four resources, and rejects all subsequent entry',
+  ];
+  check(cameraAsync.pass===true&&cameraAsync.sourceFrozen===true&&cameraAsync.checks===cameraNames.length&&cameraNames.length>=12&&new Set(cameraNames).size===cameraNames.length&&cameraAsync.results.every(row=>row.pass===true)&&requiredCameraNames.every(name=>cameraNames.includes(name)),'async camera: complete delayed-readback, restoration, failure, resource and fallback contracts absent');
+  check(cameraAsync.gpuExecuted===false&&cameraAsync.browserExecuted===false,'async camera: fixtures must not claim browser/GPU execution');
+  summary.asyncCameraChecks=cameraAsync.checks;
+  const cameraQueue=await readReport('camera-queue-final');
+  await bind(cameraQueue,'camera queue',['work/test-camera-feed-queue-perf-v2.mjs','dist/multi/visuals/camera-feed-queue.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/app.mjs']);
+  const queueNames=cameraQueue.results?.map(row=>row.name)??[];
+  const requiredQueueNames=[
+    'One in-flight request owns its buffer, rejects overlap, then permits exact buffer reuse',
+    'Invalidation suppresses stale pixels but never releases shared readback memory early',
+    'Stale readback rejection is consumed without presenting an obsolete error',
+    'Focus, controller, arm, theme and visibility snapshot changes independently suppress presentation',
+    'Asynchronous submission rejection is consumed, reported once, and does not poison reuse',
+    'Reentrant requests cannot overlap and whenIdle is already valid inside render/present',
+    'All controlled failure paths leave zero unhandled Promise rejections',
+  ];
+  check(cameraQueue.pass===true&&cameraQueue.sourceFrozen===true&&cameraQueue.checks===queueNames.length&&queueNames.length>=16&&new Set(queueNames).size===queueNames.length&&cameraQueue.results.every(row=>row.pass===true)&&requiredQueueNames.every(name=>queueNames.includes(name)),'camera queue: complete in-flight, stale generation/context, recovery and rejection contracts absent');
+  check(cameraQueue.gpuExecuted===false&&cameraQueue.browserExecuted===false&&cameraQueue.physicsExecuted===false,'camera queue: fixtures must not claim browser/GPU/physics execution');
+  summary.cameraQueueChecks=cameraQueue.checks;
+  const planningCache=await readReport('planning-cache-final');
+  await bind(planningCache,'planning cache',['work/test-planning-check-cache.mjs','dist/multi/planning-check-cache.mjs']);
+  const cacheNames=planningCache.checks?.map(row=>row.name)??[];
+  const requiredCacheNames=[
+    'Repeated exact full inputs reuse actual results including unsafe contacts',
+    'Consumers cannot mutate either stored results or later returned clones',
+    'Signed zero is lossless, and property/array order and missing arguments remain distinct',
+    'Hidden, symbol and custom-array behavior cannot alias ordinary literal inputs',
+    'Changing live qpos clears the cache and permanently bypasses the job',
+    'Changing live ctrl clears the cache and permanently bypasses the job',
+    'Bounded LRU entries retain hot checks and evict old results without changing them',
+    'The byte bound evicts results, and oversized diagnostics are not retained',
+    'A cancelled or failed job restores the exact original method and frees all entries',
+  ];
+  check(planningCache.pass===true&&planningCache.sourceFrozen===true&&cacheNames.length>=19&&new Set(cacheNames).size===cacheNames.length&&planningCache.checks.every(row=>row.pass===true)&&requiredCacheNames.every(name=>cacheNames.includes(name)),'planning cache: exact key, clone, invalidation, unusual input and bounded lifetime contracts absent');
+  summary.planningCacheChecks=planningCache.checks?.length??0;
   if(requireBackground){
     const background=await readReport('background-final');
     const names=background.checks?.map(row=>row.name)??[];

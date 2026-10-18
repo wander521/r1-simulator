@@ -1,0 +1,62 @@
+{
+  "capturedAt": "2026-10-18T02:37:32.034Z",
+  "sourceHashes": {
+    "dist/multi/app.mjs": "e5cdcdab4af115639c920ed3f5fd0fa34eb0a26799e3d504a016617db6279b3d",
+    "dist/multi/index.html": "b8cf5e71655f5569b75635324190f66845992b02803fbd7e616335b534e9736a",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/multi/planning-worker-core.mjs": "8bf5e92d49450db819ce0d1123e182c6177b0412f9868151fc1370e2e60852d5",
+    "dist/multi/planning-robot.mjs": "43fd3d460bb23ab20669223409bc8bc034976c6309eb99c0d8381d2b119e575b",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/camera-feeds.mjs": "463854d404b82224ae7424f2d9d4c14e4863534a0a644ba34bf941a8c54a06b9"
+  },
+  "measurement": {
+    "label": "baseline-desktop-idle-1",
+    "durationMs": 4001.099999964237,
+    "size": [
+      1280,
+      720
+    ],
+    "visibility": "visible",
+    "dpr": 1,
+    "theme": "night",
+    "selected": [
+      "r1",
+      "g1",
+      "c5"
+    ],
+    "task": "sort",
+    "state": "idle",
+    "planning": false,
+    "frames": {
+      "count": 476,
+      "p50Ms": 8.299999999988358,
+      "p95Ms": 9.100000000034925,
+      "maxMs": 41.70000000001164,
+      "over33ms": 1
+    },
+    "longTasks": [],
+    "runtime": {
+      "averageMs": 8.32583333333314,
+      "averageWorkMs": 3.372500003874302,
+      "maxWorkMs": 5.200000047683716,
+      "physicsSteps": 343501,
+      "backlogSeconds": 0.0005999999999767164,
+      "droppedWallSeconds": 0.23480000000002071,
+      "feedRenderCount": 0,
+      "planningSlices": 0
+    },
+    "physicsTicks": 4000,
+    "realTimeFactor": 0.9997250756131446,
+    "feedsRendered": 0,
+    "droppedWallSeconds": 0,
+    "sources": {
+      "app": "http://127.0.0.1:4173/multi/app.mjs?v=20261016-worker-1"
+    },
+    "resources": {
+      "requests": 130,
+      "encodedBytes": 80183271,
+      "transferBytes": 38100
+    }
+  }
+}

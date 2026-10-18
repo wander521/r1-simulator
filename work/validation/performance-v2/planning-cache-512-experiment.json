@@ -1,0 +1,170 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T02:49:23.048Z",
+  "wallSeconds": 48.56539179199934,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/planning-cache-experiment.mjs": "6b0b7da8d9d26fbb40c60750374702b0452d5f5d8a10a3734a4c97bfa03c9528",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/planning-robot.mjs": "43fd3d460bb23ab20669223409bc8bc034976c6309eb99c0d8381d2b119e575b",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "8bf5e92d49450db819ce0d1123e182c6177b0412f9868151fc1370e2e60852d5",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "inputPath": "work/validation/performance-v2/g1-pipe592-snapshots.json",
+  "inputHash": "eb613c832587d06a5d5083112dfcf476cc1823f426cfb1b7a884b49ed4414be8",
+  "checks": {
+    "signedZero": true,
+    "missingUndefined": true,
+    "diagnosticsExact": true,
+    "orderedArraysAndEntries": true,
+    "accessorsBypass": true,
+    "mutableConsumerIsolation": true,
+    "negativeResultsCached": true,
+    "boundedLRU": true,
+    "errorFinallyCleanup": true,
+    "liveStateChangeDisablesMemo": true
+  },
+  "maxEntries": 512,
+  "trials": 1,
+  "scope": "Experiment only, fresh private G1 planning worlds from four actual immutable snapshots. Original budgets, candidate order, all safety checks and accepted plans unchanged. No production code modified. Paired timing includes exact trace encoding in both paths and bounded memo/clone costs in the memo path; this is Node planning time, not browser FPS.",
+  "rows": [
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "trial": 1,
+      "order": [
+        "original",
+        "memo"
+      ],
+      "baseline": {
+        "enabled": false,
+        "wallMs": 7771.839583992958,
+        "steps": 69,
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "metrics": {
+          "requests": 10509,
+          "evaluations": 10509,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 150.03603357076645,
+          "cloneMs": 0,
+          "backendMs": 3130.064202308655,
+          "traceMs": 30.961562514305115,
+          "stateGuardMs": 17.720529198646545,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "cached": {
+        "enabled": true,
+        "wallMs": 5620.434750020504,
+        "steps": 69,
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "metrics": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 5256,
+          "peakEntries": 512,
+          "peakTextBytes": 1462640,
+          "keyMs": 118.39630043506622,
+          "cloneMs": 32.734279811382294,
+          "backendMs": 1522.5859699845314,
+          "traceMs": 14.613577604293823,
+          "stateGuardMs": 9.541284084320068,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "c262e4872383126de57ec625e97480bccca1ce1cf998118f6161ea3b77298ca6",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.3827826368706808
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "trial": 1,
+      "order": [
+        "original",
+        "memo"
+      ],
+      "baseline": {
+        "enabled": false,
+        "wallMs": 14766.158457994461,
+        "steps": 137,
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "metrics": {
+          "requests": 38566,
+          "evaluations": 38566,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 446.0360281467438,
+          "cloneMs": 0,
+          "backendMs": 9861.289279997349,
+          "traceMs": 77.86926251649857,
+          "stateGuardMs": 35.19641828536987,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "cached": {
+        "enabled": true,
+        "wallMs": 10616.215083003044,
+        "steps": 137,
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "metrics": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 19186,
+          "peakEntries": 512,
+          "peakTextBytes": 1466338,
+          "keyMs": 489.2134510874748,
+          "cloneMs": 116.31595599651337,
+          "backendMs": 5315.203397333622,
+          "traceMs": 57.092526972293854,
+          "stateGuardMs": 35.165312230587006,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "800acf81632d1493c502fb31a927e99bbeb19ba3b6ce9df4f328a526b478a265",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.3909061131999512
+    }
+  ]
+}

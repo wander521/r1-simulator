@@ -9,6 +9,7 @@ import {ROBOT_CONFIGS,createRobotRuntimeFromParts} from '../dist/multi/robot-run
 import {createPlanningWorkerTransport} from '../dist/multi/planning-worker-transport.mjs';
 import {encodePlanningValue,decodePlanningValue,capturePlanningJob,restorePlanningJob,applyPlanningResult} from '../dist/multi/planning-serialization.mjs';
 import {parsePlanningRobot} from '../dist/multi/planning-robot.mjs';
+import {createPlanningWorkerRobot} from '../dist/multi/planning-worker-core.mjs';
 import {loadTestRobot as loadR1} from './r1-test-robot.mjs';
 import {loadG1TestRobot as loadG1} from './g1-test-robot.mjs';
 import {loadC5TestRobot as loadC5} from './c5-test-robot.mjs';
@@ -21,7 +22,7 @@ const reportPath=args.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/va
 const sourcePaths=[
   'work/test-background-planning.mjs','work/background-planning-node-worker.mjs',
   'dist/multi/planning-worker.mjs','dist/multi/planning-worker-core.mjs','dist/multi/planning-worker-transport.mjs',
-  'dist/multi/planning-serialization.mjs','dist/multi/planning-robot.mjs','dist/multi/planning.mjs',
+  'dist/multi/planning-serialization.mjs','dist/multi/planning-robot.mjs','dist/multi/planning-check-cache.mjs','dist/multi/planning.mjs',
   'dist/multi/background-planning.mjs',
   'dist/multi/robot-runtime.mjs','dist/multi/pipe-controller.mjs','dist/multi/pipe-layout.mjs','dist/multi/pipe-model.mjs','dist/multi/r1-safe-dynamics.mjs',
   ...['r1','g1','c5'].flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
@@ -125,13 +126,38 @@ try{
   await check('Worker URDF parser retains all source joint transforms at legal sample poses',async()=>{
     const loaders={r1:loadR1,g1:loadG1,c5:loadC5};
     for(const id of ['r1','g1','c5']){
-      const source=await readFile(new URL(ROBOT_CONFIGS[id].urdf),'utf8'),worker=parsePlanningRobot(source,{rootHeight:ROBOT_CONFIGS[id].rootHeight}),reference=await loaders[id]();
+      const source=await readFile(new URL(ROBOT_CONFIGS[id].urdf),'utf8'),worker=createPlanningWorkerRobot(source,{rootHeight:ROBOT_CONFIGS[id].rootHeight}),reference=await loaders[id]();
       assert.deepEqual(Object.keys(worker.joints).sort(),Object.keys(reference.joints).sort());
       for(const factor of [.1,.5,.9]){
         const pose=Object.fromEntries(Object.entries(worker.joints).filter(([,joint])=>joint.jointType!=='fixed').map(([name,joint])=>[name,joint.limit.lower+(joint.limit.upper-joint.limit.lower)*factor]));
         worker.setJointValues(pose);reference.setJointValues(pose);worker.updateMatrixWorld(true);reference.updateMatrixWorld(true);
         for(const [name,joint]of Object.entries(worker.joints))for(let index=0;index<16;index++)assert(Math.abs(joint.matrixWorld.elements[index]-reference.joints[name].matrixWorld.elements[index])<1e-10,`${id}/${name} world transform differs`);
       }
+    }
+  });
+  await check('Worker-only exact joint reuse preserves default parser behavior and every world matrix',async()=>{
+    for(const id of ['r1','g1','c5']){
+      const source=await readFile(new URL(ROBOT_CONFIGS[id].urdf),'utf8'),options={rootHeight:ROBOT_CONFIGS[id].rootHeight};
+      const worker=createPlanningWorkerRobot(source,options),original=parsePlanningRobot(source,options);
+      for(const factor of [.1,.5,.5,.9,.9,.1]){
+        const pose=Object.fromEntries(Object.entries(worker.joints).filter(([,joint])=>joint.jointType!=='fixed').map(([name,joint])=>[name,joint.limit.lower+(joint.limit.upper-joint.limit.lower)*factor]));
+        worker.setJointValues(pose);original.setJointValues(pose);worker.updateMatrixWorld(true);original.updateMatrixWorld(true);
+        for(const [name,joint]of Object.entries(worker.joints)){
+          assert.deepEqual(joint.jointValue,original.joints[name].jointValue);
+          assert.deepEqual(joint.quaternion.toArray(),original.joints[name].quaternion.toArray());
+          assert.deepEqual(joint.matrixWorld.elements,original.joints[name].matrixWorld.elements);
+        }
+      }
+      const name=Object.keys(worker.joints).find(name=>worker.joints[name].jointType==='revolute'&&worker.joints[name].limit.lower<0&&worker.joints[name].limit.upper>0);
+      assert(name);const optimized=worker.joints[name],legacy=original.joints[name];let workerCopies=0,legacyCopies=0;
+      const wc=optimized.quaternion.copy,lc=legacy.quaternion.copy;
+      optimized.quaternion.copy=function(...values){workerCopies++;return wc.apply(this,values);};
+      legacy.quaternion.copy=function(...values){legacyCopies++;return lc.apply(this,values);};
+      optimized.setValue(0);optimized.setValue(0);legacy.setValue(0);legacy.setValue(0);
+      assert.equal(workerCopies,1);assert.equal(legacyCopies,2,'Default parser must retain its original repeated-assignment semantics');
+      optimized.setValue(-0);legacy.setValue(-0);assert.equal(workerCopies,2);assert(Object.is(optimized.jointValue[0],-0));
+      assert.deepEqual(optimized.quaternion.toArray(),legacy.quaternion.toArray());
+      assert.throws(()=>optimized.setValue(Infinity));assert.throws(()=>legacy.setValue(Infinity));
     }
   });
   if(!contractsOnly){

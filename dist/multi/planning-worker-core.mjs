@@ -1,12 +1,19 @@
-import {createRobotRuntimeFromParts,loadPhysicsAPI,ROBOT_CONFIGS} from './robot-runtime.mjs?v=20261016-worker-1';
-import {parsePlanningRobot} from './planning-robot.mjs?v=20261016-worker-1';
-import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from './planning-serialization.mjs?v=20261016-worker-1';
+import {createRobotRuntimeFromParts,loadPhysicsAPI,ROBOT_CONFIGS} from './robot-runtime.mjs?v=20261018-perf-2';
+import {parsePlanningRobot} from './planning-robot.mjs?v=20261018-perf-2';
+import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from './planning-serialization.mjs?v=20261018-perf-2';
+import {createPlanningCheckCache} from './planning-check-cache.mjs?v=20261018-perf-2';
+
+/** Shared by the browser worker and its file-loading-only Node test bridge.
+ * The live/standalone parsers retain their original default behavior. */
+export function createPlanningWorkerRobot(source,{rootHeight=0}={}){
+  return parsePlanningRobot(source,{rootHeight,reuseUnchangedJoints:true});
+}
 
 async function createWorkerRuntime(job){
   const config=ROBOT_CONFIGS[job.robotId];if(!config)throw new Error('未知的后台机器人模型');
   const [api,response]=await Promise.all([loadPhysicsAPI(),fetch(config.urdf)]);
   if(!response.ok)throw new Error(`后台运动链加载失败（${response.status}）`);
-  const robot=parsePlanningRobot(await response.text(),{rootHeight:config.rootHeight}),vfs=new api.MjVFS();let model,data;
+  const robot=createPlanningWorkerRobot(await response.text(),{rootHeight:config.rootHeight}),vfs=new api.MjVFS();let model,data;
   try{
     model=api.MjModel.from_xml_string(job.sourceXml,vfs);data=new api.MjData(model);
     return createRobotRuntimeFromParts({id:job.robotId,api,model,data,robot,sourceXml:job.sourceXml,cooperativePlanning:true});
@@ -21,6 +28,7 @@ export function createPlanningWorkerService({createRuntime=createWorkerRuntime}=
   return{
     async run(encoded,{onProgress=()=>{}}={}){
       if(running)throw new Error('后台规划器仍在工作');running=true;
+      let checkCache=null;
       try{
         const job=decodePlanningValue(encoded),nextKey=JSON.stringify([job.robotId,job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode,job.pipeSeed]);
         onProgress({stage:'loading',steps:0,attempts:0,segmentElapsedMs:0});
@@ -38,6 +46,9 @@ export function createPlanningWorkerService({createRuntime=createWorkerRuntime}=
         // mirror; it must never override the new exact live-world snapshot.
         runtime.controller.cancelPlanning?.('更新后台规划快照');
         restorePlanningJob(runtime,encoded);const controller=runtime.controller,historyLength=controller.history.length;
+        // A fresh bounded cache belongs only to this immutable G1 worker job.
+        // It reuses exact scratch-check results, never a pose/plan/physics step.
+        if(job.robotId==='g1')checkCache=createPlanningCheckCache(runtime.dynamics);
         const accepted=controller.prepareItem(job.request.arm,job.request.id,job.request.continuing);
         if(!accepted)return{pending:false,done:true,ok:false,reason:controller.message,error:controller.planningResult?.error??{type:'unreachable'}};
         let result;do{
@@ -49,7 +60,7 @@ export function createPlanningWorkerService({createRuntime=createWorkerRuntime}=
       }catch(error){
         runtime?.dispose();runtime=null;key=null;
         return{pending:false,done:true,ok:false,reason:error.message,error:{type:'worker',detail:error.detail??null}};
-      }finally{running=false;}
+      }finally{checkCache?.dispose();running=false;}
     },
     dispose(){runtime?.dispose();runtime=null;key=null;},
   };

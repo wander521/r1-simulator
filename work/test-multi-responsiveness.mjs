@@ -4,6 +4,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import * as THREE from '../dist/vendor/three.module.min.js';
 import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
 import {createFrameScheduler,cameraFeedVisible,shouldRefitCamera} from '../dist/multi/visuals/frame-scheduler.mjs';
+import {createCameraFeedQueue} from '../dist/multi/visuals/camera-feed-queue.mjs';
 
 // These are declared station/clock fixtures. They execute the production
 // coordinator and scheduling/view policies, not robot contacts, a browser,
@@ -12,13 +13,16 @@ const root=new URL('../',import.meta.url),ids=['r1','g1','c5'];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
   ??'work/validation/multi-responsive/contracts-final.json';
 const sourcePaths=['work/test-multi-responsiveness.mjs','dist/multi/coordinator.mjs','dist/multi/app.mjs','dist/multi/visuals/frame-scheduler.mjs',
-  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','robot-runtime','planning'].map(name=>`dist/multi/${name}.mjs`),
+  'dist/multi/visuals/camera-feed-queue.mjs','dist/multi/visuals/camera-feeds.mjs',
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','robot-runtime','planning'].map(name=>`dist/multi/${name}.mjs`),
   'dist/vendor/three.module.min.js','dist/vendor/three.core.min.js'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const hashes=async()=>Object.fromEntries(await Promise.all(sourcePaths.map(async path=>[path,sha(await readFile(new URL(path,root)))])));
 const sourceHashes=await hashes(),checks=[],errors=[];
 const appText=await readFile(new URL('dist/multi/app.mjs',root),'utf8');
 function check(name,fn){try{const detail=fn();checks.push({name,pass:true,...(detail===undefined?{}:{detail})});}
+  catch(error){checks.push({name,pass:false,error:error.message});errors.push({name,message:error.message});}}
+async function asyncCheck(name,fn){try{const detail=await fn();checks.push({name,pass:true,...(detail===undefined?{}:{detail})});}
   catch(error){checks.push({name,pass:false,error:error.message});errors.push({name,message:error.message});}}
 
 function station(id,{slices=2,accept=true,reject=false,throwOnAdvance=false,omitReason=false,nextAt=null}={}){
@@ -217,26 +221,46 @@ check('Camera-feed eligibility skips zero-area and offscreen feeds while retaini
     assert.equal(cameraFeedVisible({...base,...change},viewport),true,JSON.stringify(change));
   assert.equal(cameraFeedVisible(null,viewport),false);
 });
-check('The exact production camera-feed pass renders one visible feed at a time and restores renderer state on success or failure',()=>{
+await asyncCheck('The exact production feed queue submits one visible async frame, preserves buffer ownership, rejects stale images and recovers errors',async()=>{
   const appSource=appText,start=appSource.indexOf('function updateCameras()'),end=appSource.indexOf('\nfunction resize(',start);
-  assert(start>=0&&end>start);const source=appSource.slice(start,end),draws=[],resets=[],scene={},feedPixels=new Uint8Array(240*180*4);
-  const focus={id:'r1',config:{tableCenter:.7,tableHeight:.75},localToWorld:vector=>vector},vision={overhead:new THREE.PerspectiveCamera(),camera:new THREE.PerspectiveCamera()};
-  const renderer={shadowMap:{autoUpdate:true},setRenderTarget(value){resets.push(value);}},cameraFeedPass={render(_scene,camera,pixels){assert.strictEqual(_scene,scene);assert.strictEqual(pixels,feedPixels);draws.push(camera);}};
+  const queueStart=appSource.indexOf('const cameraFeedQueue=createCameraFeedQueue('),queueEnd=appSource.indexOf('\nconst contactGroup=',queueStart);
+  assert(start>=0&&end>start&&queueStart>=0&&queueEnd>queueStart);
+  const source=appSource.slice(start,end),queueSource=appSource.slice(queueStart,queueEnd),draws=[],pending=[],scene={},feedPixels=new Uint8Array(240*180*4);
+  const focus={id:'r1',controller:{},arm:'right',config:{tableCenter:.7,tableHeight:.75},localToWorld:vector=>vector},vision={overhead:new THREE.PerspectiveCamera(),camera:new THREE.PerspectiveCamera()};
+  let failure=null;
+  const cameraFeedPass={renderAsync(_scene,camera,pixels){
+    assert.strictEqual(_scene,scene);assert.strictEqual(pixels,feedPixels);
+    if(failure==='submit')throw new Error('测试渲染提交失败');
+    draws.push(camera);return new Promise((resolve,reject)=>pending.push({pixels,resolve,reject}));
+  }};
   const visible={left:10,right:250,top:10,bottom:190,width:240,height:180},offscreen={...visible,top:900,bottom:1080};
   const feeds=[0,1].map(index=>({rect:{...visible},image:{data:new Uint8ClampedArray(240*180*4)},writes:0,
+    label:index?'腕部相机':'俯视相机',caption:{textContent:''},
     element:{getBoundingClientRect(){return feeds[index].rect;}},ctx:{putImageData(image,x,y){assert.strictEqual(image,feeds[index].image);assert.equal(x,0);assert.equal(y,0);feeds[index].writes++;}}}));
-  const api=new Function('THREE','focused','visions','feeds','cameraFeedVisible','innerWidth','innerHeight','renderer','cameraFeedPass','scene','feedPixels',
-    `let showCameras=true,nextFeed=0,feedRenderCount=0;${source};return {update:updateCameras,shown(value){showCameras=value;},get count(){return feedRenderCount;}};`)
-    (THREE,()=>focus,new Map([['r1',vision]]),feeds,cameraFeedVisible,390,844,renderer,cameraFeedPass,scene,feedPixels);
-  api.update();api.update();assert.deepEqual(draws,[vision.overhead,vision.camera]);assert.deepEqual(feeds.map(feed=>feed.writes),[1,1]);assert.equal(api.count,2);
-  assert.equal(renderer.shadowMap.autoUpdate,true);assert.deepEqual(resets,[null,null]);
+  const themes={activeId:'night'},page={hidden:false};
+  const api=new Function('THREE','focused','visions','feeds','cameraFeedVisible','innerWidth','innerHeight','cameraFeedPass','scene','feedPixels','sceneThemes','createCameraFeedQueue','document',
+    `let showCameras=true,nextFeed=0,feedRenderCount=0,lastFeedError=null;${queueSource};${source};return {update:updateCameras,shown(value){cameraFeedQueue.invalidate();showCameras=value;},invalidate(){cameraFeedQueue.invalidate();},idle(){return cameraFeedQueue.whenIdle();},get pending(){return cameraFeedQueue.pending;},get error(){return lastFeedError;},get count(){return feedRenderCount;}};`)
+    (THREE,()=>focus,new Map([['r1',vision]]),feeds,cameraFeedVisible,390,844,cameraFeedPass,scene,feedPixels,themes,createCameraFeedQueue,page);
+  const settle=async(error=null)=>{const request=pending.shift();assert(request);
+    if(error)request.reject(error);else{for(let row=0;row<180;row++)request.pixels.fill(row+1,row*240*4,(row+1)*240*4);request.resolve(request.pixels);}
+    let timer;try{await Promise.race([api.idle(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Controlled production feed queue did not settle within 300ms')),300);})]);}finally{clearTimeout(timer);}
+    assert.equal(api.pending,false);
+  };
+  api.update();api.update();assert.deepEqual(draws,[vision.overhead]);assert.equal(api.pending,true);assert.equal(api.count,0);assert.deepEqual(feeds.map(feed=>feed.writes),[0,0]);
+  await settle();assert.equal(feeds[0].image.data[0],180,'The production completion callback must flip the actual readback rows');
+  api.update();api.update();assert.deepEqual(draws,[vision.overhead,vision.camera]);await settle();
+  assert.deepEqual(feeds.map(feed=>feed.writes),[1,1]);assert.equal(api.count,2);
   feeds.forEach(feed=>feed.rect=offscreen);api.update();assert.equal(draws.length,2);
-  feeds[1].rect=visible;api.update();api.update();assert.deepEqual(draws.slice(2),[vision.camera,vision.camera]);
-  api.shown(false);api.update();assert.equal(draws.length,4);api.shown(true);
-  cameraFeedPass.render=()=>{throw new Error('测试渲染失败');};assert.throws(()=>api.update(),/测试渲染失败/);
-  assert.equal(renderer.shadowMap.autoUpdate,true);assert.equal(resets.at(-1),null);assert.equal(api.count,4);
-  return {visibleFeedAlternation:true,offscreenRenders:0,hiddenRenders:0,rendererStateRestored:true,
-    scope:'Exact production feed function with declared canvas/renderer fixtures and real Three cameras; no GPU or browser pixels.'};
+  feeds[1].rect=visible;api.update();await settle();api.update();await settle();assert.deepEqual(draws.slice(2),[vision.camera,vision.camera]);
+  api.update();api.shown(false);api.update();assert.equal(draws.length,5);await settle();assert.equal(api.count,4,'Hidden/discarded completion must not paint');api.shown(true);
+  api.update();themes.activeId='hangar';await settle();assert.equal(api.count,4,'A theme change must discard old pixels');
+  api.update();page.hidden=true;await settle();assert.equal(api.count,4,'A hidden browser tab must discard old pixels');page.hidden=false;
+  api.update();focus.controller={};await settle();assert.equal(api.count,4,'A rebuilt task controller must discard old pixels');
+  failure='submit';api.update();assert.equal(api.pending,false);assert.match(api.error,/测试渲染提交失败/);assert.match(feeds[1].caption.textContent,/画面暂时不可用/);
+  failure=null;api.update();await settle(new Error('测试异步读取失败'));assert.match(api.error,/测试异步读取失败/);assert.equal(api.count,4);
+  api.update();await settle();assert.equal(api.error,null);assert.equal(api.count,5);assert.equal(feeds[1].caption.textContent,feeds[1].label);
+  return {visibleFeedAlternation:true,offscreenRenders:0,hiddenRenders:0,maxPending:1,staleCompletionsPainted:0,errorRecovery:true,
+    scope:'Exact production updateCameras and queue callbacks with the real queue, declared asynchronous renderer/canvas fixtures and real Three cameras; renderer-state restoration is covered by the separate pass contracts. No GPU or browser pixels.'};
 });
 check('The camera policy preserves an orbited view through Start, reset, task changes and resize until an explicit framing action',()=>{
   const camera={position:[2.7,1.3,-.6],target:[.7,.8,.1],distance:2.96},before=structuredClone(camera),applied=[];

@@ -20,7 +20,7 @@ const requiredSources=['work/test-multi-pipes.mjs','dist/multi/robot-runtime.mjs
   'dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
-const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`);
+const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`);
 
 /** Read-only report validation. It does not run absent physics, certify browser
  * pixels/hardware, repair saved evidence, or treat quick/development runs as a
@@ -234,7 +234,7 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   let result;
   try {
     const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-      ??'work/validation/performance/pipes-physical-final.json';
+      ??'work/validation/performance-v2/pipes-physical-compiled-model-final.json';
     const bytes=await readFile(resolve(defaultRoot,reportPath));result=await verifyPipeAcceptance(JSON.parse(bytes),{requireBackground:process.argv.includes('--require-background')});
     result.reportSha256=sha(bytes);result.report=reportPath;result.verifierSha256=sha(await readFile(fileURLToPath(import.meta.url)));
   } catch(error) {result={pass:false,errors:[error.stack??error.message]};}

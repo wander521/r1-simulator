@@ -1,0 +1,1627 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T02:30:40.719Z",
+  "wallSeconds": 100.30410358297824,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/benchmark-planning-hotspots.mjs": "adaf6fd72e3d10e087d0566908124484cd8cc4669ffd3cddd4613f55cdc4f110",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/planning-robot.mjs": "43fd3d460bb23ab20669223409bc8bc034976c6309eb99c0d8381d2b119e575b",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "8bf5e92d49450db819ce0d1123e182c6177b0412f9868151fc1370e2e60852d5",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "snapshotPath": "work/validation/performance-v2/g1-pipe592-snapshots.json",
+  "scope": "Node mesh-free source URDF/production MuJoCo planning CPU benchmark, not browser frame rate or device performance. Instrumentation is inclusive/overlapping and adds overhead; duplicate-call time is an upper-bound opportunity, not a claimed speedup. Unchanged original planner budgets/search/gates. Full accepted plans and command state deep-equal baseline for every profiled input.",
+  "rows": [
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "steps": 69,
+      "baselineMs": 6292.083249986172,
+      "profiledWallMs": 7829.134833991528,
+      "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+      "exactBaselinePlan": true,
+      "metrics": {
+        "ik": {
+          "calls": 3956,
+          "ms": 4140.83846360445,
+          "maxCallMs": 28.267542004585266,
+          "duplicateCalls": 157,
+          "duplicateMs": 613.7784544825554
+        },
+        "checkPose": {
+          "calls": 10509,
+          "ms": 3386.8876410126686,
+          "maxCallMs": 18.137041985988617,
+          "duplicateCalls": 5292,
+          "duplicateMs": 1696.0153092741966
+        },
+        "validateSegment": {
+          "calls": 2374,
+          "ms": 2740.2352498173714,
+          "maxCallMs": 154.37791699171066
+        },
+        "updateMatrixWorld": {
+          "calls": 157016,
+          "ms": 684.4463666081429,
+          "maxCallMs": 13.36508297920227
+        },
+        "getObjectByName": {
+          "calls": 156945,
+          "ms": 218.18968158960342,
+          "maxCallMs": 1.640375018119812
+        },
+        "jointSetCalls": 4553734,
+        "unchangedJointSetCalls": 3670124,
+        "uniqueIKInputs": 3799,
+        "uniqueCheckPoseInputs": 5217
+      },
+      "cpu": {
+        "self": [
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 922.7180000000013,
+            "inclusiveMs": 922.7180000000013
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:57",
+            "selfMs": 490.07799999999963,
+            "inclusiveMs": 620.4999999999993
+          },
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 453.63199999999944,
+            "inclusiveMs": 11013.017000000118
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 346.37399999999974,
+            "inclusiveMs": 7763.2210000001505
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 266.53899999999993,
+            "inclusiveMs": 3959.5469999999846
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:107",
+            "selfMs": 252.65699999999995,
+            "inclusiveMs": 647.4179999999992
+          },
+          {
+            "function": "setFromRotationMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 240.166,
+            "inclusiveMs": 263.875
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 206.167,
+            "inclusiveMs": 2239.7289999999966
+          },
+          {
+            "function": "Qe @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:2",
+            "selfMs": 187.794,
+            "inclusiveMs": 187.794
+          },
+          {
+            "function": "(garbage collector) @ :0",
+            "selfMs": 187.288,
+            "inclusiveMs": 187.288
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 146.669,
+            "inclusiveMs": 785.1700000000001
+          },
+          {
+            "function": "mjc_hillclimbSupport @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 145.077,
+            "inclusiveMs": 145.077
+          },
+          {
+            "function": "dispatch @ :0",
+            "selfMs": 139.75,
+            "inclusiveMs": 139.75
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 135.84300000000005,
+            "inclusiveMs": 366.219
+          },
+          {
+            "function": "gjk @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 120.83600000000001,
+            "inclusiveMs": 382.91400000000004
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:52",
+            "selfMs": 117.74699999999999,
+            "inclusiveMs": 1106.8820000000017
+          },
+          {
+            "function": "_resetData @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 105.87700000000001,
+            "inclusiveMs": 112.333
+          },
+          {
+            "function": "mju_copy @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 104.45500000000001,
+            "inclusiveMs": 113.996
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 104.001,
+            "inclusiveMs": 3234.7869999999903
+          },
+          {
+            "function": "mju_mulMatVecSparse @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 92.74799999999999,
+            "inclusiveMs": 92.74799999999999
+          },
+          {
+            "function": "linearSolve @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:21",
+            "selfMs": 85.17100000000002,
+            "inclusiveMs": 95.045
+          },
+          {
+            "function": "epa @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 77.577,
+            "inclusiveMs": 197.581
+          },
+          {
+            "function": "mju_zero @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 74.00400000000002,
+            "inclusiveMs": 88.83600000000001
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 72.95599999999999,
+            "inclusiveMs": 4091.712999999984
+          },
+          {
+            "function": "o @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 68.543,
+            "inclusiveMs": 68.543
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 65.28999999999999,
+            "inclusiveMs": 7068.9560000000665
+          },
+          {
+            "function": "get @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 62.87700000000001,
+            "inclusiveMs": 393.03999999999974
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:102",
+            "selfMs": 62.126000000000005,
+            "inclusiveMs": 94.00200000000001
+          },
+          {
+            "function": "mju_sqrMatTDSparseNumeric @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 60.95599999999999,
+            "inclusiveMs": 64.374
+          },
+          {
+            "function": "(anonymous) @ :0",
+            "selfMs": 60.039999999999985,
+            "inclusiveMs": 60.039999999999985
+          },
+          {
+            "function": "horizonRec @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 54.838000000000015,
+            "inclusiveMs": 77.92300000000002
+          },
+          {
+            "function": "mjc_boxSupport @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 54.834,
+            "inclusiveMs": 54.834
+          },
+          {
+            "function": "mju_transposeSparse @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 52.373,
+            "inclusiveMs": 61.288999999999994
+          },
+          {
+            "function": "mj_constraintUpdate_impl @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 49.001000000000005,
+            "inclusiveMs": 54.083
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 48.04200000000001,
+            "inclusiveMs": 4018.756999999984
+          }
+        ],
+        "inclusive": [
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 453.63199999999944,
+            "inclusiveMs": 11013.017000000118
+          },
+          {
+            "function": "(root) @ :0",
+            "selfMs": 0,
+            "inclusiveMs": 7971.875000000131
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:0",
+            "selfMs": 0,
+            "inclusiveMs": 7784.587000000122
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 346.37399999999974,
+            "inclusiveMs": 7763.2210000001505
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:165",
+            "selfMs": 0,
+            "inclusiveMs": 7642.212000000114
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/background-planning.mjs?v=20261016-worker-1:28",
+            "selfMs": 0,
+            "inclusiveMs": 7642.212000000114
+          },
+          {
+            "function": "prepare @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:76",
+            "selfMs": 0,
+            "inclusiveMs": 7638.503000000113
+          },
+          {
+            "function": "planG1Pipe @ instrumented virtual production module:34",
+            "selfMs": 3.75,
+            "inclusiveMs": 7627.2530000001125
+          },
+          {
+            "function": "planCandidates @ instrumented virtual production module:121",
+            "selfMs": 0,
+            "inclusiveMs": 7627.2530000001125
+          },
+          {
+            "function": "route @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:71",
+            "selfMs": 0,
+            "inclusiveMs": 7627.2530000001125
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 65.28999999999999,
+            "inclusiveMs": 7068.9560000000665
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 72.95599999999999,
+            "inclusiveMs": 4091.712999999984
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 48.04200000000001,
+            "inclusiveMs": 4018.756999999984
+          },
+          {
+            "function": "solvePose @ instrumented virtual production module:1",
+            "selfMs": 0,
+            "inclusiveMs": 4017.506999999984
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 266.53899999999993,
+            "inclusiveMs": 3959.5469999999846
+          },
+          {
+            "function": "line @ instrumented virtual production module:55",
+            "selfMs": 3.25,
+            "inclusiveMs": 3725.6269999999845
+          },
+          {
+            "function": "(anonymous) @ instrumented virtual production module:55",
+            "selfMs": 0,
+            "inclusiveMs": 3721.126999999985
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 104.001,
+            "inclusiveMs": 3234.7869999999903
+          },
+          {
+            "function": "validateSegment @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-controller.mjs:49",
+            "selfMs": 14.666,
+            "inclusiveMs": 2762.163999999991
+          },
+          {
+            "function": "(anonymous) @ :4",
+            "selfMs": 12.083,
+            "inclusiveMs": 2694.493999999992
+          },
+          {
+            "function": "emscripten::internal::Invoker<emscripten::internal::rvp::default_tag, void, mujoco::wasm::MjModel const&, mujoco::wasm::MjData&>::invoke(void (*)(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&), mujoco::wasm::MjModel*, mujoco::wasm::MjData*) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 2259.285999999996
+          },
+          {
+            "function": "js-to-wasm:iii: @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 2259.285999999996
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 206.167,
+            "inclusiveMs": 2239.7289999999966
+          },
+          {
+            "function": "mj_forwardSkip @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 2144.7029999999954
+          },
+          {
+            "function": "mj_forward @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 2144.7029999999954
+          },
+          {
+            "function": "mujoco::wasm::mj_forward_wrapper(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 2144.7029999999954
+          },
+          {
+            "function": "evaluate @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:44",
+            "selfMs": 17.25,
+            "inclusiveMs": 1903.5039999999947
+          },
+          {
+            "function": "mj_fwdPosition @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 1350.9570000000026
+          },
+          {
+            "function": "mju_dispatch @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 1311.7040000000009
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:52",
+            "selfMs": 117.74699999999999,
+            "inclusiveMs": 1106.8820000000017
+          },
+          {
+            "function": "mj_collision @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 21.959,
+            "inclusiveMs": 933.579
+          },
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 922.7180000000013,
+            "inclusiveMs": 922.7180000000013
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 146.669,
+            "inclusiveMs": 785.1700000000001
+          },
+          {
+            "function": "mj_narrowphase @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 16.542,
+            "inclusiveMs": 769.6239999999991
+          },
+          {
+            "function": "collisionTask @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 8.418,
+            "inclusiveMs": 706.4989999999992
+          }
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "steps": 137,
+      "baselineMs": 14543.870582997799,
+      "profiledWallMs": 15887.969874978065,
+      "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+      "exactBaselinePlan": true,
+      "metrics": {
+        "ik": {
+          "calls": 20191,
+          "ms": 4114.0594255924225,
+          "maxCallMs": 22.048834025859833,
+          "duplicateCalls": 104,
+          "duplicateMs": 389.07771223783493
+        },
+        "checkPose": {
+          "calls": 38566,
+          "ms": 10824.474598109722,
+          "maxCallMs": 4.985415995121002,
+          "duplicateCalls": 18902,
+          "duplicateMs": 5281.049538552761
+        },
+        "validateSegment": {
+          "calls": 9367,
+          "ms": 8534.785824358463,
+          "maxCallMs": 113.3117910027504
+        },
+        "updateMatrixWorld": {
+          "calls": 180244,
+          "ms": 825.4597922563553,
+          "maxCallMs": 0.2647080421447754
+        },
+        "getObjectByName": {
+          "calls": 180105,
+          "ms": 217.29449665546417,
+          "maxCallMs": 0.5061670541763306
+        },
+        "jointSetCalls": 5227618,
+        "unchangedJointSetCalls": 4313258,
+        "uniqueIKInputs": 20087,
+        "uniqueCheckPoseInputs": 19664
+      },
+      "cpu": {
+        "self": [
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 923.0570000000009,
+            "inclusiveMs": 923.0570000000009
+          },
+          {
+            "function": "Qe @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:2",
+            "selfMs": 627.8839999999997,
+            "inclusiveMs": 627.8839999999997
+          },
+          {
+            "function": "mjc_hillclimbSupport @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 512.6759999999992,
+            "inclusiveMs": 512.6759999999992
+          },
+          {
+            "function": "gjk @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 436.17099999999897,
+            "inclusiveMs": 1340.8939999999966
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 420.7989999999994,
+            "inclusiveMs": 10143.494000000095
+          },
+          {
+            "function": "mju_copy @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 410.56799999999936,
+            "inclusiveMs": 460.5259999999991
+          },
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 398.49599999999964,
+            "inclusiveMs": 9266.592999999995
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:57",
+            "selfMs": 368.36899999999963,
+            "inclusiveMs": 476.61999999999927
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:107",
+            "selfMs": 358.20999999999947,
+            "inclusiveMs": 869.9110000000022
+          },
+          {
+            "function": "mju_mulMatVecSparse @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 342.4149999999998,
+            "inclusiveMs": 342.4149999999998
+          },
+          {
+            "function": "_resetData @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 339.6449999999994,
+            "inclusiveMs": 366.7729999999994
+          },
+          {
+            "function": "setFromRotationMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 318.8709999999998,
+            "inclusiveMs": 343.57999999999976
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 316.36899999999986,
+            "inclusiveMs": 10346.541999999956
+          },
+          {
+            "function": "(garbage collector) @ :0",
+            "selfMs": 286.4169999999999,
+            "inclusiveMs": 286.4169999999999
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 269.91399999999993,
+            "inclusiveMs": 3789.672999999989
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 258.544,
+            "inclusiveMs": 4248.002999999998
+          },
+          {
+            "function": "epa @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 251.62199999999999,
+            "inclusiveMs": 532.1569999999995
+          },
+          {
+            "function": "o @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 227.165,
+            "inclusiveMs": 227.165
+          },
+          {
+            "function": "mju_sqrMatTDSparseNumeric @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 208.70299999999995,
+            "inclusiveMs": 216.28699999999998
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 192.584,
+            "inclusiveMs": 1707.9379999999887
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:102",
+            "selfMs": 187.919,
+            "inclusiveMs": 277.83599999999996
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 187.495,
+            "inclusiveMs": 3982.0849999999887
+          },
+          {
+            "function": "mjc_boxSupport @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 184.74800000000002,
+            "inclusiveMs": 184.74800000000002
+          },
+          {
+            "function": "dispatch @ :0",
+            "selfMs": 183.959,
+            "inclusiveMs": 183.959
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 183.29000000000002,
+            "inclusiveMs": 1048.2390000000028
+          },
+          {
+            "function": "get @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 181.75,
+            "inclusiveMs": 1262.791999999999
+          },
+          {
+            "function": "mju_zero @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 173.33800000000005,
+            "inclusiveMs": 195.12900000000005
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 164.038,
+            "inclusiveMs": 470.7009999999992
+          },
+          {
+            "function": "mj_constraintUpdate_impl @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 157.877,
+            "inclusiveMs": 178.92000000000002
+          },
+          {
+            "function": "mju_transposeSparse @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 155.541,
+            "inclusiveMs": 166.75100000000003
+          },
+          {
+            "function": "yt @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 151.792,
+            "inclusiveMs": 151.792
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 146.959,
+            "inclusiveMs": 20249.024000000256
+          },
+          {
+            "function": "Ko @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:22",
+            "selfMs": 136.214,
+            "inclusiveMs": 494.58499999999924
+          },
+          {
+            "function": "mju_mulMatMat @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 134.53599999999997,
+            "inclusiveMs": 134.53599999999997
+          },
+          {
+            "function": "eo @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:22",
+            "selfMs": 133.29,
+            "inclusiveMs": 1120.3330000000008
+          }
+        ],
+        "inclusive": [
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 146.959,
+            "inclusiveMs": 20249.024000000256
+          },
+          {
+            "function": "(root) @ :0",
+            "selfMs": 0,
+            "inclusiveMs": 16071.833999999408
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:0",
+            "selfMs": 1.209,
+            "inclusiveMs": 15785.416999999445
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/background-planning.mjs?v=20261016-worker-1:28",
+            "selfMs": 1.291,
+            "inclusiveMs": 15600.248999999461
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:165",
+            "selfMs": 0,
+            "inclusiveMs": 15598.957999999462
+          },
+          {
+            "function": "prepare @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:76",
+            "selfMs": 0,
+            "inclusiveMs": 15594.12499999946
+          },
+          {
+            "function": "route @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:71",
+            "selfMs": 0,
+            "inclusiveMs": 15554.665999999464
+          },
+          {
+            "function": "planCandidates @ instrumented virtual production module:121",
+            "selfMs": 5.126,
+            "inclusiveMs": 15553.498999999465
+          },
+          {
+            "function": "planG1Pipe @ instrumented virtual production module:34",
+            "selfMs": 15.418,
+            "inclusiveMs": 15548.247999999467
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 316.36899999999986,
+            "inclusiveMs": 10346.541999999956
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 420.7989999999994,
+            "inclusiveMs": 10143.494000000095
+          },
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 398.49599999999964,
+            "inclusiveMs": 9266.592999999995
+          },
+          {
+            "function": "(anonymous) @ :4",
+            "selfMs": 51.832,
+            "inclusiveMs": 8641.757000000127
+          },
+          {
+            "function": "validateSegment @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-controller.mjs:49",
+            "selfMs": 37.50000000000001,
+            "inclusiveMs": 8421.554000000166
+          },
+          {
+            "function": "emscripten::internal::Invoker<emscripten::internal::rvp::default_tag, void, mujoco::wasm::MjModel const&, mujoco::wasm::MjData&>::invoke(void (*)(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&), mujoco::wasm::MjModel*, mujoco::wasm::MjData*) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 2.541,
+            "inclusiveMs": 7153.877000000136
+          },
+          {
+            "function": "js-to-wasm:iii: @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 2.209,
+            "inclusiveMs": 7153.545000000135
+          },
+          {
+            "function": "mj_forward @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 6788.23100000012
+          },
+          {
+            "function": "mujoco::wasm::mj_forward_wrapper(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 6788.23100000012
+          },
+          {
+            "function": "mj_forwardSkip @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 6784.39800000012
+          },
+          {
+            "function": "mj_fwdPosition @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 1.292,
+            "inclusiveMs": 4306.965999999999
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 258.544,
+            "inclusiveMs": 4248.002999999998
+          },
+          {
+            "function": "mju_dispatch @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 2.5,
+            "inclusiveMs": 4126.614999999993
+          },
+          {
+            "function": "solvePose @ instrumented virtual production module:1",
+            "selfMs": 2.3739999999999997,
+            "inclusiveMs": 3984.4589999999885
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 187.495,
+            "inclusiveMs": 3982.0849999999887
+          },
+          {
+            "function": "line @ instrumented virtual production module:55",
+            "selfMs": 6.208,
+            "inclusiveMs": 3900.9569999999894
+          },
+          {
+            "function": "(anonymous) @ instrumented virtual production module:55",
+            "selfMs": 7.291,
+            "inclusiveMs": 3894.7489999999893
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 269.91399999999993,
+            "inclusiveMs": 3789.672999999989
+          },
+          {
+            "function": "mj_collision @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 50.71000000000001,
+            "inclusiveMs": 2972.23099999999
+          },
+          {
+            "function": "mj_narrowphase @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 39.33900000000001,
+            "inclusiveMs": 2541.84999999999
+          },
+          {
+            "function": "collisionTask @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 21.293000000000006,
+            "inclusiveMs": 2349.5479999999907
+          },
+          {
+            "function": "mjc_Convex @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 64.53799999999998,
+            "inclusiveMs": 2320.752999999991
+          },
+          {
+            "function": "wasm-to-js:ii:i-invoke_ii @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 61.375000000000014,
+            "inclusiveMs": 2179.1739999999913
+          },
+          {
+            "function": "evaluate @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:44",
+            "selfMs": 16.501,
+            "inclusiveMs": 2086.093999999989
+          },
+          {
+            "function": "mj_fwdConstraint @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 3.875,
+            "inclusiveMs": 2047.0659999999896
+          },
+          {
+            "function": "mjc_penetration @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 22.375000000000004,
+            "inclusiveMs": 2025.0909999999885
+          }
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "steps": 201,
+      "baselineMs": 5233.206375002861,
+      "profiledWallMs": 5796.258499979973,
+      "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+      "exactBaselinePlan": true,
+      "metrics": {
+        "ik": {
+          "calls": 6425,
+          "ms": 4938.774007201195,
+          "maxCallMs": 30.011749982833862,
+          "duplicateCalls": 76,
+          "duplicateMs": 798.0628369450569
+        },
+        "checkPose": {
+          "calls": 2468,
+          "ms": 690.9261789321899,
+          "maxCallMs": 1.1580420136451721,
+          "duplicateCalls": 899,
+          "duplicateMs": 251.9584168791771
+        },
+        "validateSegment": {
+          "calls": 403,
+          "ms": 601.5502883791924,
+          "maxCallMs": 147.10883402824402
+        },
+        "updateMatrixWorld": {
+          "calls": 184158,
+          "ms": 766.1338613629341,
+          "maxCallMs": 2.0155420303344727
+        },
+        "getObjectByName": {
+          "calls": 183955,
+          "ms": 239.07682067155838,
+          "maxCallMs": 0.3983749747276306
+        },
+        "jointSetCalls": 5341380,
+        "unchangedJointSetCalls": 4312039,
+        "uniqueIKInputs": 6349,
+        "uniqueCheckPoseInputs": 1569
+      },
+      "cpu": {
+        "self": [
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 1136.075000000001,
+            "inclusiveMs": 1136.075000000001
+          },
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 524.0379999999994,
+            "inclusiveMs": 12635.650999999563
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 493.5889999999992,
+            "inclusiveMs": 4660.878000000021
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:57",
+            "selfMs": 464.0419999999995,
+            "inclusiveMs": 579.7049999999998
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 398.3379999999994,
+            "inclusiveMs": 9319.158000000041
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:107",
+            "selfMs": 307.03999999999974,
+            "inclusiveMs": 747.1140000000008
+          },
+          {
+            "function": "setFromRotationMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 259.79,
+            "inclusiveMs": 283.289
+          },
+          {
+            "function": "dispatch @ :0",
+            "selfMs": 246.583,
+            "inclusiveMs": 246.583
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 229.959,
+            "inclusiveMs": 2552.7249999999885
+          },
+          {
+            "function": "(garbage collector) @ :0",
+            "selfMs": 229.57899999999998,
+            "inclusiveMs": 229.57899999999998
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 193.711,
+            "inclusiveMs": 930.8270000000012
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 157.49800000000002,
+            "inclusiveMs": 409.61999999999955
+          },
+          {
+            "function": "linearSolve @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:21",
+            "selfMs": 101.95800000000001,
+            "inclusiveMs": 123.584
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 85.41499999999999,
+            "inclusiveMs": 4831.089000000034
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 73.67100000000002,
+            "inclusiveMs": 4743.299000000026
+          },
+          {
+            "function": "(anonymous) @ :0",
+            "selfMs": 39.541,
+            "inclusiveMs": 39.541
+          },
+          {
+            "function": "copy @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 38.878000000000014,
+            "inclusiveMs": 254.21200000000002
+          },
+          {
+            "function": "Ks @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 38.58500000000001,
+            "inclusiveMs": 38.58500000000001
+          },
+          {
+            "function": "Qe @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:2",
+            "selfMs": 35.959,
+            "inclusiveMs": 35.959
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 34.914,
+            "inclusiveMs": 672.2060000000005
+          },
+          {
+            "function": "determinant @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 31.25,
+            "inclusiveMs": 31.25
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 30.085000000000008,
+            "inclusiveMs": 2326.1259999999866
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:61",
+            "selfMs": 29.289999999999996,
+            "inclusiveMs": 43.167
+          },
+          {
+            "function": "set length @ :0",
+            "selfMs": 25.831999999999997,
+            "inclusiveMs": 25.831999999999997
+          },
+          {
+            "function": "getWorldPosition @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 24.791999999999998,
+            "inclusiveMs": 533.1259999999992
+          },
+          {
+            "function": "mju_copy @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 23.792000000000005,
+            "inclusiveMs": 25.084000000000003
+          },
+          {
+            "function": "getWorldQuaternion @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 22.335000000000004,
+            "inclusiveMs": 760.6700000000013
+          },
+          {
+            "function": "mjc_hillclimbSupport @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 22.208000000000006,
+            "inclusiveMs": 22.208000000000006
+          },
+          {
+            "function": "evaluate @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:44",
+            "selfMs": 22.084,
+            "inclusiveMs": 2290.45499999999
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:22",
+            "selfMs": 21.626,
+            "inclusiveMs": 21.626
+          },
+          {
+            "function": "mju_mulMatVecSparse @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 18.666,
+            "inclusiveMs": 18.666
+          },
+          {
+            "function": "gjk @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 18.416000000000004,
+            "inclusiveMs": 70.039
+          },
+          {
+            "function": "setFromAxisAngle @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 18.331,
+            "inclusiveMs": 28.164
+          },
+          {
+            "function": "qs @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 17.71,
+            "inclusiveMs": 17.71
+          },
+          {
+            "function": "o @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 17.581,
+            "inclusiveMs": 17.581
+          }
+        ],
+        "inclusive": [
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 524.0379999999994,
+            "inclusiveMs": 12635.650999999563
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 398.3379999999994,
+            "inclusiveMs": 9319.158000000041
+          },
+          {
+            "function": "(root) @ :0",
+            "selfMs": 0,
+            "inclusiveMs": 6041.875000000109
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:0",
+            "selfMs": 0,
+            "inclusiveMs": 5812.296000000094
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:165",
+            "selfMs": 1.041,
+            "inclusiveMs": 5565.713000000078
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/background-planning.mjs?v=20261016-worker-1:28",
+            "selfMs": 0,
+            "inclusiveMs": 5565.713000000078
+          },
+          {
+            "function": "prepare @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:76",
+            "selfMs": 0,
+            "inclusiveMs": 5549.7550000000765
+          },
+          {
+            "function": "planCandidates @ instrumented virtual production module:121",
+            "selfMs": 1.208,
+            "inclusiveMs": 5512.672000000075
+          },
+          {
+            "function": "route @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:71",
+            "selfMs": 0,
+            "inclusiveMs": 5512.672000000075
+          },
+          {
+            "function": "planG1Pipe @ instrumented virtual production module:34",
+            "selfMs": 4.001,
+            "inclusiveMs": 5511.464000000075
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 85.41499999999999,
+            "inclusiveMs": 4831.089000000034
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 73.67100000000002,
+            "inclusiveMs": 4743.299000000026
+          },
+          {
+            "function": "solvePose @ instrumented virtual production module:1",
+            "selfMs": 0,
+            "inclusiveMs": 4743.299000000026
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 493.5889999999992,
+            "inclusiveMs": 4660.878000000021
+          },
+          {
+            "function": "line @ instrumented virtual production module:55",
+            "selfMs": 1.166,
+            "inclusiveMs": 3641.2969999999855
+          },
+          {
+            "function": "(anonymous) @ instrumented virtual production module:55",
+            "selfMs": 0,
+            "inclusiveMs": 3638.8389999999854
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 229.959,
+            "inclusiveMs": 2552.7249999999885
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 30.085000000000008,
+            "inclusiveMs": 2326.1259999999866
+          },
+          {
+            "function": "evaluate @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:44",
+            "selfMs": 22.084,
+            "inclusiveMs": 2290.45499999999
+          },
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 1136.075000000001,
+            "inclusiveMs": 1136.075000000001
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 193.711,
+            "inclusiveMs": 930.8270000000012
+          },
+          {
+            "function": "getWorldQuaternion @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 22.335000000000004,
+            "inclusiveMs": 760.6700000000013
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:107",
+            "selfMs": 307.03999999999974,
+            "inclusiveMs": 747.1140000000008
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 34.914,
+            "inclusiveMs": 672.2060000000005
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:57",
+            "selfMs": 464.0419999999995,
+            "inclusiveMs": 579.7049999999998
+          },
+          {
+            "function": "validateSegment @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-controller.mjs:49",
+            "selfMs": 0.167,
+            "inclusiveMs": 575.4159999999995
+          },
+          {
+            "function": "tcpPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:7",
+            "selfMs": 5.043,
+            "inclusiveMs": 538.2509999999991
+          },
+          {
+            "function": "getWorldPosition @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 24.791999999999998,
+            "inclusiveMs": 533.1259999999992
+          },
+          {
+            "function": "(anonymous) @ :4",
+            "selfMs": 3.667,
+            "inclusiveMs": 528.0059999999993
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:23",
+            "selfMs": 1.125,
+            "inclusiveMs": 440.07399999999956
+          },
+          {
+            "function": "emscripten::internal::Invoker<emscripten::internal::rvp::default_tag, void, mujoco::wasm::MjModel const&, mujoco::wasm::MjData&>::invoke(void (*)(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&), mujoco::wasm::MjModel*, mujoco::wasm::MjData*) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 431.83099999999934
+          },
+          {
+            "function": "js-to-wasm:iii: @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 431.83099999999934
+          },
+          {
+            "function": "mj_forwardSkip @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 422.0819999999994
+          },
+          {
+            "function": "mj_forward @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 422.0819999999994
+          },
+          {
+            "function": "mujoco::wasm::mj_forward_wrapper(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 422.0819999999994
+          }
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "steps": 267,
+      "baselineMs": 6012.114125013351,
+      "profiledWallMs": 6576.491959035397,
+      "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+      "exactBaselinePlan": true,
+      "metrics": {
+        "ik": {
+          "calls": 8295,
+          "ms": 5680.387104332447,
+          "maxCallMs": 11.639792025089264,
+          "duplicateCalls": 100,
+          "duplicateMs": 1056.5503342151642
+        },
+        "checkPose": {
+          "calls": 2464,
+          "ms": 695.0924426317215,
+          "maxCallMs": 1.5299999713897705,
+          "duplicateCalls": 888,
+          "duplicateMs": 249.7822082042694
+        },
+        "validateSegment": {
+          "calls": 397,
+          "ms": 606.1728000640869,
+          "maxCallMs": 152.38550001382828
+        },
+        "updateMatrixWorld": {
+          "calls": 216874,
+          "ms": 919.0380635261536,
+          "maxCallMs": 0.6124579906463623
+        },
+        "getObjectByName": {
+          "calls": 216605,
+          "ms": 232.7340447306633,
+          "maxCallMs": 0.681958019733429
+        },
+        "jointSetCalls": 6290408,
+        "unchangedJointSetCalls": 5112371,
+        "uniqueIKInputs": 8195,
+        "uniqueCheckPoseInputs": 1576
+      },
+      "cpu": {
+        "self": [
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 1272.855000000001,
+            "inclusiveMs": 1272.855000000001
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 1016.5050000000023,
+            "inclusiveMs": 5375.504000000061
+          },
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 602.9590000000001,
+            "inclusiveMs": 14090.669999999438
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 451.378999999999,
+            "inclusiveMs": 11067.864000000034
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:107",
+            "selfMs": 386.0979999999996,
+            "inclusiveMs": 909.3510000000014
+          },
+          {
+            "function": "setFromRotationMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 322.16699999999986,
+            "inclusiveMs": 340.7099999999998
+          },
+          {
+            "function": "dispatch @ :0",
+            "selfMs": 288,
+            "inclusiveMs": 288
+          },
+          {
+            "function": "(garbage collector) @ :0",
+            "selfMs": 233.126,
+            "inclusiveMs": 233.126
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 222.507,
+            "inclusiveMs": 1109.6070000000007
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 213.915,
+            "inclusiveMs": 1878.0119999999904
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 168.126,
+            "inclusiveMs": 467.75399999999934
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:52",
+            "selfMs": 161.502,
+            "inclusiveMs": 1477.6539999999968
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 127.49499999999999,
+            "inclusiveMs": 5598.542000000075
+          },
+          {
+            "function": "linearSolve @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:21",
+            "selfMs": 109.62199999999999,
+            "inclusiveMs": 135.62099999999998
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 91.83500000000001,
+            "inclusiveMs": 5467.339000000066
+          },
+          {
+            "function": "(anonymous) @ :0",
+            "selfMs": 38.78900000000001,
+            "inclusiveMs": 38.78900000000001
+          },
+          {
+            "function": "decompose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 38.29100000000001,
+            "inclusiveMs": 81.831
+          },
+          {
+            "function": "copy @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 34.334,
+            "inclusiveMs": 284.7499999999999
+          },
+          {
+            "function": "setFromAxisAngle @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 34.251000000000005,
+            "inclusiveMs": 50.377
+          },
+          {
+            "function": "clone @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 33.418000000000006,
+            "inclusiveMs": 66.544
+          },
+          {
+            "function": "Ks @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 33.126,
+            "inclusiveMs": 33.126
+          },
+          {
+            "function": "Qe @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:2",
+            "selfMs": 32.165000000000006,
+            "inclusiveMs": 32.165000000000006
+          },
+          {
+            "function": "getWorldQuaternion @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 29.834000000000007,
+            "inclusiveMs": 824.5790000000022
+          },
+          {
+            "function": "set length @ :0",
+            "selfMs": 29.582000000000004,
+            "inclusiveMs": 29.582000000000004
+          },
+          {
+            "function": "mju_copy @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 29.332,
+            "inclusiveMs": 29.332
+          },
+          {
+            "function": "gjk @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 28.918000000000006,
+            "inclusiveMs": 79.29
+          },
+          {
+            "function": "mjc_hillclimbSupport @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 27.832000000000004,
+            "inclusiveMs": 27.832000000000004
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:61",
+            "selfMs": 27.167000000000005,
+            "inclusiveMs": 39.709
+          },
+          {
+            "function": "determinant @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 26.250000000000004,
+            "inclusiveMs": 26.250000000000004
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 26.165,
+            "inclusiveMs": 2428.4759999999883
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:22",
+            "selfMs": 25.999000000000002,
+            "inclusiveMs": 25.999000000000002
+          },
+          {
+            "function": "evaluate @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:44",
+            "selfMs": 23.128000000000004,
+            "inclusiveMs": 2651.225999999985
+          },
+          {
+            "function": "_resetData @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 22.207000000000004,
+            "inclusiveMs": 24.791
+          },
+          {
+            "function": "get @ file:///Users/wander/PyProjects/people/r1-simulator/dist/r1/mujoco-runtime.mjs:17",
+            "selfMs": 20.999,
+            "inclusiveMs": 103.041
+          },
+          {
+            "function": "mju_mulMatVecSparse @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 18.581999999999997,
+            "inclusiveMs": 18.581999999999997
+          }
+        ],
+        "inclusive": [
+          {
+            "function": "updateWorldMatrix @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 602.9590000000001,
+            "inclusiveMs": 14090.669999999438
+          },
+          {
+            "function": "updateMatrixWorld @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 451.378999999999,
+            "inclusiveMs": 11067.864000000034
+          },
+          {
+            "function": "(root) @ :0",
+            "selfMs": 0,
+            "inclusiveMs": 6864.375000000149
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:0",
+            "selfMs": 0,
+            "inclusiveMs": 6631.249000000133
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:165",
+            "selfMs": 0,
+            "inclusiveMs": 6343.249000000118
+          },
+          {
+            "function": "advancePlanning @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/background-planning.mjs?v=20261016-worker-1:28",
+            "selfMs": 0,
+            "inclusiveMs": 6343.249000000118
+          },
+          {
+            "function": "prepare @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:76",
+            "selfMs": 0,
+            "inclusiveMs": 6334.707000000117
+          },
+          {
+            "function": "planCandidates @ instrumented virtual production module:121",
+            "selfMs": 3.792,
+            "inclusiveMs": 6296.498000000114
+          },
+          {
+            "function": "route @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning.mjs?v=20261016-worker-1:71",
+            "selfMs": 0,
+            "inclusiveMs": 6296.498000000114
+          },
+          {
+            "function": "planG1Pipe @ instrumented virtual production module:34",
+            "selfMs": 6.1659999999999995,
+            "inclusiveMs": 6292.706000000114
+          },
+          {
+            "function": "solve @ instrumented virtual production module:44",
+            "selfMs": 127.49499999999999,
+            "inclusiveMs": 5598.542000000075
+          },
+          {
+            "function": "solvePose @ instrumented virtual production module:1",
+            "selfMs": 2.5,
+            "inclusiveMs": 5469.839000000066
+          },
+          {
+            "function": "solve @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:68",
+            "selfMs": 91.83500000000001,
+            "inclusiveMs": 5467.339000000066
+          },
+          {
+            "function": "solvePose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:40",
+            "selfMs": 1016.5050000000023,
+            "inclusiveMs": 5375.504000000061
+          },
+          {
+            "function": "line @ instrumented virtual production module:55",
+            "selfMs": 3.5,
+            "inclusiveMs": 4042.9229999999857
+          },
+          {
+            "function": "(anonymous) @ instrumented virtual production module:55",
+            "selfMs": 3.542,
+            "inclusiveMs": 4038.1729999999857
+          },
+          {
+            "function": "evaluate @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:44",
+            "selfMs": 23.128000000000004,
+            "inclusiveMs": 2651.225999999985
+          },
+          {
+            "function": "object.<computed> @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:95",
+            "selfMs": 26.165,
+            "inclusiveMs": 2428.4759999999883
+          },
+          {
+            "function": "getObjectByProperty @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 213.915,
+            "inclusiveMs": 1878.0119999999904
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:52",
+            "selfMs": 161.502,
+            "inclusiveMs": 1477.6539999999968
+          },
+          {
+            "function": "multiplyMatrices @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 1272.855000000001,
+            "inclusiveMs": 1272.855000000001
+          },
+          {
+            "function": "robot.setJointValues @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:39",
+            "selfMs": 222.507,
+            "inclusiveMs": 1109.6070000000007
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/work/benchmark-planning-hotspots.mjs:107",
+            "selfMs": 386.0979999999996,
+            "inclusiveMs": 909.3510000000014
+          },
+          {
+            "function": "getWorldQuaternion @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 29.834000000000007,
+            "inclusiveMs": 824.5790000000022
+          },
+          {
+            "function": "checkPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/g1-dynamics.mjs:34",
+            "selfMs": 16.711,
+            "inclusiveMs": 657.4930000000003
+          },
+          {
+            "function": "tcpPose @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-kinematics.mjs:7",
+            "selfMs": 7.375,
+            "inclusiveMs": 610.0439999999998
+          },
+          {
+            "function": "validateSegment @ file:///Users/wander/PyProjects/people/r1-simulator/dist/g1/grasp-controller.mjs:49",
+            "selfMs": 4.417,
+            "inclusiveMs": 587.7849999999999
+          },
+          {
+            "function": "getWorldPosition @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 17.042,
+            "inclusiveMs": 581.5749999999997
+          },
+          {
+            "function": "(anonymous) @ :4",
+            "selfMs": 2.583,
+            "inclusiveMs": 530.4099999999994
+          },
+          {
+            "function": "joint.setValue @ file:///Users/wander/PyProjects/people/r1-simulator/dist/multi/planning-robot.mjs:23",
+            "selfMs": 0,
+            "inclusiveMs": 523.2529999999994
+          },
+          {
+            "function": "(anonymous) @ file:///Users/wander/PyProjects/people/r1-simulator/dist/vendor/three.core.min.js:6",
+            "selfMs": 168.126,
+            "inclusiveMs": 467.75399999999934
+          },
+          {
+            "function": "emscripten::internal::Invoker<emscripten::internal::rvp::default_tag, void, mujoco::wasm::MjModel const&, mujoco::wasm::MjData&>::invoke(void (*)(mujoco::wasm::MjModel const&, mujoco::wasm::MjData&), mujoco::wasm::MjModel*, mujoco::wasm::MjData*) @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 453.7459999999992
+          },
+          {
+            "function": "js-to-wasm:iii: @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 453.7459999999992
+          },
+          {
+            "function": "mj_forwardSkip @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 430.2049999999993
+          },
+          {
+            "function": "mj_forward @ wasm://wasm/mujoco.wasm-026a01ba:1",
+            "selfMs": 0,
+            "inclusiveMs": 430.2049999999993
+          }
+        ]
+      }
+    }
+  ]
+}

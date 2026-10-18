@@ -1,0 +1,458 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T02:55:49.891Z",
+  "wallSeconds": 92.62003545796871,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/planning-parser-fastpath-experiment.mjs": "0acc416e8d0c4e9f2268e1901fe72e59a502f77bbb01b72303a6070887d8a508",
+    "work/planning-cache-experiment.mjs": "6b0b7da8d9d26fbb40c60750374702b0452d5f5d8a10a3734a4c97bfa03c9528",
+    "dist/multi/robot-runtime.mjs": "979b57d7827df0bfac872a8a3a66e25872c706f0c97021d018c2cfb47a976a1f",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/planning-robot.mjs": "43fd3d460bb23ab20669223409bc8bc034976c6309eb99c0d8381d2b119e575b",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "8bf5e92d49450db819ce0d1123e182c6177b0412f9868151fc1370e2e60852d5",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "inputPath": "work/validation/performance-v2/g1-pipe592-snapshots.json",
+  "inputHash": "eb613c832587d06a5d5083112dfcf476cc1823f426cfb1b7a884b49ed4414be8",
+  "checks": {
+    "firstAssignmentCalculated": true,
+    "signedZeroPreserved": true,
+    "nonfiniteValidationDelegated": true,
+    "clampBeforeComparison": true,
+    "originalSetterRestored": true
+  },
+  "withCache": false,
+  "trials": 3,
+  "scope": "Test-only exact-value setter wrapper, optional 512-entry job memo, fresh isolated real G1 planning worlds. Original budgets, candidate order, all safety results and final command state are bit/deep equal; no production source changed. Paired timing includes identical exact safety-trace encoding, not browser FPS.",
+  "rows": [
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 1,
+      "order": [
+        "original",
+        "optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5356.6455000042915,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": null,
+        "checkMetrics": {
+          "requests": 2468,
+          "evaluations": 2468,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 27.35896134376526,
+          "cloneMs": 0,
+          "backendMs": 645.9953103065491,
+          "traceMs": 5.405351877212524,
+          "stateGuardMs": 3.991303026676178,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4991.468499958515,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": {
+          "requests": 5341380,
+          "skipped": 4312021,
+          "computed": 1029359
+        },
+        "checkMetrics": {
+          "requests": 2468,
+          "evaluations": 2468,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 36.76649206876755,
+          "cloneMs": 0,
+          "backendMs": 813.6028257608414,
+          "traceMs": 11.324312031269073,
+          "stateGuardMs": 4.50491589307785,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "0aad1bf8b26564442ab3f52eea5bfe5bab756800cc17cd1879ef918c82aad69c",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.0731602333158692
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 2,
+      "order": [
+        "optimized",
+        "original"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5193.98425000906,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": null,
+        "checkMetrics": {
+          "requests": 2468,
+          "evaluations": 2468,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 27.32149910926819,
+          "cloneMs": 0,
+          "backendMs": 631.4665243029594,
+          "traceMs": 4.8996939063072205,
+          "stateGuardMs": 2.822696268558502,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4809.423749983311,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": {
+          "requests": 5341380,
+          "skipped": 4312021,
+          "computed": 1029359
+        },
+        "checkMetrics": {
+          "requests": 2468,
+          "evaluations": 2468,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 28.454824686050415,
+          "cloneMs": 0,
+          "backendMs": 631.8588004112244,
+          "traceMs": 6.074324607849121,
+          "stateGuardMs": 3.8252711296081543,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "0aad1bf8b26564442ab3f52eea5bfe5bab756800cc17cd1879ef918c82aad69c",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.0799597872878395
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 3,
+      "order": [
+        "original",
+        "optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5191.120333015919,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": null,
+        "checkMetrics": {
+          "requests": 2468,
+          "evaluations": 2468,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 28.72658747434616,
+          "cloneMs": 0,
+          "backendMs": 640.1245040893555,
+          "traceMs": 4.984849393367767,
+          "stateGuardMs": 2.3788103461265564,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4792.9423750042915,
+        "steps": 201,
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": {
+          "requests": 5341380,
+          "skipped": 4312021,
+          "computed": 1029359
+        },
+        "checkMetrics": {
+          "requests": 2468,
+          "evaluations": 2468,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 27.174330174922943,
+          "cloneMs": 0,
+          "backendMs": 627.074332177639,
+          "traceMs": 5.884713351726532,
+          "stateGuardMs": 2.1925549507141113,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "0aad1bf8b26564442ab3f52eea5bfe5bab756800cc17cd1879ef918c82aad69c",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.0830758909366756
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 1,
+      "order": [
+        "original",
+        "optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5873.2467920184135,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": null,
+        "checkMetrics": {
+          "requests": 2464,
+          "evaluations": 2464,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 26.017928779125214,
+          "cloneMs": 0,
+          "backendMs": 620.9955015182495,
+          "traceMs": 5.329719007015228,
+          "stateGuardMs": 1.9872534275054932,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5484.139042019844,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": {
+          "requests": 6290408,
+          "skipped": 5112353,
+          "computed": 1178055
+        },
+        "checkMetrics": {
+          "requests": 2464,
+          "evaluations": 2464,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 28.580025374889374,
+          "cloneMs": 0,
+          "backendMs": 669.0827302932739,
+          "traceMs": 6.333468377590179,
+          "stateGuardMs": 2.334346890449524,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "99126c0b862b4c8a239b824dc22df42f7dc99e293ca56c702a003668d7349891",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.0709514742454922
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 2,
+      "order": [
+        "optimized",
+        "original"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 6170.827292025089,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": null,
+        "checkMetrics": {
+          "requests": 2464,
+          "evaluations": 2464,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 31.011527717113495,
+          "cloneMs": 0,
+          "backendMs": 641.2343620061874,
+          "traceMs": 6.218371391296387,
+          "stateGuardMs": 2.310698986053467,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5423.492084026337,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": {
+          "requests": 6290408,
+          "skipped": 5112353,
+          "computed": 1178055
+        },
+        "checkMetrics": {
+          "requests": 2464,
+          "evaluations": 2464,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 27.718261182308197,
+          "cloneMs": 0,
+          "backendMs": 637.0058574676514,
+          "traceMs": 6.0898701548576355,
+          "stateGuardMs": 2.1999640464782715,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "99126c0b862b4c8a239b824dc22df42f7dc99e293ca56c702a003668d7349891",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.137795943355363
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 3,
+      "order": [
+        "original",
+        "optimized"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5934.2176250219345,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": null,
+        "checkMetrics": {
+          "requests": 2464,
+          "evaluations": 2464,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 28.73690962791443,
+          "cloneMs": 0,
+          "backendMs": 626.0496860742569,
+          "traceMs": 6.35194057226181,
+          "stateGuardMs": 3.9436848759651184,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 5448.87587505579,
+        "steps": 267,
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlan": true,
+        "unchangedPhysics": true,
+        "jointMetrics": {
+          "requests": 6290408,
+          "skipped": 5112353,
+          "computed": 1178055
+        },
+        "checkMetrics": {
+          "requests": 2464,
+          "evaluations": 2464,
+          "hits": 0,
+          "unsafeHits": 0,
+          "bypasses": 0,
+          "evictions": 0,
+          "peakEntries": 0,
+          "peakTextBytes": 0,
+          "keyMs": 27.064289689064026,
+          "cloneMs": 0,
+          "backendMs": 628.987583398819,
+          "traceMs": 4.976113259792328,
+          "stateGuardMs": 2.1429189443588257,
+          "stateInvalidations": 0,
+          "cleared": true,
+          "restored": true
+        }
+      },
+      "safetyTraceHash": "99126c0b862b4c8a239b824dc22df42f7dc99e293ca56c702a003668d7349891",
+      "exactRequestOrderAndEveryResult": true,
+      "speedup": 1.089071904204677
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 
 /** Read the actual source URDF's kinematic tree without DOM, meshes or a
  * renderer. No link lengths, joint axes, offsets or limits are hand-authored. */
-export function parsePlanningRobot(source,{rootHeight=0}={}){
+export function parsePlanningRobot(source,{rootHeight=0,reuseUnchangedJoints=false}={}){
   const xml=String(source).replace(/<!--[\s\S]*?-->/g,''),robot=new THREE.Group();
   robot.rotation.x=-Math.PI/2;robot.position.y=rootHeight;robot.joints={};robot.links={};
   const attribute=(s,key,fallback='')=>s.match(new RegExp(`\\b${key}\\s*=\\s*["']([^"']*)["']`))?.[1]??fallback;
@@ -20,10 +20,15 @@ export function parsePlanningRobot(source,{rootHeight=0}={}){
     const original=joint.quaternion.clone(),origin=joint.position.clone(),axis=new THREE.Vector3().fromArray(vector(tag(body,'axis','xyz','0 0 1'))).normalize();
     Object.assign(joint,{name,axis,jointType:type,isURDFJoint:true,jointValue:[0],origPosition:origin,origQuaternion:original});
     joint.limit={lower:Number(tag(body,'limit','lower','0')),upper:Number(tag(body,'limit','upper','0')),effort:Number(tag(body,'limit','effort','0')),velocity:Number(tag(body,'limit','velocity','0'))};
+    let initialized=false;
     joint.setValue=value=>{
       if(type==='fixed')return;
       if(!Number.isFinite(value))throw new Error(`URDF 关节值无效：${name}`);
       if(type!=='continuous')value=Math.max(joint.limit.lower,Math.min(joint.limit.upper,value));
+      // Worker-only opt-in: retain the first exact source computation and
+      // skip subsequent identical assignments, without rounding or merging -0.
+      if(reuseUnchangedJoints&&initialized&&Object.is(value,joint.jointValue[0]))return;
+      initialized=true;
       joint.jointValue[0]=value;
       if(type==='revolute'||type==='continuous')joint.quaternion.copy(original).multiply(new THREE.Quaternion().setFromAxisAngle(axis,value));
       else joint.position.copy(origin).add(axis.clone().applyQuaternion(original).multiplyScalar(value));

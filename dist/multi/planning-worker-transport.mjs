@@ -1,4 +1,4 @@
-export const PLANNING_WORKER_URL=new URL('./planning-worker.mjs?v=20261016-worker-1',import.meta.url);
+export const PLANNING_WORKER_URL=new URL('./planning-worker.mjs?v=20261018-perf-2',import.meta.url);
 const nowDefault=()=>globalThis.performance?.now?.()??Date.now();
 const failed=(reason,type='worker')=>({pending:false,done:true,ok:false,reason,error:{type}});
 

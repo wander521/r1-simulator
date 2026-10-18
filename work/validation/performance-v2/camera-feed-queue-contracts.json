@@ -1,0 +1,92 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T03:07:45.022Z",
+  "finishedAt": "2026-10-18T03:07:45.026Z",
+  "wallSeconds": 0.00417062497138977,
+  "checks": 16,
+  "results": [
+    {
+      "name": "Initial idle lifetime is immediately fulfilled without rendering",
+      "pass": true
+    },
+    {
+      "name": "One in-flight request owns its buffer, rejects overlap, then permits exact buffer reuse",
+      "pass": true
+    },
+    {
+      "name": "Invalidation suppresses stale pixels but never releases shared readback memory early",
+      "pass": true
+    },
+    {
+      "name": "Stale readback rejection is consumed without presenting an obsolete error",
+      "pass": true
+    },
+    {
+      "name": "Focus, controller, arm, theme and visibility snapshot changes independently suppress presentation",
+      "pass": true
+    },
+    {
+      "name": "A context predicate that invalidates reentrantly cannot accept its now-stale frame",
+      "pass": true
+    },
+    {
+      "name": "Synchronous submission errors report once, settle idle, and allow recovery",
+      "pass": true
+    },
+    {
+      "name": "Asynchronous submission rejection is consumed, reported once, and does not poison reuse",
+      "pass": true
+    },
+    {
+      "name": "A synchronously throwing presentation reports once and releases pending ownership",
+      "pass": true
+    },
+    {
+      "name": "Asynchronous presentation owns the pixel buffer until fulfilled or rejected",
+      "pass": true
+    },
+    {
+      "name": "Throwing context validation is handled once for both fulfilled and rejected readbacks",
+      "pass": true
+    },
+    {
+      "name": "Error-reporting exceptions, including a failed logger, cannot hang the queue",
+      "pass": true
+    },
+    {
+      "name": "Reentrant requests cannot overlap and whenIdle is already valid inside render/present",
+      "pass": true
+    },
+    {
+      "name": "Synchronous compatibility readback is presented asynchronously without copying its supplied bytes",
+      "pass": true
+    },
+    {
+      "name": "A thenable with a throwing then accessor is consumed as a failed readback",
+      "pass": true
+    },
+    {
+      "name": "All controlled failure paths leave zero unhandled Promise rejections",
+      "pass": true,
+      "errors": []
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/app.mjs": "4b7cf5b061eb6069ab0715f623a750d9f7d1f9609ab2f8459f555ad118ef638d",
+    "work/test-camera-feed-queue-perf-v2.mjs": "b70b3eaf36b0c07e97ba37bbcc804eba298b7d28734e392d41f5079e5dbed5df"
+  },
+  "endSourceHashes": {
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/app.mjs": "4b7cf5b061eb6069ab0715f623a750d9f7d1f9609ab2f8459f555ad118ef638d",
+    "work/test-camera-feed-queue-perf-v2.mjs": "b70b3eaf36b0c07e97ba37bbcc804eba298b7d28734e392d41f5079e5dbed5df"
+  },
+  "gpuExecuted": false,
+  "browserExecuted": false,
+  "physicsExecuted": false,
+  "scope": "Production queue with controlled read/present Promises, exact buffer identity, single in-flight ownership, stale generation/context rejection, error recovery and reentrant idle lifetime. No UI, pixel color, GPU latency, browser FPS or 72-pipe physical result is claimed.",
+  "review": "App integration snapshots station/controller/arm/theme; invalidation protects reset/start/stop/task/focus/theme/hide changes. camera-feeds renderer-state/color contracts are separately covered by test-camera-feed-async-perf-v2.mjs and test-multi-camera-feeds.mjs."
+}

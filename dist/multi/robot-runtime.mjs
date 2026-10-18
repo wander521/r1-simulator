@@ -18,10 +18,10 @@ import {tcpPose as c5TCP} from '../c5/grasp-kinematics.mjs';
 import {generatePipeLayout,normalizePipeSeed} from './pipe-layout.mjs';
 import {buildPipeScene} from './pipe-model.mjs';
 import {pipeControllerClass,pipeDynamicsClass} from './pipe-controller.mjs';
-import {planningControllerClass} from './planning.mjs?v=20261016-worker-1';
-import {backgroundPlanningControllerClass} from './background-planning.mjs?v=20261016-worker-1';
-import {createPlanningWorkerTransport} from './planning-worker-transport.mjs?v=20261016-worker-1';
-import {capturePlanningJob,planningJobStillCurrent} from './planning-serialization.mjs?v=20261016-worker-1';
+import {planningControllerClass} from './planning.mjs?v=20261018-perf-2';
+import {backgroundPlanningControllerClass} from './background-planning.mjs?v=20261018-perf-2';
+import {createPlanningWorkerTransport} from './planning-worker-transport.mjs?v=20261018-perf-2';
+import {capturePlanningJob,planningJobStillCurrent} from './planning-serialization.mjs?v=20261018-perf-2';
 
 const url=path=>new URL(path,import.meta.url).href;
 export const ROBOT_CONFIGS=Object.freeze({

@@ -1,0 +1,1606 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T03:16:08.442Z",
+  "wallSeconds": 55.83186754101515,
+  "cases": 8,
+  "physicalSorts": 12,
+  "clockStepSeconds": 0.001,
+  "renderOffsets": [
+    [
+      0,
+      0,
+      2.2
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -2.2
+    ]
+  ],
+  "fingerStrokeToleranceM": {
+    "r1": 0.001,
+    "g1": 0.0002,
+    "c5": 0.0002
+  },
+  "r1CommandProfile": {
+    "sourceVelocityMps": 0.25,
+    "commandFraction": 0.4,
+    "commandVelocityMps": 0.1,
+    "scope": "Multi-station finger motor commands only; original R1 source scene, forces, gains, joint ranges and inertia are unchanged. Actual qpos/qvel are not clamped."
+  },
+  "r1LimitPolicy": "Original R1 default-soft-limit MJCF is preserved. Additional numerical guard is 1 mm; original R1 regressions did not specify a Dex1 0.2 mm bound. Saved original browser evidence includes 0.5419235 mm static finger tracking error. Actual range excess is reported, not hidden or clamped.",
+  "collisionScope": "Original per-robot scenes; G1/C5 full source collision meshes, R1 original finger contacts. Separate, non-overlapping station worlds do not collide across worlds.",
+  "planningExecution": {
+    "worker": true,
+    "cooperative": false,
+    "productionBudgetOverride": false
+  },
+  "planningScope": "Production background controller with real worker_threads bridge and shipped worker service/parser/serialization; workers are polled asynchronously between complete global 1 ms ticks. Every world time/qpos/qvel/ctrl is asserted unchanged during planning. No task motion is executed in a worker.",
+  "results": [
+    {
+      "name": "row-layout-and-local-world-frame-isolation",
+      "pass": true,
+      "planning": {
+        "barriers": 0,
+        "slices": 0,
+        "wallMs": 0,
+        "maxSliceWallMs": 0,
+        "workerCandidateSlices": 0,
+        "workerSegmentMs": 0
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 300,
+          "contactSamples": 30,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.571380386388842e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.13606515598823826,
+          "maxFingerLimitViolation": 0.00006920328326268793,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 300,
+          "contactSamples": 30,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.230133508015245e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.02228571656358637,
+          "maxFingerLimitViolation": 2.458998553458991e-7,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 300,
+          "contactSamples": 30,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.230133508015245e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.17476530407514104,
+          "maxFingerLimitViolation": 0,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "idle",
+          "history": [],
+          "time": 0.3000000000000002,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.792,
+              0.7111,
+              0.012
+            ],
+            "distance": 0.10866466767077511,
+            "speed": 0,
+            "table": false,
+            "support": false
+          }
+        },
+        {
+          "id": "g1",
+          "state": "idle",
+          "history": [],
+          "time": 0.3000000000000002,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.33,
+              0.9189952061210893,
+              0
+            ],
+            "distance": 0.11000000010446033,
+            "speed": 2.9231062767905814e-12,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "idle",
+          "history": [],
+          "time": 0.3000000000000002,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.38,
+              0.7389952061210893,
+              0
+            ],
+            "distance": 0.17000000006759203,
+            "speed": 2.9231062767905814e-12,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "three-way-simultaneous-red",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 140,
+        "wallMs": 32.44129604101181,
+        "maxSliceWallMs": 1.701790988445282,
+        "workerCandidateSlices": 23,
+        "workerSegmentMs": 1496.0731259584427
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 7.328076426413018e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.0002763336245863307,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 1.0829824450414582e-16,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.9911631558806512,
+          "maxFingerLimitViolation": 0.000008002479858430778,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center",
+            "complete"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 7.318364664277155e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.000002907703977986925,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.129559741916753,
+            "maxSpeed": 0.10898648291173087,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.9001750700022958,
+              0.7144952061212041,
+              0.1371463071479793
+            ],
+            "distance": 0.002859057956631521,
+            "speed": 2.316311423313194e-14,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.10975670561315254,
+            "maxSpeed": 0.09755082044015673,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.43845042671874895,
+              0.9224952061212044,
+              0.09017788784153115
+            ],
+            "distance": 0.0015597504409782207,
+            "speed": 3.1366827966896535e-15,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "complete",
+          "history": [
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.14000516215881786,
+            "maxSpeed": 0.1299863006121174,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.5482950607605881,
+              0.7424952061212045,
+              0.09967380716880347
+            ],
+            "distance": 0.001735862774878997,
+            "speed": 9.278308971533214e-15,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "three-way-simultaneous-blue",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 41,
+        "wallMs": 7.481627941131592,
+        "maxSliceWallMs": 1.0967079997062683,
+        "workerCandidateSlices": 14,
+        "workerSegmentMs": 843.754705965519
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.011836195472098e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.0002763336245863307,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 1.1160844926201563e-16,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.9110395242069466,
+          "maxFingerLimitViolation": 0.000008002479858430778,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center",
+            "complete"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.677510124296392e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.6586514796878087,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.12889564475169668,
+            "maxSpeed": 0.10906531664435466,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.9005485072114026,
+              0.7109952061212041,
+              0.001323299733101755
+            ],
+            "distance": 0.0014324742038123285,
+            "speed": 1.3188543423459435e-14,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.10966039853318543,
+            "maxSpeed": 0.09763602277966527,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.438600300837066,
+              0.9189952061212044,
+              0.00045380587669402217
+            ],
+            "distance": 0.0014714270353775969,
+            "speed": 2.782121690281525e-14,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "complete",
+          "history": [
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.1394246809059807,
+            "maxSpeed": 0.12777098327848704,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.5495894184609367,
+              0.7389952061212042,
+              0.00006570976826766612
+            ],
+            "distance": 0.00041580641393013215,
+            "speed": 1.3053323684192994e-14,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "three-way-simultaneous-yellow",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 110,
+        "wallMs": 17.879000902175903,
+        "maxSliceWallMs": 0.6377910375595093,
+        "workerCandidateSlices": 24,
+        "workerSegmentMs": 1634.0733770728111
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.705143250711583e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.0002763336245863307,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 1.1091727037705612e-16,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.8431770086537715,
+          "maxFingerLimitViolation": 0.000008002479858430778,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center",
+            "complete"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.660728284028916e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.8425065701142991,
+          "maxFingerLimitViolation": 0.000002466262791562396,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.1296535902923569,
+            "maxSpeed": 0.10892974124133925,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.9002995028605169,
+              0.7179961467515893,
+              -0.13997776889307073
+            ],
+            "distance": 0.00030032680991804345,
+            "speed": 0.000011149939331549744,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.10939185888680647,
+            "maxSpeed": 0.09775419714879538,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.43952257385151744,
+              0.9259961058335319,
+              -0.08953667277134303
+            ],
+            "distance": 0.0006652877934495535,
+            "speed": 0.000016693348031024458,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "complete",
+          "history": [
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.13922844175086246,
+            "maxSpeed": 0.12769735325429676,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.5492212769527592,
+              0.7459961282198166,
+              -0.09980300338474202
+            ],
+            "distance": 0.0008032541632427757,
+            "speed": 0.000018157317016348898,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "single-selected-G1-leaves-other-tasks-idle",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 19,
+        "wallMs": 4.3039591908454895,
+        "maxSliceWallMs": 0.9070000052452087,
+        "workerCandidateSlices": 1,
+        "workerSegmentMs": 132.63608300685883
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 6.011836195472098e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.13606515598823826,
+          "maxFingerLimitViolation": 0.00006920328326268793,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 1.1160844926201563e-16,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.9110395242069466,
+          "maxFingerLimitViolation": 0.000008002479858430778,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center",
+            "complete"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 28090,
+          "contactSamples": 2809,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.5507745307181254e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.17476530407514104,
+          "maxFingerLimitViolation": 0,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "idle",
+          "history": [],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.7799999609473558,
+              0.7179960541750239,
+              -0.14000067985336898
+            ],
+            "distance": 0.12000003911944311,
+            "speed": 0.000022320990510613278,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return_clear",
+            "return_align",
+            "return_fold",
+            "return_wide",
+            "return",
+            "return_center"
+          ],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0.10966039853318543,
+            "maxSpeed": 0.09763602277966527,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.438600300837066,
+              0.9189952061212044,
+              0.00045380587669402217
+            ],
+            "distance": 0.0014714270353775969,
+            "speed": 2.782121690281525e-14,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "idle",
+          "history": [],
+          "time": 28.090000000011347,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.3799991995711591,
+              0.7459961255057262,
+              -0.09999992767565416
+            ],
+            "distance": 0.17000080047300822,
+            "speed": 0.000015042352325162264,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "two-selected-R1-C5-leaves-G1-task-idle",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 39,
+        "wallMs": 7.057332932949066,
+        "maxSliceWallMs": 0.6716669797897339,
+        "workerCandidateSlices": 13,
+        "workerSegmentMs": 669.5256271362305
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 21650,
+          "contactSamples": 2165,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.011836195472098e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.0002763336245863307,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 21650,
+          "contactSamples": 2165,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.5507745307181254e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.02228571656358637,
+          "maxFingerLimitViolation": 2.458998553458991e-7,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 21650,
+          "contactSamples": 2165,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.677510124296392e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.6586514796878087,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return",
+            "complete"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "complete",
+          "history": [
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 21.650000000003477,
+          "evidence": {
+            "lift": 0.12889564475169668,
+            "maxSpeed": 0.10906531664435466,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.9005485072114026,
+              0.7109952061212041,
+              0.0013232997331017631
+            ],
+            "distance": 0.0014324742038123361,
+            "speed": 1.1990086965563055e-14,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "idle",
+          "history": [],
+          "time": 21.650000000003477,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.33,
+              0.918995206121066,
+              0
+            ],
+            "distance": 0.11000000010446033,
+            "speed": 4.4503777687680445e-12,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "complete",
+          "history": [
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "retreat",
+            "settling",
+            "return"
+          ],
+          "time": 21.650000000003477,
+          "evidence": {
+            "lift": 0.1394246809059807,
+            "maxSpeed": 0.12777098327848704,
+            "dual": true,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.5495894184609367,
+              0.7389952061212044,
+              0.00006570976826774467
+            ],
+            "distance": 0.00041580641393014456,
+            "speed": 2.0993608882219265e-15,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "stop-three-robots-mid-grasp-without-object-teleport-and-reset-all",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 39,
+        "wallMs": 6.465706884860992,
+        "maxSliceWallMs": 0.605292022228241,
+        "workerCandidateSlices": 14,
+        "workerSegmentMs": 781.0596241354942
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 11630,
+          "contactSamples": 1163,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 5.840321949820453e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.0002763336245863307,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "crouch",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "stopped"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 11630,
+          "contactSamples": 1163,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 5.95633568509224e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 1,
+          "maxFingerLimitViolation": 0.000008002479858430778,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "spread",
+            "raise",
+            "ready",
+            "align",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "stopped"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 11630,
+          "contactSamples": 1163,
+          "actualDualForce": true,
+          "maxObjectTranslationResidual": 6.677510124296392e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.6586514796878087,
+          "maxFingerLimitViolation": 0.0000026552961502196437,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle",
+            "approach",
+            "descend",
+            "closing",
+            "lift",
+            "transfer",
+            "place",
+            "release",
+            "stopped"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "idle",
+          "history": [],
+          "time": 0,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.78,
+              0.711,
+              0
+            ],
+            "distance": 0.12,
+            "speed": 0,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "idle",
+          "history": [],
+          "time": 0,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.33,
+              0.919,
+              0
+            ],
+            "distance": 0.10999999999999999,
+            "speed": 0,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "idle",
+          "history": [],
+          "time": 0,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.38,
+              0.739,
+              0
+            ],
+            "distance": 0.17000000000000004,
+            "speed": 0,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "unreachable-middle-station-aborts-every-attempted-start-without-reset",
+      "pass": true,
+      "planning": {
+        "barriers": 1,
+        "slices": 38,
+        "wallMs": 16.40866309404373,
+        "maxSliceWallMs": 9.642290949821472,
+        "workerCandidateSlices": 8,
+        "workerSegmentMs": 419.5109149813652
+      },
+      "stats": {
+        "r1": {
+          "millisecondSamples": 300,
+          "contactSamples": 30,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.571380386388842e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.13606515598823826,
+          "maxFingerLimitViolation": 0.00006920328326268793,
+          "fingerStrokeToleranceM": 0.001,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        },
+        "g1": {
+          "millisecondSamples": 300,
+          "contactSamples": 30,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.230133508015245e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.02228571656358637,
+          "maxFingerLimitViolation": 2.458998553458991e-7,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        },
+        "c5": {
+          "millisecondSamples": 300,
+          "contactSamples": 30,
+          "actualDualForce": false,
+          "maxObjectTranslationResidual": 5.230133508015245e-17,
+          "objectEditsDuringTask": 0,
+          "maxTorqueRatio": 0.17476530407514104,
+          "maxFingerLimitViolation": 0,
+          "fingerStrokeToleranceM": 0.0002,
+          "maxIllegalPenetration": 0,
+          "states": [
+            "idle"
+          ]
+        }
+      },
+      "robots": [
+        {
+          "id": "r1",
+          "state": "idle",
+          "history": [],
+          "time": 0,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.78,
+              0.711,
+              0
+            ],
+            "distance": 0.12,
+            "speed": 0,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "g1",
+          "state": "idle",
+          "history": [],
+          "time": 0,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.33,
+              0.919,
+              0
+            ],
+            "distance": 0.10999999999999999,
+            "speed": 0,
+            "table": true,
+            "support": true
+          }
+        },
+        {
+          "id": "c5",
+          "state": "idle",
+          "history": [],
+          "time": 0,
+          "evidence": {
+            "lift": 0,
+            "maxSpeed": 0,
+            "dual": false,
+            "stable": 0
+          },
+          "measurement": {
+            "count": 0,
+            "forces": [
+              0,
+              0
+            ],
+            "position": [
+              0.38,
+              0.739,
+              0
+            ],
+            "distance": 0.17000000000000004,
+            "speed": 0,
+            "table": true,
+            "support": true
+          }
+        }
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "work/test-multi-physical.mjs": "d587eeeab8e310077a53e9db20251cebb206cc219daf0b366d144e5a7859f8b7",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "dist/multi/coordinator.mjs": "d207149524ec7f94550d2becfd1293de3624d9f50d0b6fffd2938fc3f7a4a4d0",
+    "dist/multi/robot-runtime.mjs": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/planning.mjs": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "dist/multi/pipe-controller.mjs": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "dist/multi/background-planning.mjs": "965fccca0748f9784a764e1e2c4bfb6e3c862f325d873f00423565fd8a0a2698",
+    "dist/multi/planning-worker.mjs": "6fc5c40407c2fc37bd543c96bfd1f4bd252d11b8c8d9188c6eeda0ee683cfd99",
+    "dist/multi/planning-worker-core.mjs": "eb853f820c0d784630404df2ec89eef550b3de657ab968ea152d4322f91f5faf",
+    "dist/multi/planning-worker-transport.mjs": "0d45fbbf90d0fd5c9011233aa852da3c72bbf36d1d8adf78859702df68de9cb5",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "work/background-planning-node-worker.mjs": "e0f9dd75680bb24171783f89aca5e0d1afb5f6bdb1030d7789738f1f387ce358",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "work/test-r1-dynamics.mjs": "e354330a856c6c67f1710217adf9855fd6715c33aa7f974ed316f2fdbb998ae9",
+    "work/validation/browser-regressions.json": "8a7932e2dc9523b5d42729f3244441ab2205fe2f12d57ca38e45910e214f0c51"
+  },
+  "sourceFrozen": true
+}

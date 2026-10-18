@@ -64,7 +64,8 @@ Task + object edits → shared coordinator
 | Read next | What is inside |
 | --- | --- |
 | [Engineering guide](GUIDE.md) · [中文](GUIDE.zh-CN.md) | Robot models, controls, architecture, setup and deployment |
-| [Background-planning evidence](work/validation/background-planning/README.md) | Source-bound reports, cancellation and compiled-model consistency |
+| [Current performance evidence](work/validation/performance-v2/README.md) | Exact-result planning cache, asynchronous camera readback and release regression scope |
+| [Previous background-planning release](work/validation/background-planning/README.md) | Historical source-bound reports, cancellation and compiled-model consistency |
 | [Implementation history](TECHNICAL_NOTES.zh-CN.md) | Preserved version and branch notes |
 
 ## Verify and contribute
@@ -75,7 +76,7 @@ npm run test:pages
 npm run test:acceptance
 ```
 
-Full physics runs take many minutes. The recorded **2026-10-16** background-planning release includes **72/72 pipes, 12 ordinary grasps and three stacks**; these are existing bounded simulation results, not tests rerun for this documentation update. [Report scope](work/validation/background-planning/README.md).
+Full physics runs take many minutes. The previous **2026-10-16** background-planning release recorded **72/72 pipes, 12 ordinary grasps and three stacks**. Those reports remain historical; the current optimization release writes fresh results under [performance-v2](work/validation/performance-v2/README.md), and GitHub Actions must pass the complete regression before publishing.
 
 `main` serves `/multi/`; `/r1/`, `/g1/` and `/c5/` remain available. GitHub Actions validates before publishing `dist/` to Pages. Bug reports should include the robot, task, layout/seed, browser and reproduction steps.
 

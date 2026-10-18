@@ -15,8 +15,8 @@ const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)||
 const sourcePaths=[
   'work/test-multi-ui.mjs','dist/multi/index.html','dist/multi/styles.css','dist/multi/app.mjs',
   'dist/multi/presentation.mjs','dist/multi/workcell.mjs','dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
-  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot'].map(name=>`dist/multi/${name}.mjs`),
-  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/visuals/frame-scheduler.mjs',
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`),
+  'dist/multi/visuals/theme-controller.mjs','dist/multi/visuals/scene-environment.mjs','dist/multi/visuals/camera-feeds.mjs','dist/multi/visuals/camera-feed-queue.mjs','dist/multi/visuals/frame-scheduler.mjs',
   'dist/r1/grasp-controller.mjs','dist/g1/grasp-controller.mjs','dist/c5/grasp-controller.mjs',
   'dist/r1/r1-workcell.mjs','dist/g1/g1-workcell.mjs','dist/r1/r1-area-light-textures.mjs',
   'dist/g1/g1-profile.mjs','dist/c5/c5-profile.mjs','dist/vendor/three.module.min.js',
@@ -204,11 +204,18 @@ check('Pointer cleanup and keyboard controls have source-level interruption safe
 check('Two camera feeds and actual measured force/torque charts remain connected',()=>{
   for(const id of ['overhead-feed','wrist-feed','force-chart','torque-chart'])assert(html.includes(`id="${id}"`));
   assert(app.includes('cameraFeedPass=createCameraFeedPass(renderer)'));
-  assert(app.includes('cameraFeedPass.render(scene,[vision.overhead,vision.camera][index],feedPixels)'));
+  assert(app.includes('cameraFeedQueue=createCameraFeedQueue('));
+  assert(app.includes('cameraFeedPass.renderAsync(scene,camera,feedPixels)'));
+  assert(app.includes('cameraFeedQueue.request({station:focus,controller:focus.controller,arm:focus.arm,theme:sceneThemes.activeId,index,camera:[vision.overhead,vision.camera][index]})'));
+  assert(app.includes('!showCameras||cameraFeedQueue.pending'));
+  assert(app.includes('focused()===station&&station.controller===controller&&station.arm===arm&&sceneThemes.activeId===theme'));
+  assert(app.includes('cameraFeedQueue.invalidate()'));
   assert(app.includes('cameraFeedVisible(feed.element.getBoundingClientRect()')&&app.includes('nextFeed=(index+1)%2'));
   assert(feedSource.includes('renderer.readRenderTargetPixels(displayTarget, 0, 0, width, height, pixels)'));
-  assert(app.includes('image.data.set(feedPixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4)'));
-  assert(app.includes('feeds[index].ctx.putImageData(image,0,0)'));
+  assert(feedSource.includes('renderer.readRenderTargetPixelsAsync(displayTarget, 0, 0, width, height, pixels)'));
+  assert(app.includes('feed.image.data.set(pixels.subarray((179-row)*240*4,(180-row)*240*4),row*240*4)'));
+  assert(app.includes('feed.ctx.putImageData(feed.image,0,0)'));
+  assert(app.includes('画面暂时不可用'));
   assert(app.includes('history.force.push(m.forces)'));assert(app.includes('telemetry.joints.map(joint=>joint.torque)'));
   assert(/\b(?:vision|v)\.wrist\.update\(station\.cameraLink\)/.test(app));assert(/\b(?:vision|v)\.wrist\.setVisible\(station\.group\.visible\)/.test(app));
   assert(app.includes('({scene,THREE,camera:wristCamera})'));assert(runtimeSource.includes('get cameraLink(){return visualRobot.getObjectByName('));
