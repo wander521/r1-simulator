@@ -4,6 +4,7 @@ import {resolve,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {generatePipeLayout} from '../dist/multi/pipe-layout.mjs';
 import {ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
+import {verifyPerformanceV3Contracts} from './performance-v3-contracts.mjs';
 
 const defaultRoot=fileURLToPath(new URL('../',import.meta.url));
 const robotIds=['r1','g1','c5'],fingerTolerance={r1:.001,g1:.0002,c5:.0002};
@@ -20,13 +21,59 @@ const requiredSources=['work/test-multi-pipes.mjs','dist/multi/robot-runtime.mjs
   'dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
-const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`);
+const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','planning-worker-protocol','planning-ik-context','planning-budget'].map(name=>`dist/multi/${name}.mjs`);
+
+/** Preparation history is command metadata, not evidence of physical motion.
+ * Verify the rejected all-participant barrier from complete raw snapshots;
+ * this sub-check alone never certifies a FULL72 manipulation release. */
+export function verifyRejectedPreparationSafety(row){
+  const errors=[],check=(condition,message)=>{if(!condition)errors.push(message);},safety=row?.preparationSafety;
+  // Exact dimensions of the source-bound original robot models plus eight
+  // free pipe bodies. Two equally truncated arrays are not a complete proof.
+  const dimensions={r1:{qpos:82,qvel:74,ctrl:26,armTargets:22},g1:{qpos:89,qvel:81,ctrl:33,armTargets:29},c5:{qpos:64,qvel:56,ctrl:8,armTargets:6}};
+  const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
+  const sameNumbers=(left,right)=>{
+    if(!Array.isArray(left)||!Array.isArray(right)||left.length!==right.length)return false;
+    for(let index=0;index<left.length;index++)if(!Number.isFinite(left[index])||!Number.isFinite(right[index])||!Object.is(left[index],right[index]))return false;
+    return true;
+  };
+  const sameTargets=(left,right)=>record(left)&&record(right)&&Object.keys(left).length>0
+    &&equal(Object.keys(left).sort(),Object.keys(right).sort())&&Object.keys(left).every(name=>Number.isFinite(left[name])&&Object.is(left[name],right[name]));
+  check(safety?.noPhysicalAdvance===true&&safety?.unchangedPhysicsArrays===true,'rejected preparation: unchanged physical snapshot proof is required');
+  check(safety?.noBatchCommit===true,'rejected preparation: no-batch-commit proof is required');
+  check(safety?.allWorkersCancelled===true,'rejected preparation: all-Worker cancellation proof is required');
+  check(safety?.unchangedArmTargets===true,'rejected preparation: unchanged arm-target proof is required');
+  const before=safety?.coordinatorBefore,after=safety?.coordinatorAfter;
+  check(Number.isSafeInteger(before?.tick)&&before.tick>=0&&after?.tick===before.tick,'rejected preparation: shared physical tick advanced or is absent');
+  check(Number.isSafeInteger(before?.batchNumber)&&before.batchNumber===0&&after?.batchNumber===before.batchNumber
+    &&before?.startTick===null&&after?.startTick===null&&record(before?.startTimes)&&record(after?.startTimes)
+    &&Object.keys(before.startTimes).length===0&&Object.keys(after.startTimes).length===0,'rejected preparation: batch was committed or start markers changed');
+  check(after?.pendingStart===null&&after?.planning===false,'rejected preparation: pending batch or Worker planning was not cancelled');
+  check(row?.start?.ok===false&&row.start.startTick==null&&(row.start.startTimes===undefined
+    ||(record(row.start.startTimes)&&Object.keys(row.start.startTimes).length===0)),'rejected preparation: failed start claimed a committed physical batch');
+  const worlds=Array.isArray(safety?.worlds)?safety.worlds:[];
+  check(worlds.length===3&&equal(worlds.map(world=>world?.id).sort(),[...robotIds].sort()),'rejected preparation: three independent raw world snapshots are required');
+  for(const id of robotIds){
+    const world=worlds.find(world=>world?.id===id),old=world?.before,current=world?.after,robot=row?.robots?.find(robot=>robot.id===id),stats=row?.stats?.[id];
+    check(Number.isFinite(old?.time)&&old.time>=0&&current?.time===old.time&&robot?.time===current?.time
+      &&Number.isFinite(before?.tick)&&Math.abs(old.time-before.tick*.001)<1e-10,`rejected preparation/${id}: physical time advanced or disagrees with the shared tick`);
+    for(const name of ['qpos','qvel','ctrl'])check(old?.[name]?.length===dimensions[id][name]
+      &&sameNumbers(old?.[name],current?.[name]),`rejected preparation/${id}: unchanged physical ${name} array is absent or changed`);
+    check(record(old?.armTargets)&&Object.keys(old.armTargets).length===dimensions[id].armTargets
+      &&sameTargets(old?.armTargets,current?.armTargets),`rejected preparation/${id}: non-finger arm targets changed or are absent`);
+    check(current?.planning===false&&current?.running===false&&current?.verified===false&&current?.completed===0
+      &&current?.objectEditsDuringTask===0&&robot?.running===false&&robot?.state==='stopped'
+      &&robot?.classification?.verified===false&&robot?.classification?.completed===0,`rejected preparation/${id}: a Worker, task or classification remained active`);
+    check(stats?.sequence?.length===0&&stats?.objectEditsDuringTask===0,'rejected preparation: a physical task advanced after failed preparation');
+  }
+  return{pass:errors.length===0,errors,scope:'Rejected preparation barrier only; raw physical snapshots and batch/cancellation state, not a full manipulation or browser acceptance.'};
+}
 
 /** Read-only report validation. It does not run absent physics, certify browser
  * pixels/hardware, repair saved evidence, or treat quick/development runs as a
  * seventy-two-item full release. */
-export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireBackground=false}={}) {
-  const errors=[],sourceHashes={},summary={cases:0,physicalPipeClassifications:0,simultaneousSeeds:[],
+export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireBackground=false,reportDirectory='work/validation/performance-v3',readEvidence=readFile}={}) {
+  const errors=[],sourceHashes={},reportHashes={},summary={cases:0,physicalPipeClassifications:0,simultaneousSeeds:[],
     layoutChecks:0,millisecondSamples:0,contactScans:0,minActualLiftM:null,maxReleasedSlotErrorM:0,
     maxTranslationResidualM:0,maxRotationResidualRad:0,maxIllegalPenetrationM:0,
     maxFingerLimitViolationM:{r1:0,g1:0,c5:0},carryObservations:{samples:0,minDualFraction:null,
@@ -48,6 +95,9 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireB
     return velocityCache.get(id);
   }
   try {
+    const contracts=await verifyPerformanceV3Contracts({rootPath,reportDirectory,readEvidence});
+    errors.push(...contracts.errors);Object.assign(sourceHashes,contracts.sourceHashes);Object.assign(reportHashes,contracts.reportHashes);
+    summary.v3ContractChecks=contracts.counts;
     check(report?.pass===true,'pipe report did not pass');check(report?.mode==='full','quick/static-only/filtered evidence cannot certify a full release');
     check(report?.sourceFrozen===true,'source was not frozen during physical acceptance');
     if(requireBackground)check(report?.planningExecution?.worker===true&&report.planningExecution.cooperative===false&&report.planningExecution.productionBudgetOverride===false,'real background worker execution without a planning budget override is required');
@@ -92,6 +142,7 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireB
       if(!row.name.startsWith('unreachable-'))check(equal(row.start?.runIds,selected)
         &&new Set(Object.values(row.start?.startTimes??{})).size===1,`${label}: tasks did not start at one shared physical time`);
       check(row.physicallySortedPipes===(success?selected.length*8:0),`${label}: claimed physical item count incorrect`);
+      if(row.name.startsWith('unreachable-'))errors.push(...verifyRejectedPreparationSafety(row).errors.map(error=>`${label}: ${error}`));
       for(const id of robotIds) {
         const stationErrorStart=errors.length;
         const s=stats[id],robot=robots.find(item=>item.id===id);if(!s||!robot)continue;
@@ -203,7 +254,6 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireB
           check(observed.some(object=>object.actualDual===true&&object.maxLiftM>.035)&&row.postStopSeconds===3,`${label}/${id}: stop was not exercised after a true physical grasp/lift`);
         } else if(row.name.startsWith('unreachable-')) {
           check(robot.running===false&&classification?.completed===0&&classification?.verified===false,`${label}/${id}: rejected start left a running/complete classification`);
-          if(id==='c5')check(robot.history?.length===0,`${label}: later station started after failed preparation`);
           check(row.restartAfterFailure?.ok===false,`${label}/${id}: failed batch accepted a restart without reset`);
         } else {
           check(robot.state==='idle'&&robot.running===false&&robot.time===0&&classification?.completed===0&&classification?.verified===false
@@ -225,8 +275,11 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireB
       const actual=sha(await readFile(absolute));sourceHashes[path]=actual;check(actual===expected,`stale source: ${path}`);
     }
   } catch(error) {errors.push(error.stack??error.message);}
+  for(const path of ['work/verify-pipe-acceptance.mjs','work/test-pipe-acceptance-verifier.mjs']){
+    try{sourceHashes[path]=sha(await readFile(resolve(rootPath,path)));}catch(error){errors.push(`verifier source unavailable: ${path}: ${error.message}`);}
+  }
   return {pass:errors.length===0,scope:'Current-source numerical pipe-classification acceptance; not rendered-browser or real-hardware certification',
-    ...summary,sourceHashes,sourceCount:Object.keys(sourceHashes).length,
+    ...summary,sourceHashes,reportHashes,sourceCount:Object.keys(sourceHashes).length,
     unverified:['Rendered desktop/mobile pixels and native pointer/touch interactions','Cross-station collisions between independent worlds','Hardware calibration, controls and safety'],errors};
 }
 
@@ -234,8 +287,9 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   let result;
   try {
     const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-      ??'work/validation/performance-v2/pipes-physical-compiled-model-final.json';
-    const bytes=await readFile(resolve(defaultRoot,reportPath));result=await verifyPipeAcceptance(JSON.parse(bytes),{requireBackground:process.argv.includes('--require-background')});
+      ??'work/validation/performance-v3/pipes-physical-compiled-model-final.json';
+    const reportDirectory=process.argv.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??relative(defaultRoot,resolve(defaultRoot,reportPath,'..'));
+    const bytes=await readFile(resolve(defaultRoot,reportPath));result=await verifyPipeAcceptance(JSON.parse(bytes),{requireBackground:process.argv.includes('--require-background'),reportDirectory});
     result.reportSha256=sha(bytes);result.report=reportPath;result.verifierSha256=sha(await readFile(fileURLToPath(import.meta.url)));
   } catch(error) {result={pass:false,errors:[error.stack??error.message]};}
   const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??null;

@@ -1,12 +1,13 @@
-import {createRobotRuntimeFromParts,loadPhysicsAPI,ROBOT_CONFIGS} from './robot-runtime.mjs?v=20261018-perf-2';
-import {parsePlanningRobot} from './planning-robot.mjs?v=20261018-perf-2';
-import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from './planning-serialization.mjs?v=20261018-perf-2';
-import {createPlanningCheckCache} from './planning-check-cache.mjs?v=20261018-perf-2';
+import {createRobotRuntimeFromParts,loadPhysicsAPI,ROBOT_CONFIGS} from './robot-runtime.mjs?v=20261018-perf-3';
+import {parsePlanningRobot} from './planning-robot.mjs?v=20261018-perf-3';
+import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from './planning-serialization.mjs?v=20261018-perf-3';
+import {createPlanningCheckCache} from './planning-check-cache.mjs?v=20261018-perf-3';
+import {enablePlanningWorkerIK} from './planning-ik-context.mjs?v=20261018-perf-3';
 
 /** Shared by the browser worker and its file-loading-only Node test bridge.
  * The live/standalone parsers retain their original default behavior. */
 export function createPlanningWorkerRobot(source,{rootHeight=0}={}){
-  return parsePlanningRobot(source,{rootHeight,reuseUnchangedJoints:true});
+  return enablePlanningWorkerIK(parsePlanningRobot(source,{rootHeight,reuseUnchangedJoints:true}));
 }
 
 async function createWorkerRuntime(job){
@@ -30,9 +31,12 @@ export function createPlanningWorkerService({createRuntime=createWorkerRuntime}=
       if(running)throw new Error('后台规划器仍在工作');running=true;
       let checkCache=null;
       try{
-        const job=decodePlanningValue(encoded),nextKey=JSON.stringify([job.robotId,job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode,job.pipeSeed]);
+        // Exact immutable fields still define reuse, including both original
+        // and compiled layout seeds. Comparing them does not allocate another
+        // 20 MB escaped XML string on every G1 item.
+        const job=decodePlanningValue(encoded),nextKey=[job.robotId,job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode,job.pipeSeed];
         onProgress({stage:'loading',steps:0,attempts:0,segmentElapsedMs:0});
-        if(!runtime||key!==nextKey){runtime?.dispose();runtime=await createRuntime(job);key=nextKey;
+        if(!runtime||!key||nextKey.some((value,index)=>!Object.is(value,key[index]))){runtime?.dispose();runtime=await createRuntime(job);key=nextKey;
           if(job.taskMode==='pipes'){
             // Idle randomization preserves the live MjModel's original body,
             // joint and qpos order. Rebuilding from the *current* layout seed

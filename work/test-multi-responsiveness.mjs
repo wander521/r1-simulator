@@ -14,7 +14,7 @@ const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
   ??'work/validation/multi-responsive/contracts-final.json';
 const sourcePaths=['work/test-multi-responsiveness.mjs','dist/multi/coordinator.mjs','dist/multi/app.mjs','dist/multi/visuals/frame-scheduler.mjs',
   'dist/multi/visuals/camera-feed-queue.mjs','dist/multi/visuals/camera-feeds.mjs',
-  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','robot-runtime','planning'].map(name=>`dist/multi/${name}.mjs`),
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','planning-worker-protocol','planning-ik-context','planning-budget','robot-runtime','planning'].map(name=>`dist/multi/${name}.mjs`),
   'dist/vendor/three.module.min.js','dist/vendor/three.core.min.js'];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const hashes=async()=>Object.fromEntries(await Promise.all(sourcePaths.map(async path=>[path,sha(await readFile(new URL(path,root)))])));
@@ -117,7 +117,9 @@ for(const omitReason of [false,true])check(`A staged rejection${omitReason?' wit
   assert(c.start().ok);const {result}=drain(c,stations);assert.equal(result.ok,false);assert.equal(result.done,true);
   assert.match(result.reason,/测试分段目标不可达/);assert.equal(c.state,'failed');assert.equal(c.running,false);assert.equal(c.planning,false);
   assert.equal(c.batchNumber,0);assert.equal(c.startTick,null);assert.deepEqual(c.startTimes,{});assert.deepEqual(positions(stations),before);
-  assert([...stations.values()].every(s=>s.calls.stop===1&&s.calls.reset===0));assert.equal(stations.get('c5').calls.advance,0);
+  assert([...stations.values()].every(s=>s.calls.stop===1&&s.calls.reset===0&&s.calls.step.length===0));
+  const checked=advances(stations);c.advancePlanning();assert.equal(advances(stations),checked,'A failed batch cannot continue checking or commit later');
+  assert.equal(c.batchNumber,0);
 });
 check('A thrown candidate error follows the same cancellation path and retains the actionable reason',()=>{
   const {c,stations}=fixture({g1:{slices:1,throwOnAdvance:true}});assert(c.start().ok);const {result}=drain(c,stations);

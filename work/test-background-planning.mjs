@@ -22,7 +22,7 @@ const reportPath=args.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/va
 const sourcePaths=[
   'work/test-background-planning.mjs','work/background-planning-node-worker.mjs',
   'dist/multi/planning-worker.mjs','dist/multi/planning-worker-core.mjs','dist/multi/planning-worker-transport.mjs',
-  'dist/multi/planning-serialization.mjs','dist/multi/planning-robot.mjs','dist/multi/planning-check-cache.mjs','dist/multi/planning.mjs',
+  'dist/multi/planning-serialization.mjs','dist/multi/planning-robot.mjs','dist/multi/planning-check-cache.mjs','dist/multi/planning-worker-protocol.mjs','dist/multi/planning-ik-context.mjs','dist/multi/planning-budget.mjs','dist/multi/planning.mjs',
   'dist/multi/background-planning.mjs',
   'dist/multi/robot-runtime.mjs','dist/multi/pipe-controller.mjs','dist/multi/pipe-layout.mjs','dist/multi/pipe-model.mjs','dist/multi/r1-safe-dynamics.mjs',
   ...['r1','g1','c5'].flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
@@ -43,12 +43,14 @@ class FakeWorker{
   constructor(){this.messages=[];this.terminated=0;}
   postMessage(message){this.messages.push(structuredClone(message));}
   terminate(){this.terminated++;}
-  emit(message){this.onmessage?.({data:structuredClone(message)});}
+  emit(message){const request=this.messages.at(-1);this.onmessage?.({data:structuredClone({protocol:3,modelRevision:request?.modelRevision,...message})});}
   complete(result={ok:true,payload:{example:true}}){const request=this.messages.at(-1);this.emit({type:'result',jobId:request.jobId,generation:request.generation,result});}
 }
 function fakeTransport(options={}){
   const instances=[];let clock=0;
   const transport=createPlanningWorkerTransport({workerFactory:()=>{const worker=new FakeWorker();instances.push(worker);return worker;},now:()=>clock,...options});
+  const submit=transport.submit.bind(transport);
+  transport.submit=job=>submit(job.sourceXml?job:{version:2,robotId:'r1',sourceXml:'<mujoco/>',modelXml:'<mujoco/>',modelPipeSeed:null,taskMode:'legacy',pipeSeed:null,...job});
   return{transport,instances,setClock:value=>{clock=value;}};
 }
 function physical(runtime){return{qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel],time:runtime.data.time};}

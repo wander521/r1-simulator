@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import {solvePose as solveG1Pose,naturalArmLimits,naturalArmPose} from '../g1/grasp-kinematics.mjs';
 import {STAND_POSE,armJointNames,qToOpening,GRIPPER_Q_MAX} from '../g1/g1-profile.mjs';
 import {READY as G1_READY} from '../g1/grasp-controller.mjs';
+import {isPlanningBudgetError,planningBudgetCheckpoint} from './planning-budget.mjs?v=20261018-perf-3';
 
 const G1_OPEN=qToOpening(GRIPPER_Q_MAX);
 export const PIPE_GRIPPER_PROFILE=Object.freeze({r1PreopenJointM:.024,dex1HoldJointM:-.0037,dex1NominalCylinderDiameterM:.040,c5FingerCommandFraction:.75,g1FingerSourceVelocityMps:.2,g1FingerCommandFraction:.75});
@@ -42,6 +43,7 @@ function planG1Pipe(controller,target,yawOffset=0,seedIndex=0,lateral=.14,tiltDe
   const seeds=[naturalArmPose(c.arm),[.15,.5*sign,.2*sign,-.5,0,.15,0],[-.6,.3*sign,0,.2,0,.1,0],[-.27,.15*sign,.03*sign,-.85,-.24*sign,1.10,.24*sign],[-.3,.7*sign,-.3*sign,-.4,.4*sign,.3,0],[-.7,.45*sign,.4*sign,-.8,-.3*sign,.7,0]];
   let seed={...stand,...G1_READY.right,...G1_READY.left,...Object.fromEntries(names.map((n,i)=>[n,seeds[seedIndex][i]]))};
   const solve=(point,continuous=false,down=0)=>{
+    planningBudgetCheckpoint(c.robot);
     const yaw=align(point);seed.waist_yaw_joint=yaw;const result=solveG1Pose(c.robot,c.arm,point,quaternion(yaw,down),seed,continuous?280:400,{limits:naturalArmLimits(c.arm)});
     if(result.positionError>.003||result.angleError>.035){const error=new Error('圆管轨迹超出当前站姿可稳定到达的范围');error.detail={position:point.toArray(),positionError:result.positionError,angleError:result.angleError};throw error;}
     const jump=Math.max(...names.map(n=>Math.abs(result.pose[n]-(seed[n]??0))));
@@ -67,6 +69,7 @@ function planG1Pipe(controller,target,yawOffset=0,seedIndex=0,lateral=.14,tiltDe
     descend,lift,transfer,place,retreat};
   const ignore=[c.bodies.get(c.selected)],opening={[c.arm]:plan.preOpening,[c.arm==='right'?'left':'right']:G1_OPEN};
   for(const phase of ['descend','lift','transfer','place','retreat'])for(let i=0;i<plan[phase].length;i++){
+    planningBudgetCheckpoint(c.robot);
     const path=plan[phase],objectPoseFor=phase==='descend'?null:pose=>c.predictedObject(pose,plan,phase);
     const check=c.dynamics.checkPose(path[i],{opening,ignoreObjectBodies:ignore,objectPoses:objectPoseFor?.(path[i])});
     if(!check.safe){const error=new Error('圆管轨迹与身体、桌面或邻管发生干涉');error.detail={phase,sample:i,contacts:check.contacts.slice(0,3),limits:check.limitViolations};throw error;}
@@ -120,7 +123,7 @@ export function pipeControllerClass(LegacyController,{robotId}){
     }
     *planCandidates(target,...args){
       if(robotId==='g1'){
-        let error;for(const reverse of [false,true])for(const tilt of [0,12,20,-12,28]){try{return planG1Pipe(this,target,...args,tilt,reverse);}catch(caught){error=caught;}yield;}throw error;
+        let error;for(const reverse of [false,true])for(const tilt of [0,12,20,-12,28]){try{return planG1Pipe(this,target,...args,tilt,reverse);}catch(caught){if(isPlanningBudgetError(caught))throw caught;error=caught;}yield;}throw error;
       }
       this._pipeCylinderShape=target.shape==='cylinder';
       try{return super.plan(this._pipeCylinderShape?{...target,id:'yellow'}:target,...args);}

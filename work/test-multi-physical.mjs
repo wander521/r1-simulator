@@ -23,7 +23,7 @@ const paths=[
   'work/test-multi-physical.mjs','work/r1-test-robot.mjs','work/g1-test-robot.mjs','work/c5-test-robot.mjs',
   'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/r1-safe-dynamics.mjs',
   'dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
-  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`),
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','planning-worker-protocol','planning-ik-context','planning-budget'].map(name=>`dist/multi/${name}.mjs`),
   ...(backgroundPlanning?['work/background-planning-node-worker.mjs']:[]),
   ...ids.flatMap(id=>[`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
@@ -163,7 +163,7 @@ function verifyVisualFrames(){for(const runtime of stations.values()){
   assert(runtime.tcpWorld().distanceTo(runtime.localToWorld(runtime.config.tcp(runtime.robot,runtime.controller.arm).position))<1e-12);
 }}
 async function run(name,fn){if(filter&&!name.includes(filter))return;
-  await reset();try{await fn();verifyVisualFrames();results.push({name,pass:true,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
+  await reset();try{const detail=await fn();verifyVisualFrames();results.push({name,pass:true,...(detail??{}),planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:true}));
   }catch(error){results.push({name,pass:false,error:error.message,planning:structuredClone(planningStats),stats:structuredClone(stats),robots:[...stations.values()].map(compact)});
     console.error(JSON.stringify({scenario:name,pass:false,error:error.message}));}
@@ -237,12 +237,35 @@ try{
   await run('unreachable-middle-station-aborts-every-attempted-start-without-reset',async()=>{
     const g1=stations.get('g1');assert(g1.controller.setObject('blue',new THREE.Vector3(1.8,g1.config.tableHeight+.019,0)));
     const before=new Map([...stations].map(([id,runtime])=>[id,objectStates(runtime).map(object=>object.position)]));
+    const state=runtime=>({time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel],ctrl:[...runtime.data.ctrl],
+      armTargets:Object.fromEntries([...runtime.dynamics.map].filter(([,joint])=>!joint.finger).map(([name])=>[name,runtime.dynamics.targets[name]])),
+      history:[...runtime.controller.history],opening:runtime.controller.opening});
+    const worldsBefore=new Map([...stations].map(([id,runtime])=>[id,state(runtime)]));
+    const clock=()=>({tick:coordinator.tick,startTick:coordinator.startTick,startTimes:{...coordinator.startTimes},batchNumber:coordinator.batchNumber});
+    const coordinatorBefore=clock();
     coordinator.select(ids);let result=coordinator.start({objectId:'blue',task:'sort',armByRobot});if(backgroundPlanning&&result.preparing)result=await drainPlanning({allowFailure:true});assert.equal(result.ok,false);
     assert.equal(batchSnapshot().running,false);
+    assert.equal(coordinator.state,'failed');const worlds=[];
     for(const [id,runtime]of stations){assert.equal(runtime.controller.running,false,`${id}: failed start left a task/reaction running`);
-      assert.deepEqual(objectStates(runtime).map(object=>object.position),before.get(id),'Aborted start reset/teleported an object');}
-    assert.equal(stations.get('c5').controller.history.length,0,'A later station started after the middle rejection');
+      assert.deepEqual(objectStates(runtime).map(object=>object.position),before.get(id),'Aborted start reset/teleported an object');
+      const prior=worldsBefore.get(id),after={...state(runtime),planning:Boolean(runtime.planning),running:Boolean(runtime.controller.running),
+        state:runtime.controller.state,objectEditsDuringTask:stats[id].objectEditsDuringTask};
+      assert.equal(after.time,prior.time,`${id}: rejected preparation advanced a physical clock`);
+      for(const name of ['qpos','qvel','ctrl'])assert.deepEqual(after[name],prior[name],`${id}: rejected preparation changed actual ${name}`);
+      assert.deepEqual(after.armTargets,prior.armTargets,`${id}: rejected preparation changed arm motor targets`);
+      assert.equal(after.planning,false,`${id}: rejected batch left a Worker active`);assert.equal(after.state,'stopped');assert.equal(after.objectEditsDuringTask,0);
+      worlds.push({id,before:prior,after});
+    }
+    // Parallel Workers may finish private ready-state metadata out of order;
+    // require exact world/command/commit invariants, not FIFO history emptiness.
+    const coordinatorAfter={...clock(),pendingStart:coordinator.pendingStart,planning:Boolean(coordinator.planning)};
+    assert.deepEqual(clock(),coordinatorBefore,'Rejected preparation committed or advanced the batch');
+    assert.equal(coordinatorAfter.startTick,null);assert.deepEqual(coordinatorAfter.startTimes,{});
+    assert.equal(coordinatorAfter.pendingStart,null);assert.equal(coordinatorAfter.planning,false);
+    const preparationSafety={noPhysicalAdvance:true,noBatchCommit:true,allWorkersCancelled:true,unchangedPhysicsArrays:true,unchangedArmTargets:true,
+      coordinatorBefore,coordinatorAfter,worlds};
     coordinator.reset();for(const runtime of stations.values())assert.equal(runtime.controller.state,'idle');
+    return{preparationSafety,resetVerified:true};
   });
 }finally{for(const runtime of stations.values())runtime.dispose();}
 

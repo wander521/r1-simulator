@@ -1,0 +1,90 @@
+{
+  "pass": true,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "work/test-planning-check-cache.mjs": "ba6ec6b24b4650a86c454ff6567e81a52015b9006e162e6341d0c65c76a3cb52"
+  },
+  "endSourceHashes": {
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "work/test-planning-check-cache.mjs": "ba6ec6b24b4650a86c454ff6567e81a52015b9006e162e6341d0c65c76a3cb52"
+  },
+  "checks": [
+    {
+      "name": "Repeated exact full inputs reuse actual results including unsafe contacts",
+      "pass": true
+    },
+    {
+      "name": "Consumers cannot mutate either stored results or later returned clones",
+      "pass": true
+    },
+    {
+      "name": "Signed zero is lossless, and property/array order and missing arguments remain distinct",
+      "pass": true
+    },
+    {
+      "name": "Nonfinite, functions, cycles and nonplain inputs bypass without changing original validation",
+      "pass": true
+    },
+    {
+      "name": "Key construction never invokes accessors before the original implementation does",
+      "pass": true
+    },
+    {
+      "name": "Hidden, symbol and custom-array behavior cannot alias ordinary literal inputs",
+      "pass": true
+    },
+    {
+      "name": "Changing live qpos clears the cache and permanently bypasses the job",
+      "pass": true
+    },
+    {
+      "name": "Changing live ctrl clears the cache and permanently bypasses the job",
+      "pass": true
+    },
+    {
+      "name": "Replacing model invalidates the private job epoch",
+      "pass": true
+    },
+    {
+      "name": "Replacing data invalidates the private job epoch",
+      "pass": true
+    },
+    {
+      "name": "Replacing map invalidates the private job epoch",
+      "pass": true
+    },
+    {
+      "name": "Replacing robotBodyIds invalidates the private job epoch",
+      "pass": true
+    },
+    {
+      "name": "Replacing footBodyIds invalidates the private job epoch",
+      "pass": true
+    },
+    {
+      "name": "Replacing floorGeom invalidates the private job epoch",
+      "pass": true
+    },
+    {
+      "name": "Bounded LRU entries retain hot checks and evict old results without changing them",
+      "pass": true
+    },
+    {
+      "name": "The byte bound evicts results, and oversized diagnostics are not retained",
+      "pass": true
+    },
+    {
+      "name": "Unsupported return values bypass storage and preserve the original value",
+      "pass": true
+    },
+    {
+      "name": "A cancelled or failed job restores the exact original method and frees all entries",
+      "pass": true
+    },
+    {
+      "name": "Bounds reject invalid configuration before changing the original method",
+      "pass": true
+    }
+  ]
+}

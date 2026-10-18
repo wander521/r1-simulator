@@ -7,10 +7,10 @@ import {createServer} from 'node:http';
 // This is not a browser engine, native cache inspection or rendered-pixel QA.
 const root=new URL('../dist/',import.meta.url);
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'../work/validation/release-cache/final.json';
-const releases={'multi/index.html':'20261018-perf-2','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'};
+const releases={'multi/index.html':'20261018-perf-3','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'};
 const visualPaths=['multi/visuals/theme-controller.mjs','multi/visuals/scene-environment.mjs','multi/visuals/camera-feeds.mjs','multi/visuals/camera-feed-queue.mjs','multi/visuals/frame-scheduler.mjs'];
 const responsivePaths=['multi/coordinator.mjs','multi/planning.mjs','multi/pipe-controller.mjs','multi/pipe-layout.mjs','multi/pipe-model.mjs','multi/r1-safe-dynamics.mjs'];
-const workerPaths=['multi/background-planning.mjs','multi/planning-worker.mjs','multi/planning-worker-core.mjs','multi/planning-worker-transport.mjs','multi/planning-serialization.mjs','multi/planning-robot.mjs','multi/planning-check-cache.mjs'];
+const workerPaths=['multi/background-planning.mjs','multi/planning-worker.mjs','multi/planning-worker-core.mjs','multi/planning-worker-transport.mjs','multi/planning-serialization.mjs','multi/planning-robot.mjs','multi/planning-check-cache.mjs','multi/planning-worker-protocol.mjs','multi/planning-ik-context.mjs','multi/planning-budget.mjs'];
 const workerProtectedSet=new Set([...workerPaths,'multi/robot-runtime.mjs','multi/planning.mjs']);
 const protectedPaths=['multi/app.mjs','multi/robot-runtime.mjs','multi/presentation.mjs','multi/workcell.mjs',
   'r1/r1-app.mjs','r1/grasp-controller.mjs','r1/grasp-kinematics.mjs','r1/r1-workcell.mjs',
@@ -77,12 +77,12 @@ for(const base of ['http://127.0.0.1:4173/','https://wander521.github.io/r1-simu
   const release=releases[page],pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapFor(html,pageURL),entries=[...html.matchAll(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"][^>]*>/gi)];assert.equal(entries.length,1);assert.equal(new URL(entries[0][1],pageURL).searchParams.get('v'),release);
   for(const path of protectedFor(page)){const canonical=new URL(path,base).href,target=new URL(`${path}?v=${release}`,base).href;assert.equal(map.get(canonical),target);assert.equal(map.get(target),target);}
   if(page==='multi/index.html'){
-    for(const prior of ['20261016-lab-1','20261016-lab-2','20261016-worker-1']){
+    for(const prior of ['20261016-lab-1','20261016-lab-2','20261016-worker-1','20261018-perf-2']){
       // The queue/cache did not exist in prior releases; require prior aliases
       // only for actually shipped modules, and canonical/self aliases above
       // for both newly introduced modules.
       const priorPaths=[...protectedPaths,...visualPaths.filter(path=>!path.endsWith('/camera-feed-queue.mjs')),...responsivePaths,
-        ...(prior==='20261016-worker-1'?workerPaths.filter(path=>!path.endsWith('/planning-check-cache.mjs')):[])];
+        ...(['20261016-worker-1','20261018-perf-2'].includes(prior)?workerPaths.filter(path=>!['planning-worker-protocol','planning-ik-context','planning-budget'].some(name=>path.endsWith(`/${name}.mjs`))&&(prior!=='20261016-worker-1'||!path.endsWith('/planning-check-cache.mjs'))):[])];
       for(const path of priorPaths)assert.equal(map.get(new URL(`${path}?v=${prior}`,base).href),new URL(`${path}?v=${release}`,base).href,`Previously opened ${prior} module aliases must advance to the new multi cohort`);
     }
     const stylesheet=html.match(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];assert(stylesheet);

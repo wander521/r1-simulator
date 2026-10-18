@@ -1,0 +1,140 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T05:09:56.312Z",
+  "finishedAt": "2026-10-18T05:09:56.360Z",
+  "wallSeconds": 0.047593875050544736,
+  "mode": "contracts-only",
+  "checks": [
+    {
+      "name": "Vector3 and Quaternion prototypes survive nested structured-clone payloads",
+      "pass": true
+    },
+    {
+      "name": "Malformed vector tags, functions and prototype injection are rejected",
+      "pass": true
+    },
+    {
+      "name": "Cancel terminates synchronous worker work and invalidates a queued old result",
+      "pass": true
+    },
+    {
+      "name": "A wrong request id or generation cannot finish the active request",
+      "pass": true
+    },
+    {
+      "name": "A cached idle worker that crashes is replaced before the next request",
+      "pass": true
+    },
+    {
+      "name": "Worker crash, message error and constructor failure fail without main-thread fallback",
+      "pass": true
+    },
+    {
+      "name": "A finite watchdog terminates a stalled worker and the next request can succeed",
+      "pass": true
+    },
+    {
+      "name": "Progress reports elapsed wall time and candidate counts without completing a request",
+      "pass": true
+    },
+    {
+      "name": "Worker URDF parser retains all source joint transforms at legal sample poses",
+      "pass": true
+    },
+    {
+      "name": "Worker-only exact joint reuse preserves default parser behavior and every world matrix",
+      "pass": true
+    }
+  ],
+  "checkCount": 10,
+  "measurements": [],
+  "failure": null,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/multi/background-planning.mjs": "965fccca0748f9784a764e1e2c4bfb6e3c862f325d873f00423565fd8a0a2698",
+    "dist/multi/pipe-controller.mjs": "ca23e0aa33a47863ee8986cb1feb70872db9c08364443967605b030af48f2632",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "bbf6e254d38b5ffff486ec41c63fdf4f712461a629d72e9cdb21773a60985f46",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-worker-transport.mjs": "e8b8f1eac14d5b2705713066d7cd93488b957539afb79148c6734b01c2b3ff97",
+    "dist/multi/planning-worker.mjs": "3fd16b87d0a1d8e8c328b81d63ac59edbe0d58ae37c39ac0c8b409a05e3d6f88",
+    "dist/multi/planning.mjs": "54bcaf141994dfe1a470fe152b7127a2558761c0a058de290f58776dfd3a1a47",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "work/background-planning-node-worker.mjs": "6b06fc93533bdb277594340df7e4217acc7677c5299703b87504cd0724ea123b",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-background-planning.mjs": "4391b800f4268323829996b3c74480d617b9df61616fd352c665c1da8be4d34e"
+  },
+  "endSourceHashes": {
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/multi/background-planning.mjs": "965fccca0748f9784a764e1e2c4bfb6e3c862f325d873f00423565fd8a0a2698",
+    "dist/multi/pipe-controller.mjs": "ca23e0aa33a47863ee8986cb1feb70872db9c08364443967605b030af48f2632",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "bbf6e254d38b5ffff486ec41c63fdf4f712461a629d72e9cdb21773a60985f46",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-worker-transport.mjs": "e8b8f1eac14d5b2705713066d7cd93488b957539afb79148c6734b01c2b3ff97",
+    "dist/multi/planning-worker.mjs": "3fd16b87d0a1d8e8c328b81d63ac59edbe0d58ae37c39ac0c8b409a05e3d6f88",
+    "dist/multi/planning.mjs": "54bcaf141994dfe1a470fe152b7127a2558761c0a058de290f58776dfd3a1a47",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "work/background-planning-node-worker.mjs": "6b06fc93533bdb277594340df7e4217acc7677c5299703b87504cd0724ea123b",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-background-planning.mjs": "4391b800f4268323829996b3c74480d617b9df61616fd352c665c1da8be4d34e"
+  },
+  "scope": "Actual background planning with original production URDF, collision checks, MuJoCo and planner. Worker heartbeat validates event-loop isolation, not browser FPS. No physics gate is relaxed and no historical report is rebound."
+}

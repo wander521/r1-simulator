@@ -194,9 +194,10 @@ report.totalVertices = totalVertices;
 report.totalVisualTriangles = totalTriangles;
 report.totalCollisionTriangles = totalCollisionTriangles;
 report.sourceFilesUnchanged = report.sourceFiles.length;
-const output = resolve(ROOT, 'work/validation/c5/visuals-final.json');
+const outputPath = process.argv.find(arg => arg.startsWith('--report='))?.slice(9) ?? 'work/validation/c5/visuals-final.json';
+const output = resolve(ROOT, outputPath);
 await mkdir(dirname(output), { recursive: true });
 await writeFile(output, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify({ ok: true, sourceFilesUnchanged: report.sourceFiles.length, links: report.links.length,
   vertices: totalVertices, triangles: totalTriangles, negativeInputs: report.negativeInputs.length,
-  output: 'work/validation/c5/visuals-final.json' }));
+  output: outputPath }));

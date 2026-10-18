@@ -101,5 +101,6 @@ check('Dispose restores source state and never removes or disposes URDF assets',
 const sourceFrozen=JSON.stringify(sourceHashes)===JSON.stringify(await hashes());assert(sourceFrozen,'R1 camera source changed during verification');
 const report={pass:true,cases:checks.length,checks,assetStats,worldObservations,optics:R1_WRIST_OPTICS,sourceHashes,sourceFrozen,
   scope:'Original R1 source-joint frames and unchanged camera STL vertices; mathematical optical transforms, asset ownership and renderer-layer isolation. No rendered pixels, physical camera calibration, intrinsics, occlusion or hardware safety claim.'};
-await mkdir(new URL('work/validation/r1-camera/',root),{recursive:true});await writeFile(new URL('work/validation/r1-camera/final.json',root),JSON.stringify(report,null,2)+'\n');
+const output=new URL(process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'work/validation/r1-camera/final.json',root);
+await mkdir(new URL('.',output),{recursive:true});await writeFile(output,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:true,cases:checks.length,sourceFrozen,sourceCameraTriangles:assetStats.map(item=>item.triangles)}));

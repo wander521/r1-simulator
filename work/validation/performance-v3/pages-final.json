@@ -1,0 +1,3940 @@
+{
+  "pass": true,
+  "generatedAt": "2026-10-18T05:18:58.784Z",
+  "checks": 17,
+  "results": [
+    {
+      "name": "Static reference scanner ignores comments, strings and shader templates",
+      "pass": true
+    },
+    {
+      "name": "Main redirect and fallback use ./multi/ at both project bases",
+      "pass": true
+    },
+    {
+      "name": "multi/index.html: Chinese single page and local script/style/import map resources retained",
+      "pass": true
+    },
+    {
+      "name": "r1/index.html: Chinese single page and local script/style/import map resources retained",
+      "pass": true
+    },
+    {
+      "name": "g1/index.html: Chinese single page and local script/style/import map resources retained",
+      "pass": true
+    },
+    {
+      "name": "c5/index.html: Chinese single page and local script/style/import map resources retained",
+      "pass": true
+    },
+    {
+      "name": "Real module Worker entry and transitive imports resolve independently without document import maps",
+      "pass": true,
+      "entries": [
+        {
+          "from": "multi/planning-worker-transport.mjs",
+          "specifier": "./planning-worker.mjs?v=20261018-perf-3",
+          "to": "multi/planning-worker.mjs"
+        }
+      ],
+      "modules": 34
+    },
+    {
+      "name": "Complete multi browser module graph resolves under local and GitHub project bases",
+      "pass": true,
+      "modules": 50
+    },
+    {
+      "name": "Literal dynamic URDFLoader import is included in the checked module graph",
+      "pass": true
+    },
+    {
+      "name": "Bare Three.js loader imports resolve through multi import map",
+      "pass": true
+    },
+    {
+      "name": "Robot URDF/MJCF/package/WASM helper arguments are project-relative",
+      "pass": true,
+      "resources": 8
+    },
+    {
+      "name": "R1 original standalone core scene and all source mesh references retained",
+      "pass": true,
+      "meshes": 34
+    },
+    {
+      "name": "G1 original standalone core scene and all source mesh references retained",
+      "pass": true,
+      "meshes": 38
+    },
+    {
+      "name": "C5 original standalone core scene and all source mesh references retained",
+      "pass": true,
+      "meshes": 19
+    },
+    {
+      "name": "Bundled WASM magic, version, binary validity and both module-relative loading paths",
+      "pass": true,
+      "bytes": 10125422
+    },
+    {
+      "name": "Checked page stylesheets have no missing or root-absolute URL assets",
+      "pass": true
+    },
+    {
+      "name": "All inspected source and asset bytes stayed frozen during the check",
+      "pass": true,
+      "files": 157
+    }
+  ],
+  "scope": "Static publication and path integrity only. No browser, rendered-pixel, pointer/touch, runtime loading, physics, grasp, or synchronization acceptance is claimed. JavaScript templates and computed non-literal resources are not statically interpreted; the known import.meta.url helper is checked through every literal call argument.",
+  "bases": [
+    "http://127.0.0.1:4173/",
+    "https://wander521.github.io/r1-simulator/"
+  ],
+  "moduleCount": 50,
+  "modules": [
+    "c5/c5-3ds.mjs",
+    "c5/c5-dynamics.mjs",
+    "c5/c5-materials.mjs",
+    "c5/c5-profile.mjs",
+    "c5/grasp-controller.mjs",
+    "c5/grasp-kinematics.mjs",
+    "g1/g1-dynamics.mjs",
+    "g1/g1-materials.mjs",
+    "g1/g1-profile.mjs",
+    "g1/g1-workcell.mjs",
+    "g1/grasp-controller.mjs",
+    "g1/grasp-kinematics.mjs",
+    "multi/app.mjs",
+    "multi/background-planning.mjs",
+    "multi/coordinator.mjs",
+    "multi/pipe-controller.mjs",
+    "multi/pipe-layout.mjs",
+    "multi/pipe-model.mjs",
+    "multi/planning-budget.mjs",
+    "multi/planning-check-cache.mjs",
+    "multi/planning-ik-context.mjs",
+    "multi/planning-robot.mjs",
+    "multi/planning-serialization.mjs",
+    "multi/planning-worker-core.mjs",
+    "multi/planning-worker-protocol.mjs",
+    "multi/planning-worker-transport.mjs",
+    "multi/planning-worker.mjs",
+    "multi/planning.mjs",
+    "multi/presentation.mjs",
+    "multi/r1-safe-dynamics.mjs",
+    "multi/robot-runtime.mjs",
+    "multi/visuals/camera-feed-queue.mjs",
+    "multi/visuals/camera-feeds.mjs",
+    "multi/visuals/frame-scheduler.mjs",
+    "multi/visuals/scene-environment.mjs",
+    "multi/visuals/theme-controller.mjs",
+    "multi/workcell.mjs",
+    "r1/grasp-controller.mjs",
+    "r1/grasp-kinematics.mjs",
+    "r1/mujoco-runtime.mjs",
+    "r1/r1-area-light-textures.mjs",
+    "r1/r1-dynamics.mjs",
+    "r1/r1-materials.mjs",
+    "r1/r1-workcell.mjs",
+    "vendor/OrbitControls.js",
+    "vendor/STLLoader.js",
+    "vendor/URDFClasses.js",
+    "vendor/URDFLoader.js",
+    "vendor/three.core.min.js",
+    "vendor/three.module.min.js"
+  ],
+  "workerEntries": [
+    {
+      "from": "multi/planning-worker-transport.mjs",
+      "specifier": "./planning-worker.mjs?v=20261018-perf-3",
+      "to": "multi/planning-worker.mjs"
+    }
+  ],
+  "workerModules": [
+    "c5/c5-3ds.mjs",
+    "c5/c5-dynamics.mjs",
+    "c5/c5-materials.mjs",
+    "c5/c5-profile.mjs",
+    "c5/grasp-controller.mjs",
+    "c5/grasp-kinematics.mjs",
+    "g1/g1-dynamics.mjs",
+    "g1/g1-materials.mjs",
+    "g1/g1-profile.mjs",
+    "g1/grasp-controller.mjs",
+    "g1/grasp-kinematics.mjs",
+    "multi/background-planning.mjs",
+    "multi/pipe-controller.mjs",
+    "multi/pipe-layout.mjs",
+    "multi/pipe-model.mjs",
+    "multi/planning-budget.mjs",
+    "multi/planning-check-cache.mjs",
+    "multi/planning-ik-context.mjs",
+    "multi/planning-robot.mjs",
+    "multi/planning-serialization.mjs",
+    "multi/planning-worker-core.mjs",
+    "multi/planning-worker-protocol.mjs",
+    "multi/planning-worker-transport.mjs",
+    "multi/planning-worker.mjs",
+    "multi/planning.mjs",
+    "multi/r1-safe-dynamics.mjs",
+    "multi/robot-runtime.mjs",
+    "r1/grasp-controller.mjs",
+    "r1/grasp-kinematics.mjs",
+    "r1/mujoco-runtime.mjs",
+    "r1/r1-dynamics.mjs",
+    "r1/r1-materials.mjs",
+    "vendor/three.core.min.js",
+    "vendor/three.module.min.js"
+  ],
+  "resourceEdges": 592,
+  "edges": [
+    {
+      "from": "index.html",
+      "specifier": "./multi/",
+      "kind": "main-entry",
+      "to": "multi/"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "import-map",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../vendor/STLLoader.js",
+      "kind": "import-map",
+      "to": "vendor/STLLoader.js"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/background-planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/background-planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/background-planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/background-planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/background-planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/background-planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/background-planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/background-planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-robot.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-robot.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-robot.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-robot.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-robot.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-robot.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-robot.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-robot.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-transport.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-transport.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-transport.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-transport.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-transport.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-transport.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-transport.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-transport.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-core.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-core.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-core.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-core.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-core.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-core.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-core.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-core.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/scene-environment.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/theme-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feeds.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/coordinator.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-controller.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-layout.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/pipe-model.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/r1-safe-dynamics.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/frame-scheduler.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-check-cache.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-check-cache.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-check-cache.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-check-cache.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-check-cache.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-check-cache.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feed-queue.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feed-queue.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feed-queue.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feed-queue.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/visuals/camera-feed-queue.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/visuals/camera-feed-queue.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-protocol.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-protocol.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-worker-protocol.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-worker-protocol.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-ik-context.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-ik-context.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-ik-context.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-ik-context.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-budget.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-budget.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "../multi/planning-budget.mjs?v=20261018-perf-3",
+      "kind": "import-map",
+      "to": "multi/planning-budget.mjs"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "./styles.css?v=20261018-perf-3",
+      "kind": "html-resource",
+      "to": "multi/styles.css"
+    },
+    {
+      "from": "multi/index.html",
+      "specifier": "./app.mjs?v=20261018-perf-3",
+      "kind": "html-resource",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "import-map",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../vendor/STLLoader.js",
+      "kind": "import-map",
+      "to": "vendor/STLLoader.js"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "../Rebot_Arm_AGV/assets/index-B74gtmCa.css",
+      "kind": "html-resource",
+      "to": "Rebot_Arm_AGV/assets/index-B74gtmCa.css"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "./r1-reference.css?v=20261015-6",
+      "kind": "html-resource",
+      "to": "r1/r1-reference.css"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "./r1-joint-ui.css?v=20261015-6",
+      "kind": "html-resource",
+      "to": "r1/r1-joint-ui.css"
+    },
+    {
+      "from": "r1/index.html",
+      "specifier": "./r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "html-resource",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "g1/index.html",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "import-map",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/index.html",
+      "specifier": "../vendor/STLLoader.js",
+      "kind": "import-map",
+      "to": "vendor/STLLoader.js"
+    },
+    {
+      "from": "g1/index.html",
+      "specifier": "../Rebot_Arm_AGV/assets/index-B74gtmCa.css",
+      "kind": "html-resource",
+      "to": "Rebot_Arm_AGV/assets/index-B74gtmCa.css"
+    },
+    {
+      "from": "g1/index.html",
+      "specifier": "./styles.css?v=20261015-g1-5",
+      "kind": "html-resource",
+      "to": "g1/styles.css"
+    },
+    {
+      "from": "g1/index.html",
+      "specifier": "./g1-app.mjs?v=20261015-g1-5",
+      "kind": "html-resource",
+      "to": "g1/g1-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "import-map",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../vendor/STLLoader.js",
+      "kind": "import-map",
+      "to": "vendor/STLLoader.js"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/robot-runtime.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/presentation.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../multi/workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/grasp-kinematics.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../r1/r1-workcell.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/grasp-controller.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../c5/c5-profile.mjs?v=20261016-native-camera-3",
+      "kind": "import-map",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "../Rebot_Arm_AGV/assets/index-B74gtmCa.css",
+      "kind": "html-resource",
+      "to": "Rebot_Arm_AGV/assets/index-B74gtmCa.css"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "./styles.css?v=20261016-native-camera-3",
+      "kind": "html-resource",
+      "to": "c5/styles.css"
+    },
+    {
+      "from": "c5/index.html",
+      "specifier": "./c5-app.mjs?v=20261016-native-camera-3",
+      "kind": "html-resource",
+      "to": "c5/c5-app.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "../vendor/OrbitControls.js",
+      "kind": "static-import",
+      "to": "vendor/OrbitControls.js"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "../r1/r1-workcell.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-workcell.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "../g1/g1-workcell.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-workcell.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./robot-runtime.mjs",
+      "kind": "static-import",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./coordinator.mjs",
+      "kind": "static-import",
+      "to": "multi/coordinator.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./workcell.mjs",
+      "kind": "static-import",
+      "to": "multi/workcell.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./presentation.mjs",
+      "kind": "static-import",
+      "to": "multi/presentation.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./visuals/theme-controller.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/theme-controller.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./visuals/camera-feeds.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/camera-feeds.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./visuals/camera-feed-queue.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/camera-feed-queue.mjs"
+    },
+    {
+      "from": "multi/app.mjs",
+      "specifier": "./visuals/frame-scheduler.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/frame-scheduler.mjs"
+    },
+    {
+      "from": "vendor/three.module.min.js",
+      "specifier": "./three.core.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.core.min.js"
+    },
+    {
+      "from": "vendor/three.module.min.js",
+      "specifier": "./three.core.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.core.min.js"
+    },
+    {
+      "from": "vendor/OrbitControls.js",
+      "specifier": "three",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js",
+      "importMap": true
+    },
+    {
+      "from": "r1/r1-workcell.mjs",
+      "specifier": "./r1-area-light-textures.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-area-light-textures.mjs"
+    },
+    {
+      "from": "g1/g1-workcell.mjs",
+      "specifier": "../r1/r1-area-light-textures.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-area-light-textures.mjs"
+    },
+    {
+      "from": "g1/g1-workcell.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/mujoco-runtime.mjs",
+      "kind": "static-import",
+      "to": "r1/mujoco-runtime.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./r1-safe-dynamics.mjs",
+      "kind": "static-import",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/g1-dynamics.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-dynamics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-dynamics.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-dynamics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/r1-materials.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-materials.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/g1-materials.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-materials.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-materials.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-materials.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-3ds.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-3ds.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "c5/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-layout.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-model.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-controller.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./planning.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./background-planning.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/background-planning.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./planning-worker-transport.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-worker-transport.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../vendor/URDFLoader.js",
+      "kind": "dynamic-import",
+      "to": "vendor/URDFLoader.js"
+    },
+    {
+      "from": "multi/workcell.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/workcell.mjs",
+      "specifier": "./visuals/scene-environment.mjs",
+      "kind": "static-import",
+      "to": "multi/visuals/scene-environment.mjs"
+    },
+    {
+      "from": "multi/visuals/camera-feeds.mjs",
+      "specifier": "../../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "r1/mujoco-runtime.mjs",
+      "specifier": "../Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm",
+      "kind": "import-meta-url",
+      "to": "Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm"
+    },
+    {
+      "from": "r1/grasp-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "r1/grasp-controller.mjs",
+      "specifier": "./grasp-kinematics.mjs?v=20261015-6",
+      "kind": "static-import",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "./grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "./grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "c5/grasp-kinematics.mjs"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/r1-safe-dynamics.mjs",
+      "specifier": "../r1/r1-dynamics.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-dynamics.mjs"
+    },
+    {
+      "from": "g1/g1-dynamics.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "c5/c5-dynamics.mjs",
+      "specifier": "../g1/g1-dynamics.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-dynamics.mjs"
+    },
+    {
+      "from": "c5/c5-dynamics.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/r1-materials.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/g1-materials.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/c5-materials.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/c5-3ds.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "r1/grasp-kinematics.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/grasp-kinematics.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/grasp-kinematics.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "c5/grasp-kinematics.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/grasp-kinematics.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/pipe-layout.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/pipe-model.mjs",
+      "specifier": "./pipe-layout.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "./planning-budget.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-budget.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../r1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../c5/c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "./planning-budget.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-budget.mjs"
+    },
+    {
+      "from": "multi/background-planning.mjs",
+      "specifier": "./planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/planning-worker-transport.mjs",
+      "specifier": "./planning-worker-protocol.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-worker-protocol.mjs"
+    },
+    {
+      "from": "multi/planning-worker-transport.mjs",
+      "specifier": "./planning-worker.mjs?v=20261018-perf-3",
+      "kind": "import-meta-url",
+      "to": "multi/planning-worker.mjs"
+    },
+    {
+      "from": "multi/planning-serialization.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "vendor/URDFLoader.js",
+      "specifier": "three",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js",
+      "importMap": true
+    },
+    {
+      "from": "vendor/URDFLoader.js",
+      "specifier": "three/examples/jsm/loaders/STLLoader.js",
+      "kind": "static-import",
+      "to": "vendor/STLLoader.js",
+      "importMap": true
+    },
+    {
+      "from": "vendor/URDFLoader.js",
+      "specifier": "./URDFClasses.js",
+      "kind": "static-import",
+      "to": "vendor/URDFClasses.js"
+    },
+    {
+      "from": "multi/visuals/scene-environment.mjs",
+      "specifier": "../../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/planning-worker.mjs",
+      "specifier": "./planning-worker-core.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-worker-core.mjs"
+    },
+    {
+      "from": "multi/planning-worker.mjs",
+      "specifier": "./planning-worker-protocol.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-worker-protocol.mjs"
+    },
+    {
+      "from": "vendor/STLLoader.js",
+      "specifier": "three",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js",
+      "importMap": true
+    },
+    {
+      "from": "vendor/URDFClasses.js",
+      "specifier": "three",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js",
+      "importMap": true
+    },
+    {
+      "from": "multi/planning-worker-core.mjs",
+      "specifier": "./robot-runtime.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/robot-runtime.mjs"
+    },
+    {
+      "from": "multi/planning-worker-core.mjs",
+      "specifier": "./planning-robot.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-robot.mjs"
+    },
+    {
+      "from": "multi/planning-worker-core.mjs",
+      "specifier": "./planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/planning-worker-core.mjs",
+      "specifier": "./planning-check-cache.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-check-cache.mjs"
+    },
+    {
+      "from": "multi/planning-worker-core.mjs",
+      "specifier": "./planning-ik-context.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-ik-context.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/mujoco-runtime.mjs",
+      "kind": "static-import",
+      "to": "r1/mujoco-runtime.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "c5/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./r1-safe-dynamics.mjs",
+      "kind": "static-import",
+      "to": "multi/r1-safe-dynamics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/g1-dynamics.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-dynamics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-dynamics.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-dynamics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/r1-materials.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-materials.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/g1-materials.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-materials.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-materials.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-materials.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-3ds.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-3ds.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "c5/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-layout.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-model.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-model.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./pipe-controller.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-controller.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./planning.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./background-planning.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/background-planning.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./planning-worker-transport.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-worker-transport.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "./planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/planning-robot.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/planning-serialization.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/planning-ik-context.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "vendor/three.module.min.js",
+      "specifier": "./three.core.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.core.min.js"
+    },
+    {
+      "from": "vendor/three.module.min.js",
+      "specifier": "./three.core.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.core.min.js"
+    },
+    {
+      "from": "r1/mujoco-runtime.mjs",
+      "specifier": "../Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm",
+      "kind": "import-meta-url",
+      "to": "Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm"
+    },
+    {
+      "from": "r1/grasp-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "r1/grasp-controller.mjs",
+      "specifier": "./grasp-kinematics.mjs?v=20261015-6",
+      "kind": "static-import",
+      "to": "r1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "./grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "g1/grasp-controller.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "./grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "c5/grasp-kinematics.mjs"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "c5/grasp-controller.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/r1-safe-dynamics.mjs",
+      "specifier": "../r1/r1-dynamics.mjs",
+      "kind": "static-import",
+      "to": "r1/r1-dynamics.mjs"
+    },
+    {
+      "from": "g1/g1-dynamics.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "c5/c5-dynamics.mjs",
+      "specifier": "../g1/g1-dynamics.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-dynamics.mjs"
+    },
+    {
+      "from": "c5/c5-dynamics.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "r1/r1-materials.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/g1-materials.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/c5-materials.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/c5-3ds.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "r1/grasp-kinematics.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/grasp-kinematics.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "g1/grasp-kinematics.mjs",
+      "specifier": "./g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "c5/grasp-kinematics.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "c5/grasp-kinematics.mjs",
+      "specifier": "./c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/pipe-layout.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/pipe-model.mjs",
+      "specifier": "./pipe-layout.mjs",
+      "kind": "static-import",
+      "to": "multi/pipe-layout.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/grasp-kinematics.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-kinematics.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "../g1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "g1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/pipe-controller.mjs",
+      "specifier": "./planning-budget.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-budget.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../vendor/three.module.min.js",
+      "kind": "static-import",
+      "to": "vendor/three.module.min.js"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../r1/grasp-controller.mjs",
+      "kind": "static-import",
+      "to": "r1/grasp-controller.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../g1/g1-profile.mjs",
+      "kind": "static-import",
+      "to": "g1/g1-profile.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "../c5/c5-profile.mjs",
+      "kind": "static-import",
+      "to": "c5/c5-profile.mjs"
+    },
+    {
+      "from": "multi/planning.mjs",
+      "specifier": "./planning-budget.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-budget.mjs"
+    },
+    {
+      "from": "multi/background-planning.mjs",
+      "specifier": "./planning-serialization.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-serialization.mjs"
+    },
+    {
+      "from": "multi/planning-worker-transport.mjs",
+      "specifier": "./planning-worker-protocol.mjs?v=20261018-perf-3",
+      "kind": "static-import",
+      "to": "multi/planning-worker-protocol.mjs"
+    },
+    {
+      "from": "multi/planning-worker-transport.mjs",
+      "specifier": "./planning-worker.mjs?v=20261018-perf-3",
+      "kind": "import-meta-url",
+      "to": "multi/planning-worker.mjs"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/assets/r1.urdf",
+      "kind": "module-relative-asset-helper",
+      "to": "r1/assets/r1.urdf"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/models/r1-dynamic-scene.xml",
+      "kind": "module-relative-asset-helper",
+      "to": "r1/models/r1-dynamic-scene.xml"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/assets/g1_29dof_with_dex1_1.urdf",
+      "kind": "module-relative-asset-helper",
+      "to": "g1/assets/g1_29dof_with_dex1_1.urdf"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../g1/models/g1-dynamic-scene.xml",
+      "kind": "module-relative-asset-helper",
+      "to": "g1/models/g1-dynamic-scene.xml"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/assets/c5-dex1.urdf",
+      "kind": "module-relative-asset-helper",
+      "to": "c5/assets/c5-dex1.urdf"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../c5/models/c5-dynamic-scene.xml",
+      "kind": "module-relative-asset-helper",
+      "to": "c5/models/c5-dynamic-scene.xml"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm",
+      "kind": "module-relative-asset-helper",
+      "to": "Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../r1/assets",
+      "kind": "module-relative-asset-helper",
+      "to": "r1/assets"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/base_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/base_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/steer_motor_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/steer_motor_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/wheel_motor_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/wheel_motor_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/steer_motor_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/steer_motor_link2.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/wheel_motor_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/wheel_motor_link2.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/steer_motor_link3.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/steer_motor_link3.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/wheel_motor_link3.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/wheel_motor_link3.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/torso_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/torso_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/torso_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/torso_link2.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/torso_link3.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/torso_link3.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/torso_link4.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/torso_link4.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/zed_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/zed_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_base_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_base_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_link2.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_link3.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_link3.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_link4.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_link4.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_link5.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_link5.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_arm_link6.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_arm_link6.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_realsense_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_realsense_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_gripper_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_gripper_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_gripper_finger_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_gripper_finger_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/left_gripper_finger_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/left_gripper_finger_link2.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_base_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_base_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_link2.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_link3.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_link3.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_link4.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_link4.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_link5.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_link5.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_arm_link6.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_arm_link6.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_realsense_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_realsense_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_gripper_link.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_gripper_link.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_gripper_finger_link1.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_gripper_finger_link1.STL"
+    },
+    {
+      "from": "r1/assets/r1.urdf",
+      "specifier": "./meshes/right_gripper_finger_link2.STL",
+      "kind": "urdf-mesh",
+      "to": "r1/assets/meshes/right_gripper_finger_link2.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/pelvis.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/pelvis.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/pelvis_contour_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/pelvis_contour_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_hip_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_hip_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_hip_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_hip_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_hip_yaw_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_hip_yaw_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_knee_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_knee_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_ankle_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_ankle_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_ankle_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_ankle_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_hip_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_hip_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_hip_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_hip_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_hip_yaw_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_hip_yaw_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_knee_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_knee_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_ankle_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_ankle_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_ankle_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_ankle_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/waist_yaw_link_rev_1_0.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/waist_yaw_link_rev_1_0.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/waist_roll_link_rev_1_0.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/waist_roll_link_rev_1_0.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/torso_link_rev_1_0.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/torso_link_rev_1_0.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/logo_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/logo_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/head_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/head_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_shoulder_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_shoulder_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_shoulder_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_shoulder_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_shoulder_yaw_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_shoulder_yaw_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_elbow_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_elbow_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_wrist_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_wrist_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_wrist_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_wrist_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/left_wrist_yaw_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/left_wrist_yaw_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_shoulder_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_shoulder_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_shoulder_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_shoulder_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_shoulder_yaw_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_shoulder_yaw_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_elbow_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_elbow_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_wrist_roll_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_wrist_roll_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_wrist_pitch_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_wrist_pitch_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "meshes/right_wrist_yaw_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/meshes/right_wrist_yaw_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "dex1_1/meshes/Dex1_base_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/Dex1_base_link.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "dex1_1/meshes/Dex1_finger_link_1.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "dex1_1/meshes/dex1_col_1.stl",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/dex1_col_1.stl"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "dex1_1/meshes/Dex1_finger_link_2.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL"
+    },
+    {
+      "from": "g1/assets/g1_29dof_with_dex1_1.urdf",
+      "specifier": "dex1_1/meshes/dex1_col_2.stl",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/dex1_col_2.stl"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link0.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link0.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link0.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link0.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link1.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link1.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link1.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link1.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link2.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link2.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link2.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link2.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link3.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link3.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link3.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link3.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link4.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link4.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link4.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link4.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link5.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link5.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link5.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link5.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/visual/link6.3ds",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/visual/link6.3ds"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "meshes/aubo_C5/collision/link6.STL",
+      "kind": "urdf-mesh",
+      "to": "c5/assets/meshes/aubo_C5/collision/link6.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "../../g1/assets/dex1_1/meshes/Dex1_base_link.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/Dex1_base_link.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "../../g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "../../g1/assets/dex1_1/meshes/dex1_col_1.stl",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/dex1_col_1.stl"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "../../g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL"
+    },
+    {
+      "from": "c5/assets/c5-dex1.urdf",
+      "specifier": "../../g1/assets/dex1_1/meshes/dex1_col_2.stl",
+      "kind": "urdf-mesh",
+      "to": "g1/assets/dex1_1/meshes/dex1_col_2.stl"
+    }
+  ],
+  "meshCounts": {
+    "r1": 34,
+    "g1": 38,
+    "c5": 19
+  },
+  "wasmBytes": 10125422,
+  "checkedFiles": 157,
+  "checkedDirectories": [
+    "multi/",
+    "r1/assets"
+  ],
+  "exclusions": [
+    {
+      "from": "r1/mujoco-runtime.mjs",
+      "specifier": "node:module",
+      "reason": "Emscripten Node-only conditional branch, not a browser fetch"
+    },
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../vendor/URDFLoader.js",
+      "realm": "worker",
+      "reason": "Dynamic visual-mesh loader is confined to loadRobot/createRobotRuntime, which the Worker does not call; it uses parsePlanningRobot/createRobotRuntimeFromParts."
+    },
+    {
+      "from": "r1/mujoco-runtime.mjs",
+      "specifier": "node:module",
+      "reason": "Emscripten Node-only conditional branch, not a browser fetch"
+    }
+  ],
+  "sourceHashes": {
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/assets/meshes/aubo_C5/collision/link0.STL": "fc70e195eeb2e9281e17fc2f32bb418fbca28f7460919902ea2b86a3eef62d6c",
+    "dist/c5/assets/meshes/aubo_C5/collision/link1.STL": "b068360a0c5241568ea8f78a2523c059e96cc954b5a4f4e06c184189bcb6095b",
+    "dist/c5/assets/meshes/aubo_C5/collision/link2.STL": "a887276a3c3241c06cca8b41e86c6dd77496991a9fe29aaec7e83ec5aee0c361",
+    "dist/c5/assets/meshes/aubo_C5/collision/link3.STL": "92b2a48d0e3df35c344725066ccc00e8eb302d83a8037776915482c37ce91ce6",
+    "dist/c5/assets/meshes/aubo_C5/collision/link4.STL": "8922499305bc14a58823b3726b540c5e809a7771ef418823db915bc0b224db1b",
+    "dist/c5/assets/meshes/aubo_C5/collision/link5.STL": "859f746bf0ab64a84db7ffe52f04a346be03bd075b6f1b18b2a267fc57bc0ae2",
+    "dist/c5/assets/meshes/aubo_C5/collision/link6.STL": "e319fd5d4e51c1a5289cc79abafcb5b2a7952897059df428855dad5d60ebd2ab",
+    "dist/c5/assets/meshes/aubo_C5/visual/link0.3ds": "d15a32ad9a572db0ec681ee0b85063a12360c69c6e91b594357c39a11b8cd823",
+    "dist/c5/assets/meshes/aubo_C5/visual/link1.3ds": "1c2c2581298241da4334bac0e4f931b5130eaf0f479a54cf026f0e4d2c328210",
+    "dist/c5/assets/meshes/aubo_C5/visual/link2.3ds": "f2d372fe84b76efaffbe05bcd42697a271759b30aa457475b4847899b46904a2",
+    "dist/c5/assets/meshes/aubo_C5/visual/link3.3ds": "d58f2cc8c87d46f21f11157e4373f7273588fbce0846a262b1df173166901d36",
+    "dist/c5/assets/meshes/aubo_C5/visual/link4.3ds": "0093dc884cca29ac1c6ec834970d325a2b120947a149b159d773da85a98625df",
+    "dist/c5/assets/meshes/aubo_C5/visual/link5.3ds": "b60ab6c801b5f81f730530b58518f4b7d084c7a479122958d4072370feecc173",
+    "dist/c5/assets/meshes/aubo_C5/visual/link6.3ds": "e7f20ed68ebfc4e8e260fdf9f2329d309ec76a0ecfa57d0671f081f8a2fdcfac",
+    "dist/c5/c5-3ds.mjs": "ba2c44f32fd032bc1e8a4b708101bb66da6441b10259c4c69683440e444fbd02",
+    "dist/c5/c5-app.mjs": "0ce63c36b4dd95fb5fcdce7488c75c4c74cd85dcda8d8e564ea9f90de7e874a9",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-materials.mjs": "6270d2a0bbbef2af24f210cfbf6333cee72db8a0ae302737eda2a379471f272e",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/index.html": "83a6cc5bf6a3daaf19fe312237e8e38a5be304f2e3a16b13b0afe6cf03dfcc46",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/c5/styles.css": "42079aae01c86f69441673d14179560f96d4c319ac51a35422ef3fddd5458cf6",
+    "dist/g1/assets/dex1_1/meshes/Dex1_base_link.STL": "03f1cb02f94d6b280953f6c5a10da2eab6220ea5c301408d3c4decca66c8cdad",
+    "dist/g1/assets/dex1_1/meshes/dex1_col_1.stl": "5edf010f581635fcb4a79fe20cda65a96c95138112ab91d7e79629980f535c92",
+    "dist/g1/assets/dex1_1/meshes/dex1_col_2.stl": "0d791ffb8b438bc4a5fd937eab383db4daa62685a73982e852cc559623036ba9",
+    "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL": "7cd2ff199556e3955547a34c75ed9ea777fb7d704fc98e7318d0f67e4aaedf5a",
+    "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL": "e8297ce8184c64d34d70cd9d6c7b583fba6a3adae2075523e97fb956ada65eb3",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/assets/meshes/head_link.STL": "005fb67fbd3eff94aa8bf4a6e83238174e9f91b6721f7111594322f223724411",
+    "dist/g1/assets/meshes/left_ankle_pitch_link.STL": "d49e3abc6f5b12e532062cd575b87b5ef40cd2a3fc18f54a1ca5bba4f773d51d",
+    "dist/g1/assets/meshes/left_ankle_roll_link.STL": "c4092af943141d4d9f74232f3cfa345afc6565f46a077793b8ae0e68b39dc33f",
+    "dist/g1/assets/meshes/left_elbow_link.STL": "fa752198accd104d5c4c3a01382e45165b944fbbc5acce085059223324e5bed3",
+    "dist/g1/assets/meshes/left_hip_pitch_link.STL": "4725168105ee768ee31638ef22b53f6be2d7641bfd7cfefe803488d884776fa4",
+    "dist/g1/assets/meshes/left_hip_roll_link.STL": "91f25922ee8a7c3152790051bebad17b4d9cd243569c38fe340285ff93a97acf",
+    "dist/g1/assets/meshes/left_hip_yaw_link.STL": "a16d88aa6ddac8083aa7ad55ed317bea44b1fa003d314fba88965b7ed0f3b55b",
+    "dist/g1/assets/meshes/left_knee_link.STL": "8d92b9e3d3a636761150bb8025e32514c4602b91c7028d523ee42b3e632de477",
+    "dist/g1/assets/meshes/left_shoulder_pitch_link.STL": "f0d1cfd02fcf0d42f95e678eeca33da3afbcc366ffba5c052847773ec4f31d52",
+    "dist/g1/assets/meshes/left_shoulder_roll_link.STL": "fb9df21687773522598dc384f1a2945c7519f11cbc8bd372a49170316d6eee88",
+    "dist/g1/assets/meshes/left_shoulder_yaw_link.STL": "1aa97e9748e924336567992181f78c7cd0652fd52a4afcca3df6b2ef6f9e712e",
+    "dist/g1/assets/meshes/left_wrist_pitch_link.STL": "b251d8e05047f695d0f536cd78c11973cfa4e78d08cfe82759336cc3471de3a9",
+    "dist/g1/assets/meshes/left_wrist_roll_link.STL": "edc387c9a0ba8c2237e9b296d32531426fabeb6f53e58df45c76106bca74148c",
+    "dist/g1/assets/meshes/left_wrist_yaw_link.STL": "83f8fb3a726bf9613d65dd14f0f447cb918c3c95b3938042a0c9c09749267d3b",
+    "dist/g1/assets/meshes/logo_link.STL": "8571a0a19bc4916fa55f91449f51d5fdefd751000054865a842449429d5f155b",
+    "dist/g1/assets/meshes/pelvis_contour_link.STL": "5cc5c2c7a312329e3feeb2b03d3fc09fc29705bd01864f6767e51be959662420",
+    "dist/g1/assets/meshes/pelvis.STL": "5ba6bbc888e630550140d3c26763f10206da8c8bd30ed886b8ede41c61f57a31",
+    "dist/g1/assets/meshes/right_ankle_pitch_link.STL": "15be426539ec1be70246d4d82a168806db64a41301af8b35c197a33348c787a9",
+    "dist/g1/assets/meshes/right_ankle_roll_link.STL": "4b66222ea56653e627711b56d0a8949b4920da5df091da0ceb343f54e884e3a5",
+    "dist/g1/assets/meshes/right_elbow_link.STL": "1be925d7aa268bb8fddf5362b9173066890c7d32092c05638608126e59d1e2ab",
+    "dist/g1/assets/meshes/right_hip_pitch_link.STL": "e4f3c99d7f4a7d34eadbef9461fc66e3486cb5442db1ec50c86317d459f1a9c6",
+    "dist/g1/assets/meshes/right_hip_roll_link.STL": "4c254ef66a356f492947f360dd931965477b631e3fcc841f91ccc46d945d54f6",
+    "dist/g1/assets/meshes/right_hip_yaw_link.STL": "e479c2936ca2057e9eb2f7dff6c189b7419d7b8484dea0b298cbb36a2a6aa668",
+    "dist/g1/assets/meshes/right_knee_link.STL": "63c4008449c9bbe701a6e2b557b7a252e90cf3a5abcf54cee46862b9a69f8ec8",
+    "dist/g1/assets/meshes/right_shoulder_pitch_link.STL": "24cdb387e0128dfe602770a81c56cdce3a0181d34d039a11d1aaf8819b7b8c02",
+    "dist/g1/assets/meshes/right_shoulder_roll_link.STL": "962b97c48f9ce9e8399f45dd9522e0865d19aa9fd299406b2d475a8fc4a53e81",
+    "dist/g1/assets/meshes/right_shoulder_yaw_link.STL": "a0b76489271da0c72461a344c9ffb0f0c6e64f019ea5014c1624886c442a2fe5",
+    "dist/g1/assets/meshes/right_wrist_pitch_link.STL": "d22f8f3b3127f15a63e5be1ee273cd5075786c3142f1c3d9f76cbf43d2a26477",
+    "dist/g1/assets/meshes/right_wrist_roll_link.STL": "a7ee9212ff5b94d6cb7f52bb1bbf3f352194d5b598acff74f4c77d340c5b344f",
+    "dist/g1/assets/meshes/right_wrist_yaw_link.STL": "bc9dece2d12509707e0057ba2e48df8f3d56db0c79410212963a25e8a50f61a6",
+    "dist/g1/assets/meshes/torso_link_rev_1_0.STL": "11ddb46f2098efbbd8816b1d65893632d8e78be936376c7cdcd6771899ccc723",
+    "dist/g1/assets/meshes/waist_roll_link_rev_1_0.STL": "b67c347a05abc3e8ddae600d98a082bee273bb39f8e651647708b0a7140a8a97",
+    "dist/g1/assets/meshes/waist_yaw_link_rev_1_0.STL": "ec6db442b11f25eed898b5add07940c85d804f300de24dcbd264ccd8be7d554c",
+    "dist/g1/g1-app.mjs": "3c96ceb7f8b9f153dbe69d6178d01f9f8460df161020b8be8d8e4ff6f4afea2a",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-materials.mjs": "b9f5cc2a982574979536cd56f706704162708b25901e16a358294bc39e5420f3",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/index.html": "f86d8a38edcbd04980b583cb2bd08606c4cb938c1a9123954077a8234aabb456",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
+    "dist/index.html": "54fbaaad13e88f3dce82715c813a762676d795e7c3c660f11c29039bd3c911df",
+    "dist/multi/app.mjs": "4b7cf5b061eb6069ab0715f623a750d9f7d1f9609ab2f8459f555ad118ef638d",
+    "dist/multi/background-planning.mjs": "52cd2bcb1fc5690f13a78ad036d472aab0edef393a17bc836cf223fd9aae629e",
+    "dist/multi/coordinator.mjs": "3a63612e752d8156d4f1d4c579857f26e46efb3bd249cec117ca17c947c75e68",
+    "dist/multi/index.html": "af6681b4f45e43031bf4fc60d81d2f9465e99ec13b02172a4be6c8947b583aec",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "d2c376ead10545142c255c56e5c2d7c72d0021ad1d8f93af29b47cab4ccac7b0",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-worker-transport.mjs": "9bf820a73544a2b2e28a07eff012c9d2bd613110d17037ffb556ac5df2e73c1d",
+    "dist/multi/planning-worker.mjs": "79691d6f54726b0698a9230b720d17415abf42e6f076cc1da762f6032e0bc63c",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "33b64fe1f7d62a8eb60d3448879a2d5a4f504871b25d4738a21c7afcc2c6be4e",
+    "dist/multi/styles.css": "613c07f4ff4e52dfa8af4bc172aecf90d33586476ae302eeae86261e035b42a4",
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/r1/assets/meshes/base_link.STL": "14519d05699d038540c2964530dd36410ded1fa23ad94b06a6432122b84b0529",
+    "dist/r1/assets/meshes/left_arm_base_link.STL": "50c9cb62e64318590dac0a27bc537dc1241cb25df242777ccd5d477cba918c1c",
+    "dist/r1/assets/meshes/left_arm_link1.STL": "58174ba705d63833d699f4b3c2f0ef331c58ef66c7fa93e249dab999d9857bc9",
+    "dist/r1/assets/meshes/left_arm_link2.STL": "93814ba93f4b50a0d496ab6b7ec8e64f201a8b3c34224867c2e441a9e5faa4bc",
+    "dist/r1/assets/meshes/left_arm_link3.STL": "38ab533a5351ecfd0568c4b32f6b05e2e3aa75157ca5baa525149b14a2550466",
+    "dist/r1/assets/meshes/left_arm_link4.STL": "069cc11bbdf74917d7a281c5dd893fc96f67843afbc0ba23d3b3bcb78f4b3f54",
+    "dist/r1/assets/meshes/left_arm_link5.STL": "b4f5dbddf54b5b58578ff8a77203ae4b76391be991dc39504df437d59b4d25ca",
+    "dist/r1/assets/meshes/left_arm_link6.STL": "5efbcdd752410681ff048a4837d35b92b4aef1f2a04720cbf5155375b6d1fd97",
+    "dist/r1/assets/meshes/left_gripper_finger_link1.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/left_gripper_finger_link2.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/left_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/left_realsense_link.STL": "87b52e61376328de7661e6921541da3bab1079eb33b9c73daca908fbc376aed7",
+    "dist/r1/assets/meshes/right_arm_base_link.STL": "3f1e8bb6358764f4be29f8437fd1ada1f5d51c71eb1c84d7d9b66ac7da5f952f",
+    "dist/r1/assets/meshes/right_arm_link1.STL": "78432be1ca7b04a47d1acbdcee97149a783848ac2a76ab9a729a99643d48b735",
+    "dist/r1/assets/meshes/right_arm_link2.STL": "681318bd627336ee971ef87c29520ca6b28148928cb8100a6a541d2fa361e48c",
+    "dist/r1/assets/meshes/right_arm_link3.STL": "0dd23673f5f91a74eb2199400c6c8487150c5a22bd4030182ac1b0070004e405",
+    "dist/r1/assets/meshes/right_arm_link4.STL": "c20855f4565d11117d1b789dd1cf3c24ac24deea847cbd7ea00dc972dc2321e9",
+    "dist/r1/assets/meshes/right_arm_link5.STL": "1acdf70b58ef89c58f9e8b0044b70673cd5052e6780e4bf7a7c876fd7524ed6a",
+    "dist/r1/assets/meshes/right_arm_link6.STL": "c59dac0e3417710c8e58a7ce5f4a6917e8a801f158fb91f91fe86c978c5f3487",
+    "dist/r1/assets/meshes/right_gripper_finger_link1.STL": "bd030924c062d7b2428b2262abf47c721b199b28ba200eef66c75f46999fa182",
+    "dist/r1/assets/meshes/right_gripper_finger_link2.STL": "f446c0fb7fd55918a2b94d33c9e68728c6d6d0cc0170db1b6953989666fd3098",
+    "dist/r1/assets/meshes/right_gripper_link.STL": "77594a5e2afffe827e092252472de5e531d8a20303666d05ef7bae3800ba4421",
+    "dist/r1/assets/meshes/right_realsense_link.STL": "ab14050ffaa18d327720b80df258b12bd0e434ddc8a193b9b5a280dee88342ec",
+    "dist/r1/assets/meshes/steer_motor_link1.STL": "a2f89fc5c9219a9748476fd7206063e92568a5106e887ba86fa7ece0d9d9cc15",
+    "dist/r1/assets/meshes/steer_motor_link2.STL": "90e8cbb61dbdd2f73a72b75c120f40839c37795612fc891bb691b5ffef773fb7",
+    "dist/r1/assets/meshes/steer_motor_link3.STL": "0ca8ae731fbd2b5d2090f287feb63e984e458259930c5be340cc05c5893acd10",
+    "dist/r1/assets/meshes/torso_link1.STL": "a79af656c6bfb266a331647e14ebeabde7e3f6794361ed4a7704411621cf7556",
+    "dist/r1/assets/meshes/torso_link2.STL": "a86a34fab170eed8930d17f658b05eaaf0b4fa8589efcf3b7cedb62e299eaff8",
+    "dist/r1/assets/meshes/torso_link3.STL": "c851f419886a4a0adcb6f82cee3c512b14eaf39e3bc173e10fbfa1404140ab41",
+    "dist/r1/assets/meshes/torso_link4.STL": "d9ec62fe00c61e73026e03f9c4509b9f9a0c307409c616c8dd4b24bb0417b549",
+    "dist/r1/assets/meshes/wheel_motor_link1.STL": "d86da572a7f78bddf8cfaa1413177bd8da2aa04edd69b61870c409749ed1e143",
+    "dist/r1/assets/meshes/wheel_motor_link2.STL": "6951581e908a18608a4e1651c63b97afe73b9a27e9e30304e768d0444bca3793",
+    "dist/r1/assets/meshes/wheel_motor_link3.STL": "f606d52d5f11beb20e42fb66e7f115ab99e8e263ef4cd51472b30fe43cfc776a",
+    "dist/r1/assets/meshes/zed_link.STL": "17fb5d674d2a0fe5ee6c28c6ea236a6cf13765621b0860e32256f098d9aa0a7d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/index.html": "bdc42fb50ab454685e1527f659aaee7faca31c86ea8026e6a094e63f292a6fd2",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-app.mjs": "1a7483ff1f0ddf318b8c8e1c7371de73c67ac9b82fc4a4126d5d5ef055a85821",
+    "dist/r1/r1-area-light-textures.mjs": "b7de1b481e8247ff3fa30e44477ec338a90e3f79a921c8affd3c421e88538ce1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/r1-joint-ui.css": "e5e44aa24941b72a572179c0ca9eba2b003ca8f2a42789b61af2cd73d6c84184",
+    "dist/r1/r1-materials.mjs": "c1a830b2b8fd4f75f8580918fc2c1d1d5eb5cdd02fff660d3c81079b8796befd",
+    "dist/r1/r1-reference.css": "c40bbeb54ba8658d61d64e919fb3065d79667dcb03eb8e85bca315bd47612c35",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
+    "dist/Rebot_Arm_AGV/assets/index-B74gtmCa.css": "6df70a15f75208aec0a11ffa34b2ea2053b9bfc6771f65e284f3fe0f34d7a784",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/vendor/OrbitControls.js": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+    "dist/vendor/STLLoader.js": "023ed97f848b633d8bcd53d4db3b996d29d0c644088700691297c552257d480b",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/URDFClasses.js": "791a4cc6e9eb35bfe26ea9b37e422c375a0d75302c594badd78815ff24032680",
+    "dist/vendor/URDFLoader.js": "46f09a13c310c8c9ec4d19e4f0413ef580c6b5136690f5dc8710eae766dd6181",
+    "work/test-multi-pages.mjs": "c9513971beb50b638c212436a0d73417999512dfcf3052dcf074695ddb472c1d"
+  }
+}

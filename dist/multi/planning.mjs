@@ -2,10 +2,11 @@ import * as THREE from '../vendor/three.module.min.js';
 import {CROUCH,SPREAD as R1_SPREAD} from '../r1/grasp-controller.mjs';
 import {STAND_POSE as G1_STAND,qToOpening as g1Opening,GRIPPER_Q_MAX as G1_MAX} from '../g1/g1-profile.mjs';
 import {qToOpening as c5Opening,GRIPPER_Q_MAX as C5_MAX} from '../c5/c5-profile.mjs';
+import {PlanningBudgetError,isPlanningBudgetError,PLANNING_BUDGET_MESSAGE,withPlanningBudget} from './planning-budget.mjs?v=20261018-perf-3';
 
 const now=()=>globalThis.performance?.now?.()??Date.now();
 const unreachable='目标超出机器人可达范围，请将物体或放置位置移近';
-const budgetMessage='路径检查累计计算片段耗时已达时限，请将物体移近桌面中央后重试';
+const budgetMessage=PLANNING_BUDGET_MESSAGE;
 export const PLANNING_SEGMENT_BUDGET_MS=10000;
 export const G1_PIPE_PLANNING_SEGMENT_BUDGET_MS=30000;
 const resultError=(reason,type,detail={})=>({ok:false,reason,error:{type,detail}});
@@ -87,7 +88,7 @@ function* prepare(controller,job,robotId){
           yield* route(controller,target,[actualYaw*sign,yaw*sign,{wristPitch}]);valid++;
           if(!best||controller.planData.naturalSelection.score<best.plan.naturalSelection.score)best={plan:controller.planData,crouch:{...controller.crouch}};
           if(valid>=4){yield;break search;}
-        }catch(caught){error=caught;}
+        }catch(caught){if(isPlanningBudgetError(caught))throw caught;error=caught;}
         yield;
       }
       if(best)break;
@@ -103,12 +104,12 @@ function* prepare(controller,job,robotId){
   }
   if(robotId==='g1'){
     search:for(const lateral of [.14,.17,.11])for(const yaw of [0,.15,-.15,.3,-.3])for(let branch=0;branch<6;branch++){
-      try{yield* route(controller,target,[yaw,branch,lateral]);error=null;break search;}catch(caught){error=caught;}
+      try{yield* route(controller,target,[yaw,branch,lateral]);error=null;break search;}catch(caught){if(isPlanningBudgetError(caught))throw caught;error=caught;}
       yield;
     }
   }else{
     search:for(const tilt of [20,12,28])for(const yaw of [0,.2,-.2,.4,-.4])for(let branch=0;branch<9;branch++){
-      try{yield* route(controller,target,[branch,yaw,tilt*Math.PI/180]);error=null;break search;}catch(caught){error=caught;}
+      try{yield* route(controller,target,[branch,yaw,tilt*Math.PI/180]);error=null;break search;}catch(caught){if(isPlanningBudgetError(caught))throw caught;error=caught;}
       yield;
     }
   }
@@ -166,9 +167,10 @@ export function planningControllerClass(LegacyController,{robotId}){
       const job=this._planningJob;
       if(!job){const result=this.planningResult??{ok:!['failed','stopped'].includes(this.state)};return {pending:false,done:true,...result,result};}
       if(job.segmentElapsedMs>=job.budgetMs)return this._finishPlanningError(job,Object.assign(new Error(budgetMessage),{detail:{type:'budget',budgetMs:job.budgetMs,segmentElapsedMs:job.segmentElapsedMs}}),'budget');
-      const started=now();let step;
-      try{step=job.iterator.next();}
-      catch(error){job.segmentElapsedMs+=now()-started;return this._finishPlanningError(job,error);}
+      const started=now();let step,budgetFailure;
+      const checkpoint=()=>{const segmentElapsedMs=job.segmentElapsedMs+now()-started;if(segmentElapsedMs>=job.budgetMs)throw budgetFailure??=(new PlanningBudgetError({budgetMs:job.budgetMs,segmentElapsedMs}));};
+      try{step=withPlanningBudget(this.robot,checkpoint,()=>job.iterator.next(),this.dynamics);}
+      catch(error){job.segmentElapsedMs+=now()-started;error=budgetFailure??error;return this._finishPlanningError(job,error,isPlanningBudgetError(error)?'budget':'unreachable');}
       this._restorePlanningPose(job.before);
       job.segmentElapsedMs+=now()-started;job.steps++;
       if(step.done){

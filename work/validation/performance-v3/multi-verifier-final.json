@@ -1,0 +1,421 @@
+{
+  "pass": true,
+  "checks": 92,
+  "results": [
+    {
+      "name": "Current complete release reports are accepted",
+      "pass": true
+    },
+    {
+      "name": "Explicitly unfrozen coordinator evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "Old-source coordinator SHA cannot pass",
+      "pass": true
+    },
+    {
+      "name": "A duplicated physical case cannot replace the required scenario",
+      "pass": true
+    },
+    {
+      "name": "A completed animation without actual two-finger forces is rejected",
+      "pass": true
+    },
+    {
+      "name": "A claimed success with insufficient physical object lift is rejected",
+      "pass": true
+    },
+    {
+      "name": "R1 finger stroke beyond the explicit legacy 1 mm guard is rejected",
+      "pass": true
+    },
+    {
+      "name": "Dex1 finger stroke beyond 0.2 mm is independently rejected",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch requires raw preparation-safety evidence",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot hide a physical-advance flag",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot hide a changed-array flag",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot advance its shared physical tick",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot advance an individual physical world",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot change its full qpos array",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot change its full qvel array",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot change its full ctrl array",
+      "pass": true
+    },
+    {
+      "name": "Empty ordinary before/after arrays cannot masquerade as unchanged state",
+      "pass": true
+    },
+    {
+      "name": "Equally truncated ordinary arrays cannot pass as complete physical snapshots",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot hide a false no-commit flag",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot increment an existing batch number",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot retain a physical start marker",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot retain committed start times",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot retain a pending batch",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot leave coordinator planning active",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch requires an explicit pending-Worker cancellation proof",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch must cancel every pending Worker",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch must stop every attempted controller",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot change any non-finger arm target",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch requires a complete non-finger target map",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch must retain all three raw world snapshots",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch cannot hide an object edit behind reset",
+      "pass": true
+    },
+    {
+      "name": "An ordinary rejected batch must separately verify the final reset",
+      "pass": true
+    },
+    {
+      "name": "Raw preparation safety cannot replace the original reset-state gate",
+      "pass": true
+    },
+    {
+      "name": "Publication reports explicitly marked unfrozen are rejected",
+      "pass": true
+    },
+    {
+      "name": "One fake per-item grasp cannot pass a nine-item stack",
+      "pass": true
+    },
+    {
+      "name": "Contact existence without force-bearing stack support is rejected",
+      "pass": true
+    },
+    {
+      "name": "A stopped stack falsely labelled complete is rejected",
+      "pass": true
+    },
+    {
+      "name": "The new planning module requires an explicit physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "The pipe controller requires an explicit sort physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "The pipe controller requires an explicit stack physical-source binding",
+      "pass": true
+    },
+    {
+      "name": "An incomplete responsiveness report cannot certify the new scheduler",
+      "pass": true
+    },
+    {
+      "name": "A changed scheduler invalidates saved responsiveness evidence",
+      "pass": true
+    },
+    {
+      "name": "A missing framing projection cannot replace the original numeric gates",
+      "pass": true
+    },
+    {
+      "name": "An independent native cache cohort cannot be rewritten by the multi release",
+      "pass": true
+    },
+    {
+      "name": "An omitted Worker entry cannot pass as the complete publication graph",
+      "pass": true
+    },
+    {
+      "name": "Document imports cannot stand in for the isolated Worker graph",
+      "pass": true
+    },
+    {
+      "name": "Missing Worker stale-cache negative fixtures are rejected",
+      "pass": true
+    },
+    {
+      "name": "A prior multi cohort cannot replace the Worker release",
+      "pass": true
+    },
+    {
+      "name": "The exact planning cache source cannot be omitted from the Worker graph",
+      "pass": true
+    },
+    {
+      "name": "The camera queue source is required in current UI evidence",
+      "pass": true
+    },
+    {
+      "name": "Failed async camera restoration contracts cannot pass release acceptance",
+      "pass": true
+    },
+    {
+      "name": "Missing camera-queue stale-frame protection cannot pass release acceptance",
+      "pass": true
+    },
+    {
+      "name": "Missing planning-cache invalidation contracts cannot pass release acceptance",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final: required v3 report cannot be missing",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final: v2 cohort cannot replace current evidence",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final: omitted critical named contract cannot be hidden by corrected counts",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final: a failed contract cannot pass behind a true report flag",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final: explicitly unfrozen contracts are rejected",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final: required v3 report cannot be missing",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final: v2 cohort cannot replace current evidence",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final: omitted critical named contract cannot be hidden by corrected counts",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final: a failed contract cannot pass behind a true report flag",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final: explicitly unfrozen contracts are rejected",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-final: required v3 report cannot be missing",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-final: v2 cohort cannot replace current evidence",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-final: omitted critical named contract cannot be hidden by corrected counts",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-final: a failed contract cannot pass behind a true report flag",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-final: explicitly unfrozen contracts are rejected",
+      "pass": true
+    },
+    {
+      "name": "Old Worker protocol version cannot replace the v3 message boundary",
+      "pass": true
+    },
+    {
+      "name": "An unchanged-name protocol report cannot reuse an old protocol source",
+      "pass": true
+    },
+    {
+      "name": "An unchanged-name IK report cannot reuse an old Worker context source",
+      "pass": true
+    },
+    {
+      "name": "The Worker registration source requires an explicit protocol binding",
+      "pass": true
+    },
+    {
+      "name": "The Worker IK scope requires an explicit budget binding",
+      "pass": true
+    },
+    {
+      "name": "The actual protocol roundtrip measurement cannot be replaced by an absent echo",
+      "pass": true
+    },
+    {
+      "name": "The paired planning evidence is mandatory",
+      "pass": true
+    },
+    {
+      "name": "Old-source paired planning evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "A different safety trace cannot be hidden behind a passing paired summary",
+      "pass": true
+    },
+    {
+      "name": "Changed physical arrays cannot pass paired planning acceptance",
+      "pass": true
+    },
+    {
+      "name": "Original candidate steps cannot be changed by the paired optimization",
+      "pass": true
+    },
+    {
+      "name": "Repeated execution order cannot replace reversed paired trials",
+      "pass": true
+    },
+    {
+      "name": "Non-finite paired timing observations are rejected",
+      "pass": true
+    },
+    {
+      "name": "A different paired input archive cannot reuse the timing summary",
+      "pass": true
+    },
+    {
+      "name": "A cooperative physical run cannot masquerade as background execution",
+      "pass": true
+    },
+    {
+      "name": "A cooperative stack run cannot masquerade as background execution",
+      "pass": true
+    },
+    {
+      "name": "Worker physical evidence requires the actual shipped core source",
+      "pass": true
+    },
+    {
+      "name": "Worker physical evidence requires the exact per-job collision cache source",
+      "pass": true
+    },
+    {
+      "name": "Contracts-only evidence cannot replace actual worker computations",
+      "pass": true
+    },
+    {
+      "name": "Worker-only exact joint reuse equivalence cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "Moving derived-state equivalence cannot be omitted from worker acceptance",
+      "pass": true
+    },
+    {
+      "name": "Cross-seed compiled-model reuse equivalence cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "A missing actual host heartbeat cannot certify event-loop isolation",
+      "pass": true
+    },
+    {
+      "name": "Historical physical evidence cannot replace this fresh run",
+      "pass": true
+    }
+  ],
+  "sourceHashes": {
+    "work/test-multi-acceptance-verifier.mjs": "649edc0ff05f8ff98889baa59fc09b56ec6c0d73706ed2a893d7daf9e539deb1",
+    "work/verify-multi-acceptance.mjs": "7876155bf682ecacdad2691d3fde74e4af86b9faf857bfee0fcca4b5cb32e259",
+    "work/performance-v3-contracts.mjs": "78abbe411c12247f804fe711b57e09e3f0fc1a8a7f8dfc7f13196313892253e7"
+  },
+  "sourceFrozen": true,
+  "reportHashes": {
+    "work/validation/performance-v3/coordinator-polling-final.json": "bb082a5456e6d81e05a1df6ff3773d9ea229a2f4d451bd5fc04fe15e61ac9c80",
+    "work/validation/performance-v3/worker-protocol-final.json": "f28fb445125fa2dc7099b16ff3f73550466a04038489d8c74ad3cd3ff63698c0",
+    "work/validation/performance-v3/planning-ik-budget-contracts.json": "5b8bc48e1e26faba9e792cdb4f15015583f979cef41b5e40e74ea8f01ca3518d",
+    "work/validation/performance-v3/planning-ik-paired.json": "02ff9ccdbf166527f0331bfe17a7d262a3ada9208a0f5f5ac20d4035584254de",
+    "work/validation/performance-v3/sort-physical-compiled-model-final.json": "f4ce611b807f47ef06565f947b2bdba7c4898b4a5e9f9de6803400edb171779b",
+    "work/validation/performance-v3/r1-gripper-final.json": "ea449b638b0f9ff22ebdaed6294d8d6454bdbe577abf9f3a1d70c78c04997e2a",
+    "work/validation/performance-v3/coordinator-final.json": "d8954e4c96b2eef5f873fc7f936415d319e857c59d061d39dbb9f2036ad1f0d7",
+    "work/validation/performance-v3/stack-physical-compiled-model-final.json": "e2114c4de9c41e8839b21dbb72ecdb63cdf911b6a150d2644ffcab944a4a5a2c",
+    "work/validation/performance-v3/responsiveness-contracts-final.json": "613ef7581a144dc000a30b5ee59fe907bdb3c4764b638dc0d07a577140caa486",
+    "work/validation/performance-v3/pages-final.json": "4c50ec55a20f180c1bf647cc4c88c614259deaa0ca995a13ba1ff5ea252b73b7",
+    "work/validation/performance-v3/ui-static-final.json": "1cf0212ee67ce11c4e9802f1eff8dc8864863263a0595d067d3b8de1bc5ca9b7",
+    "work/validation/performance-v3/framing-final.json": "fe294585af4c8f0e034218be3989cda20533159cbaa63e763d718c0f9f7e2bbb",
+    "work/validation/performance-v3/release-cache-final.json": "581cf31e629693ed3980f6f8bf3cfb4da7e68aaa7c50b6b4f65886d6594cadf7",
+    "work/validation/performance-v3/theme-contracts-final.json": "7235bfa08d051109b852094ebaa28278991126c04ef9827715136158e7a7e807",
+    "work/validation/performance-v3/camera-feed-async-contracts.json": "56a8ac0b3490562bc77327b497c121a0ce179a017b0a9ee2de0b3cbfe453e854",
+    "work/validation/performance-v3/camera-feed-queue-contracts.json": "92182cda8691628d1edc3bdd4e678f1a6965a4d35e43900576134992d287350a",
+    "work/validation/performance-v3/planning-check-cache-contracts.json": "677c27c0fb672a5cfa7f349afe2c05e6045b0278e9402f13237f5aff34545fa2",
+    "work/validation/performance-v3/contracts-final.json": "cee20d912476111b9f05bc05e293d7bfdb647b99fb97e6e1eadd5d7ae23ce949"
+  },
+  "verifierSha256": "7876155bf682ecacdad2691d3fde74e4af86b9faf857bfee0fcca4b5cb32e259",
+  "evidenceReports": {
+    "coordinator-final": "work/validation/performance-v3/coordinator-final.json",
+    "physical-final": "work/validation/performance-v3/sort-physical-compiled-model-final.json",
+    "stack-final": "work/validation/performance-v3/stack-physical-compiled-model-final.json",
+    "r1-gripper-final": "work/validation/performance-v3/r1-gripper-final.json",
+    "ui-static-final": "work/validation/performance-v3/ui-static-final.json",
+    "pages-final": "work/validation/performance-v3/pages-final.json",
+    "responsiveness-final": "work/validation/performance-v3/responsiveness-contracts-final.json",
+    "framing-final": "work/validation/performance-v3/framing-final.json",
+    "themes-final": "work/validation/performance-v3/theme-contracts-final.json",
+    "release-cache-final": "work/validation/performance-v3/release-cache-final.json",
+    "background-final": "work/validation/performance-v3/contracts-final.json",
+    "camera-async-final": "work/validation/performance-v3/camera-feed-async-contracts.json",
+    "planning-cache-final": "work/validation/performance-v3/planning-check-cache-contracts.json",
+    "camera-queue-final": "work/validation/performance-v3/camera-feed-queue-contracts.json",
+    "coordinator-polling-final": "work/validation/performance-v3/coordinator-polling-final.json",
+    "worker-protocol-final": "work/validation/performance-v3/worker-protocol-final.json",
+    "planning-ik-budget-final": "work/validation/performance-v3/planning-ik-budget-contracts.json",
+    "planning-ik-paired-final": "work/validation/performance-v3/planning-ik-paired.json"
+  }
+}

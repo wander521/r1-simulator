@@ -1,0 +1,146 @@
+{
+  "pass": true,
+  "releaseCohort": "20261018-perf-3",
+  "total": 16,
+  "passed": 16,
+  "checks": [
+    {
+      "name": "r1: standalone default and Worker opt-in preserve every solver pose/FK/result against frozen 3949cdc source",
+      "pass": true,
+      "detail": {
+        "comparisons": 12,
+        "frozenSourceCommit": "3949cdc3c156221f3db6268f6191b603ec546245"
+      }
+    },
+    {
+      "name": "g1: standalone default and Worker opt-in preserve every solver pose/FK/result against frozen 3949cdc source",
+      "pass": true,
+      "detail": {
+        "comparisons": 12,
+        "frozenSourceCommit": "3949cdc3c156221f3db6268f6191b603ec546245"
+      }
+    },
+    {
+      "name": "c5: standalone default and Worker opt-in preserve every solver pose/FK/result against frozen 3949cdc source",
+      "pass": true,
+      "detail": {
+        "comparisons": 6,
+        "frozenSourceCommit": "3949cdc3c156221f3db6268f6191b603ec546245"
+      }
+    },
+    {
+      "name": "Worker node context is explicit, idempotent, non-enumerable, and does not alter default robot serialization",
+      "pass": true
+    },
+    {
+      "name": "Worker FK node reads fall back correctly after a direct joint mutation and match original nonuniform-scale transforms",
+      "pass": true
+    },
+    {
+      "name": "Budget scopes restore nested callbacks and collision methods after success and typed failure",
+      "pass": true
+    },
+    {
+      "name": "Budget installation failures restore exact own descriptors, prototype methods, and previous hooks",
+      "pass": true
+    },
+    {
+      "name": "r1: active budget interrupts within a solver, then removes all scoped hooks",
+      "pass": true,
+      "detail": {
+        "evaluations": 8,
+        "checkpoints": 3
+      }
+    },
+    {
+      "name": "g1: active budget interrupts within a solver, then removes all scoped hooks",
+      "pass": true,
+      "detail": {
+        "evaluations": 8,
+        "checkpoints": 3
+      }
+    },
+    {
+      "name": "c5: active budget interrupts within a solver, then removes all scoped hooks",
+      "pass": true,
+      "detail": {
+        "evaluations": 8,
+        "checkpoints": 3
+      }
+    },
+    {
+      "name": "r1: production candidate catches preserve budget type and restore pose without physics stepping",
+      "pass": true
+    },
+    {
+      "name": "g1: production candidate catches preserve budget type and restore pose without physics stepping",
+      "pass": true
+    },
+    {
+      "name": "c5: production candidate catches preserve budget type and restore pose without physics stepping",
+      "pass": true
+    },
+    {
+      "name": "Budget expiry cannot be disguised by a legacy catch that wraps the typed error",
+      "pass": true
+    },
+    {
+      "name": "Budget expiry cannot be hidden by a legacy catch that returns normally",
+      "pass": true
+    },
+    {
+      "name": "G1 pipe tilt/direction candidate catches never convert a typed inner-IK budget error into another yielded candidate",
+      "pass": true
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-planning-ik-budget-perf-v3.mjs": "b83831707243c5a4333c014e6bd047b598edcc6c9f907a5bbeaaf9402c51cc1b",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "work/fixtures/performance-v3/r1-kinematics-3949cdc.txt": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "work/fixtures/performance-v3/g1-kinematics-3949cdc.txt": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "work/fixtures/performance-v3/c5-kinematics-3949cdc.txt": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "endSourceHashes": {
+    "work/test-planning-ik-budget-perf-v3.mjs": "b83831707243c5a4333c014e6bd047b598edcc6c9f907a5bbeaaf9402c51cc1b",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "work/fixtures/performance-v3/r1-kinematics-3949cdc.txt": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "work/fixtures/performance-v3/g1-kinematics-3949cdc.txt": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "work/fixtures/performance-v3/c5-kinematics-3949cdc.txt": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "scope": "Frozen 3949cdc solvers versus default/current and explicit Worker FK scratch. Exact every commanded pose/FK/error output; all three solver budgets and cleanup with declared clocks. No MuJoCo stepping, native browser responsiveness or physical grasp claimed."
+}

@@ -18,7 +18,7 @@ const startedAt=new Date().toISOString(),wallStart=performance.now();
 const sourcePaths=[
   'work/test-planning-responsiveness.mjs','dist/multi/planning.mjs','dist/multi/robot-runtime.mjs',
   'dist/multi/coordinator.mjs','dist/multi/pipe-controller.mjs','dist/multi/pipe-layout.mjs',
-  'dist/multi/pipe-model.mjs','dist/multi/r1-safe-dynamics.mjs',
+  'dist/multi/pipe-model.mjs','dist/multi/r1-safe-dynamics.mjs','dist/multi/planning-budget.mjs','dist/multi/planning-ik-context.mjs',
   ...['r1','g1','c5'].flatMap(id=>[`work/${id}-test-robot.mjs`,`dist/${id}/grasp-controller.mjs`,
     `dist/${id}/grasp-kinematics.mjs`,`dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),
   'dist/r1/assets/r1.urdf','dist/g1/assets/g1_29dof_with_dex1_1.urdf','dist/c5/assets/c5-dex1.urdf',
@@ -122,8 +122,11 @@ try{
   run('R1 accumulated computation segments are bounded and event-loop suspension is excluded',()=>{
     runtime.reset();c.planningBudgetMs=1;c.setObject('blue',new THREE.Vector3(1.08,runtime.config.tableHeight+.019,.30));
     assert.equal(runtime.start({objectId:'blue'}),true);
-    const first=c.advancePlanning();assert.equal(first.pending,true);assert(first.segmentElapsedMs>=1);
-    const result=c.advancePlanning();assert.equal(result.error.type,'budget');assert.equal(result.steps,1);
+    const qpos=[...runtime.data.qpos],time=runtime.data.time;
+    const result=c.advancePlanning();assert.equal(result.pending,false);assert.equal(result.done,true);
+    assert.equal(result.error.type,'budget');assert.equal(result.steps,0);assert(result.segmentElapsedMs>=1);
+    assert.deepEqual([...runtime.data.qpos],qpos);assert.equal(runtime.data.time,time);
+    assert.equal(c.advancePlanning().error.type,'budget');
     assert.equal(c.planData,null);assert.equal(c.running,false);
   });
   runtime.reset();c.planningBudgetMs=10000;assert.equal(runtime.start({objectId:'blue'}),true);

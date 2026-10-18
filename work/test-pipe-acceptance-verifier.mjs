@@ -2,19 +2,32 @@ import assert from 'node:assert/strict';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {verifyPipeAcceptance} from './verify-pipe-acceptance.mjs';
+import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 // Exercise the real release verifier using in-memory mutations of a completed
 // physical report. These are report-rejection tests, not substitute grasp runs.
 const root=new URL('../',import.meta.url),reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-  ??'work/validation/performance-v2/pipes-physical-compiled-model-final.json';
+  ??'work/validation/performance-v3/pipes-physical-compiled-model-final.json';
 const bytes=await readFile(new URL(reportPath,root)),baseline=JSON.parse(bytes),results=[];
 const requireBackground=process.argv.includes('--require-background');
+const reportDirectory=process.argv.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??reportPath.slice(0,reportPath.lastIndexOf('/'));
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const ownSources=['work/test-pipe-acceptance-verifier.mjs','work/verify-pipe-acceptance.mjs','work/performance-v3-contracts.mjs'];
+const hashSources=async()=>Object.fromEntries(await Promise.all(ownSources.map(async path=>[path,sha(await readFile(new URL(path,root)))])));
+const sourceHashes=await hashSources();let acceptedBaseline;
 const row=(report,prefix)=>report.results.find(item=>item.name.startsWith(prefix));
 const firstObject=(report,id='r1')=>Object.values(report.results[0].stats[id].objects)[0];
-async function run(name,mutate,pattern) {
+async function run(name,mutate,pattern,{contractTarget,contractMutate,missing=false}={}) {
   const report=structuredClone(baseline);if(mutate)mutate(report);
-  const result=await verifyPipeAcceptance(report,{requireBackground});
-  if(!mutate)assert.equal(result.pass,true,`${name}: ${JSON.stringify(result.errors)}`);
+  const readEvidence=async(path,...options)=>{
+    const target=contractTarget&&resolve(fileURLToPath(root),reportDirectory,contractTarget);
+    if(path===target&&missing)throw new Error('ENOENT simulated missing release report');
+    const bytes=await readFile(path,...options);if(path!==target)return bytes;
+    const contract=JSON.parse(bytes.toString());contractMutate(contract);return Buffer.from(JSON.stringify(contract));
+  };
+  const result=await verifyPipeAcceptance(report,{requireBackground,reportDirectory,readEvidence});
+  if(!mutate&&!contractTarget){assert.equal(result.pass,true,`${name}: ${JSON.stringify(result.errors)}`);acceptedBaseline=result;}
   else {assert.equal(result.pass,false,`${name}: invalid evidence was accepted`);
     assert(result.errors.some(error=>pattern.test(error)),`${name}: wrong rejection: ${JSON.stringify(result.errors)}`);}
   results.push({name,pass:true});
@@ -62,13 +75,48 @@ await run('A stopped batch requires reset before restart',report=>{row(report,'s
 await run('A completed batch requires reset before restart',report=>{report.results[0].restartAfterComplete.ok=true;},/completed batch accepted a restart/);
 await run('Reset must clear consumed-batch state',report=>{row(report,'pipe-task-reset-').robots[0].classification.started=true;},/reset left a task\/evidence active/);
 await run('Unselected stations cannot secretly execute a task',report=>{row(report,'single-g1-').robots.find(robot=>robot.id==='r1').state='complete';},/unselected station received a task/);
+await run('An unreachable batch requires raw preparation-safety evidence',report=>{delete row(report,'unreachable-').preparationSafety;},/rejected preparation: unchanged physical snapshot proof/);
+await run('A rejected start cannot hide a physical-advance flag',report=>{row(report,'unreachable-').preparationSafety.noPhysicalAdvance=false;},/rejected preparation: unchanged physical snapshot proof/);
+await run('A rejected start cannot advance its shared physical tick',report=>{row(report,'unreachable-').preparationSafety.coordinatorAfter.tick++;},/rejected preparation: shared physical tick advanced/);
+await run('A rejected start cannot advance an individual physical world',report=>{row(report,'unreachable-').preparationSafety.worlds[0].after.time+=.001;},/rejected preparation\/r1: physical time advanced/);
+for(const name of ['qpos','qvel','ctrl'])await run(`A rejected start cannot change its full ${name} array`,report=>{row(report,'unreachable-').preparationSafety.worlds[0].after[name][0]+=.001;},new RegExp(`rejected preparation/r1: unchanged physical ${name} array`));
+await run('Empty before/after arrays cannot masquerade as unchanged physical state',report=>{const world=row(report,'unreachable-').preparationSafety.worlds[0];world.before.qpos=[];world.after.qpos=[];},/rejected preparation\/r1: unchanged physical qpos array/);
+await run('Equally truncated physical snapshots cannot pass as complete before/after arrays',report=>{const world=row(report,'unreachable-').preparationSafety.worlds[0];world.before.qpos.pop();world.after.qpos.pop();},/rejected preparation\/r1: unchanged physical qpos array/);
+await run('A rejected start cannot commit the batch behind a true summary flag',report=>{row(report,'unreachable-').preparationSafety.coordinatorAfter.batchNumber++;},/rejected preparation: batch was committed/);
+await run('A rejected start cannot retain a physical start marker',report=>{const safety=row(report,'unreachable-').preparationSafety;safety.coordinatorAfter.startTick=safety.coordinatorBefore.tick;},/rejected preparation: batch was committed/);
+await run('A rejected start cannot retain a pending batch',report=>{row(report,'unreachable-').preparationSafety.coordinatorAfter.pendingStart={};},/rejected preparation: pending batch or Worker planning/);
+await run('A rejected start must cancel every pending Worker',report=>{row(report,'unreachable-').preparationSafety.worlds[2].after.planning=true;},/rejected preparation\/c5: a Worker, task or classification remained active/);
+await run('An unreachable batch cannot change any non-finger arm target',report=>{const targets=row(report,'unreachable-').preparationSafety.worlds[0].after.armTargets;targets[Object.keys(targets)[0]]+=.01;},/rejected preparation\/r1: non-finger arm targets changed/);
+await run('An unreachable batch cannot falsely claim completed items',report=>{row(report,'unreachable-').preparationSafety.worlds[0].after.completed=1;},/rejected preparation\/r1: a Worker, task or classification remained active/);
+await run('An unreachable batch must retain all three raw world snapshots',report=>{row(report,'unreachable-').preparationSafety.worlds.pop();},/rejected preparation: three independent raw world snapshots/);
+for(const contractTarget of ['coordinator-polling-final.json','worker-protocol-final.json','planning-ik-budget-contracts.json']){
+  await run(`${contractTarget}: missing v3 report is rejected`,null,/v3 .*required report unavailable/,{contractTarget,missing:true});
+  await run(`${contractTarget}: old v2 evidence is rejected`,null,/v3 .*current performance-v3 cohort/,{contractTarget,contractMutate:r=>{r.releaseCohort='20261018-perf-2';}});
+  await run(`${contractTarget}: critical named check cannot be omitted`,null,/v3 .*critical named contracts/,{contractTarget,contractMutate:r=>{r.checks.pop();if(r.total!==undefined)r.total=r.passed=r.checks.length;}});
+  await run(`${contractTarget}: false named contract cannot be hidden by report pass`,null,/v3 .*critical named contracts/,{contractTarget,contractMutate:r=>{r.checks[0].pass=false;}});
+  await run(`${contractTarget}: source must be frozen`,null,/v3 .*frozen source/,{contractTarget,contractMutate:r=>{r.sourceFrozen=false;}});
+}
+await run('A stale protocol source cannot accompany saved pipe success',null,/v3 workerProtocol: stale source.*planning-worker-protocol/,{contractTarget:'worker-protocol-final.json',contractMutate:r=>{r.sourceHashes['dist/multi/planning-worker-protocol.mjs']='0'.repeat(64);}});
+await run('A stale Worker IK context cannot accompany saved pipe success',null,/v3 planningIKBudget: stale source.*planning-ik-context/,{contractTarget:'planning-ik-budget-contracts.json',contractMutate:r=>{r.sourceHashes['dist/multi/planning-ik-context.mjs']='0'.repeat(64);}});
+await run('A missing Worker protocol binding is rejected',null,/v3 workerProtocol: source binding missing.*planning-worker-protocol/,{contractTarget:'worker-protocol-final.json',contractMutate:r=>{delete r.sourceHashes['dist/multi/planning-worker-protocol.mjs'];}});
+await run('A missing planning-budget binding is rejected',null,/v3 planningIKBudget: source binding missing.*planning-budget/,{contractTarget:'planning-ik-budget-contracts.json',contractMutate:r=>{delete r.sourceHashes['dist/multi/planning-budget.mjs'];}});
+await run('Version two protocol cannot stand in for the new message boundary',null,/protocol version 3/,{contractTarget:'worker-protocol-final.json',contractMutate:r=>{r.protocolVersion=2;}});
+await run('Absent actual Worker protocol roundtrips cannot pass',null,/four exact real-thread messages/,{contractTarget:'worker-protocol-final.json',contractMutate:r=>{r.measurements=[];}});
+await run('Missing paired planning evidence is rejected',null,/v3 planningIKPaired: required report unavailable/,{contractTarget:'planning-ik-paired.json',missing:true});
+await run('Stale paired Worker context source cannot reuse physical success',null,/v3 planningIKPaired: stale source.*planning-ik-context/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.sourceHashes['dist/multi/planning-ik-context.mjs']='0'.repeat(64);}});
+await run('A mismatched paired safety trace is rejected',null,/safety trace or unchanged physics gate/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.rows[0].optimized.safetyTraceHash='0'.repeat(64);}});
+await run('A changed paired physics array is rejected',null,/safety trace or unchanged physics gate/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.rows[0].optimized.unchangedAllPhysicsArrays=false;}});
+await run('Changed original candidate steps are rejected',null,/exact original steps/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.rows[0].optimized.steps++;}});
+await run('Non-reversed paired trials are rejected',null,/complete reversed-order pairs/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.rows[1].order=['worker-v2','worker-v3'];}});
+await run('Non-finite paired timing is rejected',null,/finite positive observations/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.rows[0].optimized.wallMs=null;}});
+await run('A substituted paired input archive is rejected',null,/preserved input archive binding/,{contractTarget:'planning-ik-paired.json',contractMutate:r=>{r.compressedInputHash='0'.repeat(64);}});
 const historical=JSON.parse(await readFile(new URL('work/validation/multi-pipes/physical-final.json',root),'utf8'));
 await run('Historical physical pipe evidence cannot replace the fresh cooperative run',report=>{Object.assign(report,structuredClone(historical));},/stale source|source binding missing/);
-const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
-const sourceHashes=Object.fromEntries(await Promise.all(['work/test-pipe-acceptance-verifier.mjs','work/verify-pipe-acceptance.mjs'].map(async path=>[path,sha(await readFile(new URL(path,root)))])));
+assert.deepEqual(await hashSources(),sourceHashes,'Pipe verifier sources changed during positive/negative validation');
 const report={pass:true,scope:'Positive/negative validation of a real saved physical report; not new physics, browser or hardware evidence',
-  checks:results.length,results,physicalReport:reportPath,physicalReportSha256:sha(bytes),sourceHashes};
-const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??'work/validation/performance-v2/pipe-verifier-final.json';
+  checks:results.length,results,physicalReport:reportPath,physicalReportSha256:sha(bytes),sourceHashes,sourceFrozen:true,reportHashes:acceptedBaseline.reportHashes,
+  evidenceReports:Object.keys(acceptedBaseline.reportHashes)};
+const outputPath=process.argv.find(arg=>arg.startsWith('--output='))?.slice(9)??'work/validation/performance-v3/pipe-verifier-final.json';
 const destination=new URL(outputPath,root);await mkdir(new URL('./',destination),{recursive:true});
 await writeFile(destination,JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify(report,null,2));

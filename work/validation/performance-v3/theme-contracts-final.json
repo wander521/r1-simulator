@@ -1,0 +1,287 @@
+{
+  "pass": true,
+  "total": 15,
+  "passed": 15,
+  "checks": [
+    {
+      "name": "Theme controller has no task, robot, physics, camera or timing dependencies",
+      "pass": true
+    },
+    {
+      "name": "Default night aligns real workcell, document state and native pressed-button state",
+      "pass": true
+    },
+    {
+      "name": "Valid persisted hangar restores before interaction without requiring available storage writes",
+      "pass": true
+    },
+    {
+      "name": "Retired day and invalid persisted values fall back to night instead of entering a broken scene",
+      "pass": true
+    },
+    {
+      "name": "Both actual native button handlers switch the real scene and persist only the supported scene ID",
+      "pass": true
+    },
+    {
+      "name": "Explicit non-persisted transitions preserve storage and unknown IDs preserve the existing scene",
+      "pass": true
+    },
+    {
+      "name": "A denied localStorage provider/getter falls back to live in-memory switching",
+      "pass": true
+    },
+    {
+      "name": "Throwing storage reads do not prevent scene initialization or switching",
+      "pass": true
+    },
+    {
+      "name": "Throwing storage writes never undo the scene already selected by the user",
+      "pass": true
+    },
+    {
+      "name": "Both palettes alter real Three scene appearance while preserving station transforms and table geometry",
+      "pass": true
+    },
+    {
+      "name": "One hundred real scene switches preserve all scene, light, geometry and material identities",
+      "pass": true
+    },
+    {
+      "name": "Switching in every task phase leaves declared run, queue, physics identity and clock state untouched",
+      "pass": true,
+      "detail": {
+        "scope": "Unchanged declared task-state sentinels and production controller dependency isolation, not new physics execution."
+      }
+    },
+    {
+      "name": "Theme controls remain enabled during task execution and dispose removes their listeners",
+      "pass": true
+    },
+    {
+      "name": "Reduced-motion styling preserves useful state and production fixed-step/measurement updates",
+      "pass": true
+    },
+    {
+      "name": "Both named native scene controls expose independent accessible pressed states",
+      "pass": true
+    }
+  ],
+  "observations": [
+    {
+      "name": "real-scene-theme-appearance",
+      "night": {
+        "background": 2637131,
+        "fog": 2637131,
+        "floor": 6518661,
+        "palette": {
+          "chartGrid": "#465e6d",
+          "chartForce": [
+            "#84dfd0",
+            "#edc584"
+          ],
+          "chartTorque": [
+            "#84dfd0",
+            "#9bbcff",
+            "#edc584",
+            "#efa28c",
+            "#d0b1ec",
+            "#aad3a0",
+            "#c2d7e3"
+          ],
+          "exposure": 1.08
+        },
+        "lights": [
+          {
+            "color": 16777215,
+            "intensity": 0.2,
+            "visible": true
+          },
+          {
+            "color": 15267071,
+            "intensity": 1.12,
+            "visible": true
+          },
+          {
+            "color": 16775406,
+            "intensity": 1.6,
+            "visible": true
+          },
+          {
+            "color": 14282495,
+            "intensity": 0.65,
+            "visible": true
+          },
+          {
+            "color": 16765857,
+            "intensity": 0.4,
+            "visible": true
+          },
+          {
+            "color": 16776437,
+            "intensity": 34,
+            "visible": true
+          },
+          {
+            "color": 16776437,
+            "intensity": 34,
+            "visible": true
+          },
+          {
+            "color": 16776437,
+            "intensity": 34,
+            "visible": true
+          }
+        ]
+      },
+      "hangar": {
+        "background": 2702153,
+        "fog": 2702153,
+        "floor": 5860732,
+        "palette": {
+          "chartGrid": "#536473",
+          "chartForce": [
+            "#9bd7d8",
+            "#f0bc75"
+          ],
+          "chartTorque": [
+            "#9bd7d8",
+            "#a8c5ef",
+            "#f0bc75",
+            "#efa28c",
+            "#d0b1ec",
+            "#bad3a0",
+            "#c2d7e3"
+          ],
+          "exposure": 1.08
+        },
+        "lights": [
+          {
+            "color": 16777215,
+            "intensity": 0.2,
+            "visible": true
+          },
+          {
+            "color": 15267071,
+            "intensity": 1.12,
+            "visible": true
+          },
+          {
+            "color": 16775406,
+            "intensity": 1.6,
+            "visible": true
+          },
+          {
+            "color": 14282495,
+            "intensity": 0.65,
+            "visible": true
+          },
+          {
+            "color": 16762244,
+            "intensity": 0.48,
+            "visible": true
+          },
+          {
+            "color": 16776437,
+            "intensity": 34,
+            "visible": true
+          },
+          {
+            "color": 16776437,
+            "intensity": 34,
+            "visible": true
+          },
+          {
+            "color": 16776437,
+            "intensity": 34,
+            "visible": true
+          }
+        ]
+      },
+      "themeColors": {
+        "night": {
+          "textContrast": {
+            "--ink/--panel": 12.654496774124222,
+            "--muted/--panel": 8.073885504825522,
+            "--selected-ink/--selected-field": 8.525902856979222,
+            "--action-ink/--action": 9.313539988570112
+          },
+          "minimumChartContrast": 7.1744148188047285,
+          "palette": {
+            "chartGrid": "#465e6d",
+            "chartForce": [
+              "#84dfd0",
+              "#edc584"
+            ],
+            "chartTorque": [
+              "#84dfd0",
+              "#9bbcff",
+              "#edc584",
+              "#efa28c",
+              "#d0b1ec",
+              "#aad3a0",
+              "#c2d7e3"
+            ],
+            "exposure": 1.08
+          }
+        },
+        "hangar": {
+          "textContrast": {
+            "--ink/--panel": 11.350429778331106,
+            "--muted/--panel": 7.394951655742233,
+            "--selected-ink/--selected-field": 6.745182166289859,
+            "--action-ink/--action": 9.023870304774672
+          },
+          "minimumChartContrast": 6.872346062916341,
+          "palette": {
+            "chartGrid": "#536473",
+            "chartForce": [
+              "#9bd7d8",
+              "#f0bc75"
+            ],
+            "chartTorque": [
+              "#9bd7d8",
+              "#a8c5ef",
+              "#f0bc75",
+              "#efa28c",
+              "#d0b1ec",
+              "#bad3a0",
+              "#c2d7e3"
+            ],
+            "exposure": 1.08
+          }
+        }
+      },
+      "contrastScope": "Opaque CSS sRGB token pairs and actual palette values; not rendered-pixel colorimetry."
+    },
+    {
+      "name": "100-switch-resources",
+      "switches": 100,
+      "nodeCount": 51,
+      "geometryCount": 28,
+      "materialCount": 13,
+      "lightCount": 8
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-multi-themes.mjs": "0250969869f9a6d98d967b07ebfcd3504473ad394eb378c82976a5fd7e71efc1",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/multi/app.mjs": "4b7cf5b061eb6069ab0715f623a750d9f7d1f9609ab2f8459f555ad118ef638d",
+    "dist/multi/index.html": "af6681b4f45e43031bf4fc60d81d2f9465e99ec13b02172a4be6c8947b583aec",
+    "dist/multi/styles.css": "613c07f4ff4e52dfa8af4bc172aecf90d33586476ae302eeae86261e035b42a4",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "errors": [],
+  "scope": "Node-only actual production theme-controller and actual Three workcell contracts using declared DOM/storage/task sentinels. No browser engine, WebGL renderer, real physics, rendered pixels or successful grasp is asserted.",
+  "limitations": [
+    "Actual desktop/mobile main-scene and camera-feed pixels must be inspected for both themes in a separate native browser pass.",
+    "Reduced-motion OS/media-query behaviour and keyboard/touch interaction require actual browser verification.",
+    "The preserved full72 physical report is separate evidence, never relabelled as new theme or physics execution."
+  ]
+}

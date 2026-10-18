@@ -4,6 +4,7 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {verifyPerformanceV3Contracts} from './performance-v3-contracts.mjs';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const errors=[],sourceHashes={},reportHashes={},cache=new Map();
@@ -12,10 +13,10 @@ const check=(condition,message)=>{if(!condition)errors.push(message);};
 const finite=(value,label)=>check(typeof value==='number'&&Number.isFinite(value),`${label}: missing/non-finite number`);
 const equal=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 const robotIds=['r1','g1','c5'];
-const reportDirectory=process.argv?.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance-v2';
+const reportDirectory=process.argv?.find(arg=>arg.startsWith('--report-dir='))?.slice(13)??'work/validation/performance-v3';
 const physicalSuffix=process.argv?.find(arg=>arg.startsWith('--physical-suffix='))?.slice(18)??'-compiled-model';
 const requireBackground=process.argv?.includes('--require-background')??false;
-const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`);
+const workerSources=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','planning-worker-protocol','planning-ik-context','planning-budget'].map(name=>`dist/multi/${name}.mjs`);
 const backgroundCheckNames=[
   'Vector3 and Quaternion prototypes survive nested structured-clone payloads',
   'Malformed vector tags, functions and prototype injection are rejected',
@@ -51,6 +52,10 @@ const evidenceReports={
   'camera-async-final':`${reportDirectory}/camera-feed-async-contracts.json`,
   'planning-cache-final':`${reportDirectory}/planning-check-cache-contracts.json`,
   'camera-queue-final':`${reportDirectory}/camera-feed-queue-contracts.json`,
+  'coordinator-polling-final':`${reportDirectory}/coordinator-polling-final.json`,
+  'worker-protocol-final':`${reportDirectory}/worker-protocol-final.json`,
+  'planning-ik-budget-final':`${reportDirectory}/planning-ik-budget-contracts.json`,
+  'planning-ik-paired-final':`${reportDirectory}/planning-ik-paired.json`,
 };
 const expectedOffsets=[[0,0,2.2],[0,0,0],[0,0,-2.2]];
 const fingerTolerances={r1:.001,g1:.0002,c5:.0002};
@@ -140,12 +145,56 @@ function casesExactly(rows,expected,label){
   check((rows??[]).every(row=>row.pass===true),`${label}: a case did not pass`);
 }
 
+// A ready Worker may append preparation history before another Worker rejects.
+// Validate the ordinary three-object task's actual pre-reset barrier instead of
+// imposing FIFO history order. This proof does not replace manipulation gates.
+function verifyRejectedSortPreparationSafety(row){
+  const failures=[],require=(condition,message)=>{if(!condition)failures.push(message);},safety=row?.preparationSafety;
+  const dimensions={r1:{qpos:47,qvel:44,ctrl:26,armTargets:22},g1:{qpos:54,qvel:51,ctrl:33,armTargets:29},c5:{qpos:29,qvel:26,ctrl:8,armTargets:6}};
+  const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
+  const sameNumbers=(left,right)=>Array.isArray(left)&&Array.isArray(right)&&left.length===right.length
+    &&left.every((value,index)=>Number.isFinite(value)&&Number.isFinite(right[index])&&Object.is(value,right[index]));
+  const sameTargets=(left,right)=>record(left)&&record(right)&&equal(Object.keys(left).sort(),Object.keys(right).sort())
+    &&Object.keys(left).every(name=>Number.isFinite(left[name])&&Number.isFinite(right[name])&&Object.is(left[name],right[name]));
+  require(safety?.noPhysicalAdvance===true&&safety?.unchangedPhysicsArrays===true,'rejected sort preparation: unchanged physical snapshot proof is required');
+  require(safety?.noBatchCommit===true,'rejected sort preparation: no-batch-commit proof is required');
+  require(safety?.allWorkersCancelled===true,'rejected sort preparation: all-Worker cancellation proof is required');
+  require(safety?.unchangedArmTargets===true,'rejected sort preparation: unchanged arm-target proof is required');
+  require(row?.resetVerified===true,'rejected sort preparation: final all-station reset was not verified');
+  const before=safety?.coordinatorBefore,after=safety?.coordinatorAfter;
+  require(Number.isSafeInteger(before?.tick)&&before.tick>=0&&after?.tick===before.tick,'rejected sort preparation: shared physical tick advanced or is absent');
+  // This suite reuses one coordinator across cases; successful earlier cases
+  // legitimately leave a nonzero batch number. Only this rejection must not add one.
+  require(Number.isSafeInteger(before?.batchNumber)&&before.batchNumber>=0&&after?.batchNumber===before.batchNumber
+    &&before?.startTick===null&&after?.startTick===null&&record(before?.startTimes)&&record(after?.startTimes)
+    &&Object.keys(before.startTimes).length===0&&Object.keys(after.startTimes).length===0,'rejected sort preparation: batch was committed or start markers changed');
+  require(after?.pendingStart===null&&after?.planning===false,'rejected sort preparation: pending batch or Worker planning was not cancelled');
+  const worlds=Array.isArray(safety?.worlds)?safety.worlds:[];
+  require(worlds.length===3&&equal(worlds.map(world=>world?.id).sort(),[...robotIds].sort()),'rejected sort preparation: three independent raw world snapshots are required');
+  for(const id of robotIds){
+    const world=worlds.find(world=>world?.id===id),old=world?.before,current=world?.after,stats=row?.stats?.[id];
+    require(Number.isFinite(old?.time)&&old.time>=0&&current?.time===old.time
+      &&Number.isFinite(before?.tick)&&Math.abs(old.time-before.tick*.001)<1e-10,`rejected sort preparation/${id}: physical time advanced or disagrees with the shared tick`);
+    for(const name of ['qpos','qvel','ctrl'])require(old?.[name]?.length===dimensions[id][name]
+      &&sameNumbers(old?.[name],current?.[name]),`rejected sort preparation/${id}: unchanged physical ${name} array is absent or changed`);
+    require(record(old?.armTargets)&&Object.keys(old.armTargets).length===dimensions[id].armTargets
+      &&sameTargets(old?.armTargets,current?.armTargets),`rejected sort preparation/${id}: non-finger arm targets changed or are absent`);
+    require(current?.planning===false&&current?.running===false&&current?.state==='stopped'
+      &&current?.objectEditsDuringTask===0,`rejected sort preparation/${id}: a Worker or task remained active`);
+    require(stats?.objectEditsDuringTask===0,`rejected sort preparation/${id}: a physical task edited an object after failed preparation`);
+  }
+  return{pass:failures.length===0,errors:failures,scope:'Ordinary rejected preparation barrier only; complete raw physics arrays, arm targets and batch/cancellation state, not manipulation or browser acceptance.'};
+}
+
 const summary={coordinatorChecks:0,physicalCases:0,physicalSorts:0,stackCases:0,physicalStacks:0,physicallyGraspedStackItems:0,
   r1GripperChecks:0,staticUIChecks:0,publicationChecks:0,responsivenessChecks:0,framingChecks:0,themeChecks:0,releaseCacheChecks:0,stackMillisecondSamples:0,stackContactScans:0,
   millisecondSamples:0,contactScans:0,minActualLiftM:null,maxReleasedFrameErrorM:0,
   maxObjectTranslationResidualM:0,maxFingerLimitViolationM:{r1:0,g1:0,c5:0},maxG1C5IllegalPenetrationM:0};
 
 async function main(){
+  const contracts=await verifyPerformanceV3Contracts({rootPath:root,reportDirectory,readEvidence:readFile});
+  errors.push(...contracts.errors);Object.assign(sourceHashes,contracts.sourceHashes);Object.assign(reportHashes,contracts.reportHashes);
+  summary.v3ContractChecks=contracts.counts;
   const [coordinator,physical,stack,gripper,ui,pages,responsiveness,framing,themes,releaseCache]=await Promise.all([
     readReport('coordinator-final'),readReport('physical-final'),readReport('stack-final'),readReport('r1-gripper-final'),readReport('ui-static-final'),readReport('pages-final'),
     readReport('responsiveness-final'),readReport('framing-final'),readReport('themes-final'),readReport('release-cache-final')]);
@@ -173,6 +222,7 @@ async function main(){
   const lifts=[];
   for(const row of physical.results??[]){
     const label=`physical/${row.name}`,robots=row.robots??[];
+    if(row.name===physicalNames[7])errors.push(...verifyRejectedSortPreparationSafety(row).errors.map(error=>`${label}: ${error}`));
     check(equal(Object.keys(row.stats??{}).sort(),[...robotIds].sort()),`${label}: three worlds not monitored`);
     check(equal(robots.map(robot=>robot.id).sort(),[...robotIds].sort()),`${label}: three actual robot results missing`);
     const times=robots.map(robot=>robot.time);times.forEach(time=>finite(time,`${label}/time`));
@@ -370,7 +420,7 @@ async function main(){
   check(releaseCache.checks===13&&releaseCache.results?.length===13&&releaseCache.results.every(row=>row.pass===true)
     &&releaseCache.graphs?.length===6&&releaseCache.negativeFixtures?.length===10&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
     'release cache: exact aliases, complete graph and negative stale-cache fixtures absent');
-  check(equal(releaseCache.releases,{'multi/index.html':'20261018-perf-2','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
+  check(equal(releaseCache.releases,{'multi/index.html':'20261018-perf-3','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
     'release cache: multi worker cohort or independent native cohorts changed');
   const workerNegatives=['unversioned-worker-entry-is-rejected','unversioned-worker-transitive-module-is-rejected','worker-cannot-inherit-document-import-map'];
   for(const prefix of ['/','/r1-simulator/'])for(const name of workerNegatives)check(releaseCache.negativeFixtures?.some(row=>row.prefix===prefix&&row.name===name&&row.rejected),'release cache: worker stale-cache/import-map negative fixtures absent');

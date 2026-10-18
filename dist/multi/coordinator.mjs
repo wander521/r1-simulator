@@ -3,6 +3,13 @@ const details = station => {const snapshot=station.snapshot;return typeof snapsh
 const status = station => station.status ?? details(station);
 const isRunning = station => Boolean(station.controller?.running ?? station.running ?? details(station).running);
 const ready = station => station.ready !== false;
+// Polling an isolated Worker is cheap; advancing a cooperative iterator may
+// perform an entire IK candidate. An actual cooperative job always wins over
+// configuration, so mixed/fallback stations cannot bypass the per-frame bound.
+const workerPlanning = station => !station.controller?._planningJob && (
+  Boolean(station.controller?._backgroundJob)
+  || (station.backgroundPlanning === true && station.controller?.backgroundPlanning !== false)
+  || station.planningProgress?.mode === 'worker');
 
 /** A single logical clock for independent, local-coordinate physical stations. */
 export class MultiRobotCoordinator {
@@ -20,6 +27,7 @@ export class MultiRobotCoordinator {
     this.message = this.selectedIds.length ? '请选择任务，所选机器人将同时开始' : '没有已就绪的机器人，请刷新重试';
     this.startTimes = {};
     this.pendingStart = null;
+    this.planningCursor = 0;
     this.applyVisibility();
   }
 
@@ -75,6 +83,7 @@ export class MultiRobotCoordinator {
 
   clearRun() {
     this.tick=0;this.runIds=[];this.startTick=null;this.startTimes={};this.pendingStart=null;
+    this.planningCursor=0;
   }
 
   start({objectId = 'blue', task = 'sort', armByRobot = {}, reducedMotion = false} = {}) {
@@ -96,6 +105,7 @@ export class MultiRobotCoordinator {
     this.state = 'preparing';
     this.message = '正在检查所选机器人的抓取路径…';
     this.runIds = ids;
+    this.planningCursor=0;
     const attempted = [];
     for (const id of ids) {
       const station = this.stations.get(id);
@@ -138,21 +148,39 @@ export class MultiRobotCoordinator {
     return {ok:true, runIds:[...ids], startTick:this.startTick, startTimes:{...this.startTimes}};
   }
 
-  /** Advance one bounded candidate at most. No physical clock advances here. */
+  /** Poll every isolated Worker and advance at most one cooperative candidate.
+   * Worker failures/deadlines must not wait behind another station's search.
+   * The success barrier and the shared physical clock remain unchanged. */
   advancePlanning(){
-    const id=this.runIds.find(id=>this.stations.get(id)?.planning);
-    if(!id)return{pending:false,done:true,ok:this.state!=='failed'};
-    const station=this.stations.get(id);let result;
-    try{result=station.advancePlanning();}
-    catch(error){result={done:true,ok:false,reason:error.message};}
-    if(result?.done&&result.ok===false){
-      const reason=result.reason??status(station).message??'目标不可达';
-      for(const runId of this.runIds)this.stations.get(runId)?.stop();
-      const initial=Boolean(this.pendingStart);this.pendingStart=null;
-      this.state='failed';
-      if(initial){this.startTick=null;this.startTimes={};}
-      this.message=`${station.config?.label??id} 无法规划：${reason}；请把物体移近并避开障碍后重试`;
-      return{pending:false,done:true,ok:false,reason:this.message};
+    if(!this.planning)return{pending:false,done:true,ok:this.state!=='failed'};
+    const cooperative=[];
+    const advance=id=>{
+      const station=this.stations.get(id);let result;
+      try{result=station.advancePlanning();}
+      catch(error){result={done:true,ok:false,reason:error.message};}
+      if(result?.done&&result.ok===false){
+        const reason=result.reason??status(station).message??'目标不可达';
+        for(const runId of this.runIds)this.stations.get(runId)?.stop();
+        const initial=Boolean(this.pendingStart);this.pendingStart=null;
+        this.state='failed';
+        if(initial){this.startTick=null;this.startTimes={};}
+        this.message=`${station.config?.label??id} 无法规划：${reason}；请把物体移近并避开障碍后重试`;
+        return{pending:false,done:true,ok:false,reason:this.message};
+      }
+      return null;
+    };
+    for(const id of this.runIds){
+      const station=this.stations.get(id);if(!station?.planning)continue;
+      if(workerPlanning(station)){const failure=advance(id);if(failure)return failure;}
+      else cooperative.push(id);
+    }
+    // Round-robin the expensive work, including mixed Worker/cooperative
+    // batches. A long first iterator must not starve the later iterators.
+    for(let offset=0;offset<this.runIds.length;offset++){
+      const index=(this.planningCursor+offset)%this.runIds.length,id=this.runIds[index];
+      if(!cooperative.includes(id)||!this.stations.get(id)?.planning)continue;
+      this.planningCursor=(index+1)%this.runIds.length;
+      const failure=advance(id);if(failure)return failure;break;
     }
     if(this.planning){
       this.message=`正在检查${this.stations.get(this.runIds.find(id=>this.stations.get(id)?.planning))?.config?.label??'机器人'}的抓取路径，可随时停止`;
@@ -190,6 +218,7 @@ export class MultiRobotCoordinator {
     this.startTick = null;
     this.startTimes = {};
     this.pendingStart = null;
+    this.planningCursor=0;
     this.state = 'idle';
     this.message = this.task==='pipes'?'全部工作台已重新随机摆放，可再次分类':'全部工作台已复位，可重新开始';
     this.applyVisibility();

@@ -281,31 +281,15 @@ function scanContacts(runtime,{requireStable=false}={}) {
 async function drainPlanning() {
   let result={ok:true};
   while(coordinator.planning) {
-    const active=coordinator.runIds.map(id=>stations.get(id)).find(runtime=>runtime.planning);
     const before=new Map([...stations].map(([id,runtime])=>[id,{time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel],ctrl:[...runtime.data.ctrl]}]));
-    const tickBefore=coordinator.tick,started=performance.now();
+    const tickBefore=coordinator.tick;
     result=coordinator.advancePlanning();
-    const elapsed=performance.now()-started,observed=stats[active.id].planning;
-    observed.polls++;observed.hostPollMs+=elapsed;observed.maxHostPollMs=Math.max(observed.maxHostPollMs,elapsed);
-    if(!backgroundPlanning){observed.candidateSlices++;observed.accumulatedSegmentMs+=elapsed;observed.maxSliceMs=Math.max(observed.maxSliceMs,elapsed);}
     assert.equal(coordinator.tick,tickBefore,'Planning advanced the shared physical tick');
     for(const [id,runtime]of stations){
       assert.equal(runtime.data.time,before.get(id).time,'Planning advanced one physical world');
       assert.deepEqual([...runtime.data.qpos],before.get(id).qpos,`${id}: a planning candidate edited physical qpos`);
       assert.deepEqual([...runtime.data.qvel],before.get(id).qvel,`${id}: a planning candidate edited physical qvel`);
       assert.deepEqual([...runtime.data.ctrl],before.get(id).ctrl,`${id}: a planning candidate edited physical controls`);
-    }
-    if(!active.planning){
-      const prepared=active.controller.planningResult;
-      if(backgroundPlanning){observed.candidateSlices+=prepared?.steps??0;observed.accumulatedSegmentMs+=prepared?.segmentElapsedMs??0;}
-      if(prepared?.ok)observed.completedPreparations++;else observed.failedPreparations++;
-      observed.maxPreparationSegmentMs=Math.max(observed.maxPreparationSegmentMs,prepared?.segmentElapsedMs??0);
-      if((prepared?.segmentElapsedMs??0)>5000||prepared?.ok===false){
-        const detail={id:active.id,seed:active.controller.classification.seed,selected:active.selected,
-          completed:active.controller.classification.completed,segmentElapsedMs:prepared?.segmentElapsedMs,steps:prepared?.steps,
-          ok:prepared?.ok,error:prepared?.error??null};
-        observed.slowPreparations.push(detail);console.error(JSON.stringify({planningPreparation:detail}));
-      }
     }
     if(result.ok===false)return result;
     if(backgroundPlanning&&coordinator.planning)await wait(10);
@@ -388,6 +372,30 @@ async function initialize() {
       model=api.MjModel.from_xml_string(sourceXml,vfs);data=new api.MjData(model);
       const runtime=createRobotRuntimeFromParts({id,api,model,data,sourceXml,robot:await loaders[id](),offset:[0,0,(1-index)*2.2],cooperativePlanning:true,backgroundPlanning,
         planningTransportFactory:()=>createPlanningWorkerTransport({workerFactory:createNodeWorker,timeoutMs:90000})});
+      const advance=runtime.advancePlanning.bind(runtime);
+      runtime.advancePlanning=(...parameters)=>{
+        const active=runtime.planning,started=performance.now();
+        try{return advance(...parameters);}
+        finally{if(active){
+          // The coordinator can poll several Workers in one drain. Attribute
+          // each actual call/result to its station, never the first pending id.
+          const elapsed=performance.now()-started,observed=stats[id].planning;
+          observed.polls++;observed.hostPollMs+=elapsed;observed.maxHostPollMs=Math.max(observed.maxHostPollMs,elapsed);
+          if(!backgroundPlanning){observed.candidateSlices++;observed.accumulatedSegmentMs+=elapsed;observed.maxSliceMs=Math.max(observed.maxSliceMs,elapsed);}
+          if(!runtime.planning){
+            const prepared=runtime.controller.planningResult;
+            if(backgroundPlanning){observed.candidateSlices+=prepared?.steps??0;observed.accumulatedSegmentMs+=prepared?.segmentElapsedMs??0;}
+            if(prepared?.ok)observed.completedPreparations++;else observed.failedPreparations++;
+            observed.maxPreparationSegmentMs=Math.max(observed.maxPreparationSegmentMs,prepared?.segmentElapsedMs??0);
+            if((prepared?.segmentElapsedMs??0)>5000||prepared?.ok===false){
+              const detail={id,seed:runtime.controller.classification.seed,selected:runtime.selected,
+                completed:runtime.controller.classification.completed,segmentElapsedMs:prepared?.segmentElapsedMs,steps:prepared?.steps,
+                ok:prepared?.ok,error:prepared?.error??null};
+              observed.slowPreparations.push(detail);console.error(JSON.stringify({planningPreparation:detail}));
+            }
+          }
+        }}
+      };
       stations.set(id,runtime);
     } catch(error) {data?.delete();model?.delete();throw error;} finally {vfs.delete();}
   }
@@ -562,15 +570,38 @@ try {
       await run('unreachable-pipe-preparation-aborts-all-attempted-stations',selectedSeed+117,async()=>{
         const g1=stations.get('g1'),layout=g1.controller.classification,first=g1.targets.find(target=>target.id===(layout.queue?.[0]??g1.targets[0].id));
         taskWindow=false;assert.notEqual(g1.controller.setObject(first.id,new THREE.Vector3(1.8,g1.config.tableHeight+first.h,0)),false);
-        const before=new Map([...stations].map(([id,runtime])=>[id,[...runtime.data.qpos]]));
+        const state=runtime=>({time:runtime.data.time,qpos:[...runtime.data.qpos],qvel:[...runtime.data.qvel],ctrl:[...runtime.data.ctrl],
+          armTargets:Object.fromEntries([...runtime.dynamics.map].filter(([,joint])=>!joint.finger).map(([name])=>[name,runtime.dynamics.targets[name]])),
+          history:[...runtime.controller.history],opening:runtime.controller.opening});
+        const before=new Map([...stations].map(([id,runtime])=>[id,state(runtime)]));
+        const clock=()=>({tick:coordinator.tick,startTick:coordinator.startTick,startTimes:{...coordinator.startTimes},batchNumber:coordinator.batchNumber});
+        const coordinatorBefore=clock();
         coordinator.select(robotIds);taskWindow=true;let initial=coordinator.start({task:'pipes'});
         if(initial.preparing)initial=await drainPlanning();
         assert.equal(initial.ok,false,'Unreachable pipe must not enter a partially running batch');assert(!coordinator.running);assert.equal(coordinator.state,'failed');
+        const worlds=[];
         for(const [id,runtime]of stations){assert(!runtime.controller.running);assert(!runtime.controller.classification.verified);
-          for(const object of tracked.get(id))assert.deepEqual([...runtime.data.qpos.subarray(object.q,object.q+7)],before.get(id).slice(object.q,object.q+7),'Rejected start teleported a task object');}
-        assert.equal(stations.get('c5').controller.history.length,0,'Later station started after the middle-station rejection');
+          for(const object of tracked.get(id))assert.deepEqual([...runtime.data.qpos.subarray(object.q,object.q+7)],before.get(id).qpos.slice(object.q,object.q+7),'Rejected start teleported a task object');
+          const prior=before.get(id),after={...state(runtime),planning:Boolean(runtime.planning),running:Boolean(runtime.controller.running),
+            verified:Boolean(runtime.controller.classification.verified),completed:runtime.controller.classification.completed,objectEditsDuringTask:stats[id].objectEditsDuringTask};
+          assert.equal(after.time,prior.time,`${id}: rejected preparation advanced a physical clock`);
+          for(const name of ['qpos','qvel','ctrl'])assert.deepEqual(after[name],prior[name],`${id}: rejected preparation changed actual ${name}`);
+          assert.deepEqual(after.armTargets,prior.armTargets,`${id}: rejected preparation changed arm motor targets`);
+          assert.equal(after.planning,false,`${id}: rejected batch left a Worker active`);assert.equal(after.completed,0);assert.equal(after.objectEditsDuringTask,0);
+          worlds.push({id,before:prior,after});
+        }
+        // Faster Workers may install private ready-state metadata before the
+        // middle Worker rejects. History is not a physical start/commit signal.
+        // Require the stronger exact world/command/clock invariants instead of
+        // the old FIFO-polling assumption that C5 history must remain empty.
+        const coordinatorAfter={...clock(),pendingStart:coordinator.pendingStart,planning:Boolean(coordinator.planning)};
+        assert.deepEqual(clock(),coordinatorBefore,'Rejected preparation committed or advanced the batch');
+        assert.equal(coordinatorAfter.startTick,null);assert.deepEqual(coordinatorAfter.startTimes,{});
+        assert.equal(coordinatorAfter.pendingStart,null);assert.equal(coordinatorAfter.planning,false);
+        const preparationSafety={noPhysicalAdvance:true,noBatchCommit:true,allWorkersCancelled:true,unchangedPhysicsArrays:true,unchangedArmTargets:true,
+          coordinatorBefore,coordinatorAfter,worlds};
         const restartAfterFailure=rejectConsumedBatch('failed preparation');
-        return {start:initial,restartAfterFailure,selectedIds:robotIds,physicallySortedPipes:0};
+        return {start:initial,restartAfterFailure,selectedIds:robotIds,physicallySortedPipes:0,preparationSafety};
       });
       await run('pipe-task-reset-randomizes-and-explicit-seed-reproduces-all-eight-starts',selectedSeed+139,async()=>{
         const resetSeed=selectedSeed+139,before=new Map([...stations].map(([id,runtime])=>[id,runtime.targets.map(target=>target.start.toArray())]));
@@ -608,6 +639,7 @@ report.planningExecution={cooperative:!backgroundPlanning,worker:backgroundPlann
   ordinarySegmentBudgetMs:PLANNING_SEGMENT_BUDGET_MS,g1PipeSegmentBudgetMs:G1_PIPE_PLANNING_SEGMENT_BUDGET_MS,
   scope:backgroundPlanning?'Production background controller, real worker_threads transport and shipped worker service/parser/serialization. Only browser file fetch is adapted to Node readFile. All pending workers are polled asynchronously between complete shared 1 ms ticks; actual qpos/qvel/ctrl/time stay unchanged while planning. Worker computation uses the unchanged cooperative candidate iterator and original gates. No task motion executes in a worker.':'Production cooperative candidate iterator; all pending planning is drained between complete shared 1 ms ticks. Every candidate is checked for unchanged shared clock and physical qpos/qvel/ctrl. 累计计算片段耗时 includes elapsed candidate/runtime synchronization time and can include OS preemption; waiting between segments is excluded.'};
 report.carryObservationScope='Actual lift/transfer dual-finger retention, longest contact-loss span and object-to-TCP relative pose are aggregated every 10 ms. Saved keyframes are every 100 ms plus every phase/contact change. Retention/drift values are observational, not silently thresholded or inferred from successful endpoints; materially ballistic transport requires explicit review and cannot be advertised as a grasp.';
+report.planningObservationScope='Per-station runtime.advancePlanning wrappers attribute each actual Worker poll and completed result to that same runtime. Global drain assertions still require every complete qpos/qvel/ctrl array and every world clock/tick to remain unchanged throughout preparation. Ready-state history is private command metadata, not a committed physical task start.';
 await mkdir(new URL('.',new URL(reportPath,root)),{recursive:true});
 await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass,mode:report.mode,cases:report.cases,physicallySortedPipes:report.physicallySortedPipes,

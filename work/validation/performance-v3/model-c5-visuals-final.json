@@ -1,0 +1,576 @@
+{
+  "ok": true,
+  "model": "official aubo_C5",
+  "sourceCommit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+  "scope": "Offline source/3DS geometry/material verification. Not a rendered browser or hardware approval.",
+  "parserSha256": "ba2c44f32fd032bc1e8a4b708101bb66da6441b10259c4c69683440e444fbd02",
+  "sourceFiles": [
+    {
+      "path": "aubo_C5.urdf",
+      "bytes": 9128,
+      "sha256": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
+      "unchanged": true
+    },
+    {
+      "path": "aubo_C5.srdf",
+      "bytes": 2493,
+      "sha256": "a2699f4784ba8cec2ae1b8e17c77f002a47e995b8a549f1ca333c9d99fa05f4d",
+      "unchanged": true
+    },
+    {
+      "path": "source/package.xml",
+      "bytes": 1201,
+      "sha256": "2f0fa992a99df5c5c5852395c86189cdc6368639d3390fe02275ff381d8568b4",
+      "unchanged": true
+    },
+    {
+      "path": "source/README.md",
+      "bytes": 13054,
+      "sha256": "4ced0ad85cfdf4928403b76f21244d83c15ee322a43a0ae705a7c46c4c742f65",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link0.STL",
+      "bytes": 14184,
+      "sha256": "fc70e195eeb2e9281e17fc2f32bb418fbca28f7460919902ea2b86a3eef62d6c",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link1.STL",
+      "bytes": 23384,
+      "sha256": "b068360a0c5241568ea8f78a2523c059e96cc954b5a4f4e06c184189bcb6095b",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link2.STL",
+      "bytes": 52284,
+      "sha256": "a887276a3c3241c06cca8b41e86c6dd77496991a9fe29aaec7e83ec5aee0c361",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link3.STL",
+      "bytes": 18184,
+      "sha256": "92b2a48d0e3df35c344725066ccc00e8eb302d83a8037776915482c37ce91ce6",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link4.STL",
+      "bytes": 17784,
+      "sha256": "8922499305bc14a58823b3726b540c5e809a7771ef418823db915bc0b224db1b",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link5.STL",
+      "bytes": 17784,
+      "sha256": "859f746bf0ab64a84db7ffe52f04a346be03bd075b6f1b18b2a267fc57bc0ae2",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/collision/link6.STL",
+      "bytes": 13984,
+      "sha256": "e319fd5d4e51c1a5289cc79abafcb5b2a7952897059df428855dad5d60ebd2ab",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link0.3ds",
+      "bytes": 17911,
+      "sha256": "d15a32ad9a572db0ec681ee0b85063a12360c69c6e91b594357c39a11b8cd823",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link1.3ds",
+      "bytes": 63725,
+      "sha256": "1c2c2581298241da4334bac0e4f931b5130eaf0f479a54cf026f0e4d2c328210",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link2.3ds",
+      "bytes": 125503,
+      "sha256": "f2d372fe84b76efaffbe05bcd42697a271759b30aa457475b4847899b46904a2",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link3.3ds",
+      "bytes": 103543,
+      "sha256": "d58f2cc8c87d46f21f11157e4373f7273588fbce0846a262b1df173166901d36",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link4.3ds",
+      "bytes": 62603,
+      "sha256": "0093dc884cca29ac1c6ec834970d325a2b120947a149b159d773da85a98625df",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link5.3ds",
+      "bytes": 62603,
+      "sha256": "b60ab6c801b5f81f730530b58518f4b7d084c7a479122958d4072370feecc173",
+      "unchanged": true
+    },
+    {
+      "path": "meshes/aubo_C5/visual/link6.3ds",
+      "bytes": 83527,
+      "sha256": "e7f20ed68ebfc4e8e260fdf9f2329d309ec76a0ecfa57d0671f081f8a2fdcfac",
+      "unchanged": true
+    }
+  ],
+  "links": [
+    {
+      "link": 0,
+      "vertices": 649,
+      "visualTriangles": 316,
+      "collisionTriangles": 282,
+      "maxMeterVertexError": 3.6954879711892374e-9,
+      "visualBounds": [
+        [
+          -0.08499787747859955,
+          -0.08488178998231888,
+          -7.430935866636901e-9
+        ],
+        [
+          0.08499787747859955,
+          0.0848826989531517,
+          0.05000000447034836
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.08495444059371948,
+          -0.0851752832531929,
+          1.1920928133513087e-10
+        ],
+        [
+          0.08495444059371948,
+          0.09735107421875,
+          0.05000000074505806
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            185,
+            185,
+            185
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 316
+      },
+      "allFacesPreserved": true
+    },
+    {
+      "link": 1,
+      "vertices": 1706,
+      "visualTriangles": 2049,
+      "collisionTriangles": 466,
+      "maxMeterVertexError": 3.6954879711892374e-9,
+      "visualBounds": [
+        [
+          -0.05900000408291817,
+          -0.05899999663233757,
+          -0.07850001007318497
+        ],
+        [
+          0.059000007808208466,
+          0.0690000057220459,
+          0.08180001378059387
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.06174476444721222,
+          -0.061674829572439194,
+          -0.07849971950054169
+        ],
+        [
+          0.061465177685022354,
+          0.0689999982714653,
+          0.08179999887943268
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            127,
+            127,
+            127
+          ]
+        },
+        {
+          "name": "Material - 1",
+          "diffuseSRGB": [
+            217,
+            216,
+            233
+          ]
+        },
+        {
+          "name": "Material - 2",
+          "diffuseSRGB": [
+            24,
+            76,
+            198
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 412,
+        "Material - 1": 557,
+        "Material - 2": 1080
+      },
+      "allFacesPreserved": true
+    },
+    {
+      "link": 2,
+      "vertices": 3383,
+      "visualTriangles": 4066,
+      "collisionTriangles": 1044,
+      "maxMeterVertexError": 1.4781951940268101e-8,
+      "visualBounds": [
+        [
+          -0.05900000408291817,
+          -0.059000011533498764,
+          -0.05950002372264862
+        ],
+        [
+          0.46700000762939453,
+          0.05900000035762787,
+          0.1008000299334526
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.061674814671278,
+          -0.06174476444721222,
+          -0.05949971452355385
+        ],
+        [
+          0.46967482566833496,
+          0.06174476072192192,
+          0.10080000013113022
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            217,
+            216,
+            233
+          ]
+        },
+        {
+          "name": "Material - 1",
+          "diffuseSRGB": [
+            127,
+            127,
+            127
+          ]
+        },
+        {
+          "name": "Material - 2",
+          "diffuseSRGB": [
+            24,
+            76,
+            198
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 724,
+        "Material - 1": 1080,
+        "Material - 2": 2262
+      },
+      "allFacesPreserved": true
+    },
+    {
+      "link": 3,
+      "vertices": 2747,
+      "visualTriangles": 3406,
+      "collisionTriangles": 362,
+      "maxMeterVertexError": 1.4781951940268101e-8,
+      "visualBounds": [
+        [
+          -0.05899999663233757,
+          -0.05899998918175697,
+          0.041999999433755875
+        ],
+        [
+          0.414499968290329,
+          0.05900000408291817,
+          0.1623000204563141
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.05900000035762787,
+          -0.058862458914518356,
+          0.041999999433755875
+        ],
+        [
+          0.41449999809265137,
+          0.058862458914518356,
+          0.1624000072479248
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            217,
+            216,
+            233
+          ]
+        },
+        {
+          "name": "Material - 1",
+          "diffuseSRGB": [
+            127,
+            127,
+            127
+          ]
+        },
+        {
+          "name": "Material - 2",
+          "diffuseSRGB": [
+            24,
+            76,
+            198
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 1668,
+        "Material - 1": 664,
+        "Material - 2": 1074
+      },
+      "allFacesPreserved": true
+    },
+    {
+      "link": 4,
+      "vertices": 1673,
+      "visualTriangles": 2016,
+      "collisionTriangles": 354,
+      "maxMeterVertexError": 1.8477439925335126e-9,
+      "visualBounds": [
+        [
+          -0.038499001413583755,
+          -0.05979900434613228,
+          -0.047999005764722824
+        ],
+        [
+          0.03850099816918373,
+          0.06050100177526474,
+          0.03850100189447403
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.041249994188547134,
+          -0.05990000069141388,
+          -0.04800000041723251
+        ],
+        [
+          0.04124999791383743,
+          0.060499999672174454,
+          0.04125000163912773
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            127,
+            127,
+            127
+          ]
+        },
+        {
+          "name": "Material - 1",
+          "diffuseSRGB": [
+            217,
+            216,
+            233
+          ]
+        },
+        {
+          "name": "Material - 2",
+          "diffuseSRGB": [
+            24,
+            76,
+            198
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 408,
+        "Material - 1": 534,
+        "Material - 2": 1074
+      },
+      "allFacesPreserved": true
+    },
+    {
+      "link": 5,
+      "vertices": 1673,
+      "visualTriangles": 2016,
+      "collisionTriangles": 354,
+      "maxMeterVertexError": 1.8477439855946187e-9,
+      "visualBounds": [
+        [
+          -0.038499001413583755,
+          -0.060499005019664764,
+          -0.047999005764722824
+        ],
+        [
+          0.03850099816918373,
+          0.059801001101732254,
+          0.03850100189447403
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.04124999791383743,
+          -0.060499999672174454,
+          -0.04800000041723251
+        ],
+        [
+          0.041249994188547134,
+          0.05990000069141388,
+          0.04125000163912773
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            24,
+            76,
+            198
+          ]
+        },
+        {
+          "name": "Material - 1",
+          "diffuseSRGB": [
+            127,
+            127,
+            127
+          ]
+        },
+        {
+          "name": "Material - 2",
+          "diffuseSRGB": [
+            217,
+            216,
+            233
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 1074,
+        "Material - 1": 408,
+        "Material - 2": 534
+      },
+      "allFacesPreserved": true
+    },
+    {
+      "link": 6,
+      "vertices": 3031,
+      "visualTriangles": 1600,
+      "collisionTriangles": 278,
+      "maxMeterVertexError": 1.8477439855946187e-9,
+      "visualBounds": [
+        [
+          -0.037498995661735535,
+          -0.03749899938702583,
+          -0.03949900344014168
+        ],
+        [
+          0.037501003593206406,
+          0.046000998467206955,
+          0.0000010049691354652168
+        ]
+      ],
+      "collisionBounds": [
+        [
+          -0.03750000149011612,
+          -0.03750000149011612,
+          -0.03949999809265137
+        ],
+        [
+          0.03750000149011612,
+          0.049400001764297485,
+          2.6077057180273755e-11
+        ]
+      ],
+      "materials": [
+        {
+          "name": "Material - 0",
+          "diffuseSRGB": [
+            185,
+            185,
+            185
+          ]
+        }
+      ],
+      "faceMaterialCounts": {
+        "Material - 0": 1600
+      },
+      "allFacesPreserved": true
+    }
+  ],
+  "negativeInputs": [
+    {
+      "name": "truncated input",
+      "rejected": true
+    },
+    {
+      "name": "root size overflow",
+      "rejected": true
+    },
+    {
+      "name": "non-finite vertex",
+      "rejected": true
+    },
+    {
+      "name": "out of range face vertex",
+      "rejected": true
+    },
+    {
+      "name": "out of range face-material assignment",
+      "rejected": true
+    },
+    {
+      "name": "non-identity mesh matrix",
+      "rejected": true
+    },
+    {
+      "name": "non-unit master scale",
+      "rejected": true
+    },
+    {
+      "name": "non-zero keyframe pivot",
+      "rejected": true
+    },
+    {
+      "name": "animated keyframe",
+      "rejected": true
+    },
+    {
+      "name": "external texture",
+      "rejected": true
+    }
+  ],
+  "colors": [
+    "185,185,185",
+    "127,127,127",
+    "217,216,233",
+    "24,76,198"
+  ],
+  "totalVertices": 14862,
+  "totalVisualTriangles": 15469,
+  "totalCollisionTriangles": 3140,
+  "sourceFilesUnchanged": 18
+}

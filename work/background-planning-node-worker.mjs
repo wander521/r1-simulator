@@ -3,6 +3,7 @@ import {readFile} from 'node:fs/promises';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {createRobotRuntimeFromParts,ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
 import {createPlanningWorkerService,createPlanningWorkerRobot} from '../dist/multi/planning-worker-core.mjs';
+import {createPlanningWorkerEndpoint} from '../dist/multi/planning-worker-protocol.mjs';
 
 // The browser worker uses fetch for Wasm/URDF. Only that file-loading boundary
 // is adapted here; the service, parser, controller, IK and collision gates are
@@ -18,9 +19,5 @@ async function createRuntime(job){
   }catch(error){data?.delete();model?.delete();throw error;}finally{vfs.delete();}
 }
 const service=createPlanningWorkerService({createRuntime});
-parentPort.on('message',async message=>{
-  if(message?.type!=='plan')return;
-  const{jobId,generation,job}=message;
-  const result=await service.run(job,{onProgress:progress=>parentPort.postMessage({type:'progress',jobId,generation,progress})});
-  parentPort.postMessage({type:'result',jobId,generation,result});
-});
+const endpoint=createPlanningWorkerEndpoint({service,postMessage:message=>parentPort.postMessage(message)});
+parentPort.on('message',message=>endpoint.handle(message));

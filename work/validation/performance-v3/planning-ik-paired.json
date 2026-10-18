@@ -1,0 +1,530 @@
+{
+  "pass": true,
+  "releaseCohort": "20261018-perf-3",
+  "startedAt": "2026-10-18T05:15:02.314Z",
+  "wallSeconds": 154.01320254200698,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-planning-ik-performance-v3.mjs": "0161af9310c7685d8fe3649f8cf171138e2e4164c8a4563ab93725322feda037",
+    "work/planning-cache-experiment.mjs": "6b0b7da8d9d26fbb40c60750374702b0452d5f5d8a10a3734a4c97bfa03c9528",
+    "dist/multi/robot-runtime.mjs": "33b64fe1f7d62a8eb60d3448879a2d5a4f504871b25d4738a21c7afcc2c6be4e",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "work/fixtures/performance-v3/planning-3949cdc.txt": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "work/fixtures/performance-v3/pipe-controller-3949cdc.txt": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "work/fixtures/performance-v3/robot-runtime-3949cdc.txt": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "work/fixtures/performance-v3/g1-kinematics-3949cdc.txt": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "endSourceHashes": {
+    "work/test-planning-ik-performance-v3.mjs": "0161af9310c7685d8fe3649f8cf171138e2e4164c8a4563ab93725322feda037",
+    "work/planning-cache-experiment.mjs": "6b0b7da8d9d26fbb40c60750374702b0452d5f5d8a10a3734a4c97bfa03c9528",
+    "dist/multi/robot-runtime.mjs": "33b64fe1f7d62a8eb60d3448879a2d5a4f504871b25d4738a21c7afcc2c6be4e",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "work/fixtures/performance-v3/planning-3949cdc.txt": "9cfa8681783ec616ea24aa27b2991e30a1574cea74f84252540301fd96c39810",
+    "work/fixtures/performance-v3/pipe-controller-3949cdc.txt": "788ae5dc4dd5495816d5cb8b6934b382a11d4731e788cd53ba8577848b2e441e",
+    "work/fixtures/performance-v3/robot-runtime-3949cdc.txt": "80174f074646f9cff6494424e0b0dc26b98666010c8057ffd11a8781dd37d3ab",
+    "work/fixtures/performance-v3/g1-kinematics-3949cdc.txt": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548"
+  },
+  "inputPath": "work/validation/performance-v2/g1-pipe592-snapshots.json.gz",
+  "inputHash": "eb613c832587d06a5d5083112dfcf476cc1823f426cfb1b7a884b49ed4414be8",
+  "compressedInputHash": "8459ef7f8d11f684c1976454106fdb261aa415500ba9734e839adb97c9f99eb9",
+  "baselineCommit": "3949cdc3c156221f3db6268f6191b603ec546245",
+  "trials": 2,
+  "items": 4,
+  "summary": {
+    "baselineMs": 70676.87399989367,
+    "optimizedMs": 46886.64908379316,
+    "reductionFraction": 0.3366055057293039,
+    "speedup": 1.5073987026367348
+  },
+  "rows": [
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "trial": 1,
+      "order": [
+        "worker-v2",
+        "worker-v3"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 5410.146667003632,
+        "steps": 69,
+        "safetyChecks": 10509,
+        "safetyTraceHash": "70b2c66f1a2ea2a2cd6f564797e6db7a00ee58228a07c860aea70ef0d041a659",
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "bypasses": 0,
+          "evictions": 5256,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1292200,
+          "peakEntries": 512,
+          "peakBytes": 1462640,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4781.304582953453,
+        "steps": 69,
+        "safetyChecks": 10509,
+        "safetyTraceHash": "70b2c66f1a2ea2a2cd6f564797e6db7a00ee58228a07c860aea70ef0d041a659",
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "bypasses": 0,
+          "evictions": 5256,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1292200,
+          "peakEntries": 512,
+          "peakBytes": 1462640,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.1315210259334152
+    },
+    {
+      "index": 0,
+      "selected": "pipe-yellow-1",
+      "trial": 2,
+      "order": [
+        "worker-v3",
+        "worker-v2"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 7718.953999996185,
+        "steps": 69,
+        "safetyChecks": 10509,
+        "safetyTraceHash": "70b2c66f1a2ea2a2cd6f564797e6db7a00ee58228a07c860aea70ef0d041a659",
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "bypasses": 0,
+          "evictions": 5256,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1292200,
+          "peakEntries": 512,
+          "peakBytes": 1462640,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4785.701249957085,
+        "steps": 69,
+        "safetyChecks": 10509,
+        "safetyTraceHash": "70b2c66f1a2ea2a2cd6f564797e6db7a00ee58228a07c860aea70ef0d041a659",
+        "planHash": "bd2fbab5bd1bd55c7e6e552097ce0653de5ec4fb64bef6e714214b379ece8a98",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 10509,
+          "evaluations": 5768,
+          "hits": 4741,
+          "bypasses": 0,
+          "evictions": 5256,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1292200,
+          "peakEntries": 512,
+          "peakBytes": 1462640,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.6129201546096101
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "trial": 1,
+      "order": [
+        "worker-v2",
+        "worker-v3"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 13122.79887497425,
+        "steps": 137,
+        "safetyChecks": 38566,
+        "safetyTraceHash": "921006f57107cb0c1e7b3510bf06eec2e31e1278ef136be81d17ad5943573214",
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "bypasses": 0,
+          "evictions": 19186,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1310518,
+          "peakEntries": 512,
+          "peakBytes": 1466338,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 9969.320499956608,
+        "steps": 137,
+        "safetyChecks": 38566,
+        "safetyTraceHash": "921006f57107cb0c1e7b3510bf06eec2e31e1278ef136be81d17ad5943573214",
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "bypasses": 0,
+          "evictions": 19186,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1310518,
+          "peakEntries": 512,
+          "peakBytes": 1466338,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.3163182861892513
+    },
+    {
+      "index": 1,
+      "selected": "pipe-red-1",
+      "trial": 2,
+      "order": [
+        "worker-v3",
+        "worker-v2"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 12467.014292001724,
+        "steps": 137,
+        "safetyChecks": 38566,
+        "safetyTraceHash": "921006f57107cb0c1e7b3510bf06eec2e31e1278ef136be81d17ad5943573214",
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "bypasses": 0,
+          "evictions": 19186,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1310518,
+          "peakEntries": 512,
+          "peakBytes": 1466338,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 10106.286916971207,
+        "steps": 137,
+        "safetyChecks": 38566,
+        "safetyTraceHash": "921006f57107cb0c1e7b3510bf06eec2e31e1278ef136be81d17ad5943573214",
+        "planHash": "5bd1af20ea6ceedff2199a0ed0c19eaa092e634ba3d2a390e8ce958908a8a13d",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 38566,
+          "evaluations": 19698,
+          "hits": 18868,
+          "bypasses": 0,
+          "evictions": 19186,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1310518,
+          "peakEntries": 512,
+          "peakBytes": 1466338,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.2335899816050357
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 1,
+      "order": [
+        "worker-v2",
+        "worker-v3"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 7373.523624956608,
+        "steps": 201,
+        "safetyChecks": 2468,
+        "safetyTraceHash": "f4809fdf8be270ef58256f1e948eddbb3e2ababc834c6d3845b9a4bd91c9b147",
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2468,
+          "evaluations": 1596,
+          "hits": 872,
+          "bypasses": 0,
+          "evictions": 1084,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305358,
+          "peakEntries": 512,
+          "peakBytes": 1459570,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 3985.467167019844,
+        "steps": 201,
+        "safetyChecks": 2468,
+        "safetyTraceHash": "f4809fdf8be270ef58256f1e948eddbb3e2ababc834c6d3845b9a4bd91c9b147",
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2468,
+          "evaluations": 1596,
+          "hits": 872,
+          "bypasses": 0,
+          "evictions": 1084,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305358,
+          "peakEntries": 512,
+          "peakBytes": 1459570,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.8501027146762827
+    },
+    {
+      "index": 2,
+      "selected": "pipe-yellow-2",
+      "trial": 2,
+      "order": [
+        "worker-v3",
+        "worker-v2"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 7443.177999973297,
+        "steps": 201,
+        "safetyChecks": 2468,
+        "safetyTraceHash": "f4809fdf8be270ef58256f1e948eddbb3e2ababc834c6d3845b9a4bd91c9b147",
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2468,
+          "evaluations": 1596,
+          "hits": 872,
+          "bypasses": 0,
+          "evictions": 1084,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305358,
+          "peakEntries": 512,
+          "peakBytes": 1459570,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4028.2300000190735,
+        "steps": 201,
+        "safetyChecks": 2468,
+        "safetyTraceHash": "f4809fdf8be270ef58256f1e948eddbb3e2ababc834c6d3845b9a4bd91c9b147",
+        "planHash": "5752f32c761408b0943efc1123cc8421c92293c7937bb6cfc639e446404ac235",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2468,
+          "evaluations": 1596,
+          "hits": 872,
+          "bypasses": 0,
+          "evictions": 1084,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305358,
+          "peakEntries": 512,
+          "peakBytes": 1459570,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.847753976296799
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 1,
+      "order": [
+        "worker-v2",
+        "worker-v3"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 8722.831833004951,
+        "steps": 267,
+        "safetyChecks": 2464,
+        "safetyTraceHash": "a2b1371b57fbf391b7611fe91f33ab852080adf83aea39817563b241f2359aa2",
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2464,
+          "evaluations": 1603,
+          "hits": 861,
+          "bypasses": 0,
+          "evictions": 1091,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305228,
+          "peakEntries": 512,
+          "peakBytes": 1465758,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4618.718166947365,
+        "steps": 267,
+        "safetyChecks": 2464,
+        "safetyTraceHash": "a2b1371b57fbf391b7611fe91f33ab852080adf83aea39817563b241f2359aa2",
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2464,
+          "evaluations": 1603,
+          "hits": 861,
+          "bypasses": 0,
+          "evictions": 1091,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305228,
+          "peakEntries": 512,
+          "peakBytes": 1465758,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.8885828313638167
+    },
+    {
+      "index": 3,
+      "selected": "pipe-red-2",
+      "trial": 2,
+      "order": [
+        "worker-v3",
+        "worker-v2"
+      ],
+      "baseline": {
+        "optimized": false,
+        "wallMs": 8418.426707983017,
+        "steps": 267,
+        "safetyChecks": 2464,
+        "safetyTraceHash": "a2b1371b57fbf391b7611fe91f33ab852080adf83aea39817563b241f2359aa2",
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2464,
+          "evaluations": 1603,
+          "hits": 861,
+          "bypasses": 0,
+          "evictions": 1091,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305228,
+          "peakEntries": 512,
+          "peakBytes": 1465758,
+          "disposed": false
+        }
+      },
+      "optimized": {
+        "optimized": true,
+        "wallMs": 4611.620499968529,
+        "steps": 267,
+        "safetyChecks": 2464,
+        "safetyTraceHash": "a2b1371b57fbf391b7611fe91f33ab852080adf83aea39817563b241f2359aa2",
+        "planHash": "4821fce7651a2087fe62a31d14f17c7531335ed1df601dc436f39e407f728af8",
+        "exactPlanAndCommand": true,
+        "unchangedAllPhysicsArrays": true,
+        "cache": {
+          "requests": 2464,
+          "evaluations": 1603,
+          "hits": 861,
+          "bypasses": 0,
+          "evictions": 1091,
+          "invalidations": 0,
+          "entries": 512,
+          "bytes": 1305228,
+          "peakEntries": 512,
+          "peakBytes": 1465758,
+          "disposed": false
+        }
+      },
+      "exactEverySafetyRequestAndResult": true,
+      "speedup": 1.825481239846268
+    }
+  ],
+  "scope": "Four genuine pipe592 planning snapshots, reversed-order paired Worker-v2 (frozen 3949cdc factory/planning/pipe plus shipped unchanged-joint parser and exact collision cache) versus Worker-v3 node FK reuse and fine budget checks. Same original R1/G1/C5 solvers, full plan/command and complete ordered safety stream hash compare exactly; all authoritative/derived physics arrays unchanged. Original candidate order, 10/30s budgets and safety sampling retained. Node CPU timings include identical safety encoding/hash instrumentation, exclude fresh model initialization, are not native browser responsiveness/FPS or physical execution."
+}

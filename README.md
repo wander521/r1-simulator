@@ -64,7 +64,8 @@ Task + object edits → shared coordinator
 | Read next | What is inside |
 | --- | --- |
 | [Engineering guide](GUIDE.md) · [中文](GUIDE.zh-CN.md) | Robot models, controls, architecture, setup and deployment |
-| [Current performance evidence](work/validation/performance-v2/README.md) | Exact-result planning cache, asynchronous camera readback and release regression scope |
+| [Current performance evidence](work/validation/performance-v3/README.md) | Worker model registration, IK/FK reuse, within-candidate budgets and current regressions |
+| [Previous performance release](work/validation/performance-v2/README.md) | Shipped exact-result planning cache, asynchronous camera readback and historical CI evidence |
 | [Previous background-planning release](work/validation/background-planning/README.md) | Historical source-bound reports, cancellation and compiled-model consistency |
 | [Implementation history](TECHNICAL_NOTES.zh-CN.md) | Preserved version and branch notes |
 
@@ -76,9 +77,9 @@ npm run test:pages
 npm run test:acceptance
 ```
 
-Full physics runs take many minutes. The previous **2026-10-16** background-planning release recorded **72/72 pipes, 12 ordinary grasps and three stacks**. Those reports remain historical; the current optimization release writes fresh results under [performance-v2](work/validation/performance-v2/README.md), and GitHub Actions must pass the complete regression before publishing.
+Full physics runs take many minutes. The current [performance-v3 results](work/validation/performance-v3/README.md) passed complete local regression: 72 pipes, 12 ordinary grasps, three stacks and positive/negative acceptance. The final audit matched 1,122 source bindings and 44 report bindings across 29 reports. This version has not been pushed or deployed; GitHub Actions must pass the complete regression before publishing.
 
-The current optimization passed both local and [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) full regression. Pages deployment succeeded; nine key served files match the tested source bytes. Fresh source-bound evidence and exact-result planning comparisons are in that directory.
+The previous `ee380fb` release passed local and [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) full regression: 72 pipes, 12 ordinary grasps and three stacks. Pages deployment succeeded; nine served files matched the tested bytes at that release. Those historical results remain under performance-v2 and do not certify this version.
 
 `main` serves `/multi/`; `/r1/`, `/g1/` and `/c5/` remain available. GitHub Actions validates before publishing `dist/` to Pages. Bug reports should include the robot, task, layout/seed, browser and reproduction steps.
 

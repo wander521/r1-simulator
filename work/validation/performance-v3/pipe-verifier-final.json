@@ -1,0 +1,375 @@
+{
+  "pass": true,
+  "scope": "Positive/negative validation of a real saved physical report; not new physics, browser or hardware evidence",
+  "checks": 87,
+  "results": [
+    {
+      "name": "Current full seventy-two-item physical evidence is accepted",
+      "pass": true
+    },
+    {
+      "name": "Quick mode cannot masquerade as full acceptance",
+      "pass": true
+    },
+    {
+      "name": "Fewer than seventy-two physical items are rejected",
+      "pass": true
+    },
+    {
+      "name": "A required case cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "Duplicate cases cannot replace a required scenario",
+      "pass": true
+    },
+    {
+      "name": "Independent simultaneous seeds are required",
+      "pass": true
+    },
+    {
+      "name": "Explicitly unfrozen source cannot pass",
+      "pass": true
+    },
+    {
+      "name": "Old-source SHA cannot pass",
+      "pass": true
+    },
+    {
+      "name": "The cooperative planning module must be bound to the current physical run",
+      "pass": true
+    },
+    {
+      "name": "Cooperative execution cannot replace the required real worker run",
+      "pass": true
+    },
+    {
+      "name": "Worker-core source must be bound to the actual physical run",
+      "pass": true
+    },
+    {
+      "name": "The exact collision-cache source must be bound to the actual physical run",
+      "pass": true
+    },
+    {
+      "name": "A changed worker source cannot reuse saved physical success",
+      "pass": true
+    },
+    {
+      "name": "A planning budget override cannot claim production worker behavior",
+      "pass": true
+    },
+    {
+      "name": "Three hundred distinct layouts are required",
+      "pass": true
+    },
+    {
+      "name": "Fake grasp without real dual contact is rejected",
+      "pass": true
+    },
+    {
+      "name": "One force-free finger is rejected",
+      "pass": true
+    },
+    {
+      "name": "Insufficient true lift is rejected",
+      "pass": true
+    },
+    {
+      "name": "Endpoint success cannot omit actual transport observations",
+      "pass": true
+    },
+    {
+      "name": "R1 must alternate actual arms",
+      "pass": true
+    },
+    {
+      "name": "G1 must alternate its production arm sequence",
+      "pass": true
+    },
+    {
+      "name": "Saved item support cannot be missing",
+      "pass": true
+    },
+    {
+      "name": "All eight pipes require final force-bearing table support",
+      "pass": true
+    },
+    {
+      "name": "Held pipes cannot count as released",
+      "pass": true
+    },
+    {
+      "name": "The production final check must verify every pipe is released",
+      "pass": true
+    },
+    {
+      "name": "A pipe outside its reserved slot is rejected",
+      "pass": true
+    },
+    {
+      "name": "Wrong-color destination frames are rejected",
+      "pass": true
+    },
+    {
+      "name": "Non-physical object translation is rejected",
+      "pass": true
+    },
+    {
+      "name": "Non-physical object rotation is rejected",
+      "pass": true
+    },
+    {
+      "name": "Task-time object writes are rejected",
+      "pass": true
+    },
+    {
+      "name": "Original R1 finger guard is preserved",
+      "pass": true
+    },
+    {
+      "name": "Original Dex1 finger guard is preserved",
+      "pass": true
+    },
+    {
+      "name": "Aggregate velocity summaries cannot bypass actual joint traces",
+      "pass": true
+    },
+    {
+      "name": "Actual unsafe robot contact is rejected",
+      "pass": true
+    },
+    {
+      "name": "A gripper cannot push neighboring pipes",
+      "pass": true
+    },
+    {
+      "name": "G1 must keep its feet fixed",
+      "pass": true
+    },
+    {
+      "name": "A stopped task cannot falsely claim completion",
+      "pass": true
+    },
+    {
+      "name": "A stopped batch requires reset before restart",
+      "pass": true
+    },
+    {
+      "name": "A completed batch requires reset before restart",
+      "pass": true
+    },
+    {
+      "name": "Reset must clear consumed-batch state",
+      "pass": true
+    },
+    {
+      "name": "Unselected stations cannot secretly execute a task",
+      "pass": true
+    },
+    {
+      "name": "An unreachable batch requires raw preparation-safety evidence",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot hide a physical-advance flag",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot advance its shared physical tick",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot advance an individual physical world",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot change its full qpos array",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot change its full qvel array",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot change its full ctrl array",
+      "pass": true
+    },
+    {
+      "name": "Empty before/after arrays cannot masquerade as unchanged physical state",
+      "pass": true
+    },
+    {
+      "name": "Equally truncated physical snapshots cannot pass as complete before/after arrays",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot commit the batch behind a true summary flag",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot retain a physical start marker",
+      "pass": true
+    },
+    {
+      "name": "A rejected start cannot retain a pending batch",
+      "pass": true
+    },
+    {
+      "name": "A rejected start must cancel every pending Worker",
+      "pass": true
+    },
+    {
+      "name": "An unreachable batch cannot change any non-finger arm target",
+      "pass": true
+    },
+    {
+      "name": "An unreachable batch cannot falsely claim completed items",
+      "pass": true
+    },
+    {
+      "name": "An unreachable batch must retain all three raw world snapshots",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final.json: missing v3 report is rejected",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final.json: old v2 evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final.json: critical named check cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final.json: false named contract cannot be hidden by report pass",
+      "pass": true
+    },
+    {
+      "name": "coordinator-polling-final.json: source must be frozen",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final.json: missing v3 report is rejected",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final.json: old v2 evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final.json: critical named check cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final.json: false named contract cannot be hidden by report pass",
+      "pass": true
+    },
+    {
+      "name": "worker-protocol-final.json: source must be frozen",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-contracts.json: missing v3 report is rejected",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-contracts.json: old v2 evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-contracts.json: critical named check cannot be omitted",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-contracts.json: false named contract cannot be hidden by report pass",
+      "pass": true
+    },
+    {
+      "name": "planning-ik-budget-contracts.json: source must be frozen",
+      "pass": true
+    },
+    {
+      "name": "A stale protocol source cannot accompany saved pipe success",
+      "pass": true
+    },
+    {
+      "name": "A stale Worker IK context cannot accompany saved pipe success",
+      "pass": true
+    },
+    {
+      "name": "A missing Worker protocol binding is rejected",
+      "pass": true
+    },
+    {
+      "name": "A missing planning-budget binding is rejected",
+      "pass": true
+    },
+    {
+      "name": "Version two protocol cannot stand in for the new message boundary",
+      "pass": true
+    },
+    {
+      "name": "Absent actual Worker protocol roundtrips cannot pass",
+      "pass": true
+    },
+    {
+      "name": "Missing paired planning evidence is rejected",
+      "pass": true
+    },
+    {
+      "name": "Stale paired Worker context source cannot reuse physical success",
+      "pass": true
+    },
+    {
+      "name": "A mismatched paired safety trace is rejected",
+      "pass": true
+    },
+    {
+      "name": "A changed paired physics array is rejected",
+      "pass": true
+    },
+    {
+      "name": "Changed original candidate steps are rejected",
+      "pass": true
+    },
+    {
+      "name": "Non-reversed paired trials are rejected",
+      "pass": true
+    },
+    {
+      "name": "Non-finite paired timing is rejected",
+      "pass": true
+    },
+    {
+      "name": "A substituted paired input archive is rejected",
+      "pass": true
+    },
+    {
+      "name": "Historical physical pipe evidence cannot replace the fresh cooperative run",
+      "pass": true
+    }
+  ],
+  "physicalReport": "work/validation/performance-v3/pipes-physical-compiled-model-final.json",
+  "physicalReportSha256": "b8686656a8d10733cb09c0e709ff7040cd3bbba14cdc7838994767258b414c77",
+  "sourceHashes": {
+    "work/test-pipe-acceptance-verifier.mjs": "ceb1e3d2cb6e6e90521182fab8e9f07b12d3f940b9c606e256ac2e283cbe5162",
+    "work/verify-pipe-acceptance.mjs": "5a411fc2c3c1cf5dad70118c845672d3b1b86570f38821aaae404ec1f77dcde5",
+    "work/performance-v3-contracts.mjs": "78abbe411c12247f804fe711b57e09e3f0fc1a8a7f8dfc7f13196313892253e7"
+  },
+  "sourceFrozen": true,
+  "reportHashes": {
+    "work/validation/performance-v3/coordinator-polling-final.json": "bb082a5456e6d81e05a1df6ff3773d9ea229a2f4d451bd5fc04fe15e61ac9c80",
+    "work/validation/performance-v3/worker-protocol-final.json": "f28fb445125fa2dc7099b16ff3f73550466a04038489d8c74ad3cd3ff63698c0",
+    "work/validation/performance-v3/planning-ik-budget-contracts.json": "5b8bc48e1e26faba9e792cdb4f15015583f979cef41b5e40e74ea8f01ca3518d",
+    "work/validation/performance-v3/planning-ik-paired.json": "02ff9ccdbf166527f0331bfe17a7d262a3ada9208a0f5f5ac20d4035584254de"
+  },
+  "evidenceReports": [
+    "work/validation/performance-v3/coordinator-polling-final.json",
+    "work/validation/performance-v3/worker-protocol-final.json",
+    "work/validation/performance-v3/planning-ik-budget-contracts.json",
+    "work/validation/performance-v3/planning-ik-paired.json"
+  ]
+}

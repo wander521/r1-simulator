@@ -1,9 +1,6 @@
-import {createPlanningWorkerService} from './planning-worker-core.mjs?v=20261018-perf-2';
+import {createPlanningWorkerService} from './planning-worker-core.mjs?v=20261018-perf-3';
+import {createPlanningWorkerEndpoint} from './planning-worker-protocol.mjs?v=20261018-perf-3';
 
 const service=createPlanningWorkerService();
-self.onmessage=async event=>{
-  const message=event.data;if(message?.type!=='plan')return;
-  const {jobId,generation,job}=message;
-  const result=await service.run(job,{onProgress:progress=>self.postMessage({type:'progress',jobId,generation,progress})});
-  self.postMessage({type:'result',jobId,generation,result});
-};
+const endpoint=createPlanningWorkerEndpoint({service,postMessage:message=>self.postMessage(message)});
+self.onmessage=event=>endpoint.handle(event.data);

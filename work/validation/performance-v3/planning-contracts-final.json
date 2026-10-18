@@ -1,0 +1,176 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T05:20:49.130Z",
+  "finishedAt": "2026-10-18T05:21:01.096Z",
+  "wallSeconds": 11.966342916965484,
+  "checkCount": 17,
+  "measurementCount": 4,
+  "checks": [
+    {
+      "id": "r1",
+      "candidateSlices": 8,
+      "segmentElapsedMs": 395.0402480959892,
+      "maxSliceMs": 74.48408299684525
+    },
+    {
+      "name": "r1: source planner and cooperative route produce identical plans",
+      "pass": true
+    },
+    {
+      "name": "r1: far start and destination reject before candidate search",
+      "pass": true
+    },
+    {
+      "name": "r1: non-finite destination rejects without IK",
+      "pass": true
+    },
+    {
+      "name": "r1: work budget produces an explicit failure and permits recovery",
+      "pass": true
+    },
+    {
+      "id": "g1",
+      "candidateSlices": 1,
+      "segmentElapsedMs": 130.1430420279503,
+      "maxSliceMs": 130.25083404779434
+    },
+    {
+      "name": "g1: source planner and cooperative route produce identical plans",
+      "pass": true
+    },
+    {
+      "name": "g1: far start and destination reject before candidate search",
+      "pass": true
+    },
+    {
+      "name": "g1: non-finite destination rejects without IK",
+      "pass": true
+    },
+    {
+      "name": "g1: work budget produces an explicit failure and permits recovery",
+      "pass": true
+    },
+    {
+      "id": "c5",
+      "candidateSlices": 5,
+      "segmentElapsedMs": 145.09004193544388,
+      "maxSliceMs": 117.8712500333786
+    },
+    {
+      "name": "c5: source planner and cooperative route produce identical plans",
+      "pass": true
+    },
+    {
+      "name": "c5: far start and destination reject before candidate search",
+      "pass": true
+    },
+    {
+      "name": "c5: non-finite destination rejects without IK",
+      "pass": true
+    },
+    {
+      "name": "c5: work budget produces an explicit failure and permits recovery",
+      "pass": true
+    },
+    {
+      "id": "g1-pipe",
+      "candidateSlices": 5,
+      "segmentElapsedMs": 714.2005829811096,
+      "maxSliceMs": 301.2045000195503
+    },
+    {
+      "name": "G1 pipe tilt/direction candidates preserve the original accepted route",
+      "pass": true
+    },
+    {
+      "name": "near unreachable R1 yields after one route, cancels, and restores actual FK",
+      "pass": true
+    },
+    {
+      "name": "R1 accumulated computation segments are bounded and event-loop suspension is excluded",
+      "pass": true
+    },
+    {
+      "name": "scheduled waiting does not consume the computation segment allowance",
+      "pass": true
+    },
+    {
+      "name": "conservative reach sphere admits source workspace corners without claiming feasibility",
+      "pass": true
+    }
+  ],
+  "failure": null,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/multi/coordinator.mjs": "3a63612e752d8156d4f1d4c579857f26e46efb3bd249cec117ca17c947c75e68",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "33b64fe1f7d62a8eb60d3448879a2d5a4f504871b25d4738a21c7afcc2c6be4e",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-planning-responsiveness.mjs": "dd4353cb2a8bba60dd92d517fa11e28f894b0043ef151b95f53c56a57997fe91"
+  },
+  "endSourceHashes": {
+    "dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm": "70f991e34b22674611d0cba181a9afb7b66914557c0817d5b5b0f7de10e6d548",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/multi/coordinator.mjs": "3a63612e752d8156d4f1d4c579857f26e46efb3bd249cec117ca17c947c75e68",
+    "dist/multi/pipe-controller.mjs": "fd7d6a07839041884feee5b372ed129ce55f6b4be0c018537f8f7e1132d55ff5",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning.mjs": "fe6784b991887fd382beab6c76ebe3b6eb302219ca194dfdda2d6f1e4278273b",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "33b64fe1f7d62a8eb60d3448879a2d5a4f504871b25d4738a21c7afcc2c6be4e",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "work/test-planning-responsiveness.mjs": "dd4353cb2a8bba60dd92d517fa11e28f894b0043ef151b95f53c56a57997fe91"
+  },
+  "scope": "Actual production MuJoCo and source URDF fixtures. Exact synchronous/cooperative plan equality, source-chain preflight, cancellation, bounded computation segments, and unchanged physical qpos/time. Slice measurements are elapsed wall durations; they do not certify browser frame rate or exact OS CPU time.",
+  "budgetPolicy": "Focused contract fixtures use explicit 0/1 ms abort allowances and 10000 ms equality/recovery allowances. The separate full physical regressions exercise production defaults."
+}

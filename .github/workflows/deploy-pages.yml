@@ -38,10 +38,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: multi-performance-v2-evidence
+          name: multi-performance-v3-evidence
           path: |
-            work/validation/performance-v2/*-final.json
-            work/validation/performance-v2/*-contracts.json
+            work/validation/performance-v3/*-final.json
+            work/validation/performance-v3/*-contracts.json
+            work/validation/performance-v3/planning-ik-paired.json
           if-no-files-found: warn
           retention-days: 7
 

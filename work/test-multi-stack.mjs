@@ -20,7 +20,7 @@ const sourcePaths=[
   'work/test-multi-stack.mjs','work/r1-test-robot.mjs','work/g1-test-robot.mjs','work/c5-test-robot.mjs',
   'dist/multi/robot-runtime.mjs','dist/multi/coordinator.mjs','dist/multi/r1-safe-dynamics.mjs',
   'dist/multi/planning.mjs','dist/multi/pipe-controller.mjs',
-  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache'].map(name=>`dist/multi/${name}.mjs`),
+  ...['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','planning-worker-protocol','planning-ik-context','planning-budget'].map(name=>`dist/multi/${name}.mjs`),
   ...(backgroundPlanning?['work/background-planning-node-worker.mjs']:[]),
   ...ids.flatMap(id=>[`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,
     `dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`]),

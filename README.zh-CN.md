@@ -64,7 +64,8 @@ npm start
 | 进一步阅读 | 内容 |
 | --- | --- |
 | [工程指南](GUIDE.zh-CN.md) · [English](GUIDE.md) | 机器人模型、控制、架构、启动与部署 |
-| [当前性能优化证据](work/validation/performance-v2/README.md) | 精确结果规划缓存、异步相机读回与发布回归范围 |
+| [当前性能优化证据](work/validation/performance-v3/README.md) | Worker 模型复用、IK/FK 复用、候选内预算检查与本轮回归 |
+| [上一版性能发布](work/validation/performance-v2/README.md) | 已发布的精确结果规划缓存、异步相机读回及历史 CI 证据 |
 | [上一版后台规划](work/validation/background-planning/README.md) | 历史源码绑定报告、取消及编译模型一致性 |
 | [实现历史](TECHNICAL_NOTES.zh-CN.md) | 保留的版本与分支记录 |
 
@@ -76,9 +77,9 @@ npm run test:pages
 npm run test:acceptance
 ```
 
-完整物理测试需要较长时间。上一版 **2026-10-16** 后台规划记录包括 **72/72 根圆管、12 次普通抓取及 3 次叠放**，保留为历史证据；当前优化版将新结果写入 [performance-v2](work/validation/performance-v2/README.md)，GitHub Actions 必须完整回归通过才会发布。
+完整物理测试需要较长时间。本轮 [performance-v3](work/validation/performance-v3/README.md) 本地完整回归已通过：72 根圆管、12 次普通抓取、3 次叠放及正反验收。最终审核核对了 29 份报告中的 1,122 项源码绑定和 44 项报告绑定，全部一致。当前版本尚未推送或部署；GitHub Actions 必须完整回归通过才会发布。
 
-当前优化版的本地与 [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) 完整回归均已通过，Pages 部署成功；线上九项关键资源与已验证源码逐字节一致。该目录保存了新源码绑定证据和规划结果精确对照。
+上一版 `ee380fb` 的本地与 [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) 完整回归均已通过（72 根圆管、12 次普通抓取及 3 次叠放），Pages 部署成功；当时线上九项关键资源与已验证源码逐字节一致。这些历史结果保留在 performance-v2，不替代本轮验收。
 
 `main` 默认进入 `/multi/`，保留 `/r1/`、`/g1/`、`/c5/`。GitHub Actions 验证后发布 `dist/`。问题反馈请附机器人、任务、布局/种子、浏览器及复现步骤。
 
