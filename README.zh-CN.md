@@ -78,6 +78,8 @@ npm run test:acceptance
 
 完整物理测试需要较长时间。上一版 **2026-10-16** 后台规划记录包括 **72/72 根圆管、12 次普通抓取及 3 次叠放**，保留为历史证据；当前优化版将新结果写入 [performance-v2](work/validation/performance-v2/README.md)，GitHub Actions 必须完整回归通过才会发布。
 
+当前优化版的本地与 [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) 完整回归均已通过，Pages 部署成功；线上九项关键资源与已验证源码逐字节一致。该目录保存了新源码绑定证据和规划结果精确对照。
+
 `main` 默认进入 `/multi/`，保留 `/r1/`、`/g1/`、`/c5/`。GitHub Actions 验证后发布 `dist/`。问题反馈请附机器人、任务、布局/种子、浏览器及复现步骤。
 
 ## 范围与来源

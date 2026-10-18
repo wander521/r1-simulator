@@ -1,0 +1,27 @@
+{
+  "pass": true,
+  "sourceCommit": "ee380fb973fc02eddfcd1edd953c17af74140df4",
+  "isolatedWorkingDirectory": "/private/tmp/r1-perf-models.aBRwVr",
+  "command": "npm run test:models",
+  "exitCode": 0,
+  "unmodifiedTestScripts": 8,
+  "sourceHashes": {
+    "work/test-r1-dynamics.mjs": "e354330a856c6c67f1710217adf9855fd6715c33aa7f974ed316f2fdbb998ae9",
+    "work/test-r1-initial-pose.mjs": "abe6ae3fbd2e77036d1b92215a8f7f3e486d1b4b9ae055e5c12e783c51ea1437",
+    "work/test-r1-camera.mjs": "ce001f9b92662c915cb64367d8e9aa51eb3747c4564b2baf2cc5bdf34dbd2a7b",
+    "work/test-r1-waist-assist.mjs": "4b440f25f137becd893937adf3fe99e8e8d736b25059f061553bf1c775719407",
+    "work/test-r1-natural-grasp.mjs": "dce4210f1dc8eab86aeb3f44e7cfe55e8116982d63cc59fb8748309da24800c1",
+    "work/test-g1-dynamics.mjs": "b3475342e215b59b917f329d205a71f675781f3eb92c7dee689f1e60717ee1ab",
+    "work/test-c5-dynamics.mjs": "5aeda7d3e1370082b2d88a1a880ba2b9011dbeb49935955c2f1dd4be679bc34f",
+    "work/test-c5-visuals.mjs": "cee073131eaccaff46d2f59f7f2f0b7e97ef95e9f1d06e60d61d83da7e133c66"
+  },
+  "historicalUnchanged": {
+    "work/validation/r1-camera/final.json": "d05dea0f314b4fc890913648a69d80d1067752803ff4a654aa2486f4c217b514",
+    "work/validation/c5/visuals-final.json": "4544eef3cebab316faac084cc46bbd6096aef04c758d7c70311c7295c56853b3"
+  },
+  "reports": {
+    "model-r1-camera-final.json": "29ea2dcb28ce74db3716f0cb6d87f0ccc70e6cce5afd61d5bf7daf1f5034e4e1",
+    "model-c5-visuals-final.json": "4544eef3cebab316faac084cc46bbd6096aef04c758d7c70311c7295c56853b3"
+  },
+  "scope": "git archive of the published commit, tests executed byte-for-byte unchanged in an isolated directory; only the two newly generated reports copied into performance-v2. Main worktree historical reports unchanged."
+}

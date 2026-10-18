@@ -1,0 +1,133 @@
+{
+  "pass": true,
+  "sourceCommit": "ee380fb973fc02eddfcd1edd953c17af74140df4",
+  "scope": "Independent fresh byte-level recomputation of every sourceHashes/reportHashes entry in final current-source reports; no saved report rebound.",
+  "reports": [
+    {
+      "name": "contracts-final",
+      "sha256": "cfbd091dc8961e016084a7a38e213ea7adf539c8ee06424d2f185a88be33e296",
+      "sourceBindings": 38,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "sort-physical-compiled-model-final",
+      "sha256": "1f0404566feca4860f87cb135c3432ca7946c4601265b2734a54dc2dc6c771e2",
+      "sourceBindings": 36,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "stack-physical-compiled-model-final",
+      "sha256": "c429dd5bfa1feb49acb534e434e5d0c4d7cc90179f365c5b38bd82924df7f2de",
+      "sourceBindings": 37,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "pipes-physical-compiled-model-final",
+      "sha256": "fc34ccb81531ccd0870957335c0f32b87110901d5fda765f75f3626bbf222756",
+      "sourceBindings": 39,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "planning-combined-final",
+      "sha256": "4b15498e4e2a54e9b58501b6a2def8454f1029238ff568f574106267c70953f4",
+      "sourceBindings": 17,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "planning-check-cache-contracts",
+      "sha256": "677c27c0fb672a5cfa7f349afe2c05e6045b0278e9402f13237f5aff34545fa2",
+      "sourceBindings": 2,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "framing-final",
+      "sha256": "b6b775e83b9adf3fbddf4e0f8ff2abe0c86a27e41bb9d5592ef7424afb62c6ca",
+      "sourceBindings": 108,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "theme-contracts-final",
+      "sha256": "9cd14c652402dce14bcf2be511874fde58d9a2c09da9c7dacff8ec51df041367",
+      "sourceBindings": 11,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "pages-final",
+      "sha256": "deaa8d67c3f26aa63e722ddf07cb2eafeafed6b82843640a20c015089a3f4243",
+      "sourceBindings": 155,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "release-cache-final",
+      "sha256": "b87afe07a9a56826119729d75e4e31e95b5669cfd6e028cc4d22bebc4424df7d",
+      "sourceBindings": 56,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "r1-gripper-final",
+      "sha256": "121550d94187551bb599a4d8d246804ff582bc90d78dbb4bcbabb16494c3ea3a",
+      "sourceBindings": 9,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "coordinator-final",
+      "sha256": "2f4ca4218d303138810f66b5e00c795a46e12aa42d89c8e0fa186737d9d348d0",
+      "sourceBindings": 2,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "ui-static-final",
+      "sha256": "46d0fc4d8a944af9107c13b491c011530078a24f7c8237363a0e6c659ef4b1cb",
+      "sourceBindings": 31,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "responsiveness-contracts-final",
+      "sha256": "de43c39eedf571384ea0fc0a14950728ce5c639d0fe9bf610b776e1d86ba7e1b",
+      "sourceBindings": 17,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "camera-feed-async-contracts",
+      "sha256": "43ebb9f5b430dc0edb3a2dbce6a33412f16220f1b9594f5419caa1ba33083f26",
+      "sourceBindings": 5,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "camera-feed-queue-contracts",
+      "sha256": "4451baef248bbc07599fcba9109e3742c3cc4c479189a4344975ccbd8bd7fb60",
+      "sourceBindings": 4,
+      "reportBindings": 0,
+      "stale": []
+    },
+    {
+      "name": "multi-acceptance-final",
+      "sha256": "6ea4ae7cee0c7210b093a29f759028b14bf0c84781a312ca43706dc26667f379",
+      "sourceBindings": 185,
+      "reportBindings": 14,
+      "stale": []
+    },
+    {
+      "name": "pipes-acceptance-final",
+      "sha256": "fb8b3cb477fb149b9e539fe30956ee816bdff148e05bf9ad168009c2dd87e0e3",
+      "sourceBindings": 39,
+      "reportBindings": 0,
+      "stale": []
+    }
+  ]
+}

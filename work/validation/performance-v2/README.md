@@ -36,13 +36,25 @@ intervals, long tasks and source hashes. Samples used this desktop's warm cache;
 scene synchronous/async pixel equality at three exposures and renderer-state
 preservation. It is not robot-contact or FPS evidence.
 
-The current 25 Worker contracts, 12 ordinary physical grasps, three physical
-stacks (nine grasps), and UI/resource/camera contracts passed locally. Full
-72-pipe acceptance is a separate long-running check, not implied by those
-contracts. GitHub Pages runs the complete suite and its source-bound verifiers
-before deployment, and preserves the reports as the
-`multi-performance-v2-evidence` workflow artifact. Check that run's result before
-claiming the complete current release has passed.
+The current local regression passed: 25 Worker contracts, 12 ordinary physical
+grasps, three physical stacks (nine grasps), and the complete 72-pipe run
+(8/8 scenarios, 300 layouts, 970.31 s). Framing passed 113 checks covering 98
+projections; the positive/negative acceptance chains passed 38 multi-robot and
+42 pipe checks. See the [multi-robot acceptance](multi-acceptance-final.json),
+[pipe acceptance](pipes-acceptance-final.json) and
+[final source audit](final-hash-audit.json): all 791 source bindings and 14
+report bindings match, with no stale entries. Original model tests also passed
+in an isolated checkout of the same commit without replacing historical evidence.
+
+The [release run](https://github.com/wander521/r1-simulator/actions/runs/39093502625)
+completed validation and GitHub Pages deployment successfully on 2026-10-18 at
+03:54:31 UTC for `ee380fb`. Its actual execution log independently confirms the
+complete physical suite and source-bound acceptance; reports are preserved as
+the `multi-performance-v2-evidence` artifact. See the
+[CI execution audit](ci-execution-audit.json) and
+[deployment check](deployment-final.json): nine key served HTML/module files
+return HTTP 200 and match the tested source bytes exactly. Rendered-browser and
+GPU observations remain the separately scoped local checks above.
 
 ## Release regression
 

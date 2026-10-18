@@ -41,11 +41,11 @@
       "detail": {
         "page": "multi/index.html",
         "release": "20261018-perf-2",
-        "base": "http://127.0.0.1:49936/",
+        "base": "http://127.0.0.1:53679/",
         "modules": 75,
         "edges": 157,
         "workerEntries": [
-          "http://127.0.0.1:49936/multi/planning-worker.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-worker.mjs?v=20261018-perf-2"
         ],
         "workerModules": [
           "c5/c5-3ds.mjs",
@@ -82,85 +82,85 @@
         ],
         "protectedIdentities": {
           "multi/app.mjs": [
-            "http://127.0.0.1:49936/multi/app.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/app.mjs?v=20261018-perf-2"
           ],
           "r1/r1-workcell.mjs": [
-            "http://127.0.0.1:49936/r1/r1-workcell.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1/r1-workcell.mjs?v=20261018-perf-2"
           ],
           "multi/robot-runtime.mjs": [
-            "http://127.0.0.1:49936/multi/robot-runtime.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/robot-runtime.mjs?v=20261018-perf-2"
           ],
           "multi/coordinator.mjs": [
-            "http://127.0.0.1:49936/multi/coordinator.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/coordinator.mjs?v=20261018-perf-2"
           ],
           "multi/workcell.mjs": [
-            "http://127.0.0.1:49936/multi/workcell.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/workcell.mjs?v=20261018-perf-2"
           ],
           "multi/presentation.mjs": [
-            "http://127.0.0.1:49936/multi/presentation.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/presentation.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/theme-controller.mjs": [
-            "http://127.0.0.1:49936/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/camera-feeds.mjs": [
-            "http://127.0.0.1:49936/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/camera-feed-queue.mjs": [
-            "http://127.0.0.1:49936/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/frame-scheduler.mjs": [
-            "http://127.0.0.1:49936/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
           ],
           "r1/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/r1/grasp-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1/grasp-controller.mjs?v=20261018-perf-2"
           ],
           "c5/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/c5/grasp-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/c5/grasp-controller.mjs?v=20261018-perf-2"
           ],
           "multi/r1-safe-dynamics.mjs": [
-            "http://127.0.0.1:49936/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
           ],
           "c5/c5-profile.mjs": [
-            "http://127.0.0.1:49936/c5/c5-profile.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/c5/c5-profile.mjs?v=20261018-perf-2"
           ],
           "r1/grasp-kinematics.mjs": [
-            "http://127.0.0.1:49936/r1/grasp-kinematics.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1/grasp-kinematics.mjs?v=20261018-perf-2"
           ],
           "multi/pipe-layout.mjs": [
-            "http://127.0.0.1:49936/multi/pipe-layout.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/pipe-layout.mjs?v=20261018-perf-2"
           ],
           "multi/pipe-model.mjs": [
-            "http://127.0.0.1:49936/multi/pipe-model.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/pipe-model.mjs?v=20261018-perf-2"
           ],
           "multi/pipe-controller.mjs": [
-            "http://127.0.0.1:49936/multi/pipe-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/pipe-controller.mjs?v=20261018-perf-2"
           ],
           "multi/planning.mjs": [
-            "http://127.0.0.1:49936/multi/planning.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning.mjs?v=20261018-perf-2"
           ],
           "multi/background-planning.mjs": [
-            "http://127.0.0.1:49936/multi/background-planning.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/background-planning.mjs?v=20261018-perf-2"
           ],
           "multi/planning-worker-transport.mjs": [
-            "http://127.0.0.1:49936/multi/planning-worker-transport.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning-worker-transport.mjs?v=20261018-perf-2"
           ],
           "multi/planning-serialization.mjs": [
-            "http://127.0.0.1:49936/multi/planning-serialization.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning-serialization.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/scene-environment.mjs": [
-            "http://127.0.0.1:49936/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
           ],
           "multi/planning-worker.mjs": [
-            "http://127.0.0.1:49936/multi/planning-worker.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning-worker.mjs?v=20261018-perf-2"
           ],
           "multi/planning-worker-core.mjs": [
-            "http://127.0.0.1:49936/multi/planning-worker-core.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning-worker-core.mjs?v=20261018-perf-2"
           ],
           "multi/planning-robot.mjs": [
-            "http://127.0.0.1:49936/multi/planning-robot.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning-robot.mjs?v=20261018-perf-2"
           ],
           "multi/planning-check-cache.mjs": [
-            "http://127.0.0.1:49936/multi/planning-check-cache.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/multi/planning-check-cache.mjs?v=20261018-perf-2"
           ]
         }
       }
@@ -171,23 +171,23 @@
       "detail": {
         "page": "r1/index.html",
         "release": "20261016-native-camera-3",
-        "base": "http://127.0.0.1:49936/",
+        "base": "http://127.0.0.1:53679/",
         "modules": 15,
         "edges": 24,
         "workerEntries": [],
         "workerModules": [],
         "protectedIdentities": {
           "r1/r1-app.mjs": [
-            "http://127.0.0.1:49936/r1/r1-app.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1/r1-app.mjs?v=20261016-native-camera-3"
           ],
           "r1/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1/grasp-controller.mjs?v=20261016-native-camera-3"
           ],
           "r1/grasp-kinematics.mjs": [
-            "http://127.0.0.1:49936/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
           ],
           "r1/r1-workcell.mjs": [
-            "http://127.0.0.1:49936/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1/r1-workcell.mjs?v=20261016-native-camera-3"
           ]
         }
       }
@@ -198,20 +198,20 @@
       "detail": {
         "page": "c5/index.html",
         "release": "20261016-native-camera-3",
-        "base": "http://127.0.0.1:49936/",
+        "base": "http://127.0.0.1:53679/",
         "modules": 21,
         "edges": 40,
         "workerEntries": [],
         "workerModules": [],
         "protectedIdentities": {
           "c5/c5-app.mjs": [
-            "http://127.0.0.1:49936/c5/c5-app.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/c5/c5-app.mjs?v=20261016-native-camera-3"
           ],
           "c5/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/c5/grasp-controller.mjs?v=20261016-native-camera-3"
           ],
           "c5/c5-profile.mjs": [
-            "http://127.0.0.1:49936/c5/c5-profile.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/c5/c5-profile.mjs?v=20261016-native-camera-3"
           ]
         }
       }
@@ -222,11 +222,11 @@
       "detail": {
         "page": "multi/index.html",
         "release": "20261018-perf-2",
-        "base": "http://127.0.0.1:49936/r1-simulator/",
+        "base": "http://127.0.0.1:53679/r1-simulator/",
         "modules": 75,
         "edges": 157,
         "workerEntries": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
         ],
         "workerModules": [
           "c5/c5-3ds.mjs",
@@ -263,85 +263,85 @@
         ],
         "protectedIdentities": {
           "multi/app.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/app.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/app.mjs?v=20261018-perf-2"
           ],
           "r1/r1-workcell.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-2"
           ],
           "multi/robot-runtime.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-2"
           ],
           "multi/coordinator.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/coordinator.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/coordinator.mjs?v=20261018-perf-2"
           ],
           "multi/workcell.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/workcell.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/workcell.mjs?v=20261018-perf-2"
           ],
           "multi/presentation.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/presentation.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/presentation.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/theme-controller.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/camera-feeds.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/camera-feed-queue.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/frame-scheduler.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
           ],
           "r1/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-2"
           ],
           "c5/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-2"
           ],
           "multi/r1-safe-dynamics.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
           ],
           "c5/c5-profile.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-2"
           ],
           "r1/grasp-kinematics.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-2"
           ],
           "multi/pipe-layout.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/pipe-layout.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/pipe-layout.mjs?v=20261018-perf-2"
           ],
           "multi/pipe-model.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/pipe-model.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/pipe-model.mjs?v=20261018-perf-2"
           ],
           "multi/pipe-controller.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/pipe-controller.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/pipe-controller.mjs?v=20261018-perf-2"
           ],
           "multi/planning.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning.mjs?v=20261018-perf-2"
           ],
           "multi/background-planning.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/background-planning.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/background-planning.mjs?v=20261018-perf-2"
           ],
           "multi/planning-worker-transport.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-2"
           ],
           "multi/planning-serialization.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-2"
           ],
           "multi/visuals/scene-environment.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
           ],
           "multi/planning-worker.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
           ],
           "multi/planning-worker-core.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-2"
           ],
           "multi/planning-robot.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-2"
           ],
           "multi/planning-check-cache.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-2"
+            "http://127.0.0.1:53679/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-2"
           ]
         }
       }
@@ -352,23 +352,23 @@
       "detail": {
         "page": "r1/index.html",
         "release": "20261016-native-camera-3",
-        "base": "http://127.0.0.1:49936/r1-simulator/",
+        "base": "http://127.0.0.1:53679/r1-simulator/",
         "modules": 15,
         "edges": 24,
         "workerEntries": [],
         "workerModules": [],
         "protectedIdentities": {
           "r1/r1-app.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/r1-app.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/r1/r1-app.mjs?v=20261016-native-camera-3"
           ],
           "r1/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/r1/grasp-controller.mjs?v=20261016-native-camera-3"
           ],
           "r1/grasp-kinematics.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
           ],
           "r1/r1-workcell.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/r1/r1-workcell.mjs?v=20261016-native-camera-3"
           ]
         }
       }
@@ -379,20 +379,20 @@
       "detail": {
         "page": "c5/index.html",
         "release": "20261016-native-camera-3",
-        "base": "http://127.0.0.1:49936/r1-simulator/",
+        "base": "http://127.0.0.1:53679/r1-simulator/",
         "modules": 21,
         "edges": 40,
         "workerEntries": [],
         "workerModules": [],
         "protectedIdentities": {
           "c5/c5-app.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/c5/c5-app.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/c5/c5-app.mjs?v=20261016-native-camera-3"
           ],
           "c5/grasp-controller.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/c5/grasp-controller.mjs?v=20261016-native-camera-3"
           ],
           "c5/c5-profile.mjs": [
-            "http://127.0.0.1:49936/r1-simulator/c5/c5-profile.mjs?v=20261016-native-camera-3"
+            "http://127.0.0.1:53679/r1-simulator/c5/c5-profile.mjs?v=20261016-native-camera-3"
           ]
         }
       }
@@ -454,11 +454,11 @@
     {
       "page": "multi/index.html",
       "release": "20261018-perf-2",
-      "base": "http://127.0.0.1:49936/",
+      "base": "http://127.0.0.1:53679/",
       "modules": 75,
       "edges": 157,
       "workerEntries": [
-        "http://127.0.0.1:49936/multi/planning-worker.mjs?v=20261018-perf-2"
+        "http://127.0.0.1:53679/multi/planning-worker.mjs?v=20261018-perf-2"
       ],
       "workerModules": [
         "c5/c5-3ds.mjs",
@@ -495,139 +495,139 @@
       ],
       "protectedIdentities": {
         "multi/app.mjs": [
-          "http://127.0.0.1:49936/multi/app.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/app.mjs?v=20261018-perf-2"
         ],
         "r1/r1-workcell.mjs": [
-          "http://127.0.0.1:49936/r1/r1-workcell.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1/r1-workcell.mjs?v=20261018-perf-2"
         ],
         "multi/robot-runtime.mjs": [
-          "http://127.0.0.1:49936/multi/robot-runtime.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/robot-runtime.mjs?v=20261018-perf-2"
         ],
         "multi/coordinator.mjs": [
-          "http://127.0.0.1:49936/multi/coordinator.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/coordinator.mjs?v=20261018-perf-2"
         ],
         "multi/workcell.mjs": [
-          "http://127.0.0.1:49936/multi/workcell.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/workcell.mjs?v=20261018-perf-2"
         ],
         "multi/presentation.mjs": [
-          "http://127.0.0.1:49936/multi/presentation.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/presentation.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/theme-controller.mjs": [
-          "http://127.0.0.1:49936/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/camera-feeds.mjs": [
-          "http://127.0.0.1:49936/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/camera-feed-queue.mjs": [
-          "http://127.0.0.1:49936/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/frame-scheduler.mjs": [
-          "http://127.0.0.1:49936/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
         ],
         "r1/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/r1/grasp-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1/grasp-controller.mjs?v=20261018-perf-2"
         ],
         "c5/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/c5/grasp-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/c5/grasp-controller.mjs?v=20261018-perf-2"
         ],
         "multi/r1-safe-dynamics.mjs": [
-          "http://127.0.0.1:49936/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
         ],
         "c5/c5-profile.mjs": [
-          "http://127.0.0.1:49936/c5/c5-profile.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/c5/c5-profile.mjs?v=20261018-perf-2"
         ],
         "r1/grasp-kinematics.mjs": [
-          "http://127.0.0.1:49936/r1/grasp-kinematics.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1/grasp-kinematics.mjs?v=20261018-perf-2"
         ],
         "multi/pipe-layout.mjs": [
-          "http://127.0.0.1:49936/multi/pipe-layout.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/pipe-layout.mjs?v=20261018-perf-2"
         ],
         "multi/pipe-model.mjs": [
-          "http://127.0.0.1:49936/multi/pipe-model.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/pipe-model.mjs?v=20261018-perf-2"
         ],
         "multi/pipe-controller.mjs": [
-          "http://127.0.0.1:49936/multi/pipe-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/pipe-controller.mjs?v=20261018-perf-2"
         ],
         "multi/planning.mjs": [
-          "http://127.0.0.1:49936/multi/planning.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning.mjs?v=20261018-perf-2"
         ],
         "multi/background-planning.mjs": [
-          "http://127.0.0.1:49936/multi/background-planning.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/background-planning.mjs?v=20261018-perf-2"
         ],
         "multi/planning-worker-transport.mjs": [
-          "http://127.0.0.1:49936/multi/planning-worker-transport.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-worker-transport.mjs?v=20261018-perf-2"
         ],
         "multi/planning-serialization.mjs": [
-          "http://127.0.0.1:49936/multi/planning-serialization.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-serialization.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/scene-environment.mjs": [
-          "http://127.0.0.1:49936/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
         ],
         "multi/planning-worker.mjs": [
-          "http://127.0.0.1:49936/multi/planning-worker.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-worker.mjs?v=20261018-perf-2"
         ],
         "multi/planning-worker-core.mjs": [
-          "http://127.0.0.1:49936/multi/planning-worker-core.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-worker-core.mjs?v=20261018-perf-2"
         ],
         "multi/planning-robot.mjs": [
-          "http://127.0.0.1:49936/multi/planning-robot.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-robot.mjs?v=20261018-perf-2"
         ],
         "multi/planning-check-cache.mjs": [
-          "http://127.0.0.1:49936/multi/planning-check-cache.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/multi/planning-check-cache.mjs?v=20261018-perf-2"
         ]
       }
     },
     {
       "page": "r1/index.html",
       "release": "20261016-native-camera-3",
-      "base": "http://127.0.0.1:49936/",
+      "base": "http://127.0.0.1:53679/",
       "modules": 15,
       "edges": 24,
       "workerEntries": [],
       "workerModules": [],
       "protectedIdentities": {
         "r1/r1-app.mjs": [
-          "http://127.0.0.1:49936/r1/r1-app.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1/r1-app.mjs?v=20261016-native-camera-3"
         ],
         "r1/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1/grasp-controller.mjs?v=20261016-native-camera-3"
         ],
         "r1/grasp-kinematics.mjs": [
-          "http://127.0.0.1:49936/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
         ],
         "r1/r1-workcell.mjs": [
-          "http://127.0.0.1:49936/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1/r1-workcell.mjs?v=20261016-native-camera-3"
         ]
       }
     },
     {
       "page": "c5/index.html",
       "release": "20261016-native-camera-3",
-      "base": "http://127.0.0.1:49936/",
+      "base": "http://127.0.0.1:53679/",
       "modules": 21,
       "edges": 40,
       "workerEntries": [],
       "workerModules": [],
       "protectedIdentities": {
         "c5/c5-app.mjs": [
-          "http://127.0.0.1:49936/c5/c5-app.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/c5/c5-app.mjs?v=20261016-native-camera-3"
         ],
         "c5/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/c5/grasp-controller.mjs?v=20261016-native-camera-3"
         ],
         "c5/c5-profile.mjs": [
-          "http://127.0.0.1:49936/c5/c5-profile.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/c5/c5-profile.mjs?v=20261016-native-camera-3"
         ]
       }
     },
     {
       "page": "multi/index.html",
       "release": "20261018-perf-2",
-      "base": "http://127.0.0.1:49936/r1-simulator/",
+      "base": "http://127.0.0.1:53679/r1-simulator/",
       "modules": 75,
       "edges": 157,
       "workerEntries": [
-        "http://127.0.0.1:49936/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
+        "http://127.0.0.1:53679/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
       ],
       "workerModules": [
         "c5/c5-3ds.mjs",
@@ -664,128 +664,128 @@
       ],
       "protectedIdentities": {
         "multi/app.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/app.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/app.mjs?v=20261018-perf-2"
         ],
         "r1/r1-workcell.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-2"
         ],
         "multi/robot-runtime.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-2"
         ],
         "multi/coordinator.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/coordinator.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/coordinator.mjs?v=20261018-perf-2"
         ],
         "multi/workcell.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/workcell.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/workcell.mjs?v=20261018-perf-2"
         ],
         "multi/presentation.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/presentation.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/presentation.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/theme-controller.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/visuals/theme-controller.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/camera-feeds.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/camera-feed-queue.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/frame-scheduler.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261018-perf-2"
         ],
         "r1/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-2"
         ],
         "c5/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-2"
         ],
         "multi/r1-safe-dynamics.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-2"
         ],
         "c5/c5-profile.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-2"
         ],
         "r1/grasp-kinematics.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-2"
         ],
         "multi/pipe-layout.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/pipe-layout.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/pipe-layout.mjs?v=20261018-perf-2"
         ],
         "multi/pipe-model.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/pipe-model.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/pipe-model.mjs?v=20261018-perf-2"
         ],
         "multi/pipe-controller.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/pipe-controller.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/pipe-controller.mjs?v=20261018-perf-2"
         ],
         "multi/planning.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning.mjs?v=20261018-perf-2"
         ],
         "multi/background-planning.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/background-planning.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/background-planning.mjs?v=20261018-perf-2"
         ],
         "multi/planning-worker-transport.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-2"
         ],
         "multi/planning-serialization.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-2"
         ],
         "multi/visuals/scene-environment.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/visuals/scene-environment.mjs?v=20261018-perf-2"
         ],
         "multi/planning-worker.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-2"
         ],
         "multi/planning-worker-core.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-2"
         ],
         "multi/planning-robot.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-2"
         ],
         "multi/planning-check-cache.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-2"
+          "http://127.0.0.1:53679/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-2"
         ]
       }
     },
     {
       "page": "r1/index.html",
       "release": "20261016-native-camera-3",
-      "base": "http://127.0.0.1:49936/r1-simulator/",
+      "base": "http://127.0.0.1:53679/r1-simulator/",
       "modules": 15,
       "edges": 24,
       "workerEntries": [],
       "workerModules": [],
       "protectedIdentities": {
         "r1/r1-app.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/r1-app.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/r1/r1-app.mjs?v=20261016-native-camera-3"
         ],
         "r1/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/grasp-controller.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/r1/grasp-controller.mjs?v=20261016-native-camera-3"
         ],
         "r1/grasp-kinematics.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/r1/grasp-kinematics.mjs?v=20261016-native-camera-3"
         ],
         "r1/r1-workcell.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/r1/r1-workcell.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/r1/r1-workcell.mjs?v=20261016-native-camera-3"
         ]
       }
     },
     {
       "page": "c5/index.html",
       "release": "20261016-native-camera-3",
-      "base": "http://127.0.0.1:49936/r1-simulator/",
+      "base": "http://127.0.0.1:53679/r1-simulator/",
       "modules": 21,
       "edges": 40,
       "workerEntries": [],
       "workerModules": [],
       "protectedIdentities": {
         "c5/c5-app.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/c5/c5-app.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/c5/c5-app.mjs?v=20261016-native-camera-3"
         ],
         "c5/grasp-controller.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/c5/grasp-controller.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/c5/grasp-controller.mjs?v=20261016-native-camera-3"
         ],
         "c5/c5-profile.mjs": [
-          "http://127.0.0.1:49936/r1-simulator/c5/c5-profile.mjs?v=20261016-native-camera-3"
+          "http://127.0.0.1:53679/r1-simulator/c5/c5-profile.mjs?v=20261016-native-camera-3"
         ]
       }
     }

@@ -1,0 +1,19 @@
+{
+  "pass": true,
+  "command": "node work/test-release-cache.mjs --report=../work/validation/performance-v2/release-cache-final.json",
+  "initialSandboxAttempt": {
+    "exitCode": 1,
+    "error": "listen EPERM: operation not permitted 127.0.0.1",
+    "assertionFailureObserved": false
+  },
+  "authorizedLoopbackRetry": {
+    "exitCode": 0,
+    "productionSourcesModified": false,
+    "checks": 13,
+    "graphs": 6,
+    "negativeFixtures": 10,
+    "sourceFrozen": true,
+    "report": "work/validation/performance-v2/release-cache-final.json"
+  },
+  "scope": "Same unmodified read-only test retried with permission to bind its temporary 127.0.0.1 HTTP server. The original sandbox failure is recorded, not hidden as a passing execution."
+}

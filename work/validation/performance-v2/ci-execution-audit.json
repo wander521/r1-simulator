@@ -1,0 +1,321 @@
+{
+  "pass": true,
+  "auditedAt": "2026-10-18T04:00:21.153Z",
+  "method": "Read-only GitHub connector: completed job decoded log, run metadata, job/step metadata and artifact metadata. No artifact binary download was needed.",
+  "run": {
+    "id": 39093502625,
+    "url": "https://github.com/wander521/r1-simulator/actions/runs/39093502625",
+    "headSha": "ee380fb973fc02eddfcd1edd953c17af74140df4",
+    "headBranch": "main",
+    "event": "push",
+    "runAttempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "createdAt": "2026-10-18T03:24:24Z",
+    "updatedAt": "2026-10-18T03:54:31Z"
+  },
+  "jobs": [
+    {
+      "id": 117575011443,
+      "name": "Validate simulator and deployment paths",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout",
+          "number": 2,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up Node.js",
+          "number": 3,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate static deployment paths",
+          "number": 4,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run physical grasping regressions",
+          "number": 5,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify saved acceptance evidence",
+          "number": 6,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve current source-bound validation reports",
+          "number": 7,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up Node.js",
+          "number": 13,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout",
+          "number": 14,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 117580182931,
+      "name": "Publish static site",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout",
+          "number": 2,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure GitHub Pages",
+          "number": 3,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload static website only",
+          "number": 4,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Deploy to GitHub Pages",
+          "number": 5,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout",
+          "number": 10,
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "number": 11,
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "decodedLog": {
+    "jobId": 117575011443,
+    "url": "https://github.com/wander521/r1-simulator/actions/runs/39093502625/job/117575011443",
+    "characters": 399079,
+    "lines": 4948,
+    "fullLogSaved": false
+  },
+  "actualGateProofSha256": "c32f01d537cf048cb2f241ddcdc2b3949e2ff0a8b94553c66f1abf51438612ec",
+  "hashEncoding": "SHA-256 of UTF-8 JSON.stringify(actualGateProof); property order as preserved in this file",
+  "actualGateProof": {
+    "repository": "wander521/r1-simulator",
+    "runId": 39093502625,
+    "headSha": "ee380fb973fc02eddfcd1edd953c17af74140df4",
+    "runAttempt": 1,
+    "checkout": {
+      "logLine": 107,
+      "commit": "ee380fb973fc02eddfcd1edd953c17af74140df4"
+    },
+    "executedCommands": [
+      {
+        "logLine": 124,
+        "command": "npm run test:pages"
+      },
+      {
+        "logLine": 129,
+        "command": "> node work/test-multi-pages.mjs --report=work/validation/performance-v2/pages-final.json && node work/test-release-cache.mjs --report=../work/validation/performance-v2/release-cache-final.json"
+      },
+      {
+        "logLine": 140,
+        "command": "npm test"
+      },
+      {
+        "logLine": 145,
+        "command": "> npm run test:performance-contracts && npm run test:multi && npm run test:pipes && npm run test:models && npm run test:framing && npm run test:visuals"
+      },
+      {
+        "logLine": 329,
+        "command": "> node work/test-multi-coordinator.mjs --report=work/validation/performance-v2/coordinator-final.json && node work/test-multi-ui.mjs --report=work/validation/performance-v2/ui-static-final.json && npm run test:responsiveness && npm run test:planning && npm run test:background-planning && node work/test-multi-r1-gripper.mjs --report=work/validation/performance-v2/r1-gripper-final.json && node work/test-multi-physical.mjs --background-planning --report=work/validation/performance-v2/sort-physical-compiled-model-final.json && node work/test-multi-stack.mjs --background-planning --report=work/validation/performance-v2/stack-physical-compiled-model-final.json"
+      },
+      {
+        "logLine": 845,
+        "command": "> node work/test-pipe-scatter.mjs --report=work/validation/performance-v2/pipe-scatter-final.json && node work/test-pipe-ui.mjs --report=work/validation/performance-v2/pipe-ui-final.json && node work/test-multi-pipes.mjs --background-planning --report=work/validation/performance-v2/pipes-physical-compiled-model-final.json"
+      },
+      {
+        "logLine": 3112,
+        "command": "npm run test:acceptance"
+      },
+      {
+        "logLine": 3120,
+        "command": "> node work/test-multi-acceptance-verifier.mjs --report-dir=work/validation/performance-v2 --physical-suffix=-compiled-model --require-background --output=work/validation/performance-v2/multi-verifier-final.json && node work/verify-multi-acceptance.mjs --report-dir=work/validation/performance-v2 --physical-suffix=-compiled-model --require-background --output=work/validation/performance-v2/multi-acceptance-final.json && node work/test-pipe-acceptance-verifier.mjs --require-background --report=work/validation/performance-v2/pipes-physical-compiled-model-final.json --output=work/validation/performance-v2/pipe-verifier-final.json && node work/verify-pipe-acceptance.mjs --require-background --report=work/validation/performance-v2/pipes-physical-compiled-model-final.json --output=work/validation/performance-v2/pipes-acceptance-final.json"
+      }
+    ],
+    "workerContracts": {
+      "logLines": [
+        532,
+        812
+      ],
+      "pass": true,
+      "mode": "full",
+      "checkCount": 25,
+      "sourceFrozen": true,
+      "scope": "Actual background planning with original production URDF, collision checks, MuJoCo and planner. Worker heartbeat validates event-loop isolation, not browser FPS. No physics gate is relaxed and no historical report is rebound."
+    },
+    "ordinarySort": {
+      "logLines": [
+        827,
+        827
+      ],
+      "pass": true,
+      "cases": 8,
+      "physicalSorts": 12,
+      "sourceFrozen": true,
+      "clockStepSeconds": 0.001,
+      "planningExecution": {
+        "worker": true,
+        "cooperative": false,
+        "productionBudgetOverride": false
+      },
+      "planningScope": "Production background controller with real worker_threads bridge and shipped worker service/parser/serialization; workers are polled asynchronously between complete global 1 ms ticks. Every world time/qpos/qvel/ctrl is asserted unchanged during planning. No task motion is executed in a worker."
+    },
+    "stack": {
+      "logLines": [
+        833,
+        842
+      ],
+      "pass": true,
+      "cases": 2,
+      "physicalStacks": 3,
+      "physicallyGraspedStackItems": 9,
+      "sourceFrozen": true,
+      "failures": [],
+      "initializationError": null
+    },
+    "pipes": {
+      "logLines": [
+        939,
+        948
+      ],
+      "pass": true,
+      "mode": "full",
+      "cases": 8,
+      "physicallySortedPipes": 72,
+      "sourceFrozen": true,
+      "failures": [],
+      "initializationError": null
+    },
+    "multiAcceptance": {
+      "logLines": [
+        3297,
+        3540
+      ],
+      "pass": true,
+      "scope": "Current-source numerical, orchestration, static UI, framing, responsiveness and publication-path acceptance; not rendered-browser or hardware acceptance",
+      "physicalSorts": 12,
+      "physicalStacks": 3,
+      "physicallyGraspedStackItems": 9,
+      "asyncCameraChecks": 12,
+      "cameraQueueChecks": 16,
+      "planningCacheChecks": 19,
+      "sourceCount": 185,
+      "errors": [],
+      "unverified": [
+        "Desktop/mobile rendered appearance and camera pixels",
+        "Native pointer/touch and accessibility-tree interactions",
+        "Cross-station robot/object collisions",
+        "Real-hardware calibration, controls or safety"
+      ]
+    },
+    "pipeAcceptance": {
+      "logLines": [
+        3722,
+        3806
+      ],
+      "pass": true,
+      "scope": "Current-source numerical pipe-classification acceptance; not rendered-browser or real-hardware certification",
+      "cases": 8,
+      "physicalPipeClassifications": 72,
+      "layoutChecks": 300,
+      "millisecondSamples": 3108000,
+      "contactScans": 310800,
+      "minActualLiftM": 0.10919231923733275,
+      "maxIllegalPenetrationM": 0,
+      "errors": [],
+      "unverified": [
+        "Rendered desktop/mobile pixels and native pointer/touch interactions",
+        "Cross-station collisions between independent worlds",
+        "Hardware calibration, controls and safety"
+      ]
+    },
+    "physicalReportHashes": {
+      "work/validation/performance-v2/stack-physical-compiled-model-final.json": "73407bd53b92892c452efe9d7e4300a864beee4460513dbf6dd5be7acab782e4",
+      "work/validation/performance-v2/sort-physical-compiled-model-final.json": "15623d35dda8d3430f6535954747b1051c89e9c9e67c908a8cae1d075d715c4b",
+      "work/validation/performance-v2/pipes-physical-compiled-model-final.json": "08565fe80dc3e8477c4fdab378dca0b4c7447eabce93542b810053d7567dad41"
+    },
+    "negativeVerifierChecks": {
+      "multi": 38,
+      "pipes": 42
+    },
+    "evidenceUpload": {
+      "artifactId": 12124042406,
+      "name": "multi-performance-v2-evidence",
+      "logLines": [
+        4926,
+        4927
+      ],
+      "sizeBytes": 740663,
+      "artifactDigest": "sha256:f9ae80b979e2d2f41576460b8bf7260c4714c67f730b714268c1b219be79a4c0",
+      "workflowHeadSha": "ee380fb973fc02eddfcd1edd953c17af74140df4"
+    }
+  },
+  "artifact": {
+    "id": 12124042406,
+    "name": "multi-performance-v2-evidence",
+    "sizeBytes": 740663,
+    "digest": "sha256:f9ae80b979e2d2f41576460b8bf7260c4714c67f730b714268c1b219be79a4c0",
+    "expired": false,
+    "createdAt": "2026-10-18T03:54:04Z",
+    "expiresAt": "2026-10-25T03:54:03Z",
+    "contentsDownloaded": false
+  },
+  "scope": "Verified actual CI command execution and source-frozen numerical/contract results, not only green job names. CI camera checks are renderer/queue fixtures; no new native-browser GPU/FPS/touch or hardware certification is inferred. Publish job success is confirmed via GitHub job/step metadata, not an independent live Pages interaction test.",
+  "localFinalReportsModified": false,
+  "productionFilesModified": false,
+  "externalWritesPerformed": false
+}

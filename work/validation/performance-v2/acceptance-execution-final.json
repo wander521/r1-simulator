@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "command": "npm run test:acceptance",
+  "initialAttempt": {
+    "exitCode": 1,
+    "error": "ENOENT: missing work/validation/performance-v2/r1-gripper-final.json",
+    "physicalGateFailureObserved": false
+  },
+  "missingPrerequisiteExecution": {
+    "command": "node work/test-multi-r1-gripper.mjs --report=work/validation/performance-v2/r1-gripper-final.json",
+    "exitCode": 0,
+    "checks": 5,
+    "sourceFrozen": true
+  },
+  "completeRetry": {
+    "exitCode": 0,
+    "multiNegativeFixtures": 38,
+    "pipeNegativeFixtures": 42,
+    "multiAcceptance": true,
+    "pipeAcceptance": true,
+    "productionOrVerifierSourcesModified": false
+  },
+  "scope": "The initial missing-evidence failure is retained. The required original test was run to generate fresh evidence, then the exact unchanged positive/negative acceptance chain passed without weakening a gate or rebinding historical results."
+}

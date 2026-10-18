@@ -78,6 +78,8 @@ npm run test:acceptance
 
 Full physics runs take many minutes. The previous **2026-10-16** background-planning release recorded **72/72 pipes, 12 ordinary grasps and three stacks**. Those reports remain historical; the current optimization release writes fresh results under [performance-v2](work/validation/performance-v2/README.md), and GitHub Actions must pass the complete regression before publishing.
 
+The current optimization passed both local and [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) full regression. Pages deployment succeeded; nine key served files match the tested source bytes. Fresh source-bound evidence and exact-result planning comparisons are in that directory.
+
 `main` serves `/multi/`; `/r1/`, `/g1/` and `/c5/` remain available. GitHub Actions validates before publishing `dist/` to Pages. Bug reports should include the robot, task, layout/seed, browser and reproduction steps.
 
 ## Scope and credits
