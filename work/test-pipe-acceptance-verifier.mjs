@@ -42,6 +42,9 @@ await run('Explicitly unfrozen source cannot pass',report=>{report.sourceFrozen=
 await run('Old-source SHA cannot pass',report=>{report.sourceHashes['dist/multi/pipe-controller.mjs']='0'.repeat(64);},/stale source/);
 await run('The cooperative planning module must be bound to the current physical run',report=>{delete report.sourceHashes['dist/multi/planning.mjs'];},/source binding missing: dist\/multi\/planning/);
 if(requireBackground){
+  await run('Globally blocked scheduling cannot replace independent classification',report=>{report.planningExecution.independentPlanning=false;},/independent planning/);
+  await run('Peer progress during planning must actually be observed',report=>{report.planningExecution.independentProgress.activeWorldTicksDuringPeerPlanning=0;},/independent planning/);
+  await run('Every paused world tick must have exact state checks',report=>{report.planningExecution.independentProgress.pausedStateChecks--;},/independent planning/);
   await run('Cooperative execution cannot replace the required real worker run',report=>{report.planningExecution.worker=false;},/real background worker execution/);
   await run('Worker-core source must be bound to the actual physical run',report=>{delete report.sourceHashes['dist/multi/planning-worker-core.mjs'];},/source binding missing: dist\/multi\/planning-worker-core/);
   await run('The exact collision-cache source must be bound to the actual physical run',report=>{delete report.sourceHashes['dist/multi/planning-check-cache.mjs'];},/source binding missing: dist\/multi\/planning-check-cache/);
@@ -89,13 +92,17 @@ await run('A rejected start must cancel every pending Worker',report=>{row(repor
 await run('An unreachable batch cannot change any non-finger arm target',report=>{const targets=row(report,'unreachable-').preparationSafety.worlds[0].after.armTargets;targets[Object.keys(targets)[0]]+=.01;},/rejected preparation\/r1: non-finger arm targets changed/);
 await run('An unreachable batch cannot falsely claim completed items',report=>{row(report,'unreachable-').preparationSafety.worlds[0].after.completed=1;},/rejected preparation\/r1: a Worker, task or classification remained active/);
 await run('An unreachable batch must retain all three raw world snapshots',report=>{row(report,'unreachable-').preparationSafety.worlds.pop();},/rejected preparation: three independent raw world snapshots/);
-for(const contractTarget of ['coordinator-polling-final.json','worker-protocol-final.json','planning-ik-budget-contracts.json']){
+for(const contractTarget of ['coordinator-polling-final.json','worker-protocol-final.json','planning-ik-budget-contracts.json','remaining-contracts-final.json','standalone-background-final.json']){
   await run(`${contractTarget}: missing v3 report is rejected`,null,/v3 .*required report unavailable/,{contractTarget,missing:true});
   await run(`${contractTarget}: old v2 evidence is rejected`,null,/v3 .*current performance-v3 cohort/,{contractTarget,contractMutate:r=>{r.releaseCohort='20261018-perf-2';}});
   await run(`${contractTarget}: critical named check cannot be omitted`,null,/v3 .*critical named contracts/,{contractTarget,contractMutate:r=>{r.checks.pop();if(r.total!==undefined)r.total=r.passed=r.checks.length;}});
   await run(`${contractTarget}: false named contract cannot be hidden by report pass`,null,/v3 .*critical named contracts/,{contractTarget,contractMutate:r=>{r.checks[0].pass=false;}});
   await run(`${contractTarget}: source must be frozen`,null,/v3 .*frozen source/,{contractTarget,contractMutate:r=>{r.sourceFrozen=false;}});
 }
+await run('A standalone animation cannot replace actual dual contact',null,/standaloneBackground: g1 actual sort evidence absent/,{contractTarget:'standalone-background-final.json',contractMutate:r=>{r.checks.find(row=>row.name==='g1: Blue sort has real dual contact lift release and stable table support').actualDual=false;}});
+await run('Every standalone stack item needs a physical lift',null,/standaloneBackground: c5 actual stable stack evidence absent/,{contractTarget:'standalone-background-final.json',contractMutate:r=>{r.checks.find(row=>row.name==='c5: Three-object stack completes only after real support stabilization').stackEvidence[0].lift=.001;}});
+await run('R1 standalone stroke excess cannot pass behind the report flag',null,/standaloneBackground: r1 physical limits/,{contractTarget:'standalone-background-final.json',contractMutate:r=>{r.checks.find(row=>row.name==='r1: observation').maxFingerViolation=.00101;}});
+await run('Independent scheduling contracts need the exact current coordinator',null,/remainingV4: stale source/,{contractTarget:'remaining-contracts-final.json',contractMutate:r=>{r.sourceHashes['dist/multi/coordinator.mjs']='0'.repeat(64);}});
 await run('A stale protocol source cannot accompany saved pipe success',null,/v3 workerProtocol: stale source.*planning-worker-protocol/,{contractTarget:'worker-protocol-final.json',contractMutate:r=>{r.sourceHashes['dist/multi/planning-worker-protocol.mjs']='0'.repeat(64);}});
 await run('A stale Worker IK context cannot accompany saved pipe success',null,/v3 planningIKBudget: stale source.*planning-ik-context/,{contractTarget:'planning-ik-budget-contracts.json',contractMutate:r=>{r.sourceHashes['dist/multi/planning-ik-context.mjs']='0'.repeat(64);}});
 await run('A missing Worker protocol binding is rejected',null,/v3 workerProtocol: source binding missing.*planning-worker-protocol/,{contractTarget:'worker-protocol-final.json',contractMutate:r=>{delete r.sourceHashes['dist/multi/planning-worker-protocol.mjs'];}});

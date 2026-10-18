@@ -24,6 +24,8 @@ const evidenceReports={
   'worker-protocol-final':'worker-protocol-final',
   'planning-ik-budget-final':'planning-ik-budget-contracts',
   'planning-ik-paired-final':'planning-ik-paired',
+  'remaining-contracts-final':'remaining-contracts-final',
+  'standalone-background-final':'standalone-background-final',
 };
 const raw=await readFile(resolve(root,verifierPath),'utf8');
 const ownSources=['work/test-multi-acceptance-verifier.mjs',verifierPath,'work/performance-v3-contracts.mjs'];
@@ -102,13 +104,17 @@ await run('The camera queue source is required in current UI evidence',{target:'
 await run('Failed async camera restoration contracts cannot pass release acceptance',{target:'camera-async-final',mutate:r=>{r.results[0].pass=false;},errorPattern:/async camera: complete/});
 await run('Missing camera-queue stale-frame protection cannot pass release acceptance',{target:'camera-queue-final',mutate:r=>{r.results=r.results.filter(row=>!row.name.startsWith('Invalidation suppresses'));r.checks=r.results.length;},errorPattern:/camera queue: complete/});
 await run('Missing planning-cache invalidation contracts cannot pass release acceptance',{target:'planning-cache-final',mutate:r=>{r.checks=[];},errorPattern:/planning cache: exact/});
-for(const target of ['coordinator-polling-final','worker-protocol-final','planning-ik-budget-final']){
+for(const target of ['coordinator-polling-final','worker-protocol-final','planning-ik-budget-final','remaining-contracts-final','standalone-background-final']){
   await run(`${target}: required v3 report cannot be missing`,{target,missing:true,errorPattern:/v3 .*required report unavailable/});
   await run(`${target}: v2 cohort cannot replace current evidence`,{target,mutate:r=>{r.releaseCohort='20261018-perf-2';},errorPattern:/v3 .*current performance-v3 cohort/});
   await run(`${target}: omitted critical named contract cannot be hidden by corrected counts`,{target,mutate:r=>{r.checks.pop();if(r.total!==undefined)r.total=r.passed=r.checks.length;},errorPattern:/v3 .*critical named contracts/});
   await run(`${target}: a failed contract cannot pass behind a true report flag`,{target,mutate:r=>{r.checks[0].pass=false;},errorPattern:/v3 .*critical named contracts/});
   await run(`${target}: explicitly unfrozen contracts are rejected`,{target,mutate:r=>{r.sourceFrozen=false;},errorPattern:/v3 .*frozen source/});
 }
+await run('A standalone animation cannot replace actual blue dual contact',{target:'standalone-background-final',mutate:r=>{r.checks.find(row=>row.name==='g1: Blue sort has real dual contact lift release and stable table support').actualDual=false;},errorPattern:/standaloneBackground: g1 actual sort evidence absent/});
+await run('A standalone stack requires every real object lift',{target:'standalone-background-final',mutate:r=>{r.checks.find(row=>row.name==='c5: Three-object stack completes only after real support stabilization').stackEvidence[0].lift=.001;},errorPattern:/standaloneBackground: c5 actual stable stack evidence absent/});
+await run('The R1 standalone finger guard cannot be relaxed by a report flag',{target:'standalone-background-final',mutate:r=>{r.checks.find(row=>row.name==='r1: observation').maxFingerViolation=.00101;},errorPattern:/standaloneBackground: r1 physical limits/});
+await run('Independent planning contracts must bind the shipped coordinator',{target:'remaining-contracts-final',mutate:r=>{r.sourceHashes['dist/multi/coordinator.mjs']='0'.repeat(64);},errorPattern:/remainingV4: stale source/});
 await run('Old Worker protocol version cannot replace the v3 message boundary',{target:'worker-protocol-final',mutate:r=>{r.protocolVersion=2;},errorPattern:/protocol version 3/});
 await run('An unchanged-name protocol report cannot reuse an old protocol source',{target:'worker-protocol-final',mutate:r=>{r.sourceHashes['dist/multi/planning-worker-protocol.mjs']='0'.repeat(64);},errorPattern:/v3 workerProtocol: stale source.*planning-worker-protocol/});
 await run('An unchanged-name IK report cannot reuse an old Worker context source',{target:'planning-ik-budget-final',mutate:r=>{r.sourceHashes['dist/multi/planning-ik-context.mjs']='0'.repeat(64);},errorPattern:/v3 planningIKBudget: stale source.*planning-ik-context/});

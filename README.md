@@ -2,7 +2,7 @@
 
 # Orbit Manipulation Lab
 
-Three robots. Independent workbenches. One shared clock.
+Three robots. Independent workbenches. Coordinated starts.
 
 Explore **Galaxea R1, Unitree G1 and AUBO C5** in a browser. Move objects, choose your robots, and run grasping, stacking or pipe sorting side by side—with **MuJoCo contact physics**, not objects attached to animated hands.
 
@@ -14,7 +14,7 @@ Actual browser capture. The application UI is currently Chinese. The display nam
 
 ## What makes it interesting
 
-- **Three robots, your selection.** Run one, two or all three. Independent physical worlds advance on a shared **1 ms clock**, each robot operating its own table.
+- **Three robots, your selection.** Run one, two or all three. Independent physical worlds use **1 ms steps**, each robot operating its own table. The first action starts together; subsequent planning pauses only its own workbench.
 - **Three task families.** Color sorting, blue → red → yellow stacking, and eight-pipe sorting per workbench. R1/G1 alternate arms; C5 uses one arm.
 - **Inspect the physics.** Wrist-camera views, contact forces, actuator torques and tracking errors come from execution. Success requires contact, lift, release and stable support.
 - **Background path planning.** Per-robot Web Workers handle candidate paths, IK and collision search. Camera control, stop and reset remain available; stale plans are discarded.
@@ -57,14 +57,14 @@ Camera observation and task participation are separate. Physical worlds wait tog
 ```text
 Task + object edits → shared coordinator
     → per-robot Worker: path search / IK / collision checks
-    → validated commands → independent MuJoCo worlds, shared 1 ms clock
+    → validated commands → independent MuJoCo worlds, per-world 1 ms steps
     → actual joint/contact state → Three.js, cameras and live plots
 ```
 
 | Read next | What is inside |
 | --- | --- |
 | [Engineering guide](GUIDE.md) · [中文](GUIDE.zh-CN.md) | Robot models, controls, architecture, setup and deployment |
-| [Current performance evidence](work/validation/performance-v3/README.md) | Worker model registration, IK/FK reuse, within-candidate budgets and current regressions |
+| [Current performance evidence](work/validation/performance-v4/README.md) | All eight high/medium scan findings, independent scheduling, standalone Workers, model/geometry reuse and current regressions |
 | [Previous performance release](work/validation/performance-v2/README.md) | Shipped exact-result planning cache, asynchronous camera readback and historical CI evidence |
 | [Previous background-planning release](work/validation/background-planning/README.md) | Historical source-bound reports, cancellation and compiled-model consistency |
 | [Implementation history](TECHNICAL_NOTES.zh-CN.md) | Preserved version and branch notes |
@@ -77,7 +77,7 @@ npm run test:pages
 npm run test:acceptance
 ```
 
-Full physics runs take many minutes. The current [performance-v3 results](work/validation/performance-v3/README.md) passed complete local regression: 72 pipes, 12 ordinary grasps, three stacks and positive/negative acceptance. The final audit matched 1,122 source bindings and 44 report bindings across 29 reports. This version has not been pushed or deployed; GitHub Actions must pass the complete regression before publishing.
+Full physics runs take many minutes. The current [performance-v4 results](work/validation/performance-v4/README.md) passed complete local regression: 72 pipes, 12 ordinary grasps, three multi-robot stacks, 15 standalone checks, and 106/104 multi/pipe acceptance-verifier checks. Desktop and phone-sized browser layouts were also inspected. These are simulator tests, not hardware safety certification or a universal frame-rate guarantee. GitHub Actions reruns the complete regression before publishing.
 
 The previous `ee380fb` release passed local and [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) full regression: 72 pipes, 12 ordinary grasps and three stacks. Pages deployment succeeded; nine served files matched the tested bytes at that release. Those historical results remain under performance-v2 and do not certify this version.
 

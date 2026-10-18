@@ -73,7 +73,8 @@ check('Unknown controller states use a Chinese fallback instead of exposing raw 
 });
 check('UI consumes the presentation helper rather than legacy generic runtime progress',()=>{
   assert(/import\s*\{STAGE_NAMES,\s*taskProgress\}\s*from\s*['"]\.\/presentation\.mjs['"]/.test(app));
-  assert(app.includes('progress=taskProgress({...snapshot,itemIndex:station.controller.itemIndex})'));
+  assert(app.includes('const snapshot=station.summary')&&app.includes('progress=taskProgress(snapshot)'));
+  assert(runtimeSource.includes('itemIndex:controller.itemIndex'));
   assert(!app.includes('snapshot.progress'));
 });
 
@@ -227,7 +228,8 @@ check('One RAF advances all worlds through the coordinator and pauses hidden/pre
   assert(frame.includes('document.hidden')&&frame.includes('preparing')&&frame.includes('planning'));
   assert(/\.advance\((?:wasPlanning\?performance\.now\(\):)?now,\s*\{/.test(frame)&&/coordinator\.step\(dt\)/.test(frame));
   assert(frame.includes('coordinator.advancePlanning()'),'Pending candidates must advance through the same animation loop');
-  assert(coordinatorSource.includes('for (const station of this.stations.values()) if (ready(station)) station.step(dt)'));
+  assert(coordinatorSource.includes('for (const station of this.stations.values()) if (ready(station) && !station.planning) station.step(dt)'));
+  assert(frame.includes('coordinator?.blockingPlanning')&&app.includes('independentPlanning:true'));
   const visibility=app.match(/document\.addEventListener\('visibilitychange',([^\n]+)/)?.[1];assert(visibility?.includes('endDrag()')&&visibility.includes('.reset('));
 });
 check('Both browser runtime creation paths use isolated background planning with concise pending UI',()=>{

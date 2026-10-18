@@ -14,7 +14,7 @@
 
 ## 核心看点
 
-- **三机自由组合。** 一台、两台或三台同时参与，独立物理世界按统一 **1 ms 时钟**推进，各自处理本桌物体。
+- **三机自由组合。** 一台、两台或三台同时参与，各自处理本桌物体，独立物理世界使用 **1 ms 步长**。首次动作同步开始，后续规划仅暂停自己的工作台。
 - **三类操作任务。** 同色归位、蓝→红→黄叠放、每桌八根圆管分类。R1/G1 交替使用双臂，C5 使用单臂。
 - **看见真实执行状态。** 腕部相机、接触力、电机力矩与跟踪误差；完成必须满足接触、抬升、释放和稳定支撑。
 - **后台路径规划。** 每机独立 Web Worker 执行路径搜索、逆运动学和碰撞检查，仍可操作镜头、停止、复位；过期计划自动拒绝。
@@ -57,14 +57,14 @@ npm start
 ```text
 任务与物体编辑 → 公共协调器
   → 每机独立 Worker：路径搜索 / 逆运动学 / 碰撞检查
-  → 已验证命令 → 独立 MuJoCo 世界、统一 1 ms 时钟
+  → 已验证命令 → 独立 MuJoCo 世界、逐世界 1 ms 步长
   → 实际关节与接触状态 → Three.js、相机、实时曲线
 ```
 
 | 进一步阅读 | 内容 |
 | --- | --- |
 | [工程指南](GUIDE.zh-CN.md) · [English](GUIDE.md) | 机器人模型、控制、架构、启动与部署 |
-| [当前性能优化证据](work/validation/performance-v3/README.md) | Worker 模型复用、IK/FK 复用、候选内预算检查与本轮回归 |
+| [当前性能优化证据](work/validation/performance-v4/README.md) | 八项高/中优先级问题、独立调度、独立页 Worker、模型/几何复用与本轮回归 |
 | [上一版性能发布](work/validation/performance-v2/README.md) | 已发布的精确结果规划缓存、异步相机读回及历史 CI 证据 |
 | [上一版后台规划](work/validation/background-planning/README.md) | 历史源码绑定报告、取消及编译模型一致性 |
 | [实现历史](TECHNICAL_NOTES.zh-CN.md) | 保留的版本与分支记录 |
@@ -77,7 +77,7 @@ npm run test:pages
 npm run test:acceptance
 ```
 
-完整物理测试需要较长时间。本轮 [performance-v3](work/validation/performance-v3/README.md) 本地完整回归已通过：72 根圆管、12 次普通抓取、3 次叠放及正反验收。最终审核核对了 29 份报告中的 1,122 项源码绑定和 44 项报告绑定，全部一致。当前版本尚未推送或部署；GitHub Actions 必须完整回归通过才会发布。
+完整物理测试需要较长时间。本轮 [performance-v4](work/validation/performance-v4/README.md) 本地完整回归已通过：72 根圆管、12 次普通抓取、3 次多机器人叠放、15 项独立页检查，以及 106/104 项多机器人/圆管验收器正反检查。桌面和手机尺寸浏览器布局也已检查。这些结果不等于实机安全认证或所有设备的帧率保证。GitHub Actions 会再次执行完整回归，通过后才发布。
 
 上一版 `ee380fb` 的本地与 [GitHub CI](https://github.com/wander521/r1-simulator/actions/runs/39093502625) 完整回归均已通过（72 根圆管、12 次普通抓取及 3 次叠放），Pages 部署成功；当时线上九项关键资源与已验证源码逐字节一致。这些历史结果保留在 performance-v2，不替代本轮验收。
 

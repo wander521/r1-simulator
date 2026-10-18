@@ -100,7 +100,13 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireB
     summary.v3ContractChecks=contracts.counts;
     check(report?.pass===true,'pipe report did not pass');check(report?.mode==='full','quick/static-only/filtered evidence cannot certify a full release');
     check(report?.sourceFrozen===true,'source was not frozen during physical acceptance');
-    if(requireBackground)check(report?.planningExecution?.worker===true&&report.planningExecution.cooperative===false&&report.planningExecution.productionBudgetOverride===false,'real background worker execution without a planning budget override is required');
+    if(requireBackground){
+      check(report?.planningExecution?.worker===true&&report.planningExecution.cooperative===false&&report.planningExecution.productionBudgetOverride===false,'real background worker execution without a planning budget override is required');
+      const progress=report?.planningExecution?.independentProgress;
+      check(report?.planningExecution?.independentPlanning===true&&progress?.activeWorldTicksDuringPeerPlanning>0
+        &&progress?.pausedWorldTicks>0&&progress?.pausedStateChecks===progress?.pausedWorldTicks,
+        'independent planning with active peers and exact frozen-world checks is required');
+    }
     check(report?.clockStepSeconds===.001,'shared physical timestep is not 1 ms');
     check(equal(report?.fingerToleranceM,fingerTolerance),'original R1/Dex1 finger guards changed');
     check(report?.cases===8&&report?.expectedCases===8,'expected eight complete pipe-task cases');
@@ -132,9 +138,14 @@ export async function verifyPipeAcceptance(report,{rootPath=defaultRoot,requireB
       const label=`pipes/${row.name}`,stats=row.stats??{},robots=row.robots??[];
       check(equal(Object.keys(stats).sort(),[...robotIds].sort())&&equal(robots.map(robot=>robot.id).sort(),[...robotIds].sort()),`${label}: three independently monitored worlds absent`);
       const times=robots.map(robot=>robot.time);times.forEach(time=>finite(time,`${label}/time`));
-      check(Math.max(...times)-Math.min(...times)<1e-10,`${label}: physical clocks diverged`);
+      const independent=report.planningExecution?.independentPlanning===true;
+      if(!independent)check(Math.max(...times)-Math.min(...times)<1e-10,`${label}: physical clocks diverged`);
       const counts=robotIds.map(id=>stats[id]?.millisecondSamples);
-      check(counts.every(count=>Number.isInteger(count)&&count>0)&&new Set(counts).size===1,`${label}: all-world 1 ms sampling absent`);
+      check(counts.every(count=>Number.isInteger(count)&&count>0)&&(independent||new Set(counts).size===1),`${label}: all-world 1 ms sampling absent`);
+      // The explicit reset scenario retains pre-reset sample counters while
+      // resetting each physical clock to zero. Its reset state is checked below.
+      if(independent&&row.name!=='pipe-task-reset-randomizes-and-explicit-seed-reproduces-all-eight-starts')for(const robot of robots)
+        check(Math.abs(robot.time-stats[robot.id].millisecondSamples*.001)<1e-7,`${label}: physical clocks diverged from exact per-world 1 ms samples`);
       const success=row.name.startsWith('three-way-')||row.name.startsWith('single-');
       const selected=success?(row.name.startsWith('single-')?[row.name.split('-')[1]]:robotIds):robotIds;
       check(equal(row.selectedIds,selected),`${label}: selected-robot participants changed`);

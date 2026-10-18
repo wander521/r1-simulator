@@ -2,7 +2,7 @@
 
 # Orbit Manipulation Lab
 
-Three robots. Independent workbenches. One shared clock.
+Three robots. Independent workbenches. Fixed 1 ms physics steps.
 
 A browser-based robotics playground for **Galaxea R1, Unitree G1 and AUBO C5**. Arrange objects, choose one or more robots, then run contact-based grasping, stacking and pipe sorting side by side. **MuJoCo** computes the dynamics and contacts; **Three.js** renders the workcell. Expensive path searches run in background **Web Workers**.
 
@@ -18,7 +18,7 @@ The screenshot is an actual browser capture from the current background-planning
 - **Run three task families.** Return objects to matching color areas, stack blue → red → yellow, or sort four red and four yellow pipes per workbench. R1 and G1 alternate arms for pipe sorting; C5 uses its single arm.
 - **Edit the physical scene.** Select and move objects, rotate them, inspect joint targets and actual motion, and switch the observed robot without changing who participates in a task.
 - **Inspect execution.** View gripper-camera images, contact forces, actuator torques and tracking errors. Completion is checked against physical contact, lifting, release, support and stability rather than a scripted success label.
-- **Keep the camera responsive during planning.** Each robot searches candidate paths in a separate Worker. Stop and reset terminate pending work; stale results are rejected. The physical worlds wait together at planning barriers.
+- **Keep the camera responsive during planning.** Each robot searches candidate paths in a separate Worker, including the individual pages. Stop and reset terminate pending work; stale results are rejected. The first launch waits for all participants, then later planning pauses only that robot while peers continue. Each world retains 1 ms physics steps without catching up paused time.
 - **Switch environments.** Deep-space Command Cabin and Orbital Hangar change the scenery, lighting and interface palette while preserving robot state, objects, camera and task. The preference is remembered when browser storage is available.
 
 <details>
@@ -91,7 +91,7 @@ Per-robot Worker: candidate paths, IK, collision search
                   ↓
 Validated paths and control commands only
                   ↓
-Independent MuJoCo worlds / shared 1 ms scheduler
+Independent MuJoCo worlds / per-world 1 ms steps
                   ↓
 Actual body state, contacts and joint measurements
                   ↓

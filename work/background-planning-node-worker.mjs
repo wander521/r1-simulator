@@ -2,7 +2,7 @@ import {parentPort} from 'node:worker_threads';
 import {readFile} from 'node:fs/promises';
 import createMuJoCo from '../dist/r1/mujoco-runtime.mjs';
 import {createRobotRuntimeFromParts,ROBOT_CONFIGS} from '../dist/multi/robot-runtime.mjs';
-import {createPlanningWorkerService,createPlanningWorkerRobot} from '../dist/multi/planning-worker-core.mjs';
+import {createPlanningWorkerService,compilePlanningRuntime} from '../dist/multi/planning-worker-core.mjs';
 import {createPlanningWorkerEndpoint} from '../dist/multi/planning-worker-protocol.mjs';
 
 // The browser worker uses fetch for Wasm/URDF. Only that file-loading boundary
@@ -12,11 +12,7 @@ let apiPromise;
 async function createRuntime(job){
   apiPromise??=createMuJoCo({locateFile:()=>new URL('../dist/Rebot_Arm_AGV/assets/mujoco-Bp43jdDU.wasm',import.meta.url).pathname});
   const [api,source]=await Promise.all([apiPromise,readFile(new URL(ROBOT_CONFIGS[job.robotId].urdf),'utf8')]);
-  const robot=createPlanningWorkerRobot(source,{rootHeight:ROBOT_CONFIGS[job.robotId].rootHeight}),vfs=new api.MjVFS();let model,data;
-  try{
-    model=api.MjModel.from_xml_string(job.sourceXml,vfs);data=new api.MjData(model);
-    return createRobotRuntimeFromParts({id:job.robotId,api,model,data,robot,sourceXml:job.sourceXml,cooperativePlanning:true});
-  }catch(error){data?.delete();model?.delete();throw error;}finally{vfs.delete();}
+  return compilePlanningRuntime(job,{api,source});
 }
 const service=createPlanningWorkerService({createRuntime});
 const endpoint=createPlanningWorkerEndpoint({service,postMessage:message=>parentPort.postMessage(message)});

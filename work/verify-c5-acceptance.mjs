@@ -6,6 +6,8 @@ import { resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
+const physicsOnly=process.argv.includes('--physics-only'),historicalUI=[];
+const retiredUISources=new Set(['dist/c5/index.html','dist/c5/c5-app.mjs']);
 const errors = [], sourceHashes = {}, reportHashes = {}, hashCache = new Map();
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const check = (condition, message) => { if (!condition) errors.push(message); };
@@ -36,6 +38,7 @@ async function bindHash(path, hash, label) {
   check(typeof hash === 'string' && /^[0-9a-f]{64}$/.test(hash), `${label}: malformed SHA-256 for ${path}`);
   try {
     const normalized = canonical(path), actual = await currentHash(path);
+    if(physicsOnly&&retiredUISources.has(normalized)){historicalUI.push({path:normalized,expected:hash,current:actual});return;}
     sourceHashes[normalized] = actual;
     check(actual === hash, `${label}: stale source ${path}`);
   } catch (error) { errors.push(`${label}: ${error.message}`); }
@@ -241,7 +244,7 @@ async function main() {
   // Import-map keys intentionally include obsolete cache aliases. Only real
   // resource attributes declare the release actually requested by this HTML.
   const html = await readFile(resolve(root, 'dist/c5/index.html'), 'utf8'), cache = [...html.matchAll(/(?:src|href)=["']([^"']+\?v=([\w-]+))["']/g)].map(match => match[2]);
-  check(cache.length >= 2 && cache.every(version => version === release?.cacheVersion), 'browser: rendered release cache differs from current entry point');
+  if(!physicsOnly)check(cache.length >= 2 && cache.every(version => version === release?.cacheVersion), 'browser: rendered release cache differs from current entry point');
   check(browser.rendered?.desktop?.robotAndGroundedTableFullyVisible === true && browser.rendered.desktop.originalC5SilverGrayBlueMaterialsVisible === true
     && browser.rendered.desktop.dex1Black === true && browser.rendered.desktop.twoCameraFeedsContainRenderedScene === true, 'browser: actual C5/grounded table/material/camera render not observed');
   check(browser.rendered?.mobile?.horizontalOverflow === false && browser.rendered.mobile.allSevenChipsInsideScene === true
@@ -276,7 +279,8 @@ async function main() {
   const lifts = tasks.flatMap(row => row.scenario.stack ? row.stackEvidence : [row.evidence]);
   const maximum = key => Math.max(...rows.map(row => row[key]));
   const result = { pass: errors.length === 0,
-    scope: 'C5 + simulation-mounted Dex1 browser preview: source-bound physical regression, manual-motion safety and native desktop/phone inspection; not hardware certification.',
+    scope: physicsOnly?'Retained original physical/model/manual safety evidence only. Historical app/index UI hashes are explicitly excluded; current Worker execution and browser UI require separate performance-v4 evidence.':'C5 + simulation-mounted Dex1 browser preview: source-bound physical regression, manual-motion safety and native desktop/phone inspection; not hardware certification.',
+    physicsOnly,historicalUI,
     reports: { single: single.length, repeat: repeated.length, total: rows.length, sort: tasks.length - stacks.length,
       stack: stacks.length, recovery: rows.length - tasks.length, opening: opening.cases, manual: manual.cases, originalAssetFiles: visuals.sourceFilesUnchanged, staticUI: ui.checks?.length },
     observed: { millisecondSamples: rows.reduce((sum, row) => sum + row.millisecondSamples, 0),

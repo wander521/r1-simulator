@@ -1,0 +1,1286 @@
+{
+  "pass": true,
+  "releaseCohort": "20261018-perf-4",
+  "total": 5,
+  "passed": 5,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-legacy-physical-v4.mjs": "b729d6be3b684598ce7777979aef5369dc1db652f886accad33eaa3f7cd290d2",
+    "work/verify-acceptance.mjs": "ee6528a07fb2183bdc71256d4ee4b6a6a7a59ad6f79253c2dcb4ab4f1efc9eb5",
+    "work/verify-g1-acceptance.mjs": "37636fdd8308a8f8b0ec14cb5d4fd2db323f88b2978af3d68a2c3ee2b5677be2",
+    "work/verify-c5-acceptance.mjs": "e6046a631f9e280507737ce3675cbe7853a61df6659ca2c23ec9f8d654e9a5c8",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "work/test-g1-dynamic-grasp.mjs": "8a63c286c2c3a711d1b0207b125bbb16eec00c26c66a8256daaada6e032d8c76",
+    "work/build-g1-dynamics.mjs": "1961c8a7d0dc5f01e17d7866cf65cc152c49ea8e0c5d0bebb20bca25ced1c92d",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/g1/assets/dex1_1/meshes/dex1_col_1.stl": "5edf010f581635fcb4a79fe20cda65a96c95138112ab91d7e79629980f535c92",
+    "dist/g1/assets/dex1_1/meshes/dex1_col_2.stl": "0d791ffb8b438bc4a5fd937eab383db4daa62685a73982e852cc559623036ba9",
+    "work/test-g1-opening-safety.mjs": "01bc3f3245fc80e1d08eb5dfe5fdd2caab0bd497c9f945e383d773f6c43bdf10",
+    "dist/g1/assets/meshes/pelvis.STL": "5ba6bbc888e630550140d3c26763f10206da8c8bd30ed886b8ede41c61f57a31",
+    "dist/g1/assets/meshes/pelvis_contour_link.STL": "5cc5c2c7a312329e3feeb2b03d3fc09fc29705bd01864f6767e51be959662420",
+    "dist/g1/assets/meshes/torso_link_rev_1_0.STL": "11ddb46f2098efbbd8816b1d65893632d8e78be936376c7cdcd6771899ccc723",
+    "dist/g1/assets/meshes/head_link.STL": "005fb67fbd3eff94aa8bf4a6e83238174e9f91b6721f7111594322f223724411",
+    "dist/g1/assets/meshes/left_shoulder_yaw_link.STL": "1aa97e9748e924336567992181f78c7cd0652fd52a4afcca3df6b2ef6f9e712e",
+    "dist/g1/assets/meshes/left_elbow_link.STL": "fa752198accd104d5c4c3a01382e45165b944fbbc5acce085059223324e5bed3",
+    "dist/g1/assets/meshes/left_wrist_roll_link.STL": "edc387c9a0ba8c2237e9b296d32531426fabeb6f53e58df45c76106bca74148c",
+    "dist/g1/assets/meshes/left_wrist_pitch_link.STL": "b251d8e05047f695d0f536cd78c11973cfa4e78d08cfe82759336cc3471de3a9",
+    "dist/g1/assets/meshes/left_wrist_yaw_link.STL": "83f8fb3a726bf9613d65dd14f0f447cb918c3c95b3938042a0c9c09749267d3b",
+    "dist/g1/assets/meshes/right_shoulder_yaw_link.STL": "a0b76489271da0c72461a344c9ffb0f0c6e64f019ea5014c1624886c442a2fe5",
+    "dist/g1/assets/meshes/right_elbow_link.STL": "1be925d7aa268bb8fddf5362b9173066890c7d32092c05638608126e59d1e2ab",
+    "dist/g1/assets/meshes/right_wrist_roll_link.STL": "a7ee9212ff5b94d6cb7f52bb1bbf3f352194d5b598acff74f4c77d340c5b344f",
+    "dist/g1/assets/meshes/right_wrist_pitch_link.STL": "d22f8f3b3127f15a63e5be1ee273cd5075786c3142f1c3d9f76cbf43d2a26477",
+    "dist/g1/assets/meshes/right_wrist_yaw_link.STL": "bc9dece2d12509707e0057ba2e48df8f3d56db0c79410212963a25e8a50f61a6",
+    "dist/g1/assets/dex1_1/meshes/Dex1_base_link.STL": "03f1cb02f94d6b280953f6c5a10da2eab6220ea5c301408d3c4decca66c8cdad",
+    "work/check-g1-camera-materials.mjs": "4413a759c10e1c016a5a459c01a2b1b9ebbf8423a41fff1e8d6b3ad1dc5d2cca",
+    "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+    "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
+    "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+    "dist/g1/g1-materials.mjs": "b9f5cc2a982574979536cd56f706704162708b25901e16a358294bc39e5420f3",
+    "dist/g1/g1-joint-ui.mjs": "a874539c07f451d3efba728a808e3d374af6a8de3e413563bd0583638b8568d2",
+    "dist/g1/assets/meshes/left_hip_pitch_link.STL": "4725168105ee768ee31638ef22b53f6be2d7641bfd7cfefe803488d884776fa4",
+    "dist/g1/assets/meshes/left_hip_roll_link.STL": "91f25922ee8a7c3152790051bebad17b4d9cd243569c38fe340285ff93a97acf",
+    "dist/g1/assets/meshes/left_hip_yaw_link.STL": "a16d88aa6ddac8083aa7ad55ed317bea44b1fa003d314fba88965b7ed0f3b55b",
+    "dist/g1/assets/meshes/left_knee_link.STL": "8d92b9e3d3a636761150bb8025e32514c4602b91c7028d523ee42b3e632de477",
+    "dist/g1/assets/meshes/left_ankle_pitch_link.STL": "d49e3abc6f5b12e532062cd575b87b5ef40cd2a3fc18f54a1ca5bba4f773d51d",
+    "dist/g1/assets/meshes/left_ankle_roll_link.STL": "c4092af943141d4d9f74232f3cfa345afc6565f46a077793b8ae0e68b39dc33f",
+    "dist/g1/assets/meshes/right_hip_pitch_link.STL": "e4f3c99d7f4a7d34eadbef9461fc66e3486cb5442db1ec50c86317d459f1a9c6",
+    "dist/g1/assets/meshes/right_hip_roll_link.STL": "4c254ef66a356f492947f360dd931965477b631e3fcc841f91ccc46d945d54f6",
+    "dist/g1/assets/meshes/right_hip_yaw_link.STL": "e479c2936ca2057e9eb2f7dff6c189b7419d7b8484dea0b298cbb36a2a6aa668",
+    "dist/g1/assets/meshes/right_knee_link.STL": "63c4008449c9bbe701a6e2b557b7a252e90cf3a5abcf54cee46862b9a69f8ec8",
+    "dist/g1/assets/meshes/right_ankle_pitch_link.STL": "15be426539ec1be70246d4d82a168806db64a41301af8b35c197a33348c787a9",
+    "dist/g1/assets/meshes/right_ankle_roll_link.STL": "4b66222ea56653e627711b56d0a8949b4920da5df091da0ceb343f54e884e3a5",
+    "dist/g1/assets/meshes/waist_yaw_link_rev_1_0.STL": "ec6db442b11f25eed898b5add07940c85d804f300de24dcbd264ccd8be7d554c",
+    "dist/g1/assets/meshes/waist_roll_link_rev_1_0.STL": "b67c347a05abc3e8ddae600d98a082bee273bb39f8e651647708b0a7140a8a97",
+    "dist/g1/assets/meshes/logo_link.STL": "8571a0a19bc4916fa55f91449f51d5fdefd751000054865a842449429d5f155b",
+    "dist/g1/assets/meshes/left_shoulder_pitch_link.STL": "f0d1cfd02fcf0d42f95e678eeca33da3afbcc366ffba5c052847773ec4f31d52",
+    "dist/g1/assets/meshes/left_shoulder_roll_link.STL": "fb9df21687773522598dc384f1a2945c7519f11cbc8bd372a49170316d6eee88",
+    "dist/g1/assets/meshes/right_shoulder_pitch_link.STL": "24cdb387e0128dfe602770a81c56cdce3a0181d34d039a11d1aaf8819b7b8c02",
+    "dist/g1/assets/meshes/right_shoulder_roll_link.STL": "962b97c48f9ce9e8399f45dd9522e0865d19aa9fd299406b2d475a8fc4a53e81",
+    "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL": "7cd2ff199556e3955547a34c75ed9ea777fb7d704fc98e7318d0f67e4aaedf5a",
+    "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL": "e8297ce8184c64d34d70cd9d6c7b583fba6a3adae2075523e97fb956ada65eb3",
+    "work/test-c5-dynamic-grasp.mjs": "0c8bb574517900afd0bc2b0b0eb798c08dbf674c330b8ec5225aa542c37eb850",
+    "work/build-c5-dynamics.mjs": "4496522b52a4f0862e915a2e00c0641c4dc98350e3aba5d2d42889844fb8c483",
+    "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/c5/assets/aubo_C5.urdf": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+    "dist/c5/assets/meshes/aubo_C5/collision/link0.STL": "fc70e195eeb2e9281e17fc2f32bb418fbca28f7460919902ea2b86a3eef62d6c",
+    "dist/c5/assets/meshes/aubo_C5/collision/link1.STL": "b068360a0c5241568ea8f78a2523c059e96cc954b5a4f4e06c184189bcb6095b",
+    "dist/c5/assets/meshes/aubo_C5/collision/link2.STL": "a887276a3c3241c06cca8b41e86c6dd77496991a9fe29aaec7e83ec5aee0c361",
+    "dist/c5/assets/meshes/aubo_C5/collision/link3.STL": "92b2a48d0e3df35c344725066ccc00e8eb302d83a8037776915482c37ce91ce6",
+    "dist/c5/assets/meshes/aubo_C5/collision/link4.STL": "8922499305bc14a58823b3726b540c5e809a7771ef418823db915bc0b224db1b",
+    "dist/c5/assets/meshes/aubo_C5/collision/link5.STL": "859f746bf0ab64a84db7ffe52f04a346be03bd075b6f1b18b2a267fc57bc0ae2",
+    "dist/c5/assets/meshes/aubo_C5/collision/link6.STL": "e319fd5d4e51c1a5289cc79abafcb5b2a7952897059df428855dad5d60ebd2ab",
+    "work/test-c5-opening-safety.mjs": "b4209485147e8afb5521b7e5d87c779d37099db65eea89a37d29fc318d40b443",
+    "work/test-c5-dynamics.mjs": "5aeda7d3e1370082b2d88a1a880ba2b9011dbeb49935955c2f1dd4be679bc34f",
+    "dist/c5/c5-3ds.mjs": "ba2c44f32fd032bc1e8a4b708101bb66da6441b10259c4c69683440e444fbd02",
+    "dist/c5/assets/SOURCE_MANIFEST.json": "097eb2be464b9fc88e21b02de7f7b147c93ae97d223f5a8cbe93fe88c77eb363",
+    "dist/c5/assets/aubo_C5.srdf": "a2699f4784ba8cec2ae1b8e17c77f002a47e995b8a549f1ca333c9d99fa05f4d",
+    "dist/c5/assets/source/package.xml": "2f0fa992a99df5c5c5852395c86189cdc6368639d3390fe02275ff381d8568b4",
+    "dist/c5/assets/source/README.md": "4ced0ad85cfdf4928403b76f21244d83c15ee322a43a0ae705a7c46c4c742f65",
+    "dist/c5/assets/meshes/aubo_C5/visual/link0.3ds": "d15a32ad9a572db0ec681ee0b85063a12360c69c6e91b594357c39a11b8cd823",
+    "dist/c5/assets/meshes/aubo_C5/visual/link1.3ds": "1c2c2581298241da4334bac0e4f931b5130eaf0f479a54cf026f0e4d2c328210",
+    "dist/c5/assets/meshes/aubo_C5/visual/link2.3ds": "f2d372fe84b76efaffbe05bcd42697a271759b30aa457475b4847899b46904a2",
+    "dist/c5/assets/meshes/aubo_C5/visual/link3.3ds": "d58f2cc8c87d46f21f11157e4373f7273588fbce0846a262b1df173166901d36",
+    "dist/c5/assets/meshes/aubo_C5/visual/link4.3ds": "0093dc884cca29ac1c6ec834970d325a2b120947a149b159d773da85a98625df",
+    "dist/c5/assets/meshes/aubo_C5/visual/link5.3ds": "b60ab6c801b5f81f730530b58518f4b7d084c7a479122958d4072370feecc173",
+    "dist/c5/assets/meshes/aubo_C5/visual/link6.3ds": "e7f20ed68ebfc4e8e260fdf9f2329d309ec76a0ecfa57d0671f081f8a2fdcfac",
+    "dist/c5/c5-joint-ui.mjs": "fad5bf0f08b122e3c6f0a220e317680f197daafc3ed7fc7f4003b571d99f7315",
+    "dist/c5/c5-workcell.mjs": "cdf17185ec30ade459e870d2580db9a8bf8af3edbc056cbaf30ca9275aab4bca",
+    "dist/c5/styles.css": "42079aae01c86f69441673d14179560f96d4c319ac51a35422ef3fddd5458cf6",
+    "dist/c5/c5-materials.mjs": "6270d2a0bbbef2af24f210cfbf6333cee72db8a0ae302737eda2a379471f272e",
+    "work/check-c5-ui.mjs": "a9ec9de45518ce04a78e0990eed467cbf9672516bed506779b94f093280d7b2f",
+    "work/test-c5-manual-motion.mjs": "561de1bb7bf06d8979a6fd8036f5f20e5f35358e5642913cbe97e7597ebdec40",
+    "work/C5-ACCEPTANCE.md": "604b0c0ae9557e3dc0c4ac8d63337460b38d5954d06723b27dc7319b65cc51d5"
+  },
+  "reportHashes": {
+    "work/validation/g1/finger-limit-physics-kv20.json": "9db597549fb2797dca6e20bd0534a4494aadf4c1c9f3c78532c36d76a7eb0762",
+    "work/validation/g1/photo-camera-material-check.json": "f0aa44b4824a3864f5b9163bd8c4df3f0173ff6a7d29d93f1627ee24408b69cc",
+    "work/validation/g1/final-single.jsonl": "54fd9aa977f1a1cd8163ed598ec30f6d817f81af0aed1127031b2449288e0396",
+    "work/validation/g1/opening-safety-final.json": "34dcd7f01ad00db0727bec587d07b1b93806ebb4536d602060bcad0108f37b2e",
+    "work/validation/g1/final-repeat.jsonl": "5562a1e0a87c3675a652ccb13bb37437f1556e1e2edbb7195abbb6001ed1b9a2",
+    "work/validation/c5/opening-release.json": "1a063b7e8a962beddcc5aa855bd7e5a9af4cd1f7e8076852d7552767bfd7151e",
+    "work/validation/c5/physics-current.json": "9349247cd033d4c648a51904fdcbd1d205b917dca89d17e7b97b83e55428a49c",
+    "work/validation/c5/ui-static-final.json": "308c01fe7582d6951b2364b8996b8062cadd48f592b02fa04b9338339ecba471",
+    "work/validation/c5/visuals-final.json": "4544eef3cebab316faac084cc46bbd6096aef04c758d7c70311c7295c56853b3",
+    "work/validation/c5/grasp-release-3x.jsonl": "7d77dfa268a95a928060e37b452999100827875b5d4a85bcd3cf79ec29417362",
+    "work/validation/c5/grasp-release-1x.jsonl": "db8afddb9d95b83ae4fd578542779018dac3377f4a6dfa6f16aef4e573bcf268",
+    "work/validation/c5/browser-final.json": "10dce8b0a70aa8abfd60bf4568a4ae865d43795b486020b54b1a042910dd014f",
+    "work/validation/c5/manual-motion-final.json": "64de6b61d107add9264b90b68f30f3d65469d07e32095f4adcd914af57c4e48e"
+  },
+  "checks": [
+    {
+      "name": "R1 retained physical evidence passes the original read-only verifier",
+      "pass": true,
+      "result": {
+        "passed": true,
+        "checksPassed": 27,
+        "checksTotal": 27,
+        "checks": [
+          {
+            "name": "baseline_36_passes",
+            "pass": true,
+            "evidence": {
+              "cases": 36,
+              "passed": 36
+            }
+          },
+          {
+            "name": "six_sort_combinations_three_passes_each",
+            "pass": true,
+            "evidence": [
+              {
+                "arm": "right",
+                "id": "red",
+                "cases": 3,
+                "repeats": [
+                  1,
+                  2,
+                  3
+                ],
+                "valid": true
+              },
+              {
+                "arm": "right",
+                "id": "blue",
+                "cases": 3,
+                "repeats": [
+                  1,
+                  2,
+                  3
+                ],
+                "valid": true
+              },
+              {
+                "arm": "right",
+                "id": "yellow",
+                "cases": 3,
+                "repeats": [
+                  1,
+                  2,
+                  3
+                ],
+                "valid": true
+              },
+              {
+                "arm": "left",
+                "id": "red",
+                "cases": 3,
+                "repeats": [
+                  1,
+                  2,
+                  3
+                ],
+                "valid": true
+              },
+              {
+                "arm": "left",
+                "id": "blue",
+                "cases": 3,
+                "repeats": [
+                  1,
+                  2,
+                  3
+                ],
+                "valid": true
+              },
+              {
+                "arm": "left",
+                "id": "yellow",
+                "cases": 3,
+                "repeats": [
+                  1,
+                  2,
+                  3
+                ],
+                "valid": true
+              }
+            ]
+          },
+          {
+            "name": "both_arms_stack_three_passes_each",
+            "pass": true,
+            "evidence": {
+              "cases": 6,
+              "stableSeconds": [
+                3.00999999999998,
+                3.00999999999998,
+                3.00999999999998,
+                3.00999999999998,
+                3.00999999999998,
+                3.00999999999998
+              ]
+            }
+          },
+          {
+            "name": "edited_position_and_rotation_cases",
+            "pass": true,
+            "evidence": {
+              "cases": 12
+            }
+          },
+          {
+            "name": "final_six_cases_pass",
+            "pass": true,
+            "evidence": [
+              {
+                "arm": "right",
+                "stack": true,
+                "repeat": 1
+              },
+              {
+                "arm": "left",
+                "stack": true,
+                "repeat": 1
+              },
+              {
+                "recovery": "unreachable_stack"
+              },
+              {
+                "recovery": "failure_reset_then_sort"
+              },
+              {
+                "recovery": "stop_stack_mid_transfer"
+              },
+              {
+                "recovery": "stop_happy_mid_gesture"
+              }
+            ]
+          },
+          {
+            "name": "final_physics_source_hashes_match_current",
+            "pass": true,
+            "evidence": [
+              {
+                "path": "dist/r1/grasp-controller.mjs",
+                "expected": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+                "actual": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+                "match": true
+              },
+              {
+                "path": "dist/r1/grasp-kinematics.mjs",
+                "expected": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+                "actual": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+                "match": true
+              },
+              {
+                "path": "dist/r1/r1-dynamics.mjs",
+                "expected": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+                "actual": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+                "match": true
+              },
+              {
+                "path": "dist/r1/models/r1-dynamic-scene.xml",
+                "expected": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+                "actual": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+                "match": true
+              },
+              {
+                "path": "dist/r1/assets/r1.urdf",
+                "expected": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+                "actual": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+                "match": true
+              }
+            ]
+          },
+          {
+            "name": "final_both_arms_full_physical_stack",
+            "pass": true,
+            "evidence": [
+              {
+                "arm": "right",
+                "stableSeconds": 3.00999999999998,
+                "maxWristError": 0.002236393197388509
+              },
+              {
+                "arm": "left",
+                "stableSeconds": 3.00999999999998,
+                "maxWristError": 0.0022438553837195365
+              }
+            ]
+          },
+          {
+            "name": "failure_stop_reset_recoveries",
+            "pass": true,
+            "evidence": [
+              {
+                "scenario": {
+                  "recovery": "unreachable_stack"
+                },
+                "reason": "目标超出自然臂姿可稳定抓取的范围，请调整位置或先转腰"
+              },
+              {
+                "scenario": {
+                  "recovery": "failure_reset_then_sort"
+                }
+              },
+              {
+                "scenario": {
+                  "recovery": "stop_stack_mid_transfer"
+                },
+                "state": "stopped"
+              },
+              {
+                "scenario": {
+                  "recovery": "stop_happy_mid_gesture"
+                },
+                "state": "stopped"
+              }
+            ]
+          },
+          {
+            "name": "screen_trace_continuous_frames",
+            "pass": true,
+            "evidence": {
+              "frames": 193,
+              "simulationStart": 0.4920000000000004,
+              "simulationEnd": 52.77999999996769
+            }
+          },
+          {
+            "name": "screen_all_three_real_grasp_stages",
+            "pass": true,
+            "evidence": [
+              {
+                "itemIndex": 0,
+                "id": "blue",
+                "stages": {
+                  "closing": 26,
+                  "lift": 30,
+                  "place": 43,
+                  "release": 50
+                },
+                "ordered": true,
+                "lift": 0.12947995017943092,
+                "dual": true,
+                "releasedSupported": true
+              },
+              {
+                "itemIndex": 1,
+                "id": "red",
+                "stages": {
+                  "closing": 14,
+                  "lift": 18,
+                  "place": 32,
+                  "release": 38
+                },
+                "ordered": true,
+                "lift": 0.1295084587026778,
+                "dual": true,
+                "releasedSupported": true
+              },
+              {
+                "itemIndex": 2,
+                "id": "yellow",
+                "stages": {
+                  "closing": 16,
+                  "lift": 20,
+                  "place": 34,
+                  "release": 40
+                },
+                "ordered": true,
+                "lift": 0.12959148529905085,
+                "dual": true,
+                "releasedSupported": true
+              }
+            ]
+          },
+          {
+            "name": "screen_success_only_after_three_seconds_supported",
+            "pass": true,
+            "evidence": {
+              "firstHappyTime": 49.76599999997472,
+              "firstReactionTime": 47.30499999998045,
+              "observedStableSeconds": 3.082999999992815,
+              "stableCounter": 3.00999999999998,
+              "finalState": "complete",
+              "finalSupports": [
+                {
+                  "id": "blue",
+                  "supported": true,
+                  "speed": 0.0000027586796849697637,
+                  "error": 0.00015592386880493818,
+                  "position": [
+                    0.9001361603268323,
+                    0.7109868683550997,
+                    -0.00007551887127137588
+                  ]
+                },
+                {
+                  "id": "red",
+                  "supported": true,
+                  "speed": 0.000013741808586236974,
+                  "error": 0.00021947283964925232,
+                  "position": [
+                    0.9003728808913595,
+                    0.7524692581663933,
+                    -0.000038325981697038374
+                  ]
+                },
+                {
+                  "id": "yellow",
+                  "supported": true,
+                  "speed": 0.0000471873381777331,
+                  "error": 0.00021166072596478432,
+                  "position": [
+                    0.9006206849545693,
+                    0.8009601797673302,
+                    0.005969991530979048
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "screen_physics_rms_finite",
+            "pass": true,
+            "evidence": {
+              "maximumRms": 0.0013467536694742176
+            }
+          },
+          {
+            "name": "screen_genuine_unreachable_shy_failure",
+            "pass": true,
+            "evidence": {
+              "frames": 10,
+              "states": [
+                "face_observer",
+                "shy",
+                "failed"
+              ],
+              "reason": "目标超出当前蹲姿可稳定抓取的范围，请向桌面中央移动",
+              "finalRunning": false,
+              "allFramesShyWithoutHappy": true,
+              "blue": {
+                "start": [
+                  1.106,
+                  0.7109952061213387,
+                  0
+                ],
+                "maximumDisplacement": 4.1744385725905886e-14,
+                "tableHeight": 0.692,
+                "halfHeight": 0.019,
+                "maximumBottomHeightError": 0.000004793878703002186,
+                "evidence": "Recorded physical positions keep the block bottom at the source table height; this trace does not include contact-force samples."
+              },
+              "torso": {
+                "sourcePitchAxes": [
+                  1,
+                  1,
+                  -1
+                ],
+                "shySamples": [
+                  {
+                    "frame": 5,
+                    "actual": [
+                      0.009657718328612166,
+                      0.03849466369946449,
+                      -0.012292436878602108
+                    ],
+                    "target": [
+                      0.010578688000000017,
+                      0.03841947647999997,
+                      -0.012694425600000015
+                    ],
+                    "pitch": 0.06044481890667877,
+                    "maximumError": 0.0009209696713878505,
+                    "atBowedTarget": false
+                  },
+                  {
+                    "frame": 6,
+                    "actual": [
+                      0.2508065742827383,
+                      -0.4499308825834297,
+                      -0.30035571361899926
+                    ],
+                    "target": [
+                      0.25,
+                      -0.45,
+                      -0.3
+                    ],
+                    "pitch": 0.10123140531830782,
+                    "maximumError": 0.0008065742827382816,
+                    "atBowedTarget": true
+                  },
+                  {
+                    "frame": 7,
+                    "actual": [
+                      0.24999442634010763,
+                      -0.4499999950403735,
+                      -0.2999983531957946
+                    ],
+                    "target": [
+                      0.25,
+                      -0.45,
+                      -0.3
+                    ],
+                    "pitch": 0.0999927844955287,
+                    "maximumError": 0.000005573659892371685,
+                    "atBowedTarget": true
+                  },
+                  {
+                    "frame": 8,
+                    "actual": [
+                      0.18858364291863483,
+                      -0.3230460586022029,
+                      -0.2256807800545576
+                    ],
+                    "target": [
+                      0.1882741119999999,
+                      -0.3240791884799999,
+                      -0.22592893439999992
+                    ],
+                    "pitch": 0.09121836437098951,
+                    "maximumError": 0.0010331298777969677,
+                    "atBowedTarget": false
+                  }
+                ],
+                "bowedTargetReached": true
+              }
+            }
+          },
+          {
+            "name": "failure_operation_video_valid_container",
+            "pass": true,
+            "evidence": {
+              "bytes": 248867,
+              "duration": 5.188,
+              "atoms": [
+                "ftyp",
+                "moov",
+                "mvhd",
+                "trak",
+                "udta",
+                "free",
+                "mdat"
+              ]
+            }
+          },
+          {
+            "name": "loading_progress_monotonic_to_100",
+            "pass": true,
+            "evidence": {
+              "samples": 100,
+              "start": 5,
+              "end": 100,
+              "distinct": 59
+            }
+          },
+          {
+            "name": "paired_screenshots_same_viewport",
+            "pass": true,
+            "evidence": [
+              {
+                "mode": "desktop",
+                "reference": {
+                  "width": 1280,
+                  "height": 800
+                },
+                "r1": {
+                  "width": 1280,
+                  "height": 800
+                },
+                "sameViewport": true
+              },
+              {
+                "mode": "narrow",
+                "reference": {
+                  "width": 390,
+                  "height": 844
+                },
+                "r1": {
+                  "width": 390,
+                  "height": 844
+                },
+                "sameViewport": true
+              }
+            ]
+          },
+          {
+            "name": "stack_operation_video_valid_container",
+            "pass": true,
+            "evidence": {
+              "bytes": 1663596,
+              "duration": 55.688,
+              "atoms": [
+                "ftyp",
+                "moov",
+                "mvhd",
+                "trak",
+                "udta",
+                "free",
+                "mdat"
+              ]
+            }
+          },
+          {
+            "name": "browser_manual_joint_and_guides",
+            "pass": true,
+            "evidence": {
+              "joint": {
+                "name": "right_arm_joint6",
+                "target": 0.0102,
+                "actual": 0.010200024739052762,
+                "error": -2.4739052761207914e-8,
+                "velocity": -0.0000013899579878406366,
+                "targetVelocity": 1.2967236152753119e-19,
+                "torque": -0.061880062255474044,
+                "biasTorque": -0.06188147537806793,
+                "effortLimit": 7,
+                "unit": "rad",
+                "effortUnit": "N·m"
+              },
+              "guides": {
+                "lines": 7,
+                "pressed": "true"
+              }
+            }
+          },
+          {
+            "name": "browser_tcp_drag_finishes_and_restores_orbit",
+            "pass": true,
+            "evidence": {
+              "tcp": {
+                "x": 357.9399129036414,
+                "y": 389.1731953905322,
+                "visible": true
+              },
+              "drag": null,
+              "orbit": true,
+              "joints": [
+                {
+                  "name": "right_arm_joint1",
+                  "target": -1.5414523450190922,
+                  "actual": -1.5414172092899492
+                },
+                {
+                  "name": "right_arm_joint2",
+                  "target": 2.2142849806796745,
+                  "actual": 2.2142285073191728
+                },
+                {
+                  "name": "right_arm_joint3",
+                  "target": -1.394995123174323,
+                  "actual": -1.395040720371114
+                },
+                {
+                  "name": "right_arm_joint4",
+                  "target": -0.37273254622763563,
+                  "actual": -0.372226674368742
+                },
+                {
+                  "name": "right_arm_joint5",
+                  "target": -0.024260342315319455,
+                  "actual": -0.02423500058373559
+                },
+                {
+                  "name": "right_arm_joint6",
+                  "target": 0.39345908475755365,
+                  "actual": 0.3929796356192143
+                }
+              ]
+            }
+          },
+          {
+            "name": "browser_gripper_closed",
+            "pass": true,
+            "evidence": [
+              {
+                "name": "right_gripper_finger_joint1",
+                "target": 0,
+                "actual": 0.0005472614427310892,
+                "error": -0.0005472614427310892,
+                "velocity": -5.53521181971706e-8,
+                "targetVelocity": 0,
+                "torque": -0.19154135196640018,
+                "biasTorque": -0.1915413780032912,
+                "effortLimit": 5,
+                "unit": "m",
+                "effortUnit": "N"
+              },
+              {
+                "name": "right_gripper_finger_joint2",
+                "target": 0,
+                "actual": -0.0001770805404198305,
+                "error": 0.0001770805404198305,
+                "velocity": -8.785952863529311e-8,
+                "targetVelocity": 0,
+                "torque": 0.061978457605718754,
+                "biasTorque": 0.19154137800339469,
+                "effortLimit": 5,
+                "unit": "m",
+                "effortUnit": "N"
+              }
+            ]
+          },
+          {
+            "name": "browser_camera_controls",
+            "pass": true,
+            "evidence": {
+              "column": true,
+              "feedsHidden": true,
+              "modelButton": "false"
+            }
+          },
+          {
+            "name": "browser_object_move_separate_from_orbit",
+            "pass": true,
+            "evidence": {
+              "keyboardBlue": {
+                "id": "blue",
+                "position": [
+                  0.792,
+                  0.7109952061213328,
+                  0
+                ]
+              },
+              "orbitCamera": [
+                1.665905681073836,
+                1.949112756222907,
+                3.0962885995180693
+              ]
+            }
+          },
+          {
+            "name": "browser_object_drag_and_rotation",
+            "pass": true,
+            "evidence": {
+              "drag": {
+                "camera": [
+                  2.5000000000000004,
+                  1.4999999999999996,
+                  2.7500000000000004
+                ],
+                "objects": [
+                  {
+                    "id": "red",
+                    "position": [
+                      0.78,
+                      0.7144952061211054,
+                      0.14
+                    ],
+                    "screen": {
+                      "x": 573.8417398795174,
+                      "y": 443.03089062760614,
+                      "visible": true
+                    }
+                  },
+                  {
+                    "id": "blue",
+                    "position": [
+                      0.8161543439544832,
+                      0.71099520517608,
+                      0.01898665071764638
+                    ],
+                    "screen": {
+                      "x": 607.3331650456589,
+                      "y": 438.0488827038317,
+                      "visible": true
+                    }
+                  },
+                  {
+                    "id": "yellow",
+                    "position": [
+                      0.7799999785916154,
+                      0.7179960532155283,
+                      -0.14000070060802272
+                    ],
+                    "screen": {
+                      "x": 625.1280672269739,
+                      "y": 424.116774157712,
+                      "visible": true
+                    }
+                  }
+                ],
+                "drag": null,
+                "orbit": true
+              },
+              "rotate": {
+                "drag": "rotate",
+                "orbit": false,
+                "camera": [
+                  2.5000000000000004,
+                  1.4999999999999996,
+                  2.7500000000000004
+                ]
+              }
+            }
+          },
+          {
+            "name": "browser_narrow_layout_and_control_dismissal",
+            "pass": true,
+            "evidence": {
+              "narrow": {
+                "panel": {
+                  "bottom": 2134.78125,
+                  "height": 1645.265625,
+                  "left": 0,
+                  "right": 390,
+                  "top": 489.515625,
+                  "width": 390,
+                  "x": 0,
+                  "y": 489.515625
+                },
+                "scrollWidth": 390,
+                "viewport": {
+                  "bottom": 489.515625,
+                  "height": 489.515625,
+                  "left": 0,
+                  "right": 390,
+                  "top": 0,
+                  "width": 390,
+                  "x": 0,
+                  "y": 0
+                },
+                "width": 390
+              },
+              "narrowChip": {
+                "open": true,
+                "slider": {
+                  "bottom": 303.5,
+                  "height": 28,
+                  "left": 206,
+                  "right": 375,
+                  "top": 275.5,
+                  "width": 169,
+                  "x": 206,
+                  "y": 275.5
+                },
+                "width": 390
+              },
+              "outsideClose": true
+            }
+          },
+          {
+            "name": "browser_gripper_close_then_reopen",
+            "pass": true,
+            "evidence": {
+              "closed": [
+                {
+                  "name": "right_gripper_finger_joint1",
+                  "target": 0,
+                  "actual": 0.0005419234729761904,
+                  "error": -0.0005419234729761904,
+                  "velocity": 1.7922827618919774e-10,
+                  "targetVelocity": 0,
+                  "torque": -0.18967321602914472,
+                  "biasTorque": -0.18967321230061637,
+                  "effortLimit": 5,
+                  "unit": "m",
+                  "effortUnit": "N"
+                },
+                {
+                  "name": "right_gripper_finger_joint2",
+                  "target": 0,
+                  "actual": -0.00017543865315847689,
+                  "error": 0.00017543865315847689,
+                  "velocity": 1.4849945628108445e-10,
+                  "targetVelocity": 0,
+                  "torque": 0.061403528107001566,
+                  "biasTorque": 0.18967321230061637,
+                  "effortLimit": 5,
+                  "unit": "m",
+                  "effortUnit": "N"
+                }
+              ],
+              "opened": [
+                {
+                  "name": "right_gripper_finger_joint1",
+                  "target": 0.05,
+                  "actual": 0.050175564084055845,
+                  "error": -0.00017556408405584173,
+                  "velocity": -2.306113117262004e-8,
+                  "targetVelocity": 0,
+                  "torque": -0.06144736588768396,
+                  "biasTorque": -0.18967321255493008,
+                  "effortLimit": 5,
+                  "unit": "m",
+                  "effortUnit": "N"
+                },
+                {
+                  "name": "right_gripper_finger_joint2",
+                  "target": 0.05,
+                  "actual": 0.04945807650625877,
+                  "error": 0.0005419234937412351,
+                  "velocity": -1.4772684779945995e-9,
+                  "targetVelocity": 0,
+                  "torque": 0.18967322758833305,
+                  "biasTorque": 0.18967321255492978,
+                  "effortLimit": 5,
+                  "unit": "m",
+                  "effortUnit": "N"
+                }
+              ]
+            }
+          },
+          {
+            "name": "browser_left_arm_and_wrist_camera",
+            "pass": true,
+            "evidence": {
+              "names": [
+                "left_arm_joint1",
+                "left_arm_joint2",
+                "left_arm_joint3",
+                "left_arm_joint4",
+                "left_arm_joint5",
+                "left_arm_joint6"
+              ],
+              "wrist": {
+                "position": [
+                  -0.08854820285914625,
+                  0.8560295140890976,
+                  -0.27964922438932016
+                ],
+                "direction": [
+                  0.4634233862531281,
+                  -0.6318931429785065,
+                  0.6212485983327681
+                ],
+                "fov": 62.82,
+                "modelVisible": true
+              }
+            }
+          },
+          {
+            "name": "browser_stop_and_reset_states",
+            "pass": true,
+            "evidence": {
+              "stopped": {
+                "state": "stopped",
+                "running": false,
+                "reaction": null
+              },
+              "reset": {
+                "state": "idle",
+                "running": false,
+                "history": []
+              }
+            }
+          }
+        ],
+        "details": {
+          "additionalBrowserEvidence": {},
+          "artifactRoot": "/Users/wander/PyProjects/people/r1-simulator/work/validation/",
+          "evidenceScope": {
+            "baseline": "36 saved simulations before reaction-centering adjustment",
+            "final": "Current-source-hashed two-arm full stacks and four recovery scenarios",
+            "screen": "Saved success and genuine unreachable-failure browser traces, paired screenshots, and R1 operation videos",
+            "touchHardwareTested": false
+          },
+          "limitations": [
+            "Physical touchscreen hardware input was not tested.",
+            "Screenshot checks verify file dimensions and pairing; visual fidelity still requires human/rendered-image review.",
+            "The R1 operation recording is verified as an MP4 container with duration; this script does not inspect every decoded video frame."
+          ]
+        }
+      }
+    },
+    {
+      "name": "g1: unchanged physical model and original scenario evidence remain valid",
+      "pass": true,
+      "result": {
+        "pass": true,
+        "physicsOnly": true,
+        "historicalUI": [
+          {
+            "path": "dist/g1/index.html",
+            "expected": "f86d8a38edcbd04980b583cb2bd08606c4cb938c1a9123954077a8234aabb456",
+            "current": "b41ba7aa00f5e45b24457f881dc929539e3ba856cf7c6a39ee0f33373516ed24"
+          },
+          {
+            "path": "dist/g1/g1-app.mjs",
+            "expected": "3c96ceb7f8b9f153dbe69d6178d01f9f8460df161020b8be8d8e4ff6f4afea2a",
+            "current": "5d4ced573bcfeec15abe7a7ff16cf921be869abe62ba1f8e514d159bb72cea9f"
+          }
+        ],
+        "scope": "Retained original physical/model evidence only; historical app/index UI hashes excluded. Current Worker execution and browser UI require separate performance-v4 evidence.",
+        "reports": {
+          "single": 16,
+          "repeat": 40,
+          "total": 56,
+          "sort": 40,
+          "stack": 8,
+          "recovery": 8,
+          "opening": 9
+        },
+        "observed": {
+          "fingerLimitSamples": 1862104,
+          "contactSamples": 18692,
+          "maxFingerLimitViolationMetres": 0.00002007322394285624,
+          "maxIllegalPenetrationMetres": 0,
+          "maxJointErrorRad": 0.0030435093646783984,
+          "maxFootDriftMetres": 4.6742124352530966e-8,
+          "maxLegAngleRad": 6.219924302634199e-8,
+          "maxWaistTiltRad": 0.0001984362790855468,
+          "maxWaistYawRad": 0.6879722438536254,
+          "maxFingerForceN": 20,
+          "maxMotorTorqueNm": 9.046777170864587,
+          "maxWristRollRad": 0.7855749299298554,
+          "wristBelowPoint5IsSoftPreference": false,
+          "minimumPhysicalLiftMetres": 0.1093538986027146,
+          "maxFinalSortErrorMetres": 0.0018309073826893343
+        },
+        "limits": {
+          "realFingerStrokeToleranceMetres": 0.0002,
+          "illegalContactPenetrationThresholdMetres": 0.001,
+          "contactSamplingSeconds": 0.1,
+          "fingerSamplingSeconds": 0.001
+        },
+        "notVerified": [
+          "rendered browser appearance/occlusion/reflections",
+          "physical touchscreen interaction",
+          "real-robot balance, calibration or operational safety"
+        ],
+        "expectedRelease": {
+          "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+          "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09"
+        },
+        "sourceHashes": {
+          "work/test-g1-dynamic-grasp.mjs": "8a63c286c2c3a711d1b0207b125bbb16eec00c26c66a8256daaada6e032d8c76",
+          "work/build-g1-dynamics.mjs": "1961c8a7d0dc5f01e17d7866cf65cc152c49ea8e0c5d0bebb20bca25ced1c92d",
+          "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+          "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+          "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+          "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+          "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+          "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+          "dist/g1/assets/dex1_1/meshes/dex1_col_1.stl": "5edf010f581635fcb4a79fe20cda65a96c95138112ab91d7e79629980f535c92",
+          "dist/g1/assets/dex1_1/meshes/dex1_col_2.stl": "0d791ffb8b438bc4a5fd937eab383db4daa62685a73982e852cc559623036ba9",
+          "work/test-g1-opening-safety.mjs": "01bc3f3245fc80e1d08eb5dfe5fdd2caab0bd497c9f945e383d773f6c43bdf10",
+          "dist/g1/assets/meshes/pelvis.STL": "5ba6bbc888e630550140d3c26763f10206da8c8bd30ed886b8ede41c61f57a31",
+          "dist/g1/assets/meshes/pelvis_contour_link.STL": "5cc5c2c7a312329e3feeb2b03d3fc09fc29705bd01864f6767e51be959662420",
+          "dist/g1/assets/meshes/torso_link_rev_1_0.STL": "11ddb46f2098efbbd8816b1d65893632d8e78be936376c7cdcd6771899ccc723",
+          "dist/g1/assets/meshes/head_link.STL": "005fb67fbd3eff94aa8bf4a6e83238174e9f91b6721f7111594322f223724411",
+          "dist/g1/assets/meshes/left_shoulder_yaw_link.STL": "1aa97e9748e924336567992181f78c7cd0652fd52a4afcca3df6b2ef6f9e712e",
+          "dist/g1/assets/meshes/left_elbow_link.STL": "fa752198accd104d5c4c3a01382e45165b944fbbc5acce085059223324e5bed3",
+          "dist/g1/assets/meshes/left_wrist_roll_link.STL": "edc387c9a0ba8c2237e9b296d32531426fabeb6f53e58df45c76106bca74148c",
+          "dist/g1/assets/meshes/left_wrist_pitch_link.STL": "b251d8e05047f695d0f536cd78c11973cfa4e78d08cfe82759336cc3471de3a9",
+          "dist/g1/assets/meshes/left_wrist_yaw_link.STL": "83f8fb3a726bf9613d65dd14f0f447cb918c3c95b3938042a0c9c09749267d3b",
+          "dist/g1/assets/meshes/right_shoulder_yaw_link.STL": "a0b76489271da0c72461a344c9ffb0f0c6e64f019ea5014c1624886c442a2fe5",
+          "dist/g1/assets/meshes/right_elbow_link.STL": "1be925d7aa268bb8fddf5362b9173066890c7d32092c05638608126e59d1e2ab",
+          "dist/g1/assets/meshes/right_wrist_roll_link.STL": "a7ee9212ff5b94d6cb7f52bb1bbf3f352194d5b598acff74f4c77d340c5b344f",
+          "dist/g1/assets/meshes/right_wrist_pitch_link.STL": "d22f8f3b3127f15a63e5be1ee273cd5075786c3142f1c3d9f76cbf43d2a26477",
+          "dist/g1/assets/meshes/right_wrist_yaw_link.STL": "bc9dece2d12509707e0057ba2e48df8f3d56db0c79410212963a25e8a50f61a6",
+          "dist/g1/assets/dex1_1/meshes/Dex1_base_link.STL": "03f1cb02f94d6b280953f6c5a10da2eab6220ea5c301408d3c4decca66c8cdad",
+          "work/check-g1-camera-materials.mjs": "4413a759c10e1c016a5a459c01a2b1b9ebbf8423a41fff1e8d6b3ad1dc5d2cca",
+          "work/g1-test-robot.mjs": "77fb6933cf75a96cef2027737b410b3a158937fe31bd05cf3a5dff5960254f04",
+          "dist/g1/styles.css": "13c3c0c9799e8380a0435c9e2518569ee89e1ec89e9441ff0b274cc1f7228df4",
+          "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+          "dist/g1/g1-materials.mjs": "b9f5cc2a982574979536cd56f706704162708b25901e16a358294bc39e5420f3",
+          "dist/g1/g1-joint-ui.mjs": "a874539c07f451d3efba728a808e3d374af6a8de3e413563bd0583638b8568d2",
+          "dist/g1/assets/meshes/left_hip_pitch_link.STL": "4725168105ee768ee31638ef22b53f6be2d7641bfd7cfefe803488d884776fa4",
+          "dist/g1/assets/meshes/left_hip_roll_link.STL": "91f25922ee8a7c3152790051bebad17b4d9cd243569c38fe340285ff93a97acf",
+          "dist/g1/assets/meshes/left_hip_yaw_link.STL": "a16d88aa6ddac8083aa7ad55ed317bea44b1fa003d314fba88965b7ed0f3b55b",
+          "dist/g1/assets/meshes/left_knee_link.STL": "8d92b9e3d3a636761150bb8025e32514c4602b91c7028d523ee42b3e632de477",
+          "dist/g1/assets/meshes/left_ankle_pitch_link.STL": "d49e3abc6f5b12e532062cd575b87b5ef40cd2a3fc18f54a1ca5bba4f773d51d",
+          "dist/g1/assets/meshes/left_ankle_roll_link.STL": "c4092af943141d4d9f74232f3cfa345afc6565f46a077793b8ae0e68b39dc33f",
+          "dist/g1/assets/meshes/right_hip_pitch_link.STL": "e4f3c99d7f4a7d34eadbef9461fc66e3486cb5442db1ec50c86317d459f1a9c6",
+          "dist/g1/assets/meshes/right_hip_roll_link.STL": "4c254ef66a356f492947f360dd931965477b631e3fcc841f91ccc46d945d54f6",
+          "dist/g1/assets/meshes/right_hip_yaw_link.STL": "e479c2936ca2057e9eb2f7dff6c189b7419d7b8484dea0b298cbb36a2a6aa668",
+          "dist/g1/assets/meshes/right_knee_link.STL": "63c4008449c9bbe701a6e2b557b7a252e90cf3a5abcf54cee46862b9a69f8ec8",
+          "dist/g1/assets/meshes/right_ankle_pitch_link.STL": "15be426539ec1be70246d4d82a168806db64a41301af8b35c197a33348c787a9",
+          "dist/g1/assets/meshes/right_ankle_roll_link.STL": "4b66222ea56653e627711b56d0a8949b4920da5df091da0ceb343f54e884e3a5",
+          "dist/g1/assets/meshes/waist_yaw_link_rev_1_0.STL": "ec6db442b11f25eed898b5add07940c85d804f300de24dcbd264ccd8be7d554c",
+          "dist/g1/assets/meshes/waist_roll_link_rev_1_0.STL": "b67c347a05abc3e8ddae600d98a082bee273bb39f8e651647708b0a7140a8a97",
+          "dist/g1/assets/meshes/logo_link.STL": "8571a0a19bc4916fa55f91449f51d5fdefd751000054865a842449429d5f155b",
+          "dist/g1/assets/meshes/left_shoulder_pitch_link.STL": "f0d1cfd02fcf0d42f95e678eeca33da3afbcc366ffba5c052847773ec4f31d52",
+          "dist/g1/assets/meshes/left_shoulder_roll_link.STL": "fb9df21687773522598dc384f1a2945c7519f11cbc8bd372a49170316d6eee88",
+          "dist/g1/assets/meshes/right_shoulder_pitch_link.STL": "24cdb387e0128dfe602770a81c56cdce3a0181d34d039a11d1aaf8819b7b8c02",
+          "dist/g1/assets/meshes/right_shoulder_roll_link.STL": "962b97c48f9ce9e8399f45dd9522e0865d19aa9fd299406b2d475a8fc4a53e81",
+          "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_1.STL": "7cd2ff199556e3955547a34c75ed9ea777fb7d704fc98e7318d0f67e4aaedf5a",
+          "dist/g1/assets/dex1_1/meshes/Dex1_finger_link_2.STL": "e8297ce8184c64d34d70cd9d6c7b583fba6a3adae2075523e97fb956ada65eb3"
+        },
+        "reportHashes": {
+          "work/validation/g1/finger-limit-physics-kv20.json": "9db597549fb2797dca6e20bd0534a4494aadf4c1c9f3c78532c36d76a7eb0762",
+          "work/validation/g1/photo-camera-material-check.json": "f0aa44b4824a3864f5b9163bd8c4df3f0173ff6a7d29d93f1627ee24408b69cc",
+          "work/validation/g1/final-single.jsonl": "54fd9aa977f1a1cd8163ed598ec30f6d817f81af0aed1127031b2449288e0396",
+          "work/validation/g1/opening-safety-final.json": "34dcd7f01ad00db0727bec587d07b1b93806ebb4536d602060bcad0108f37b2e",
+          "work/validation/g1/final-repeat.jsonl": "5562a1e0a87c3675a652ccb13bb37437f1556e1e2edbb7195abbb6001ed1b9a2"
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "g1: old UI evidence cannot falsely certify the new app and entry",
+      "pass": true,
+      "errors": [
+        "visual-static: stale source dist/g1/index.html",
+        "visual-static: stale source dist/g1/g1-app.mjs"
+      ]
+    },
+    {
+      "name": "c5: unchanged physical model and original scenario evidence remain valid",
+      "pass": true,
+      "result": {
+        "pass": true,
+        "scope": "Retained original physical/model/manual safety evidence only. Historical app/index UI hashes are explicitly excluded; current Worker execution and browser UI require separate performance-v4 evidence.",
+        "physicsOnly": true,
+        "historicalUI": [
+          {
+            "path": "dist/c5/index.html",
+            "expected": "83a6cc5bf6a3daaf19fe312237e8e38a5be304f2e3a16b13b0afe6cf03dfcc46",
+            "current": "61c9aebb657e3818f1a1892f52a69856274f2c80494a28a5303dfd5b815acaa1"
+          },
+          {
+            "path": "dist/c5/c5-app.mjs",
+            "expected": "0ce63c36b4dd95fb5fcdce7488c75c4c74cd85dcda8d8e564ea9f90de7e874a9",
+            "current": "b8fe757c00e36f733e079a02a3e93b368bcbb783efac4141468d6dceded59247"
+          },
+          {
+            "path": "dist/c5/index.html",
+            "expected": "83a6cc5bf6a3daaf19fe312237e8e38a5be304f2e3a16b13b0afe6cf03dfcc46",
+            "current": "61c9aebb657e3818f1a1892f52a69856274f2c80494a28a5303dfd5b815acaa1"
+          },
+          {
+            "path": "dist/c5/c5-app.mjs",
+            "expected": "0ce63c36b4dd95fb5fcdce7488c75c4c74cd85dcda8d8e564ea9f90de7e874a9",
+            "current": "b8fe757c00e36f733e079a02a3e93b368bcbb783efac4141468d6dceded59247"
+          }
+        ],
+        "reports": {
+          "single": 12,
+          "repeat": 28,
+          "total": 40,
+          "sort": 28,
+          "stack": 4,
+          "recovery": 8,
+          "opening": 12,
+          "manual": 14,
+          "originalAssetFiles": 18,
+          "staticUI": 10
+        },
+        "observed": {
+          "millisecondSamples": 836124,
+          "actualContactSamples": 83652,
+          "maxFingerLimitViolationMetres": 0.000002907703977986925,
+          "maxIllegalPenetrationMetres": 0,
+          "maxActualSourceVelocityRatio": 1.0000118714622164,
+          "maxJointErrorRad": 0.0129473368501134,
+          "maxBaseDriftMetres": 0,
+          "maxFingerForceN": 20,
+          "maxMotorTorqueNm": 32.77605600637344,
+          "maxObjectTranslationResidualMetres": 7.319042290634958e-17,
+          "objectEditsDuringTask": 0,
+          "minimumPhysicalLiftMetres": 0.13922836627470025,
+          "maximumSortPositionErrorMetres": 0.0018129975196042574,
+          "sourceVertices": 14862,
+          "sourceVisualTriangles": 15469
+        },
+        "limits": {
+          "actualSamplingSeconds": 0.001,
+          "actualContactSamplingSeconds": 0.01,
+          "realFingerRangeToleranceMetres": 0.0002,
+          "revoluteRangeToleranceRadians": 0.001,
+          "illegalPenetrationThresholdMetres": 0.001,
+          "actualSourceVelocityNumericalAllowance": "1% + 0.0001 in the native unit",
+          "requiredActualLiftMetres": 0.035,
+          "stackStableSeconds": 3,
+          "additionalReleasedStackSeconds": 3
+        },
+        "nativeScreenshots": {
+          "inspectedInline": true,
+          "persistedToDisk": false,
+          "localPaths": [],
+          "note": "No saved screenshot path is required when the documented native API only emits inspected image bytes."
+        },
+        "notCertified": [
+          "physical touchscreen gestures",
+          "arbitrary-scene continuous-time collision freedom",
+          "real C5/Dex1 adapter fit or camera calibration",
+          "real-machine control, commissioning, operational safety or certification",
+          "an SPDX-specific license grant absent from upstream evidence"
+        ],
+        "officialSource": {
+          "repository": "AuboRobot/aubo_description",
+          "commit": "47fa5e02fa873f27f7e812d31f31e3f4cf5e56b1",
+          "originalUrdfSha256": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
+          "declaredLicense": "BSD",
+          "fullLicenseTextSuppliedByUpstream": false
+        },
+        "sourceHashes": {
+          "work/test-c5-dynamic-grasp.mjs": "0c8bb574517900afd0bc2b0b0eb798c08dbf674c330b8ec5225aa542c37eb850",
+          "work/build-c5-dynamics.mjs": "4496522b52a4f0862e915a2e00c0641c4dc98350e3aba5d2d42889844fb8c483",
+          "work/c5-test-robot.mjs": "b2fdd1cff4a6c0012c418c924e328e1de058a753b0fc35c811509d0d691ecfeb",
+          "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+          "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+          "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+          "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+          "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+          "dist/c5/assets/aubo_C5.urdf": "c87a1b853791f91a7908d77e05bbf5f87496b02016ea1040916e7cad5c1c70df",
+          "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3",
+          "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+          "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+          "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+          "dist/c5/assets/meshes/aubo_C5/collision/link0.STL": "fc70e195eeb2e9281e17fc2f32bb418fbca28f7460919902ea2b86a3eef62d6c",
+          "dist/c5/assets/meshes/aubo_C5/collision/link1.STL": "b068360a0c5241568ea8f78a2523c059e96cc954b5a4f4e06c184189bcb6095b",
+          "dist/c5/assets/meshes/aubo_C5/collision/link2.STL": "a887276a3c3241c06cca8b41e86c6dd77496991a9fe29aaec7e83ec5aee0c361",
+          "dist/c5/assets/meshes/aubo_C5/collision/link3.STL": "92b2a48d0e3df35c344725066ccc00e8eb302d83a8037776915482c37ce91ce6",
+          "dist/c5/assets/meshes/aubo_C5/collision/link4.STL": "8922499305bc14a58823b3726b540c5e809a7771ef418823db915bc0b224db1b",
+          "dist/c5/assets/meshes/aubo_C5/collision/link5.STL": "859f746bf0ab64a84db7ffe52f04a346be03bd075b6f1b18b2a267fc57bc0ae2",
+          "dist/c5/assets/meshes/aubo_C5/collision/link6.STL": "e319fd5d4e51c1a5289cc79abafcb5b2a7952897059df428855dad5d60ebd2ab",
+          "dist/g1/assets/dex1_1/meshes/dex1_col_1.stl": "5edf010f581635fcb4a79fe20cda65a96c95138112ab91d7e79629980f535c92",
+          "dist/g1/assets/dex1_1/meshes/dex1_col_2.stl": "0d791ffb8b438bc4a5fd937eab383db4daa62685a73982e852cc559623036ba9",
+          "work/test-c5-opening-safety.mjs": "b4209485147e8afb5521b7e5d87c779d37099db65eea89a37d29fc318d40b443",
+          "work/test-c5-dynamics.mjs": "5aeda7d3e1370082b2d88a1a880ba2b9011dbeb49935955c2f1dd4be679bc34f",
+          "dist/g1/assets/dex1_1/meshes/Dex1_base_link.STL": "03f1cb02f94d6b280953f6c5a10da2eab6220ea5c301408d3c4decca66c8cdad",
+          "dist/c5/c5-3ds.mjs": "ba2c44f32fd032bc1e8a4b708101bb66da6441b10259c4c69683440e444fbd02",
+          "dist/c5/assets/SOURCE_MANIFEST.json": "097eb2be464b9fc88e21b02de7f7b147c93ae97d223f5a8cbe93fe88c77eb363",
+          "dist/c5/assets/aubo_C5.srdf": "a2699f4784ba8cec2ae1b8e17c77f002a47e995b8a549f1ca333c9d99fa05f4d",
+          "dist/c5/assets/source/package.xml": "2f0fa992a99df5c5c5852395c86189cdc6368639d3390fe02275ff381d8568b4",
+          "dist/c5/assets/source/README.md": "4ced0ad85cfdf4928403b76f21244d83c15ee322a43a0ae705a7c46c4c742f65",
+          "dist/c5/assets/meshes/aubo_C5/visual/link0.3ds": "d15a32ad9a572db0ec681ee0b85063a12360c69c6e91b594357c39a11b8cd823",
+          "dist/c5/assets/meshes/aubo_C5/visual/link1.3ds": "1c2c2581298241da4334bac0e4f931b5130eaf0f479a54cf026f0e4d2c328210",
+          "dist/c5/assets/meshes/aubo_C5/visual/link2.3ds": "f2d372fe84b76efaffbe05bcd42697a271759b30aa457475b4847899b46904a2",
+          "dist/c5/assets/meshes/aubo_C5/visual/link3.3ds": "d58f2cc8c87d46f21f11157e4373f7273588fbce0846a262b1df173166901d36",
+          "dist/c5/assets/meshes/aubo_C5/visual/link4.3ds": "0093dc884cca29ac1c6ec834970d325a2b120947a149b159d773da85a98625df",
+          "dist/c5/assets/meshes/aubo_C5/visual/link5.3ds": "b60ab6c801b5f81f730530b58518f4b7d084c7a479122958d4072370feecc173",
+          "dist/c5/assets/meshes/aubo_C5/visual/link6.3ds": "e7f20ed68ebfc4e8e260fdf9f2329d309ec76a0ecfa57d0671f081f8a2fdcfac",
+          "dist/c5/c5-joint-ui.mjs": "fad5bf0f08b122e3c6f0a220e317680f197daafc3ed7fc7f4003b571d99f7315",
+          "dist/c5/c5-workcell.mjs": "cdf17185ec30ade459e870d2580db9a8bf8af3edbc056cbaf30ca9275aab4bca",
+          "dist/c5/styles.css": "42079aae01c86f69441673d14179560f96d4c319ac51a35422ef3fddd5458cf6",
+          "dist/c5/c5-materials.mjs": "6270d2a0bbbef2af24f210cfbf6333cee72db8a0ae302737eda2a379471f272e",
+          "work/check-c5-ui.mjs": "a9ec9de45518ce04a78e0990eed467cbf9672516bed506779b94f093280d7b2f",
+          "work/test-c5-manual-motion.mjs": "561de1bb7bf06d8979a6fd8036f5f20e5f35358e5642913cbe97e7597ebdec40",
+          "work/verify-c5-acceptance.mjs": "e6046a631f9e280507737ce3675cbe7853a61df6659ca2c23ec9f8d654e9a5c8",
+          "work/C5-ACCEPTANCE.md": "604b0c0ae9557e3dc0c4ac8d63337460b38d5954d06723b27dc7319b65cc51d5"
+        },
+        "reportHashes": {
+          "work/validation/c5/opening-release.json": "1a063b7e8a962beddcc5aa855bd7e5a9af4cd1f7e8076852d7552767bfd7151e",
+          "work/validation/c5/physics-current.json": "9349247cd033d4c648a51904fdcbd1d205b917dca89d17e7b97b83e55428a49c",
+          "work/validation/c5/ui-static-final.json": "308c01fe7582d6951b2364b8996b8062cadd48f592b02fa04b9338339ecba471",
+          "work/validation/c5/visuals-final.json": "4544eef3cebab316faac084cc46bbd6096aef04c758d7c70311c7295c56853b3",
+          "work/validation/c5/grasp-release-3x.jsonl": "7d77dfa268a95a928060e37b452999100827875b5d4a85bcd3cf79ec29417362",
+          "work/validation/c5/grasp-release-1x.jsonl": "db8afddb9d95b83ae4fd578542779018dac3377f4a6dfa6f16aef4e573bcf268",
+          "work/validation/c5/browser-final.json": "10dce8b0a70aa8abfd60bf4568a4ae865d43795b486020b54b1a042910dd014f",
+          "work/validation/c5/manual-motion-final.json": "64de6b61d107add9264b90b68f30f3d65469d07e32095f4adcd914af57c4e48e"
+        },
+        "errors": []
+      }
+    },
+    {
+      "name": "c5: old UI evidence cannot falsely certify the new app and entry",
+      "pass": true,
+      "errors": [
+        "static UI: stale source dist/c5/index.html",
+        "static UI: stale source dist/c5/c5-app.mjs",
+        "native browser: stale source dist/c5/index.html",
+        "native browser: stale source dist/c5/c5-app.mjs",
+        "browser: rendered release cache differs from current entry point"
+      ]
+    }
+  ],
+  "scope": "Revalidates retained original physical/model evidence only, with explicit app/index UI exclusions for G1/C5. Negative strict runs must reject old UI bindings. Current Worker execution and browser rendering are separately validated in performance-v4; historical reports are not rewritten."
+}

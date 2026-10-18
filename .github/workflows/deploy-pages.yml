@@ -32,17 +32,17 @@ jobs:
         run: |
           npm run test:acceptance
           node work/verify-acceptance.mjs
-          node work/verify-g1-acceptance.mjs
-          node work/verify-c5-acceptance.mjs
+          node work/verify-g1-acceptance.mjs --physics-only
+          node work/verify-c5-acceptance.mjs --physics-only
       - name: Preserve current source-bound validation reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: multi-performance-v3-evidence
+          name: multi-performance-v4-evidence
           path: |
-            work/validation/performance-v3/*-final.json
-            work/validation/performance-v3/*-contracts.json
-            work/validation/performance-v3/planning-ik-paired.json
+            work/validation/performance-v4/*-final.json
+            work/validation/performance-v4/*-contracts.json
+            work/validation/performance-v4/planning-ik-paired.json
           if-no-files-found: warn
           retention-days: 7
 

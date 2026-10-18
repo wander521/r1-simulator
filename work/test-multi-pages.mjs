@@ -11,7 +11,7 @@ const cached = new Map(), directories = new Set(), checks = [], edges = [], excl
 const sha = data => createHash('sha256').update(data).digest('hex');
 const stripQuery = path => path.replace(/[?#].*$/, '');
 const workerModules=['background-planning','planning-worker','planning-worker-core','planning-worker-transport','planning-serialization','planning-robot','planning-check-cache','planning-worker-protocol','planning-ik-context','planning-budget'].map(name=>`multi/${name}.mjs`);
-const workerRelease='20261018-perf-3';
+const workerRelease='20261018-perf-4';
 async function contents(path) {
   if (!cached.has(path)) cached.set(path, await readFile(new URL(path, root)));
   assert(cached.get(path).length > 0, `Empty resource: ${path}`);

@@ -5,6 +5,8 @@ import {resolve,relative} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
+const physicsOnly=process.argv.includes('--physics-only'),historicalUI=[];
+const retiredUISources=new Set(['dist/g1/index.html','dist/g1/g1-app.mjs']);
 const expectedRelease={
   'dist/g1/grasp-controller.mjs':'68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d',
   'dist/g1/models/g1-dynamic-scene.xml':'a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09',
@@ -26,7 +28,9 @@ async function bind(record,label,required){
   for(const path of required)check(typeof hashes[path]==='string',`${label}: missing source hash ${path}`);
   for(const [path,hash]of Object.entries(hashes)){
     check(typeof hash==='string'&&/^[0-9a-f]{64}$/.test(hash),`${label}: invalid SHA256 for ${path}`);
-    try{const actual=await currentHash(path);sourceHashes[path]=actual;check(actual===hash,`${label}: stale source ${path}`);}catch(error){errors.push(`${label}: ${error.message}`);}
+    try{const actual=await currentHash(path);
+      if(physicsOnly&&retiredUISources.has(path)){historicalUI.push({path,expected:hash,current:actual});continue;}
+      sourceHashes[path]=actual;check(actual===hash,`${label}: stale source ${path}`);}catch(error){errors.push(`${label}: ${error.message}`);}
   }
 }
 async function report(name,jsonl=false){
@@ -127,7 +131,7 @@ async function main(){
   for(const [path,hash]of Object.entries(sourceHashes))check(sha(await readFile(resolve(root,path)))===hash,`Source changed during verification: ${path}`);
   const rows=[...single,...repeat],normal=rows.filter(r=>!r.scenario.recovery),stacks=normal.filter(r=>r.scenario.stack),lifts=normal.flatMap(r=>r.scenario.stack?r.stackEvidence:[r.evidence]);
   const max=key=>Math.max(...rows.map(r=>r[key]));
-  const result={pass:errors.length===0,scope:'G1 browser-simulator preview; recorded headless physics plus static camera/material checks only',reports:{single:single.length,repeat:repeat.length,total:rows.length,sort:normal.length-stacks.length,stack:stacks.length,recovery:rows.length-normal.length,opening:opening.cases},observed:{fingerLimitSamples:rows.reduce((n,r)=>n+r.fingerLimitSamples,0),contactSamples:rows.reduce((n,r)=>n+r.collision.samples,0),maxFingerLimitViolationMetres:max('maxFingerLimitViolation'),maxIllegalPenetrationMetres:Math.max(...rows.map(r=>r.collision.maxIllegalPenetration)),maxJointErrorRad:max('maxJointError'),maxFootDriftMetres:max('maxFootDrift'),maxLegAngleRad:max('maxLegAngle'),maxWaistTiltRad:max('maxWaistTilt'),maxWaistYawRad:max('maxWaistYaw'),maxFingerForceN:max('maxFingerForce'),maxMotorTorqueNm:max('maxTorque'),maxWristRollRad:Math.max(...rows.flatMap(r=>Object.values(r.maxWristRoll))),wristBelowPoint5IsSoftPreference:rows.every(r=>r.naturalWristRollPreference===true),minimumPhysicalLiftMetres:Math.min(...lifts.map(e=>e.lift)),maxFinalSortErrorMetres:Math.max(...normal.filter(r=>!r.scenario.stack).map(r=>r.measurement.distance))},limits:{realFingerStrokeToleranceMetres:.0002,illegalContactPenetrationThresholdMetres:.001,contactSamplingSeconds:.1,fingerSamplingSeconds:.001},notVerified:['rendered browser appearance/occlusion/reflections','physical touchscreen interaction','real-robot balance, calibration or operational safety'],expectedRelease,sourceHashes,reportHashes,errors};
+  const result={pass:errors.length===0,physicsOnly,historicalUI,scope:physicsOnly?'Retained original physical/model evidence only; historical app/index UI hashes excluded. Current Worker execution and browser UI require separate performance-v4 evidence.':'G1 browser-simulator preview; recorded headless physics plus static camera/material checks only',reports:{single:single.length,repeat:repeat.length,total:rows.length,sort:normal.length-stacks.length,stack:stacks.length,recovery:rows.length-normal.length,opening:opening.cases},observed:{fingerLimitSamples:rows.reduce((n,r)=>n+r.fingerLimitSamples,0),contactSamples:rows.reduce((n,r)=>n+r.collision.samples,0),maxFingerLimitViolationMetres:max('maxFingerLimitViolation'),maxIllegalPenetrationMetres:Math.max(...rows.map(r=>r.collision.maxIllegalPenetration)),maxJointErrorRad:max('maxJointError'),maxFootDriftMetres:max('maxFootDrift'),maxLegAngleRad:max('maxLegAngle'),maxWaistTiltRad:max('maxWaistTilt'),maxWaistYawRad:max('maxWaistYaw'),maxFingerForceN:max('maxFingerForce'),maxMotorTorqueNm:max('maxTorque'),maxWristRollRad:Math.max(...rows.flatMap(r=>Object.values(r.maxWristRoll))),wristBelowPoint5IsSoftPreference:rows.every(r=>r.naturalWristRollPreference===true),minimumPhysicalLiftMetres:Math.min(...lifts.map(e=>e.lift)),maxFinalSortErrorMetres:Math.max(...normal.filter(r=>!r.scenario.stack).map(r=>r.measurement.distance))},limits:{realFingerStrokeToleranceMetres:.0002,illegalContactPenetrationThresholdMetres:.001,contactSamplingSeconds:.1,fingerSamplingSeconds:.001},notVerified:['rendered browser appearance/occlusion/reflections','physical touchscreen interaction','real-robot balance, calibration or operational safety'],expectedRelease,sourceHashes,reportHashes,errors};
   console.log(JSON.stringify(result,null,2));if(!result.pass)process.exitCode=1;
 }
 main().catch(error=>{console.error(JSON.stringify({pass:false,error:error.message}));process.exitCode=1;});

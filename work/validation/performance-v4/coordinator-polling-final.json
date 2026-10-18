@@ -1,0 +1,75 @@
+{
+  "pass": true,
+  "releaseCohort": "20261018-perf-4",
+  "total": 14,
+  "passed": 14,
+  "checks": [
+    {
+      "name": "g1 Worker failure is consumed in the same frame while the first Worker is pending",
+      "pass": true
+    },
+    {
+      "name": "c5 Worker failure is consumed in the same frame while the first Worker is pending",
+      "pass": true
+    },
+    {
+      "name": "A third Worker timeout is polled promptly rather than waiting for the first Worker",
+      "pass": true
+    },
+    {
+      "name": "Every pending Worker is polled once per frame without advancing a candidate or physical time",
+      "pass": true
+    },
+    {
+      "name": "Simultaneous Worker results commit exactly once at the shared tick and identical start times",
+      "pass": true
+    },
+    {
+      "name": "A ready Worker waits at the barrier while later Workers continue being polled",
+      "pass": true
+    },
+    {
+      "name": "Mixed batches poll Workers first and fairly alternate at most one cooperative candidate per frame",
+      "pass": true
+    },
+    {
+      "name": "A Worker error is consumed before an expensive cooperative candidate in the same mixed frame",
+      "pass": true
+    },
+    {
+      "name": "A configured background station with an actual cooperative fallback cannot bypass candidate fairness",
+      "pass": true
+    },
+    {
+      "name": "Pure cooperative batches use round-robin with exactly one candidate per planning frame",
+      "pass": true
+    },
+    {
+      "name": "A thrown later Worker error follows the same fail-fast batch cancellation path",
+      "pass": true
+    },
+    {
+      "name": "Stop discards old completions, prevents late commit, and permits a clean fresh batch",
+      "pass": true
+    },
+    {
+      "name": "Reset invalidates every pending result before selecting and starting a different subset",
+      "pass": true
+    },
+    {
+      "name": "A later-item Worker barrier preserves the original batch metadata and physical tick",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "dist/multi/coordinator.mjs": "46caf2ab191e4022cdca81a19632db6a332a5e60c78a3d6e7ea40a1da1efc6d0",
+    "work/test-coordinator-polling-perf-v3.mjs": "28fc2ef607384bee0de95a4dd39d59bc0ca4e4beb756cdb420cf8f7c8112a4b2"
+  },
+  "endSourceHashes": {
+    "dist/multi/coordinator.mjs": "46caf2ab191e4022cdca81a19632db6a332a5e60c78a3d6e7ea40a1da1efc6d0",
+    "work/test-coordinator-polling-perf-v3.mjs": "28fc2ef607384bee0de95a4dd39d59bc0ca4e4beb756cdb420cf8f7c8112a4b2"
+  },
+  "sourceFrozen": true,
+  "scope": "Exact production coordinator with explicit Worker-result, deadline, cancellation and cooperative-iterator fixtures. No native browser, real Worker execution, physical contacts or FPS is certified."
+}

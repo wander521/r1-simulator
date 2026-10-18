@@ -7,7 +7,7 @@ import {MultiRobotCoordinator} from '../dist/multi/coordinator.mjs';
 // fixtures. These contracts do not certify real Worker, browser or physics speed.
 const root=new URL('../',import.meta.url),ids=['r1','g1','c5'],checks=[],errors=[];
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)
-  ??'work/validation/performance-v3/coordinator-polling-final.json';
+  ??'work/validation/performance-v4/coordinator-polling-final.json';
 const sourcePaths=['dist/multi/coordinator.mjs','work/test-coordinator-polling-perf-v3.mjs'];
 const hashes=async()=>Object.fromEntries(await Promise.all(sourcePaths.map(async path=>[path,
   createHash('sha256').update(await readFile(new URL(path,root))).digest('hex')])));
@@ -150,7 +150,7 @@ check('A later-item Worker barrier preserves the original batch metadata and phy
 
 const endSourceHashes=await hashes(),sourceFrozen=JSON.stringify(sourceHashes)===JSON.stringify(endSourceHashes);
 if(!sourceFrozen)errors.push({name:'source freeze',message:'Coordinator contract sources changed during verification'});
-const report={pass:errors.length===0,releaseCohort:'20261018-perf-3',total:checks.length,passed:checks.filter(check=>check.pass).length,checks,errors,sourceHashes,endSourceHashes,sourceFrozen,
+const report={pass:errors.length===0,releaseCohort:'20261018-perf-4',total:checks.length,passed:checks.filter(check=>check.pass).length,checks,errors,sourceHashes,endSourceHashes,sourceFrozen,
   scope:'Exact production coordinator with explicit Worker-result, deadline, cancellation and cooperative-iterator fixtures. No native browser, real Worker execution, physical contacts or FPS is certified.'};
 await mkdir(new URL('./',new URL(reportPath,root)),{recursive:true});await writeFile(new URL(reportPath,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass:report.pass,total:report.total,passed:report.passed,sourceFrozen,errors,report:reportPath},null,2));

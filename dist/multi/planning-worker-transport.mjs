@@ -1,6 +1,6 @@
-import {PLANNING_PROTOCOL_VERSION,createPlanningMessageEncoder} from './planning-worker-protocol.mjs?v=20261018-perf-3';
+import {PLANNING_PROTOCOL_VERSION,createPlanningMessageEncoder} from './planning-worker-protocol.mjs?v=20261018-perf-4';
 
-export const PLANNING_WORKER_URL=new URL('./planning-worker.mjs?v=20261018-perf-3',import.meta.url);
+export const PLANNING_WORKER_URL=new URL('./planning-worker.mjs?v=20261018-perf-4',import.meta.url);
 const nowDefault=()=>globalThis.performance?.now?.()??Date.now();
 const failed=(reason,type='worker')=>({pending:false,done:true,ok:false,reason,error:{type}});
 

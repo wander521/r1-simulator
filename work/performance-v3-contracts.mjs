@@ -2,9 +2,35 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve,relative,isAbsolute} from 'node:path';
 
-export const PERFORMANCE_V3_COHORT='20261018-perf-3';
+export const PERFORMANCE_V3_COHORT='20261018-perf-4';
 const ids=['r1','g1','c5'];
 export const PERFORMANCE_V3_CONTRACTS=[
+  {key:'legacyPhysical',file:'legacy-physical-final.json',names:[
+    'R1 retained physical evidence passes the original read-only verifier',
+    ...['g1','c5'].flatMap(id=>[`${id}: unchanged physical model and original scenario evidence remain valid`,`${id}: old UI evidence cannot falsely certify the new app and entry`]),
+  ],sources:['work/test-legacy-physical-v4.mjs','work/verify-acceptance.mjs','work/verify-g1-acceptance.mjs','work/verify-c5-acceptance.mjs']},
+  {key:'remainingV4',file:'remaining-contracts-final.json',names:[
+    'Initial start remains atomic while later planning freezes only its own world',
+    'A later failure aborts peers and reset removes all pending ownership',
+    'A fresh task can start together after independent world clocks diverge',
+    'Repeated STL assets parse once with independent nodes and material ownership',
+    'A failed mesh request is evicted and a retry can load successfully',
+    'Shadow invalidation skips unchanged state and accumulates small motion',
+    ...ids.map(id=>`${id}: first pipe mirror compiles exactly once and retains original topology after randomization`),
+    ...ids.map(id=>`${id}: standalone preparation uses Worker polling and telemetry is not read every frame`),
+    'Participant rows read only lightweight summaries, not full physics telemetry',
+    'Every full-regression CI job has at least sixty minutes',
+  ],sources:['work/test-performance-v4.mjs','dist/multi/coordinator.mjs','dist/multi/app.mjs','dist/multi/robot-runtime.mjs',
+    'dist/multi/mesh-cache.mjs','dist/multi/shadow-state.mjs','dist/multi/standalone-planning.mjs','dist/multi/planning-worker-core.mjs',
+    ...ids.flatMap(id=>[`dist/${id}/${id}-app.mjs`,`dist/${id}/index.html`]),
+    ...['deploy-pages','validate-g1','validate-c5'].map(name=>`.github/workflows/${name}.yml`)]},
+  {key:'standaloneBackground',file:'standalone-background-final.json',names:ids.flatMap(id=>[
+    `${id}: Worker cancellation and reset reject old queued results`,
+    `${id}: Unreachable target fails asynchronously and reset permits a normal retry`,
+    `${id}: Blue sort has real dual contact lift release and stable table support`,
+    `${id}: Three-object stack completes only after real support stabilization`,`${id}: observation`,
+  ]),sources:['work/test-standalone-background.mjs','work/background-planning-node-worker.mjs','dist/multi/standalone-planning.mjs',
+    ...ids.flatMap(id=>[`dist/${id}/${id}-app.mjs`,`dist/${id}/index.html`,`dist/${id}/grasp-controller.mjs`,`dist/${id}/grasp-kinematics.mjs`,`dist/${id}/${id}-dynamics.mjs`,`dist/${id}/models/${id}-dynamic-scene.xml`])]},
   {key:'coordinatorPolling',file:'coordinator-polling-final.json',names:[
     ...['g1','c5'].map(id=>`${id} Worker failure is consumed in the same frame while the first Worker is pending`),
     'A third Worker timeout is polled promptly rather than waiting for the first Worker',
@@ -74,7 +100,7 @@ const same=(left,right)=>JSON.stringify(left)===JSON.stringify(right);
  * both release verifiers. Timing observations are never universal FPS gates.
  * The optional report reader exists for read-only negative fixtures; source
  * bytes are always read directly from the actual checkout, never injected. */
-export async function verifyPerformanceV3Contracts({rootPath,reportDirectory='work/validation/performance-v3',readEvidence=readFile}){
+export async function verifyPerformanceV3Contracts({rootPath,reportDirectory='work/validation/performance-v4',readEvidence=readFile}){
   const errors=[],sourceHashes={},reportHashes={},counts={},hashes=new Map();
   const check=(condition,message)=>{if(!condition)errors.push(message);};
   const canonical=path=>{
@@ -96,6 +122,15 @@ export async function verifyPerformanceV3Contracts({rootPath,reportDirectory='wo
         if(spec.key!=='workerProtocol')check(report?.total===spec.names.length&&report?.passed===spec.names.length,`${label}: total/passed counts do not match required contracts`);
       }
       if(report?.errors!==undefined)check(Array.isArray(report.errors)&&report.errors.length===0,`${label}: contract errors were recorded`);
+      if(spec.key==='standaloneBackground')for(const id of ids){
+        const sorted=rows?.find(row=>row.name===`${id}: Blue sort has real dual contact lift release and stable table support`);
+        const stacked=rows?.find(row=>row.name===`${id}: Three-object stack completes only after real support stabilization`);
+        const observation=rows?.find(row=>row.name===`${id}: observation`);
+        check(sorted?.evidence?.dual===true&&sorted.evidence.lift>.035&&sorted.actualDual===true&&Number.isFinite(sorted.finalDistance)&&sorted.finalDistance<.02,`${label}: ${id} actual sort evidence absent`);
+        check(stacked?.stackEvidence?.length===3&&stacked.stackEvidence.every(row=>row.dual===true&&row.lift>.035)&&stacked.stableSeconds>=3,`${label}: ${id} actual stable stack evidence absent`);
+        check(observation?.physicalSteps>0&&observation?.planningPolls>0&&Number.isFinite(observation.maxTorqueRatio)&&observation.maxTorqueRatio<=1.000001
+          &&Number.isFinite(observation.maxFingerViolation)&&observation.maxFingerViolation<=(id==='r1'?.001:.0002),`${label}: ${id} physical limits or Worker observation absent`);
+      }
       const bindings=report?.sourceHashes;
       check(bindings&&typeof bindings==='object'&&!Array.isArray(bindings),`${label}: source hash manifest absent`);
       for(const path of spec.sources)check(Object.hasOwn(bindings??{},path),`${label}: source binding missing: ${path}`);

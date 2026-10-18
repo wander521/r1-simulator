@@ -8,7 +8,7 @@ import {PLANNING_PROTOCOL_VERSION,createPlanningMessageEncoder,createPlanningWor
 import {createPlanningWorkerTransport} from '../dist/multi/planning-worker-transport.mjs';
 
 const root=new URL('../',import.meta.url),args=process.argv.slice(2);
-const output=args.find(value=>value.startsWith('--report='))?.slice(9)??'work/validation/performance-v3/worker-protocol-final.json';
+const output=args.find(value=>value.startsWith('--report='))?.slice(9)??'work/validation/performance-v4/worker-protocol-final.json';
 const paths=['work/test-planning-worker-protocol.mjs','work/planning-protocol-echo-worker.mjs','work/background-planning-node-worker.mjs',
   'dist/multi/planning-worker-protocol.mjs','dist/multi/planning-worker-transport.mjs','dist/multi/planning-worker.mjs','dist/multi/planning-worker-core.mjs',
   'dist/multi/planning-serialization.mjs','dist/multi/planning-robot.mjs','dist/multi/planning-check-cache.mjs','dist/multi/planning-ik-context.mjs','dist/multi/planning-budget.mjs',
@@ -153,8 +153,9 @@ await check('Malformed active progress/result/type and Worker protocol failures 
 });
 await check('The service keeps exact layout/model identity without serializing large XML cache keys',async()=>{
   const source=await readFile(new URL('dist/multi/planning-worker-core.mjs',root),'utf8');
-  assert(!/JSON\.stringify\s*\(/.test(source));assert(source.includes('job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode,job.pipeSeed'));
-  assert(source.includes('Object.is(value,key[index])'));assert(source.includes("runtime.configureTask('pipes',{seed:job.modelPipeSeed})"));assert(source.includes('runtime.reset({seed:job.pipeSeed})'));
+  assert(!/JSON\.stringify\s*\(/.test(source));assert(source.includes('job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode]'));
+  assert(!source.includes('job.taskMode,job.pipeSeed]'),'A new dynamic layout must reuse the original compiled-model registration');
+  assert(source.includes('Object.is(value,key[index])'));assert(source.includes('api.MjModel.from_xml_string(job.modelXml,vfs)'));assert(!source.includes("runtime.configureTask('pipes'"));assert(source.includes('runtime.reset({seed:job.pipeSeed})'));
 });
 
 await check('Four genuine source-bound G1 snapshots survive the actual Worker thread registration protocol with tiny later jobs',async()=>{
@@ -190,7 +191,7 @@ await check('Four genuine source-bound G1 snapshots survive the actual Worker th
 });
 await flush();process.removeListener('unhandledRejection',observe);await check('Protocol errors leave no unhandled promise rejections',()=>assert.deepEqual(unhandled,[]));
 const finalHashes=await hashes(),sourceFrozen=JSON.stringify(finalHashes)===JSON.stringify(sourceHashes),pass=checks.every(item=>item.pass)&&sourceFrozen;
-const report={pass,releaseCohort:'20261018-perf-3',protocolVersion:PLANNING_PROTOCOL_VERSION,startedAt,wallSeconds:(performance.now()-started)/1000,sourceFrozen,sourceHashes,checks,measurements,unhandled,
+const report={pass,releaseCohort:'20261018-perf-4',protocolVersion:PLANNING_PROTOCOL_VERSION,startedAt,wallSeconds:(performance.now()-started)/1000,sourceFrozen,sourceHashes,checks,measurements,unhandled,
   scope:'Versioned Worker model registration and full snapshot equivalence. No planning budget, IK candidate order, precision, collision sample, robot model or physical state gate is changed or bypassed by these tests.'};
 await mkdir(new URL('.',new URL(output,root)),{recursive:true});await writeFile(new URL(output,root),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({pass,sourceFrozen,checks:checks.length,failed:checks.filter(item=>!item.pass),report:output}));if(!pass)process.exitCode=1;

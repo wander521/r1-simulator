@@ -1,0 +1,252 @@
+{
+  "pass": true,
+  "cases": 16,
+  "checks": [
+    {
+      "name": "Factory adds no duplicate camera geometry or scene nodes",
+      "pass": true
+    },
+    {
+      "name": "Optical metadata is explicit geometry inference, not real calibration",
+      "pass": true
+    },
+    {
+      "name": "Unbound hidden state is retained when actual source links first bind",
+      "pass": true
+    },
+    {
+      "name": "idle/left: source optical origin and axes follow real joint frames",
+      "pass": true
+    },
+    {
+      "name": "idle/right: source optical origin and axes follow real joint frames",
+      "pass": true
+    },
+    {
+      "name": "spread/left: source optical origin and axes follow real joint frames",
+      "pass": true
+    },
+    {
+      "name": "spread/right: source optical origin and axes follow real joint frames",
+      "pass": true
+    },
+    {
+      "name": "crouch/left: source optical origin and axes follow real joint frames",
+      "pass": true
+    },
+    {
+      "name": "crouch/right: source optical origin and axes follow real joint frames",
+      "pass": true
+    },
+    {
+      "name": "Translated and rotated station frames affect only the rendered camera world transform",
+      "pass": true
+    },
+    {
+      "name": "Both original camera subtrees share the model toggle without changing posture",
+      "pass": true
+    },
+    {
+      "name": "Original camera surfaces are visible in main layers but excluded from their own feed",
+      "pass": true
+    },
+    {
+      "name": "Wrong or missing source frame is rejected instead of silently using gripper coordinates",
+      "pass": true
+    },
+    {
+      "name": "Multi runtime separates R1 optical frames from gripper TCP; other robots retain their existing frame",
+      "pass": true
+    },
+    {
+      "name": "Single and multi entry points route the source Realsense link to camera updates",
+      "pass": true
+    },
+    {
+      "name": "Dispose restores source state and never removes or disposes URDF assets",
+      "pass": true
+    }
+  ],
+  "assetStats": [
+    {
+      "side": "left",
+      "triangles": 13062,
+      "min": [
+        -0.012499295175075531,
+        -0.012499853037297726,
+        -0.030245011672377586
+      ],
+      "max": [
+        0.07741472125053406,
+        0.03299045190215111,
+        0.0069368332624435425
+      ],
+      "sha256": "87b52e61376328de7661e6921541da3bab1079eb33b9c73daca908fbc376aed7"
+    },
+    {
+      "side": "right",
+      "triangles": 13062,
+      "min": [
+        -0.012499295175075531,
+        -0.012499853037297726,
+        -0.030245011672377586
+      ],
+      "max": [
+        0.07741472125053406,
+        0.03299045190215111,
+        0.0069368332624435425
+      ],
+      "sha256": "ab14050ffaa18d327720b80df258b12bd0e434ddc8a193b9b5a280dee88342ec"
+    }
+  ],
+  "worldObservations": [
+    {
+      "pose": "idle",
+      "side": "left",
+      "position": [
+        0.143966982893603,
+        0.6810186315563027,
+        -0.22893973959465788
+      ],
+      "direction": [
+        0.18620218572231625,
+        -0.9384054993987401,
+        -0.2910736414216058
+      ],
+      "up": [
+        0.9788650872990975,
+        0.20268322374091002,
+        -0.027251636298073638
+      ]
+    },
+    {
+      "pose": "idle",
+      "side": "right",
+      "position": [
+        0.1384435752296773,
+        0.6977569263826124,
+        0.2871074416978023
+      ],
+      "direction": [
+        0.18679927128810778,
+        -0.9402147832948794,
+        0.28478446853716405
+      ],
+      "up": [
+        0.9775829578832959,
+        0.20656832202108832,
+        0.04075645707784461
+      ]
+    },
+    {
+      "pose": "spread",
+      "side": "left",
+      "position": [
+        0.22103255296168806,
+        1.4815573851804145,
+        -0.786313513976789
+      ],
+      "direction": [
+        0.4912214280313276,
+        0.8270310771776702,
+        -0.27335161610132447
+      ],
+      "up": [
+        0.8315030092448163,
+        -0.5387077200146546,
+        -0.1356345752875251
+      ]
+    },
+    {
+      "pose": "spread",
+      "side": "right",
+      "position": [
+        0.2365404487238836,
+        1.4917154452326886,
+        0.7284367394407749
+      ],
+      "direction": [
+        0.4895445947758844,
+        0.8259324689348697,
+        0.2796098111384253
+      ],
+      "up": [
+        0.8351036945826837,
+        -0.536348664587366,
+        0.12219627363263239
+      ]
+    },
+    {
+      "pose": "crouch",
+      "side": "left",
+      "position": [
+        0.28546999267480927,
+        1.0482177119726508,
+        -0.786313513976789
+      ],
+      "direction": [
+        0.3531860879010692,
+        0.89472816055377,
+        -0.27335161610132447
+      ],
+      "up": [
+        0.9067084047774031,
+        -0.39935339073631243,
+        -0.13563457528752512
+      ]
+    },
+    {
+      "pose": "crouch",
+      "side": "right",
+      "position": [
+        0.29916144656878585,
+        1.060716716143617,
+        0.7284367394407747
+      ],
+      "direction": [
+        0.35170570065663864,
+        0.8933764344556875,
+        0.2796098111384253
+      ],
+      "up": [
+        0.909887259101817,
+        -0.3964508121248863,
+        0.12219627363263239
+      ]
+    }
+  ],
+  "optics": {
+    "lensLocal": [
+      0.0325,
+      0,
+      0.001
+    ],
+    "forwardLocal": [
+      0,
+      0,
+      1
+    ],
+    "upLocal": [
+      0,
+      -1,
+      0
+    ],
+    "provenance": "Geometry-based source Realsense STL inference; not calibrated intrinsics/extrinsics.",
+    "calibrated": false
+  },
+  "sourceHashes": {
+    "work/test-r1-camera.mjs": "da2a01f7bb65ebe0efd7e9149f0f40f65fac6a5a0df6e4650f29b5317f31866e",
+    "work/r1-test-robot.mjs": "a4311ca663e0a241dc4f99e382bfb7ccfd9abc59eba97641453592a9e7fe86e3",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
+    "dist/r1/r1-app.mjs": "3b7edac36df8c3ccc1cc3421dc06db4203fa39d88edbed0e00bcdee4eef5ecd2",
+    "dist/multi/robot-runtime.mjs": "5d20ad4dac924e26860908ed00d055a1e96de30edb5533895ed77628d3e1c123",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "dist/r1/assets/meshes/left_realsense_link.STL": "87b52e61376328de7661e6921541da3bab1079eb33b9c73daca908fbc376aed7",
+    "dist/r1/assets/meshes/right_realsense_link.STL": "ab14050ffaa18d327720b80df258b12bd0e434ddc8a193b9b5a280dee88342ec"
+  },
+  "sourceFrozen": true,
+  "scope": "Original R1 source-joint frames and unchanged camera STL vertices; mathematical optical transforms, asset ownership and renderer-layer isolation. No rendered pixels, physical camera calibration, intrinsics, occlusion or hardware safety claim."
+}

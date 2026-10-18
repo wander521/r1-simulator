@@ -10,7 +10,7 @@ import {createPlanningCheckCache} from '../dist/multi/planning-check-cache.mjs';
 import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from '../dist/multi/planning-serialization.mjs';
 
 const root=new URL('../',import.meta.url),args=process.argv.slice(2),arg=(name,fallback)=>args.find(value=>value.startsWith(`--${name}=`))?.slice(name.length+3)??fallback;
-const output=arg('report','work/validation/performance-v3/planning-ik-paired.json'),trials=Number(arg('trials',2)),items=Number(arg('items',4)),inputPath='work/validation/performance-v2/g1-pipe592-snapshots.json.gz';
+const output=arg('report','work/validation/performance-v4/planning-ik-paired.json'),trials=Number(arg('trials',2)),items=Number(arg('items',4)),inputPath='work/validation/performance-v2/g1-pipe592-snapshots.json.gz';
 assert(Number.isInteger(trials)&&trials>0&&trials<=2);assert(Number.isInteger(items)&&items>0&&items<=4);
 const hash=value=>createHash('sha256').update(typeof value==='string'||ArrayBuffer.isView(value)?value:JSON.stringify(value)).digest('hex');
 const paths=['work/test-planning-ik-performance-v3.mjs','work/planning-cache-experiment.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs','dist/multi/planning-budget.mjs','dist/multi/planning-ik-context.mjs','dist/multi/planning-check-cache.mjs','dist/multi/planning-robot.mjs','dist/multi/planning-serialization.mjs',
@@ -55,7 +55,7 @@ for(const input of snapshots.rows.slice(0,items))for(let trial=0;trial<trials;tr
 }
 const endSourceHashes=await sources(),sourceFrozen=JSON.stringify(sourceHashes)===JSON.stringify(endSourceHashes);assert(sourceFrozen);
 const baselineMs=rows.reduce((sum,row)=>sum+row.baseline.wallMs,0),optimizedMs=rows.reduce((sum,row)=>sum+row.optimized.wallMs,0);
-const report={pass:true,releaseCohort:'20261018-perf-3',startedAt,wallSeconds:(performance.now()-started)/1000,sourceFrozen,sourceHashes,endSourceHashes,inputPath,inputHash:hash(raw),compressedInputHash:hash(compressed),baselineCommit:'3949cdc3c156221f3db6268f6191b603ec546245',trials,items,
+const report={pass:true,releaseCohort:'20261018-perf-4',startedAt,wallSeconds:(performance.now()-started)/1000,sourceFrozen,sourceHashes,endSourceHashes,inputPath,inputHash:hash(raw),compressedInputHash:hash(compressed),baselineCommit:'3949cdc3c156221f3db6268f6191b603ec546245',trials,items,
   summary:{baselineMs,optimizedMs,reductionFraction:1-optimizedMs/baselineMs,speedup:baselineMs/optimizedMs},rows,
   scope:'Four genuine pipe592 planning snapshots, reversed-order paired Worker-v2 (frozen 3949cdc factory/planning/pipe plus shipped unchanged-joint parser and exact collision cache) versus Worker-v3 node FK reuse and fine budget checks. Same original R1/G1/C5 solvers, full plan/command and complete ordered safety stream hash compare exactly; all authoritative/derived physics arrays unchanged. Original candidate order, 10/30s budgets and safety sampling retained. Node CPU timings include identical safety encoding/hash instrumentation, exclude fresh model initialization, are not native browser responsiveness/FPS or physical execution.'};
 await mkdir(new URL('.',new URL(output,root)),{recursive:true});await writeFile(new URL(output,root),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({pass:true,sourceFrozen,rows:rows.length,...report.summary,report:output}));

@@ -104,7 +104,7 @@ await check('Rendered pipe progress text includes per-station item counts and au
   assert(app.includes('已归类 ${classification.completed} / ${classification.total} 个'));
   assert(app.includes("id==='c5'?'单臂':snapshot.arm==='left'?'左臂':'右臂'"));
   assert(app.includes("STAGE_NAMES[snapshot.state]??'执行中'"));
-  assert(app.includes('progress=taskProgress({...snapshot,itemIndex:station.controller.itemIndex})'));
+  assert(app.includes('const snapshot=station.summary')&&app.includes('progress=taskProgress(snapshot)'));
 });
 await check('Start forwards the selected unified task without requiring a legacy color object ID',()=>{
   assert(app.includes("coordinator.start({objectId:selectedObject,task:$('#task-mode').value,armByRobot,reducedMotion})"));

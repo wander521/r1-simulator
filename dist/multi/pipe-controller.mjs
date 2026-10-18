@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import {solvePose as solveG1Pose,naturalArmLimits,naturalArmPose} from '../g1/grasp-kinematics.mjs';
 import {STAND_POSE,armJointNames,qToOpening,GRIPPER_Q_MAX} from '../g1/g1-profile.mjs';
 import {READY as G1_READY} from '../g1/grasp-controller.mjs';
-import {isPlanningBudgetError,planningBudgetCheckpoint} from './planning-budget.mjs?v=20261018-perf-3';
+import {isPlanningBudgetError,planningBudgetCheckpoint} from './planning-budget.mjs?v=20261018-perf-4';
 
 const G1_OPEN=qToOpening(GRIPPER_Q_MAX);
 export const PIPE_GRIPPER_PROFILE=Object.freeze({r1PreopenJointM:.024,dex1HoldJointM:-.0037,dex1NominalCylinderDiameterM:.040,c5FingerCommandFraction:.75,g1FingerSourceVelocityMps:.2,g1FingerCommandFraction:.75});

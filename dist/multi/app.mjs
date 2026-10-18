@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.min.js';
+import {createShadowStateTracker} from './shadow-state.mjs?v=20261018-perf-4';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {createWristVision as r1WristVision} from '../r1/r1-workcell.mjs';
 import {createWristVision as dexWristVision} from '../g1/g1-workcell.mjs';
@@ -18,6 +19,7 @@ const renderer = new THREE.WebGLRenderer({canvas,antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
 renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
+const shadowState=createShadowStateTracker();
 configureRenderer(renderer,{THREE}); camera.layers.enable(1);
 const workcell = createSharedWorkcell(scene,{renderer,initialScene:'night'});
 const sceneThemes = createThemeController({workcell,root:document.documentElement,buttons:document.querySelectorAll('[data-scene-switch]')});
@@ -126,10 +128,10 @@ $('#robot-options').addEventListener('change',event=>{
   endDrag();
   const ids=[...document.querySelectorAll('input[data-robot]:checked')].map(input=>input.dataset.robot);
   const result=coordinator.select(ids); notice=result.ok?'':result.reason;
-  if(result.ok)cameraFeedQueue.invalidate();
+  if(result.ok){cameraFeedQueue.invalidate();renderer.shadowMap.needsUpdate=true;}
   updateUI(); if(result.ok)fitView(undefined,{reason:'participants'});
 });
-$('#select-all').addEventListener('click',()=>{const result=coordinator.select([...stations.keys()]);notice=result.ok?'':result.reason;updateUI();if(result.ok){cameraFeedQueue.invalidate();fitView(undefined,{reason:'participants'});}});
+$('#select-all').addEventListener('click',()=>{const result=coordinator.select([...stations.keys()]);notice=result.ok?'':result.reason;updateUI();if(result.ok){cameraFeedQueue.invalidate();renderer.shadowMap.needsUpdate=true;fitView(undefined,{reason:'participants'});}});
 document.querySelectorAll('[data-object]').forEach(button=>button.addEventListener('click',()=>selectObject(button.dataset.object)));
 document.querySelectorAll('[data-focus]').forEach(button=>button.addEventListener('click',()=>setFocus(button.dataset.focus)));
 $('#focus-robot').addEventListener('change',()=>setFocus($('#focus-robot').value));
@@ -225,7 +227,7 @@ function updateUI() {
   $('#arm-field').hidden=pipes||focus?.id==='c5';$('#arm-select').disabled=busy||pipes;$('#arm-select').value=focus?.arm??'right';
   $('#focus-hint').textContent=focus?`当前：${focus.config.label}。${pipes?(focus.id==='c5'?'单臂自动分类。':'左右臂自动交替。'):''}${pipes&&focus.controller.classification?.started?'本批次已锁定；复位或重新随机后可开启新批次。':'拖动只修改该工作台；切换观察不改变参与选择。'}`:'请先选择已就绪的机器人。';
   $('#scene-summary').textContent=`${selected.map(id=>ROBOT_CONFIGS[id].shortLabel).join(' / ')} · ${selected.length>1?'同步抓取工作站':'单机器人工作站'}`;
-  for(const [id,station] of stations){const snapshot=station.snapshot,row=$(`.result-row[data-robot="${id}"]`),included=selected.includes(id),progress=taskProgress({...snapshot,itemIndex:station.controller.itemIndex});row.dataset.state=snapshot.state;
+  for(const [id,station] of stations){const snapshot=station.summary,row=$(`.result-row[data-robot="${id}"]`),included=selected.includes(id),progress=taskProgress(snapshot);row.dataset.state=snapshot.state;
     row.querySelector('[data-focus]').disabled=!included;row.querySelector('output').textContent=included?(station.planning?'后台规划':STAGE_NAMES[snapshot.state]??'执行中'):'未参与';
     row.querySelector('progress').value=included?progress:0;row.querySelector('.result-track span').textContent=`${Math.round((included?progress:0)*100)}%`;
     const classification=snapshot.classification;
@@ -233,7 +235,7 @@ function updateUI() {
     $(`.station-tag[data-focus="${id}"]`).setAttribute('aria-pressed',String(id===coordinator.focusId));
   }
   const message=notice||(coordinator.planning?'正在后台规划，镜头、停止和复位操作仍可用。':coordinator.message);if(message!==lastStatus){$('#status').textContent=message;lastStatus=message;}
-  if(!focus||coordinator.planning)return;
+  if(!focus||focus.planning)return;
   const m=focus.controller.measure(),telemetry=focus.dynamics.telemetry(focus.arm),history=histories.get(focus.id);
   history.force.push(m.forces);history.torque.push(telemetry.joints.map(joint=>joint.torque));
   if(history.force.length>180){history.force.shift();history.torque.shift();}
@@ -264,13 +266,14 @@ new ResizeObserver(resize).observe(viewport);resize();
 function frame(now) {
   const frameStart=performance.now();if(lastFrame)frameTimes.push(now-lastFrame);if(frameTimes.length>120)frameTimes.shift();
   const wasPlanning=Boolean(coordinator?.planning);
-  if(wasPlanning&&!document.hidden&&!preparing){const result=coordinator.advancePlanning();planningSlices++;frameScheduler.reset(performance.now());if(result.done){notice=result.ok?'':result.reason;updateUI();}}
+  const wasBlocking=Boolean(coordinator?.blockingPlanning??coordinator?.planning);
+  if(wasPlanning&&!document.hidden&&!preparing){const result=coordinator.advancePlanning();planningSlices++;if(wasBlocking||!backgroundPlanningActive())frameScheduler.reset(performance.now());if(result.done){notice=result.ok?'':result.reason;updateUI();}}
   // A route candidate may finish well after the rAF timestamp. Start the
   // paused clock at its completion so planning time never becomes catch-up.
-  const clock=frameScheduler.advance(wasPlanning?performance.now():now,{paused:!coordinator||document.hidden||preparing||wasPlanning,
-    step:dt=>{coordinator.step(dt);physicsSteps++;},planning:()=>Boolean(coordinator?.planning)});accumulator=clock.backlogSeconds;
+  const clock=frameScheduler.advance(wasPlanning?performance.now():now,{paused:!coordinator||document.hidden||preparing||wasBlocking,
+    step:dt=>{coordinator.step(dt);physicsSteps++;},planning:()=>Boolean(coordinator?.blockingPlanning)});accumulator=clock.backlogSeconds;
   if(coordinator&&!document.hidden&&!preparing){
-    if(clock.steps){for(const station of stations.values())station.syncVisuals();renderer.shadowMap.needsUpdate=true;}
+    if(clock.steps){for(const station of stations.values())if(!station.planning){station.syncVisuals();if(shadowState.changed(station.id,station.data.qpos))renderer.shadowMap.needsUpdate=true;}}
     for(const station of stations.values())if(station.group.visible)station.animate(now,{reducedMotion});
     if(now-lastUI>100){updateUI();lastUI=now;}
   }
@@ -315,7 +318,7 @@ async function boot(){
     // Preserve the requested row/order even if parallel downloads finish in a
     // different order. All physics worlds start together after loading ends.
     const ordered=new Map(Object.keys(ROBOT_CONFIGS).filter(id=>stations.has(id)).map(id=>[id,stations.get(id)]));
-    coordinator=new MultiRobotCoordinator({stations:ordered,selectedIds:[...ordered.keys()]});
+    coordinator=new MultiRobotCoordinator({stations:ordered,selectedIds:[...ordered.keys()],independentPlanning:true});
     if(!stations.size)throw new Error('三个机器人均未加载成功，请检查网络后刷新重试');
     $('#loading').hidden=true;$('#loading-progress').value=1;lastFrame=performance.now();accumulator=0;
     notice=stations.size===3?'三台机器人已就绪；可单选或多选，点击开始后同时抓取。':'部分机器人加载失败；可使用已就绪的机器人，或刷新重试。';

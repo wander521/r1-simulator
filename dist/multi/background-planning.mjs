@@ -1,4 +1,4 @@
-import {applyPlanningResult} from './planning-serialization.mjs?v=20261018-perf-3';
+import {applyPlanningResult} from './planning-serialization.mjs?v=20261018-perf-4';
 
 /** Browser-only opt-in, outside the cooperative adapter used by Node/physics
  * tests. No IK candidate, swept segment or collision search runs in poll(). */

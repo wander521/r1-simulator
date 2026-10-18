@@ -18,10 +18,11 @@ import {tcpPose as c5TCP} from '../c5/grasp-kinematics.mjs';
 import {generatePipeLayout,normalizePipeSeed} from './pipe-layout.mjs';
 import {buildPipeScene} from './pipe-model.mjs';
 import {pipeControllerClass,pipeDynamicsClass} from './pipe-controller.mjs';
-import {planningControllerClass} from './planning.mjs?v=20261018-perf-3';
-import {backgroundPlanningControllerClass} from './background-planning.mjs?v=20261018-perf-3';
-import {createPlanningWorkerTransport} from './planning-worker-transport.mjs?v=20261018-perf-3';
-import {capturePlanningJob,planningJobStillCurrent} from './planning-serialization.mjs?v=20261018-perf-3';
+import {planningControllerClass} from './planning.mjs?v=20261018-perf-4';
+import {backgroundPlanningControllerClass} from './background-planning.mjs?v=20261018-perf-4';
+import {createPlanningWorkerTransport} from './planning-worker-transport.mjs?v=20261018-perf-4';
+import {capturePlanningJob,planningJobStillCurrent} from './planning-serialization.mjs?v=20261018-perf-4';
+import {cacheRobotMeshes} from './mesh-cache.mjs?v=20261018-perf-4';
 
 const url=path=>new URL(path,import.meta.url).href;
 export const ROBOT_CONFIGS=Object.freeze({
@@ -79,7 +80,9 @@ async function loadRobot(config,onProgress){
     const original=loader.defaultMeshLoader.bind(loader);
     loader.loadMeshCb=(path,loadingManager,done)=>/\.3ds(?:[?#]|$)/i.test(path)?loadC5Mesh(path,loadingManager,done):original(path,loadingManager,done);
   }
+  const meshCache=cacheRobotMeshes(loader);
   const [robot]=await Promise.all([loader.loadAsync(config.urdf),meshesReady]);
+  robot.userData.meshCache=meshCache;
   robot.rotation.x=-Math.PI/2;robot.position.set(0,config.rootHeight,0);
   robot.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;}});
   config.applyMaterials(robot);robot.updateMatrixWorld(true);return robot;
@@ -152,12 +155,12 @@ function progressOf(controller){
  * Only an independent URDF clone is translated for display. Physics and actual
  * contacts remain identical to the validated single-robot applications.
  */
-export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null,modelXml=sourceXml,cooperativePlanning=false,backgroundPlanning=false,planningTransportFactory=createPlanningWorkerTransport}){
+export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0,0],visualRobot=null,sourceXml=null,modelXml=sourceXml,initialTask=null,cooperativePlanning=false,backgroundPlanning=false,planningTransportFactory=createPlanningWorkerTransport}){
   const config=configFor(id);
   if(robot.parent)throw new Error('物理机器人必须保留独立局部坐标，不能挂到可视场景');
   const group=new THREE.Group();group.name=`${id}-station`;group.position.fromArray(offset);
   let planningTransport=null;
-  let activeModelXml=modelXml,modelPipeSeed=null;
+  let activeModelXml=modelXml,modelPipeSeed=initialTask?.mode==='pipes'?initialTask.modelSeed:null;
   const transport=()=>planningTransport??=(planningTransportFactory());
   const deferRobotSync=instance=>{
     // MuJoCo qpos/qvel and every 1 ms motor/contact update remain authoritative.
@@ -178,8 +181,14 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     instance.wristError=(...args)=>{nextDynamics.syncRobot();return wristError(...args);};
     return instance;
   };
-  let targets=taskTargets(config,group),dynamics=deferRobotSync(new config.Dynamics(api,model,data,robot));
-  let controller=createController(config.Controller,model,data,targets,dynamics),taskMode='legacy',pipeLayout=null;
+  let taskMode=initialTask?.mode==='pipes'?'pipes':'legacy';
+  let pipeLayout=taskMode==='pipes'?generatePipeLayout(config,{seed:initialTask.modelSeed}):null;
+  let targets=pipeLayout?pipeTargets(pipeLayout,config,group):taskTargets(config,group);
+  const InitialDynamics=pipeLayout?pipeDynamicsClass(config.Dynamics,{robotId:id}):config.Dynamics;
+  const InitialController=pipeLayout?pipeControllerClass(config.Controller,{robotId:id}):config.Controller;
+  let dynamics=deferRobotSync(new InitialDynamics(api,model,data,robot));
+  let controller=createController(InitialController,model,data,targets,dynamics);
+  if(pipeLayout)controller.setLayout(pipeLayout);
   visualRobot??=robot.clone(true);group.add(visualRobot);visualRobot.name=`${id}-visible-robot`;
   const sourceNodes=[],displayNodes=[];
   if(!visualRobot.setJointValues){robot.traverse(node=>sourceNodes.push(node));visualRobot.traverse(node=>displayNodes.push(node));if(sourceNodes.length!==displayNodes.length)throw new Error('可视镜像结构与物理机器人不匹配');}
@@ -210,6 +219,11 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
         telemetry:dynamics.telemetry(controller.arm),offset:group.position.toArray(),
         classification:taskMode==='pipes'?{...controller.classification,items:controller.classification.items.map(item=>({...item})),armSequence:[...controller.classification.armSequence],queue:[...controller.classification.queue],
           bins:controller.classification.bins.map(bin=>({id:bin.id,colorKey:bin.colorKey,label:bin.label,color:bin.color,center:bin.center.toArray(),halfX:bin.halfX,halfZ:bin.halfZ,slots:bin.slots.map(slot=>slot.toArray())}))}:null};
+    },
+    get summary(){
+      return {...runtime.status,label:config.label,selected:controller.selected,arm:controller.arm,
+        progress:progressOf(controller),itemIndex:controller.itemIndex,
+        classification:taskMode==='pipes'?{completed:controller.classification.completed,total:controller.classification.total}:null};
     },
     configureTask(task,{seed}={}){
       if(!disposed)controller.cancelPlanning?.('工作台已切换，路径检查已取消');
@@ -251,7 +265,7 @@ export function createRobotRuntimeFromParts({id,api,model,data,robot,offset=[0,0
     advancePlanning(){
       if(disposed)return{pending:false,done:true,ok:false,reason:'机器人已关闭'};
       const result=controller.advancePlanning?.()??{pending:false,done:true,ok:true};
-      runtime.syncVisuals();return result;
+      if(!result.pending)runtime.syncVisuals();return result;
     },
     stop(){
       if(disposed)return;

@@ -2,7 +2,7 @@ import * as THREE from '../vendor/three.module.min.js';
 import {CROUCH,SPREAD as R1_SPREAD} from '../r1/grasp-controller.mjs';
 import {STAND_POSE as G1_STAND,qToOpening as g1Opening,GRIPPER_Q_MAX as G1_MAX} from '../g1/g1-profile.mjs';
 import {qToOpening as c5Opening,GRIPPER_Q_MAX as C5_MAX} from '../c5/c5-profile.mjs';
-import {PlanningBudgetError,isPlanningBudgetError,PLANNING_BUDGET_MESSAGE,withPlanningBudget} from './planning-budget.mjs?v=20261018-perf-3';
+import {PlanningBudgetError,isPlanningBudgetError,PLANNING_BUDGET_MESSAGE,withPlanningBudget} from './planning-budget.mjs?v=20261018-perf-4';
 
 const now=()=>globalThis.performance?.now?.()??Date.now();
 const unreachable='目标超出机器人可达范围，请将物体或放置位置移近';

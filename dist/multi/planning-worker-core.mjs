@@ -1,8 +1,8 @@
-import {createRobotRuntimeFromParts,loadPhysicsAPI,ROBOT_CONFIGS} from './robot-runtime.mjs?v=20261018-perf-3';
-import {parsePlanningRobot} from './planning-robot.mjs?v=20261018-perf-3';
-import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from './planning-serialization.mjs?v=20261018-perf-3';
-import {createPlanningCheckCache} from './planning-check-cache.mjs?v=20261018-perf-3';
-import {enablePlanningWorkerIK} from './planning-ik-context.mjs?v=20261018-perf-3';
+import {createRobotRuntimeFromParts,loadPhysicsAPI,ROBOT_CONFIGS} from './robot-runtime.mjs?v=20261018-perf-4';
+import {parsePlanningRobot} from './planning-robot.mjs?v=20261018-perf-4';
+import {decodePlanningValue,restorePlanningJob,capturePlanningResult} from './planning-serialization.mjs?v=20261018-perf-4';
+import {createPlanningCheckCache} from './planning-check-cache.mjs?v=20261018-perf-4';
+import {enablePlanningWorkerIK} from './planning-ik-context.mjs?v=20261018-perf-4';
 
 /** Shared by the browser worker and its file-loading-only Node test bridge.
  * The live/standalone parsers retain their original default behavior. */
@@ -14,10 +14,16 @@ async function createWorkerRuntime(job){
   const config=ROBOT_CONFIGS[job.robotId];if(!config)throw new Error('未知的后台机器人模型');
   const [api,response]=await Promise.all([loadPhysicsAPI(),fetch(config.urdf)]);
   if(!response.ok)throw new Error(`后台运动链加载失败（${response.status}）`);
-  const robot=createPlanningWorkerRobot(await response.text(),{rootHeight:config.rootHeight}),vfs=new api.MjVFS();let model,data;
+  return compilePlanningRuntime(job,{api,source:await response.text()});
+}
+
+export function compilePlanningRuntime(job,{api,source}){
+  const config=ROBOT_CONFIGS[job.robotId];if(!config)throw new Error('未知的后台机器人模型');
+  const robot=createPlanningWorkerRobot(source,{rootHeight:config.rootHeight}),vfs=new api.MjVFS();let model,data;
   try{
-    model=api.MjModel.from_xml_string(job.sourceXml,vfs);data=new api.MjData(model);
-    return createRobotRuntimeFromParts({id:job.robotId,api,model,data,robot,sourceXml:job.sourceXml,cooperativePlanning:true});
+    model=api.MjModel.from_xml_string(job.modelXml,vfs);data=new api.MjData(model);
+    return createRobotRuntimeFromParts({id:job.robotId,api,model,data,robot,sourceXml:job.sourceXml,modelXml:job.modelXml,
+      initialTask:job.taskMode==='pipes'?{mode:'pipes',modelSeed:job.modelPipeSeed}:null,cooperativePlanning:true});
   }catch(error){data?.delete();model?.delete();throw error;}finally{vfs.delete();}
 }
 
@@ -34,18 +40,17 @@ export function createPlanningWorkerService({createRuntime=createWorkerRuntime}=
         // Exact immutable fields still define reuse, including both original
         // and compiled layout seeds. Comparing them does not allocate another
         // 20 MB escaped XML string on every G1 item.
-        const job=decodePlanningValue(encoded),nextKey=[job.robotId,job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode,job.pipeSeed];
+        const job=decodePlanningValue(encoded),nextKey=[job.robotId,job.sourceXml,job.modelXml,job.modelPipeSeed,job.taskMode];
         onProgress({stage:'loading',steps:0,attempts:0,segmentElapsedMs:0});
         if(!runtime||!key||nextKey.some((value,index)=>!Object.is(value,key[index]))){runtime?.dispose();runtime=await createRuntime(job);key=nextKey;
           if(job.taskMode==='pipes'){
             // Idle randomization preserves the live MjModel's original body,
-            // joint and qpos order. Rebuilding from the *current* layout seed
-            // would permute the eight randomized pipe definitions and copy
-            // authoritative qpos into the wrong bodies. Compile the exact
-            // original scene first, then reset only its current layout.
-            const configured=runtime.configureTask('pipes',{seed:job.modelPipeSeed});if(!configured.ok)throw new Error(configured.reason);
-            if(job.pipeSeed!==job.modelPipeSeed)runtime.reset({seed:job.pipeSeed});
+            // joint and qpos order. Compile the exact modelXml once, build its
+            // original metadata, then reset only the current randomized layout.
+            if(runtime.taskMode!=='pipes'||runtime.modelXml!==job.modelXml||runtime.modelPipeSeed!==job.modelPipeSeed)
+              throw new Error('后台圆管模型拓扑不匹配');
           }}
+        if(job.taskMode==='pipes'&&runtime.controller.pipeLayout?.seed!==job.pipeSeed)runtime.reset({seed:job.pipeSeed});
         // A previous job may leave completed command metadata in this private
         // mirror; it must never override the new exact live-world snapshot.
         runtime.controller.cancelPlanning?.('更新后台规划快照');

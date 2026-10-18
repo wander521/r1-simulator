@@ -1,0 +1,83 @@
+{
+  "pass": true,
+  "startedAt": "2026-10-18T07:47:51.281Z",
+  "finishedAt": "2026-10-18T07:47:51.295Z",
+  "wallSeconds": 0.013967540979385375,
+  "checks": 12,
+  "results": [
+    {
+      "name": "Async readback submits two passes synchronously and restores every caller state before its promise settles",
+      "pass": true
+    },
+    {
+      "name": "Delayed result returns the supplied RGBA8 buffer and uses submission-time ACES exposure without changing later main-view state",
+      "pass": true
+    },
+    {
+      "name": "One in-flight frame rejects sync/async reentry and disposal until completion without another draw or release",
+      "pass": true
+    },
+    {
+      "name": "Deferred readback rejection restores pending lifetime and allows a subsequent successful frame",
+      "pass": true
+    },
+    {
+      "name": "Source draw, display draw and asynchronous readback submission failures restore state immediately and do not poison reuse",
+      "pass": true
+    },
+    {
+      "name": "A synchronous legacy renderer has an explicit compatible Promise fallback with unchanged color and restoration contracts",
+      "pass": true
+    },
+    {
+      "name": "Fallback readback errors restore all state and preserve later synchronous and asynchronous fallback use",
+      "pass": true
+    },
+    {
+      "name": "Async buffer/exposure/mapping validation rejects before any renderer mutation or read submission",
+      "pass": true
+    },
+    {
+      "name": "Nested entry from either source/display draw cannot corrupt the enclosing asynchronous submission",
+      "pass": true
+    },
+    {
+      "name": "Sync and async paths reuse identical HDR/display targets, bundled shader, geometry and material across exposure changes",
+      "pass": true,
+      "detail": {
+        "threeRevision": "180",
+        "shaderSHA256": "155c3b0986c815d79e5b13279924aafc6ac56ce1b65fdf831b5daecc260951e5",
+        "asyncFrames": 3,
+        "syncFrames": 1
+      }
+    },
+    {
+      "name": "Successful async disposal is idempotent, owns exactly four resources, and rejects all subsequent entry",
+      "pass": true
+    },
+    {
+      "name": "Pass remains confined to existing renderer/targets with no context, canvas, robot or physical-world ownership",
+      "pass": true
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-camera-feed-async-perf-v2.mjs": "aa6ea1df888b08edc50cae4b40b9017ab1dbf2bfb38ca24b85f103a93614c687",
+    "work/test-multi-camera-feeds.mjs": "ad2bf7e233150b66022982e6a0431d428416fcc1fadb026ce70ccf0a17376066",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "endSourceHashes": {
+    "work/test-camera-feed-async-perf-v2.mjs": "aa6ea1df888b08edc50cae4b40b9017ab1dbf2bfb38ca24b85f103a93614c687",
+    "work/test-multi-camera-feeds.mjs": "ad2bf7e233150b66022982e6a0431d428416fcc1fadb026ce70ccf0a17376066",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de"
+  },
+  "gpuExecuted": false,
+  "shaderCompileExecuted": false,
+  "browserExecuted": false,
+  "scope": "Actual production camera-feed module with controlled asynchronous renderer-contract fixtures. Immediate restoration, deferred buffer/Promise lifetime, errors, reentry, disposal, fallback, original shader/color pipeline, resource reuse and ownership are tested. CPU-generated fixture bytes are not GPU pixels or a measured FPS improvement.",
+  "nativeFollowUp": "A real browser/GPU must verify Three async readback, rendered HDR/ACES/sRGB equivalence, desktop/mobile camera feeds, theme changes, main-view interactions and paired frame/input timings. Sync fallback remains a compatibility path and is not claimed nonblocking."
+}

@@ -1,0 +1,51 @@
+{
+  "capturedAt": "2026-10-18T08:19:53.679Z",
+  "sourceHashes": {
+    "work/collect-browser-perf-v4.mjs": "48ca29328250dd87df134cf82ed43b944e821b59712d19ce765122168b10a0bd",
+    "dist/multi/app.mjs": "fc8fa670f49f235b913ac0fccfaa4668eb877d75060d8b07136bc44accbc3664",
+    "dist/multi/index.html": "2d117dd6b213c1cb13e03afb4a1c1e2989e9c2e22bd078d964ea4e2182cac626",
+    "dist/multi/coordinator.mjs": "46caf2ab191e4022cdca81a19632db6a332a5e60c78a3d6e7ea40a1da1efc6d0",
+    "dist/multi/robot-runtime.mjs": "5d20ad4dac924e26860908ed00d055a1e96de30edb5533895ed77628d3e1c123",
+    "dist/multi/planning.mjs": "3ffa270e91c358ee9e5ccda87bccc3ef8f41770d994776ad592a67ab889ff620",
+    "dist/multi/pipe-controller.mjs": "601601b09493e9fd953c981132d1863f481344590503ba3585ed0cce5b4e56b7",
+    "dist/multi/background-planning.mjs": "b633eda06c56960a11a05503f774f4cdcf74c7ef7afbe23e63a6714efdd4e6aa",
+    "dist/multi/planning-worker.mjs": "5eba78c86d6d1a8fa8335d04b8c5f64b7d35626cf9cacea71fe7403ef5225a5b",
+    "dist/multi/planning-worker-core.mjs": "1ed40b90355d456c421ed06068b2401f2007d57ff50a391fe42c735a8eaf1d48",
+    "dist/multi/planning-worker-transport.mjs": "027b0b47ffee96ad875e523d153328695efb52271dc3552b959cfc11c182bf79",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/standalone-planning.mjs": "774524ec22a3d8609c26dcb3844cdfa3b6f2698eea6ecb82e20333f3a5766d97",
+    "dist/multi/mesh-cache.mjs": "f8a3749c2c15ca97441dd7d25e55458f6e4b914de95bb315ff5e084d0bf79c0f",
+    "dist/multi/shadow-state.mjs": "971669f1ebf262ae07b6d286137668a0d0eaedecd2b2d0c984dd32678ac590da",
+    "dist/r1/r1-app.mjs": "3b7edac36df8c3ccc1cc3421dc06db4203fa39d88edbed0e00bcdee4eef5ecd2",
+    "dist/r1/index.html": "a10f79c7a4d0f94e1eccd36cf43b23f43fb55dd9f4fe37f19b894cfd6cd45b4c",
+    "dist/g1/g1-app.mjs": "5d4ced573bcfeec15abe7a7ff16cf921be869abe62ba1f8e514d159bb72cea9f",
+    "dist/g1/index.html": "b41ba7aa00f5e45b24457f881dc929539e3ba856cf7c6a39ee0f33373516ed24",
+    "dist/c5/c5-app.mjs": "b8fe757c00e36f733e079a02a3e93b368bcbb783efac4141468d6dceded59247",
+    "dist/c5/index.html": "61c9aebb657e3818f1a1892f52a69856274f2c80494a28a5303dfd5b815acaa1",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4"
+  },
+  "measurement": {
+    "viewport": [
+      390,
+      844
+    ],
+    "overflow": false,
+    "state": "idle",
+    "running": false,
+    "observedActions": [
+      "current source loaded",
+      "start showed background planning",
+      "stop cancelled",
+      "reset restored idle",
+      "desktop and phone rendered layouts inspected"
+    ],
+    "scope": "Native UI actions and responsive viewport; separate real-physics reports certify complete manipulation."
+  }
+}

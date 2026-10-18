@@ -1,4 +1,9 @@
 import * as THREE from '../vendor/three.module.min.js';
+import {createStandalonePlanningController} from '../multi/standalone-planning.mjs?v=20261018-perf-4';
+import {cacheRobotMeshes} from '../multi/mesh-cache.mjs?v=20261018-perf-4';
+import {createShadowStateTracker} from '../multi/shadow-state.mjs?v=20261018-perf-4';
+let latestTelemetry=null,lastJointUI=0;
+const shadowState=createShadowStateTracker();
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import URDFLoader from '../vendor/URDFLoader.js';
 import createMuJoCo from '../r1/mujoco-runtime.mjs';
@@ -49,7 +54,7 @@ const cameras=[new THREE.PerspectiveCamera(48,4/3,.02,10),new THREE.PerspectiveC
 const feeds=['#overhead-camera-canvas','#wrist-camera-canvas'].map(selector=>{const r=new THREE.WebGLRenderer({canvas:$(selector),antialias:true});r.setSize(320,240,false);return r;});
 feeds.forEach(r=>configureRenderer(r,{THREE}));configureOverheadCamera(cameras[0],{THREE,TABLE_HEIGHT,tableCenter:TABLE_CENTER_X});
 const wristVision=createWristVision({scene,THREE,camera:cameras[1]});
-const stages={idle:'自然站立待命',recenter:'手臂回到预备位',align:'腰部水平转向',spread:'双臂侧展',raise:'侧向屈肘抬升',ready:'屈肘预备',approach:'接近目标',descend:'下降对准',closing:'闭合并验证接触',lift:'抬升验证',transfer:'搬运至放置位置',place:'支撑接触验证',release:'松开夹爪',retreat:'夹爪撤离',settling:'等待物体稳定',return_clear:'上方撤离',return_fold:'双臂侧收',return_wide:'侧向落臂',return:'双臂垂下待命',return_center:'腰部回正',stack_settle:'三层支撑稳定验证',reaction_clear:'结果动作准备 · 上方撤离',reaction_fold:'结果动作准备 · 双臂侧收',reaction_wide:'结果动作准备 · 侧向落臂',reaction_home:'结果动作准备 · 双臂垂下',face_observer:'面向观察者',happy:'叠放成功 · 庆祝',shy:'叠放失败 · 害羞',complete:'任务完成',failed:'抓取失败',stopped:'已停止'};
+const stages={planning:'后台检查路径',idle:'自然站立待命',recenter:'手臂回到预备位',align:'腰部水平转向',spread:'双臂侧展',raise:'侧向屈肘抬升',ready:'屈肘预备',approach:'接近目标',descend:'下降对准',closing:'闭合并验证接触',lift:'抬升验证',transfer:'搬运至放置位置',place:'支撑接触验证',release:'松开夹爪',retreat:'夹爪撤离',settling:'等待物体稳定',return_clear:'上方撤离',return_fold:'双臂侧收',return_wide:'侧向落臂',return:'双臂垂下待命',return_center:'腰部回正',stack_settle:'三层支撑稳定验证',reaction_clear:'结果动作准备 · 上方撤离',reaction_fold:'结果动作准备 · 双臂侧收',reaction_wide:'结果动作准备 · 侧向落臂',reaction_home:'结果动作准备 · 双臂垂下',face_observer:'面向观察者',happy:'叠放成功 · 庆祝',shy:'叠放失败 · 害羞',complete:'任务完成',failed:'抓取失败',stopped:'已停止'};
 const sequence=['spread','raise','ready','recenter','align','approach','descend','closing','lift','transfer','place','release','retreat','settling','return_clear','return_align','return_fold','return_wide','return','return_center'];
 Object.assign(stages,{return_align:'胸前转腰回正',reaction_align:'结果动作准备 · 腰部回正'});
 const reactionProgress={reaction_clear:.92,reaction_align:.93,reaction_fold:.94,reaction_wide:.95,reaction_home:.96,face_observer:.975,happy:.99,shy:.99};
@@ -132,7 +137,7 @@ function updateUI(){
   $('#rms-error').textContent=`${error.toFixed(2)} mm`;
   forceHistory.push(m.forces);errorHistory.push([error]);if(forceHistory.length>180){forceHistory.shift();errorHistory.shift();}
   drawChart($('#torque-chart'),forceHistory,['#5ee0ff','#f5d76e'],12);drawChart($('#error-chart'),errorHistory,['#8fd7c1'],5);
-  const telemetry=controller.dynamics.telemetry(arm);jointTelemetry.update({joints:telemetry.joints.map(j=>({...j,torqueLimit:j.effortLimit})),time:telemetry.time});
+  const telemetry=controller.dynamics.telemetry(arm);latestTelemetry=telemetry;jointTelemetry.update({joints:telemetry.joints.map(j=>({...j,torqueLimit:j.effortLimit})),time:telemetry.time});
   contactMarkers.forEach((marker,i)=>{const c=m.contacts[i];marker.visible=showContacts&&!!c&&c.force>.015;if(c){marker.position.copy(c.position);marker.scale.setScalar(1+Math.min(c.force,5)*.15);}});
 }
 
@@ -159,8 +164,11 @@ function frame(now){
   if(controller){
     // Freeze the result pose only when the reaction starts, not at task start:
     // the observer may orbit the camera while the robot is working.
-    if(controller.running&&!controller.reaction)controller.observerYaw=Math.atan2(-camera.position.z,camera.position.x);
-    accumulator+=dt;while(accumulator>=.001){controller.step(.001);accumulator-=.001;}
+    if(controller.running&&!controller.reaction&&!controller.planning)controller.observerYaw=Math.atan2(-camera.position.z,camera.position.x);
+    const wasPlanning=controller.planning;
+    if(wasPlanning){controller.advancePlanning();accumulator=0;lastTime=performance.now();}
+    else if(!document.hidden){accumulator+=dt;while(accumulator>=.001&&!controller.planning){controller.step(.001);accumulator-=.001;}}
+    if(controller.planning)accumulator=0;
     controller.syncFingers();
     for(const t of targets){const p=controller.objectPose(t.id);t.mesh.position.copy(p.position);t.mesh.quaternion.copy(p.quaternion);if(drag?.target===t)controller.setObject(t.id,t.mesh.position,t.mesh.quaternion);
       // Same pulse timing and emissive range as the reference view's Q0().
@@ -172,7 +180,9 @@ function frame(now){
     if(now-lastUI>100){updateUI();lastUI=now;}
   }
   orbit.update();
-  if(controller){const samples=controller.dynamics.telemetry(arm),f=controller.fingers[arm];const opening=GRIPPER_GAP_AT_ZERO+f.reduce((sum,j)=>sum+controller.data.qpos[j.q],0);jointUI.update({joints:samples.joints,opening,openingTarget:controller.opening,openingLower:OPENING_MIN,openingUpper:OPENING_MAX,running:controller.running});}
+  if(controller&&latestTelemetry&&now-lastJointUI>100){lastJointUI=now;const samples=latestTelemetry,f=controller.fingers[arm];const opening=GRIPPER_GAP_AT_ZERO+f.reduce((sum,j)=>sum+controller.data.qpos[j.q],0);jointUI.update({joints:samples.joints,opening,openingTarget:controller.opening,openingLower:OPENING_MIN,openingUpper:OPENING_MAX,running:controller.running});}
+  renderer.shadowMap.autoUpdate=false;
+  if(controller&&shadowState.changed('g1',controller.data.qpos))renderer.shadowMap.needsUpdate=true;
   renderer.render(scene,camera);
   if(showCameras&&now-lastVision>80){feeds.forEach((r,i)=>r.render(scene,cameras[i]));lastVision=now;}
 }
@@ -196,11 +206,12 @@ async function boot(){try{
   const loader=new URDFLoader(manager);
   // URDF's promise resolves when the joint tree is parsed, before STL meshes.
   // Wait for both so every shell receives its finish and shadow settings.
+  cacheRobotMeshes(loader);
   const completeRobot=Promise.all([loader.loadAsync('./assets/g1_29dof_with_dex1_1.urdf'),meshesReady]).then(([r])=>r);
   const [loaded,api,xml]=await Promise.all([completeRobot,wasmWithProgress(),fetch('./models/g1-dynamic-scene.xml?v=20261015-g1-5').then(async r=>{if(!r.ok)throw new Error(`场景加载失败 ${r.status}`);const xml=await r.text();setLoading('scene',1,'关节物理场景已加载');return xml;})]);
   robot=loaded;robot.rotation.x=-Math.PI/2;robot.position.y=ROOT_HEIGHT;robot.traverse(n=>{if(n.isMesh){n.castShadow=true;n.receiveShadow=true;}});scene.add(robot);applyG1Materials(robot);
   setLoading('physics',.2,'建立关节、电机和碰撞状态…');
-  const vfs=new api.MjVFS(),model=api.MjModel.from_xml_string(xml,vfs),data=new api.MjData(model),dynamics=new G1Dynamics(api,model,data,robot);controller=new GraspController(api,model,data,robot,targets,dynamics);vfs.delete();
+  const vfs=new api.MjVFS(),model=api.MjModel.from_xml_string(xml,vfs),data=new api.MjData(model),dynamics=new G1Dynamics(api,model,data,robot);controller=createStandalonePlanningController(GraspController,{robotId:'g1',api,model,data,robot,targets,dynamics,sourceXml:xml});vfs.delete();
   jointUI=createJointUI({root:$('#callouts'),robot,getArm:()=>arm,project,onJoint:(name,value)=>{if(!controller.running&&!controller.applyManualPose({...controller.pose,[name]:value}))status(controller.message);},onOpening:value=>{if(!controller.running&&!controller.setManualOpening(value))status(controller.message);}});
   jointTelemetry=createJointTelemetry($('.panel'));
   setLoading('physics',1,'场景已就绪');await new Promise(requestAnimationFrame);
@@ -209,3 +220,4 @@ async function boot(){try{
   window.g1Diagnostics=()=>({state:controller.state,task:controller.task,itemIndex:controller.itemIndex,running:controller.running,message:controller.message,history:[...controller.history],evidence:{...controller.evidence},stackEvidence:controller.stackEvidence,stackStableSeconds:controller.stackStableSeconds,reaction:controller.reaction,reactionFinished:controller.reactionFinished,stackCheck:controller.task==='stack'?controller.stackCheck():null,camera:camera.position.toArray(),orbitEnabled:orbit.enabled,drag:drag?.mode||null,selected,objects:targets.map(t=>({id:t.id,position:t.mesh.position.toArray(),screen:project(t.mesh.position)})),measurement:controller.measure(),planError:controller.planError,telemetry:controller.dynamics.telemetry(arm),loading:loadingTrace,wristCamera:{position:cameras[1].position.toArray(),direction:cameras[1].getWorldDirection(new THREE.Vector3()).toArray(),fov:cameras[1].fov,modelVisible:wristVision.visible},tcp:project(tcpPose(robot,arm).position),simTime:controller.time});
 }catch(error){console.error(error);$('#loading-text').textContent=`加载失败：${error.message}。刷新可重试。`;}}
 boot();
+window.addEventListener('pagehide',()=>controller?.disposePlanning());

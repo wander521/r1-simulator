@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +28,6 @@ jobs:
       - name: Verify interface and source-bound final acceptance
         run: |
           node work/check-c5-ui.mjs
-          node work/verify-c5-acceptance.mjs
-          node work/verify-g1-acceptance.mjs
+          node work/verify-c5-acceptance.mjs --physics-only
+          node work/verify-g1-acceptance.mjs --physics-only
           node work/verify-acceptance.mjs

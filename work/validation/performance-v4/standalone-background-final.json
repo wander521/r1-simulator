@@ -1,0 +1,333 @@
+{
+  "pass": true,
+  "releaseCohort": "20261018-perf-4",
+  "wallSeconds": 40.17652258300781,
+  "total": 15,
+  "passed": 15,
+  "checks": [
+    {
+      "name": "r1: Worker cancellation and reset reject old queued results",
+      "pass": true
+    },
+    {
+      "name": "r1: Unreachable target fails asynchronously and reset permits a normal retry",
+      "pass": true
+    },
+    {
+      "name": "r1: Blue sort has real dual contact lift release and stable table support",
+      "pass": true,
+      "evidence": {
+        "lift": 0.12889564475169668,
+        "maxSpeed": 0.10906531664435466,
+        "dual": true,
+        "stable": 0
+      },
+      "actualDual": true,
+      "finalDistance": 0.0014324742038123903
+    },
+    {
+      "name": "r1: Three-object stack completes only after real support stabilization",
+      "pass": true,
+      "stackEvidence": [
+        {
+          "id": "blue",
+          "drop": [
+            0.9,
+            0.7109952061210892,
+            0
+          ],
+          "lift": 0.12889564475169668,
+          "maxSpeed": 0.10906531664435466,
+          "dual": true,
+          "stable": 0
+        },
+        {
+          "id": "red",
+          "drop": [
+            0.9005485072138217,
+            0.7524952061212041,
+            0.00132329972854217
+          ],
+          "lift": 0.12892811715928099,
+          "maxSpeed": 0.14095505663496316,
+          "dual": true,
+          "stable": 0
+        },
+        {
+          "id": "yellow",
+          "drop": [
+            0.9002239114466027,
+            0.8009817831365896,
+            0.007643093868572778
+          ],
+          "lift": 0.12965643794091708,
+          "maxSpeed": 0.15646267136109518,
+          "dual": true,
+          "stable": 0
+        }
+      ],
+      "stableSeconds": 3.00999999999998
+    },
+    {
+      "name": "r1: observation",
+      "pass": true,
+      "physicalSteps": 86270,
+      "planningPolls": 463,
+      "maxPollMs": 2.0654590129852295,
+      "maxTorqueRatio": 1,
+      "maxFingerViolation": 0.00030650398404882123
+    },
+    {
+      "name": "g1: Worker cancellation and reset reject old queued results",
+      "pass": true
+    },
+    {
+      "name": "g1: Unreachable target fails asynchronously and reset permits a normal retry",
+      "pass": true
+    },
+    {
+      "name": "g1: Blue sort has real dual contact lift release and stable table support",
+      "pass": true,
+      "evidence": {
+        "lift": 0.10966039853318543,
+        "maxSpeed": 0.09763602277966527,
+        "dual": true,
+        "stable": 0
+      },
+      "actualDual": true,
+      "finalDistance": 0.0014714270353775945
+    },
+    {
+      "name": "g1: Three-object stack completes only after real support stabilization",
+      "pass": true,
+      "stackEvidence": [
+        {
+          "id": "blue",
+          "drop": [
+            0.44,
+            0.9189952061210893,
+            0
+          ],
+          "lift": 0.10966039853318543,
+          "maxSpeed": 0.09763602277966527,
+          "dual": true,
+          "stable": 0
+        },
+        {
+          "id": "red",
+          "drop": [
+            0.43860030085137486,
+            0.9604952061212041,
+            0.0004538058718824028
+          ],
+          "lift": 0.10975814846709797,
+          "maxSpeed": 0.10954423298683204,
+          "dual": true,
+          "stable": 0
+        },
+        {
+          "id": "yellow",
+          "drop": [
+            0.4370364199128077,
+            1.0089817681066218,
+            0.0009932950697443608
+          ],
+          "lift": 0.10939183726085344,
+          "maxSpeed": 0.12278051924012169,
+          "dual": true,
+          "stable": 0
+        }
+      ],
+      "stableSeconds": 3.00999999999998
+    },
+    {
+      "name": "g1: observation",
+      "pass": true,
+      "physicalSteps": 99390,
+      "planningPolls": 317,
+      "maxPollMs": 1.253624975681305,
+      "maxTorqueRatio": 1,
+      "maxFingerViolation": 0.000008002479858430778
+    },
+    {
+      "name": "c5: Worker cancellation and reset reject old queued results",
+      "pass": true
+    },
+    {
+      "name": "c5: Unreachable target fails asynchronously and reset permits a normal retry",
+      "pass": true
+    },
+    {
+      "name": "c5: Blue sort has real dual contact lift release and stable table support",
+      "pass": true,
+      "evidence": {
+        "lift": 0.1394246809059807,
+        "maxSpeed": 0.12777098327848704,
+        "dual": true,
+        "stable": 0
+      },
+      "actualDual": true,
+      "finalDistance": 0.0004158064139301482
+    },
+    {
+      "name": "c5: Three-object stack completes only after real support stabilization",
+      "pass": true,
+      "stackEvidence": [
+        {
+          "id": "blue",
+          "drop": [
+            0.55,
+            0.7389952061210893,
+            0
+          ],
+          "lift": 0.1394246809059807,
+          "maxSpeed": 0.12777098327848704,
+          "dual": true,
+          "stable": 0
+        },
+        {
+          "id": "red",
+          "drop": [
+            0.5495894184442294,
+            0.7804952061212042,
+            0.00006570976829841152
+          ],
+          "lift": 0.14000516215881653,
+          "maxSpeed": 0.15201195560731487,
+          "dual": true,
+          "stable": 0
+        },
+        {
+          "id": "yellow",
+          "drop": [
+            0.5478977535201953,
+            0.8289817667459833,
+            0.00009007150852647645
+          ],
+          "lift": 0.13922836627470025,
+          "maxSpeed": 0.15937384171328303,
+          "dual": true,
+          "stable": 0
+        }
+      ],
+      "stableSeconds": 3.00999999999998
+    },
+    {
+      "name": "c5: observation",
+      "pass": true,
+      "physicalSteps": 72300,
+      "planningPolls": 179,
+      "maxPollMs": 0.27983397245407104,
+      "maxTorqueRatio": 1,
+      "maxFingerViolation": 0.0000026552961502196437
+    }
+  ],
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "work/test-standalone-background.mjs": "66d379d088a2bb24df1a751b0a829523dc108608825c76238978730e642fd39d",
+    "work/background-planning-node-worker.mjs": "75950fb84204f4febafe256d4b62595eb5a49fa865bfaf44072378e17c7ced47",
+    "dist/multi/app.mjs": "fc8fa670f49f235b913ac0fccfaa4668eb877d75060d8b07136bc44accbc3664",
+    "dist/multi/background-planning.mjs": "b633eda06c56960a11a05503f774f4cdcf74c7ef7afbe23e63a6714efdd4e6aa",
+    "dist/multi/coordinator.mjs": "46caf2ab191e4022cdca81a19632db6a332a5e60c78a3d6e7ea40a1da1efc6d0",
+    "dist/multi/mesh-cache.mjs": "f8a3749c2c15ca97441dd7d25e55458f6e4b914de95bb315ff5e084d0bf79c0f",
+    "dist/multi/pipe-controller.mjs": "601601b09493e9fd953c981132d1863f481344590503ba3585ed0cce5b4e56b7",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "1ed40b90355d456c421ed06068b2401f2007d57ff50a391fe42c735a8eaf1d48",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-worker-transport.mjs": "027b0b47ffee96ad875e523d153328695efb52271dc3552b959cfc11c182bf79",
+    "dist/multi/planning-worker.mjs": "5eba78c86d6d1a8fa8335d04b8c5f64b7d35626cf9cacea71fe7403ef5225a5b",
+    "dist/multi/planning.mjs": "3ffa270e91c358ee9e5ccda87bccc3ef8f41770d994776ad592a67ab889ff620",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "5d20ad4dac924e26860908ed00d055a1e96de30edb5533895ed77628d3e1c123",
+    "dist/multi/shadow-state.mjs": "971669f1ebf262ae07b6d286137668a0d0eaedecd2b2d0c984dd32678ac590da",
+    "dist/multi/standalone-planning.mjs": "774524ec22a3d8609c26dcb3844cdfa3b6f2698eea6ecb82e20333f3a5766d97",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/r1/r1-app.mjs": "3b7edac36df8c3ccc1cc3421dc06db4203fa39d88edbed0e00bcdee4eef5ecd2",
+    "dist/r1/index.html": "a10f79c7a4d0f94e1eccd36cf43b23f43fb55dd9f4fe37f19b894cfd6cd45b4c",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/g1-app.mjs": "5d4ced573bcfeec15abe7a7ff16cf921be869abe62ba1f8e514d159bb72cea9f",
+    "dist/g1/index.html": "b41ba7aa00f5e45b24457f881dc929539e3ba856cf7c6a39ee0f33373516ed24",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/c5-app.mjs": "b8fe757c00e36f733e079a02a3e93b368bcbb783efac4141468d6dceded59247",
+    "dist/c5/index.html": "61c9aebb657e3818f1a1892f52a69856274f2c80494a28a5303dfd5b815acaa1",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3"
+  },
+  "endSourceHashes": {
+    "work/test-standalone-background.mjs": "66d379d088a2bb24df1a751b0a829523dc108608825c76238978730e642fd39d",
+    "work/background-planning-node-worker.mjs": "75950fb84204f4febafe256d4b62595eb5a49fa865bfaf44072378e17c7ced47",
+    "dist/multi/app.mjs": "fc8fa670f49f235b913ac0fccfaa4668eb877d75060d8b07136bc44accbc3664",
+    "dist/multi/background-planning.mjs": "b633eda06c56960a11a05503f774f4cdcf74c7ef7afbe23e63a6714efdd4e6aa",
+    "dist/multi/coordinator.mjs": "46caf2ab191e4022cdca81a19632db6a332a5e60c78a3d6e7ea40a1da1efc6d0",
+    "dist/multi/mesh-cache.mjs": "f8a3749c2c15ca97441dd7d25e55458f6e4b914de95bb315ff5e084d0bf79c0f",
+    "dist/multi/pipe-controller.mjs": "601601b09493e9fd953c981132d1863f481344590503ba3585ed0cce5b4e56b7",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/planning-worker-core.mjs": "1ed40b90355d456c421ed06068b2401f2007d57ff50a391fe42c735a8eaf1d48",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-worker-transport.mjs": "027b0b47ffee96ad875e523d153328695efb52271dc3552b959cfc11c182bf79",
+    "dist/multi/planning-worker.mjs": "5eba78c86d6d1a8fa8335d04b8c5f64b7d35626cf9cacea71fe7403ef5225a5b",
+    "dist/multi/planning.mjs": "3ffa270e91c358ee9e5ccda87bccc3ef8f41770d994776ad592a67ab889ff620",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/multi/robot-runtime.mjs": "5d20ad4dac924e26860908ed00d055a1e96de30edb5533895ed77628d3e1c123",
+    "dist/multi/shadow-state.mjs": "971669f1ebf262ae07b6d286137668a0d0eaedecd2b2d0c984dd32678ac590da",
+    "dist/multi/standalone-planning.mjs": "774524ec22a3d8609c26dcb3844cdfa3b6f2698eea6ecb82e20333f3a5766d97",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/r1/r1-app.mjs": "3b7edac36df8c3ccc1cc3421dc06db4203fa39d88edbed0e00bcdee4eef5ecd2",
+    "dist/r1/index.html": "a10f79c7a4d0f94e1eccd36cf43b23f43fb55dd9f4fe37f19b894cfd6cd45b4c",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/r1/models/r1-dynamic-scene.xml": "eff0fece28b2cdf8ea37d89cc8c0bd33c74b504bc5f95af3d29d7d175031940d",
+    "dist/r1/assets/r1.urdf": "5365fb487634ea519aa065f45311d9aae48ac33b5edfb75154ebc94bbf3464eb",
+    "dist/g1/g1-app.mjs": "5d4ced573bcfeec15abe7a7ff16cf921be869abe62ba1f8e514d159bb72cea9f",
+    "dist/g1/index.html": "b41ba7aa00f5e45b24457f881dc929539e3ba856cf7c6a39ee0f33373516ed24",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/g1/models/g1-dynamic-scene.xml": "a1cee708eb8b0e99d81fbb1ec1572420d6b2e2f31b77da08a3af4925b9284f09",
+    "dist/g1/assets/g1_29dof_with_dex1_1.urdf": "0a25ea0ed77740ca66af74a9f3c2dae649324a369351bf2f6d5cab3555b5f059",
+    "dist/c5/c5-app.mjs": "b8fe757c00e36f733e079a02a3e93b368bcbb783efac4141468d6dceded59247",
+    "dist/c5/index.html": "61c9aebb657e3818f1a1892f52a69856274f2c80494a28a5303dfd5b815acaa1",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/c5/models/c5-dynamic-scene.xml": "863d1eed501c81d5defd75a0b1eeb36bf3b153f39968d8de7618181bfce3bc5c",
+    "dist/c5/assets/c5-dex1.urdf": "857466caa156c206941106c65ab20e2df949af1fd6e195a90b5038da004f3ee3"
+  },
+  "scope": "Actual original standalone Dynamics + Controller wrapped by the production shared Worker adapter. Real worker_threads changes only fetch/readFile. Same 1 ms physics and physical success gates; not a rendered-browser test."
+}

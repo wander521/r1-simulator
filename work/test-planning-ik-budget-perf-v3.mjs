@@ -14,7 +14,7 @@ import {STAND_POSE,ROOT_HEIGHT as G1_HEIGHT,armJointNames as g1Names} from '../d
 import {ROOT_HEIGHT as C5_HEIGHT,HOME_POSE,armJointNames as c5Names} from '../dist/c5/c5-profile.mjs';
 import {REST_TORSO,REST} from '../dist/r1/grasp-controller.mjs';
 
-const root=new URL('../',import.meta.url),output=process.argv.find(value=>value.startsWith('--report='))?.slice(9)??'work/validation/performance-v3/planning-ik-budget-contracts.json';
+const root=new URL('../',import.meta.url),output=process.argv.find(value=>value.startsWith('--report='))?.slice(9)??'work/validation/performance-v4/planning-ik-budget-contracts.json';
 const hash=value=>createHash('sha256').update(typeof value==='string'||ArrayBuffer.isView(value)?value:JSON.stringify(value)).digest('hex');
 const paths=['work/test-planning-ik-budget-perf-v3.mjs','dist/multi/planning-budget.mjs','dist/multi/planning-ik-context.mjs','dist/multi/planning.mjs','dist/multi/pipe-controller.mjs','dist/multi/planning-robot.mjs',
   ...['r1','g1','c5'].flatMap(id=>[`dist/${id}/grasp-kinematics.mjs`,`dist/${id}/grasp-controller.mjs`,`work/fixtures/performance-v3/${id}-kinematics-3949cdc.txt`]),
@@ -136,5 +136,5 @@ check('G1 pipe tilt/direction candidate catches never convert a typed inner-IK b
   assert.equal(yielded,false);assert.equal(checks,3);assert.equal(controller.robot[Symbol.for('r1-simulator.planning-budget.v1')],undefined);
 });
 const endSourceHashes=await sources(),sourceFrozen=JSON.stringify(sourceHashes)===JSON.stringify(endSourceHashes);
-assert(sourceFrozen);const report={pass:true,releaseCohort:'20261018-perf-3',total:checks.length,passed:checks.length,checks,sourceFrozen,sourceHashes,endSourceHashes,scope:'Frozen 3949cdc solvers versus default/current and explicit Worker FK scratch. Exact every commanded pose/FK/error output; all three solver budgets and cleanup with declared clocks. No MuJoCo stepping, native browser responsiveness or physical grasp claimed.'};
+assert(sourceFrozen);const report={pass:true,releaseCohort:'20261018-perf-4',total:checks.length,passed:checks.length,checks,sourceFrozen,sourceHashes,endSourceHashes,scope:'Frozen 3949cdc solvers versus default/current and explicit Worker FK scratch. Exact every commanded pose/FK/error output; all three solver budgets and cleanup with declared clocks. No MuJoCo stepping, native browser responsiveness or physical grasp claimed.'};
 await mkdir(new URL('.',new URL(output,root)),{recursive:true});await writeFile(new URL(output,root),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({pass:true,total:checks.length,report:output}));

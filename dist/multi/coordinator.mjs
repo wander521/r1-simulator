@@ -13,7 +13,7 @@ const workerPlanning = station => !station.controller?._planningJob && (
 
 /** A single logical clock for independent, local-coordinate physical stations. */
 export class MultiRobotCoordinator {
-  constructor({stations, selectedIds = ['r1', 'g1', 'c5']} = {}) {
+  constructor({stations, selectedIds = ['r1', 'g1', 'c5'], independentPlanning = false} = {}) {
     this.stations = stations instanceof Map ? new Map(stations)
       : new Map((Array.isArray(stations) ? stations : Object.values(stations ?? {})).map(s => [s.id, s]));
     this.tick = 0;
@@ -28,11 +28,13 @@ export class MultiRobotCoordinator {
     this.startTimes = {};
     this.pendingStart = null;
     this.planningCursor = 0;
+    this.independentPlanning = independentPlanning;
     this.applyVisibility();
   }
 
   get running() { return this.runIds.some(id => isRunning(this.stations.get(id))); }
   get planning() { return this.runIds.some(id => Boolean(this.stations.get(id)?.planning)); }
+  get blockingPlanning() { return this.planning && (!this.independentPlanning || Boolean(this.pendingStart)); }
 
   applyVisibility() {
     for (const [id, station] of this.stations) if (station.group) station.group.visible = this.selectedIds.includes(id);
@@ -100,7 +102,7 @@ export class MultiRobotCoordinator {
     // No physics advances while planning. Successful preparations therefore
     // enter the same next tick, regardless of CPU time spent in each planner.
     const times = ids.map(id => Number(status(this.stations.get(id)).time ?? this.stations.get(id).data?.time ?? 0));
-    if (times.some(time => !Number.isFinite(time) || Math.abs(time - times[0]) > 1e-8))
+    if (times.some(time => !Number.isFinite(time) || (!this.independentPlanning && Math.abs(time - times[0]) > 1e-8)))
       return {ok:false, reason:'机器人时钟不同步，请复位全部后重试'};
     this.state = 'preparing';
     this.message = '正在检查所选机器人的抓取路径…';
@@ -193,8 +195,10 @@ export class MultiRobotCoordinator {
 
   step(dt = FIXED_STEP) {
     if (!Number.isFinite(dt) || Math.abs(dt - FIXED_STEP) > 1e-10) throw new Error('必须以统一的 1 ms 步长推进所有机器人');
-    if(this.planning)throw new Error('路径规划完成前不能推进物理时钟');
-    for (const station of this.stations.values()) if (ready(station)) station.step(dt);
+    if(this.blockingPlanning)throw new Error('首次路径规划完成前不能推进物理时钟');
+    // Each paused world keeps its exact planning snapshot. Other independent
+    // worlds continue at the same 1 ms resolution, without a later catch-up.
+    for (const station of this.stations.values()) if (ready(station) && !station.planning) station.step(dt);
     this.tick++;
     if (this.state === 'running' && !this.running) {
       const allComplete = this.runIds.every(id => details(this.stations.get(id)).state === 'complete');
@@ -228,7 +232,7 @@ export class MultiRobotCoordinator {
   get snapshot() {
     return {selectedIds:[...this.selectedIds], focusId:this.focusId, runIds:[...this.runIds], tick:this.tick,
       simTime:this.tick * FIXED_STEP, startTick:this.startTick, startTimes:{...this.startTimes}, batchNumber:this.batchNumber,
-      running:this.running, planning:this.planning, state:this.state, task:this.task, message:this.message,
+      running:this.running, planning:this.planning, blockingPlanning:this.blockingPlanning, independentPlanning:this.independentPlanning, state:this.state, task:this.task, message:this.message,
       stations:[...this.stations].map(([id, station]) => ({...details(station), id, ready:ready(station), selected:this.selectedIds.includes(id)}))};
   }
 }

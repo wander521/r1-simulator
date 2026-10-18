@@ -1,0 +1,2541 @@
+{
+  "pass": true,
+  "releases": {
+    "multi/index.html": "20261018-perf-4",
+    "r1/index.html": "20261018-perf-4",
+    "g1/index.html": "20261018-perf-4",
+    "c5/index.html": "20261018-perf-4"
+  },
+  "checks": 17,
+  "results": [
+    {
+      "name": "Reference scanner excludes prose/comments and covers literal static/dynamic imports",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/multi/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/r1/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/g1/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "http://127.0.0.1:4173/c5/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/multi/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/r1/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/g1/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "https://wander521.github.io/r1-simulator/c5/index.html: exact aliases share one release identity",
+      "pass": true
+    },
+    {
+      "name": "/multi/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "multi/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/",
+        "modules": 83,
+        "edges": 169,
+        "workerEntries": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "multi/app.mjs": [
+            "http://127.0.0.1:49807/multi/app.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1/r1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-workcell.mjs": [
+            "http://127.0.0.1:49807/g1/g1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/coordinator.mjs": [
+            "http://127.0.0.1:49807/multi/coordinator.mjs?v=20261018-perf-4"
+          ],
+          "multi/workcell.mjs": [
+            "http://127.0.0.1:49807/multi/workcell.mjs?v=20261018-perf-4"
+          ],
+          "multi/presentation.mjs": [
+            "http://127.0.0.1:49807/multi/presentation.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/theme-controller.mjs": [
+            "http://127.0.0.1:49807/multi/visuals/theme-controller.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/camera-feeds.mjs": [
+            "http://127.0.0.1:49807/multi/visuals/camera-feeds.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/camera-feed-queue.mjs": [
+            "http://127.0.0.1:49807/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/frame-scheduler.mjs": [
+            "http://127.0.0.1:49807/multi/visuals/frame-scheduler.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/g1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/c5/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "multi/r1-safe-dynamics.mjs": [
+            "http://127.0.0.1:49807/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-dynamics.mjs": [
+            "http://127.0.0.1:49807/g1/g1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-dynamics.mjs": [
+            "http://127.0.0.1:49807/c5/c5-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-materials.mjs": [
+            "http://127.0.0.1:49807/r1/r1-materials.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-materials.mjs": [
+            "http://127.0.0.1:49807/g1/g1-materials.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-materials.mjs": [
+            "http://127.0.0.1:49807/c5/c5-materials.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-3ds.mjs": [
+            "http://127.0.0.1:49807/c5/c5-3ds.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "multi/pipe-layout.mjs": [
+            "http://127.0.0.1:49807/multi/pipe-layout.mjs?v=20261018-perf-4"
+          ],
+          "multi/pipe-model.mjs": [
+            "http://127.0.0.1:49807/multi/pipe-model.mjs?v=20261018-perf-4"
+          ],
+          "multi/pipe-controller.mjs": [
+            "http://127.0.0.1:49807/multi/pipe-controller.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/scene-environment.mjs": [
+            "http://127.0.0.1:49807/multi/visuals/scene-environment.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1/r1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "r1/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/",
+        "modules": 63,
+        "edges": 117,
+        "workerEntries": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "r1/r1-app.mjs": [
+            "http://127.0.0.1:49807/r1/r1-app.mjs?v=20261018-perf-4"
+          ],
+          "multi/standalone-planning.mjs": [
+            "http://127.0.0.1:49807/multi/standalone-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-materials.mjs": [
+            "http://127.0.0.1:49807/r1/r1-materials.mjs?v=20261018-perf-4"
+          ],
+          "multi/r1-safe-dynamics.mjs": [
+            "http://127.0.0.1:49807/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-joint-ui.mjs": [
+            "http://127.0.0.1:49807/r1/r1-joint-ui.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1/r1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1/r1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/g1/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "g1/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/",
+        "modules": 64,
+        "edges": 126,
+        "workerEntries": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "g1/g1-app.mjs": [
+            "http://127.0.0.1:49807/g1/g1-app.mjs?v=20261018-perf-4"
+          ],
+          "multi/standalone-planning.mjs": [
+            "http://127.0.0.1:49807/multi/standalone-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/g1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-dynamics.mjs": [
+            "http://127.0.0.1:49807/g1/g1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-materials.mjs": [
+            "http://127.0.0.1:49807/g1/g1-materials.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-joint-ui.mjs": [
+            "http://127.0.0.1:49807/g1/g1-joint-ui.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-workcell.mjs": [
+            "http://127.0.0.1:49807/g1/g1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/c5/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "c5/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/",
+        "modules": 67,
+        "edges": 133,
+        "workerEntries": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "c5/c5-app.mjs": [
+            "http://127.0.0.1:49807/c5/c5-app.mjs?v=20261018-perf-4"
+          ],
+          "multi/standalone-planning.mjs": [
+            "http://127.0.0.1:49807/multi/standalone-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-3ds.mjs": [
+            "http://127.0.0.1:49807/c5/c5-3ds.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/c5/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-dynamics.mjs": [
+            "http://127.0.0.1:49807/c5/c5-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-materials.mjs": [
+            "http://127.0.0.1:49807/c5/c5-materials.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-joint-ui.mjs": [
+            "http://127.0.0.1:49807/c5/c5-joint-ui.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-workcell.mjs": [
+            "http://127.0.0.1:49807/c5/c5-workcell.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-dynamics.mjs": [
+            "http://127.0.0.1:49807/g1/g1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-workcell.mjs": [
+            "http://127.0.0.1:49807/g1/g1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/multi/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "multi/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/r1-simulator/",
+        "modules": 83,
+        "edges": 169,
+        "workerEntries": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "multi/app.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/app.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/coordinator.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/coordinator.mjs?v=20261018-perf-4"
+          ],
+          "multi/workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/workcell.mjs?v=20261018-perf-4"
+          ],
+          "multi/presentation.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/presentation.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/theme-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/visuals/theme-controller.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/camera-feeds.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/camera-feed-queue.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/frame-scheduler.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "multi/r1-safe-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-materials.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-materials.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-materials.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-materials.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-materials.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-materials.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-3ds.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-3ds.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "multi/pipe-layout.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/pipe-layout.mjs?v=20261018-perf-4"
+          ],
+          "multi/pipe-model.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/pipe-model.mjs?v=20261018-perf-4"
+          ],
+          "multi/pipe-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/pipe-controller.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/visuals/scene-environment.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/visuals/scene-environment.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/r1/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "r1/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/r1-simulator/",
+        "modules": 63,
+        "edges": 117,
+        "workerEntries": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "r1/r1-app.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-app.mjs?v=20261018-perf-4"
+          ],
+          "multi/standalone-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/standalone-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-materials.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-materials.mjs?v=20261018-perf-4"
+          ],
+          "multi/r1-safe-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-joint-ui.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-joint-ui.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/g1/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "g1/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/r1-simulator/",
+        "modules": 64,
+        "edges": 126,
+        "workerEntries": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "g1/g1-app.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-app.mjs?v=20261018-perf-4"
+          ],
+          "multi/standalone-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/standalone-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "g1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-materials.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-materials.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-joint-ui.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-joint-ui.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    },
+    {
+      "name": "/r1-simulator/c5/index.html: fresh graph bypasses still-stale HTTP dependencies",
+      "pass": true,
+      "detail": {
+        "page": "c5/index.html",
+        "release": "20261018-perf-4",
+        "base": "http://127.0.0.1:49807/r1-simulator/",
+        "modules": 67,
+        "edges": 133,
+        "workerEntries": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "workerModules": [
+          "c5/c5-3ds.mjs",
+          "c5/c5-dynamics.mjs",
+          "c5/c5-materials.mjs",
+          "c5/c5-profile.mjs",
+          "c5/grasp-controller.mjs",
+          "c5/grasp-kinematics.mjs",
+          "g1/g1-dynamics.mjs",
+          "g1/g1-materials.mjs",
+          "g1/g1-profile.mjs",
+          "g1/grasp-controller.mjs",
+          "g1/grasp-kinematics.mjs",
+          "multi/background-planning.mjs",
+          "multi/mesh-cache.mjs",
+          "multi/pipe-controller.mjs",
+          "multi/pipe-layout.mjs",
+          "multi/pipe-model.mjs",
+          "multi/planning-budget.mjs",
+          "multi/planning-check-cache.mjs",
+          "multi/planning-ik-context.mjs",
+          "multi/planning-robot.mjs",
+          "multi/planning-serialization.mjs",
+          "multi/planning-worker-core.mjs",
+          "multi/planning-worker-protocol.mjs",
+          "multi/planning-worker-transport.mjs",
+          "multi/planning-worker.mjs",
+          "multi/planning.mjs",
+          "multi/r1-safe-dynamics.mjs",
+          "multi/robot-runtime.mjs",
+          "r1/grasp-controller.mjs",
+          "r1/grasp-kinematics.mjs",
+          "r1/mujoco-runtime.mjs",
+          "r1/r1-dynamics.mjs",
+          "r1/r1-materials.mjs",
+          "vendor/three.core.min.js",
+          "vendor/three.module.min.js"
+        ],
+        "protectedIdentities": {
+          "c5/c5-app.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-app.mjs?v=20261018-perf-4"
+          ],
+          "multi/standalone-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/standalone-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/mesh-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-3ds.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-3ds.mjs?v=20261018-perf-4"
+          ],
+          "r1/mujoco-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "c5/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-materials.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-materials.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-joint-ui.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-joint-ui.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-workcell.mjs?v=20261018-perf-4"
+          ],
+          "c5/c5-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/background-planning.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-transport.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-serialization.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-dynamics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-dynamics.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-workcell.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-workcell.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-controller.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+          ],
+          "g1/g1-profile.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-budget.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-protocol.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+          ],
+          "r1/r1-area-light-textures.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+          ],
+          "r1/grasp-kinematics.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-worker-core.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+          ],
+          "multi/robot-runtime.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-robot.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-check-cache.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+          ],
+          "multi/planning-ik-context.mjs": [
+            "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+          ]
+        }
+      }
+    }
+  ],
+  "negativeFixtures": [
+    {
+      "prefix": "/",
+      "name": "entry-only-version-does-not-refresh-grandchildren",
+      "rejected": true
+    },
+    {
+      "prefix": "/",
+      "name": "unversioned-worker-entry-is-rejected",
+      "rejected": true
+    },
+    {
+      "prefix": "/",
+      "name": "unversioned-worker-transitive-module-is-rejected",
+      "rejected": true
+    },
+    {
+      "prefix": "/",
+      "name": "worker-cannot-inherit-document-import-map",
+      "rejected": true
+    },
+    {
+      "prefix": "/",
+      "name": "missing-old-profile-query-alias-is-rejected",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "entry-only-version-does-not-refresh-grandchildren",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "unversioned-worker-entry-is-rejected",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "unversioned-worker-transitive-module-is-rejected",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "worker-cannot-inherit-document-import-map",
+      "rejected": true
+    },
+    {
+      "prefix": "/r1-simulator/",
+      "name": "missing-old-profile-query-alias-is-rejected",
+      "rejected": true
+    }
+  ],
+  "graphs": [
+    {
+      "page": "multi/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/",
+      "modules": 83,
+      "edges": 169,
+      "workerEntries": [
+        "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "multi/app.mjs": [
+          "http://127.0.0.1:49807/multi/app.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1/r1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-workcell.mjs": [
+          "http://127.0.0.1:49807/g1/g1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/coordinator.mjs": [
+          "http://127.0.0.1:49807/multi/coordinator.mjs?v=20261018-perf-4"
+        ],
+        "multi/workcell.mjs": [
+          "http://127.0.0.1:49807/multi/workcell.mjs?v=20261018-perf-4"
+        ],
+        "multi/presentation.mjs": [
+          "http://127.0.0.1:49807/multi/presentation.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/theme-controller.mjs": [
+          "http://127.0.0.1:49807/multi/visuals/theme-controller.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/camera-feeds.mjs": [
+          "http://127.0.0.1:49807/multi/visuals/camera-feeds.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/camera-feed-queue.mjs": [
+          "http://127.0.0.1:49807/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/frame-scheduler.mjs": [
+          "http://127.0.0.1:49807/multi/visuals/frame-scheduler.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/g1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/c5/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "multi/r1-safe-dynamics.mjs": [
+          "http://127.0.0.1:49807/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-dynamics.mjs": [
+          "http://127.0.0.1:49807/g1/g1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-dynamics.mjs": [
+          "http://127.0.0.1:49807/c5/c5-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-materials.mjs": [
+          "http://127.0.0.1:49807/r1/r1-materials.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-materials.mjs": [
+          "http://127.0.0.1:49807/g1/g1-materials.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-materials.mjs": [
+          "http://127.0.0.1:49807/c5/c5-materials.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-3ds.mjs": [
+          "http://127.0.0.1:49807/c5/c5-3ds.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "multi/pipe-layout.mjs": [
+          "http://127.0.0.1:49807/multi/pipe-layout.mjs?v=20261018-perf-4"
+        ],
+        "multi/pipe-model.mjs": [
+          "http://127.0.0.1:49807/multi/pipe-model.mjs?v=20261018-perf-4"
+        ],
+        "multi/pipe-controller.mjs": [
+          "http://127.0.0.1:49807/multi/pipe-controller.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/scene-environment.mjs": [
+          "http://127.0.0.1:49807/multi/visuals/scene-environment.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1/r1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "r1/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/",
+      "modules": 63,
+      "edges": 117,
+      "workerEntries": [
+        "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "r1/r1-app.mjs": [
+          "http://127.0.0.1:49807/r1/r1-app.mjs?v=20261018-perf-4"
+        ],
+        "multi/standalone-planning.mjs": [
+          "http://127.0.0.1:49807/multi/standalone-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-materials.mjs": [
+          "http://127.0.0.1:49807/r1/r1-materials.mjs?v=20261018-perf-4"
+        ],
+        "multi/r1-safe-dynamics.mjs": [
+          "http://127.0.0.1:49807/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-joint-ui.mjs": [
+          "http://127.0.0.1:49807/r1/r1-joint-ui.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1/r1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1/r1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "g1/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/",
+      "modules": 64,
+      "edges": 126,
+      "workerEntries": [
+        "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "g1/g1-app.mjs": [
+          "http://127.0.0.1:49807/g1/g1-app.mjs?v=20261018-perf-4"
+        ],
+        "multi/standalone-planning.mjs": [
+          "http://127.0.0.1:49807/multi/standalone-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/g1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-dynamics.mjs": [
+          "http://127.0.0.1:49807/g1/g1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-materials.mjs": [
+          "http://127.0.0.1:49807/g1/g1-materials.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-joint-ui.mjs": [
+          "http://127.0.0.1:49807/g1/g1-joint-ui.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-workcell.mjs": [
+          "http://127.0.0.1:49807/g1/g1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "c5/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/",
+      "modules": 67,
+      "edges": 133,
+      "workerEntries": [
+        "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "c5/c5-app.mjs": [
+          "http://127.0.0.1:49807/c5/c5-app.mjs?v=20261018-perf-4"
+        ],
+        "multi/standalone-planning.mjs": [
+          "http://127.0.0.1:49807/multi/standalone-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-3ds.mjs": [
+          "http://127.0.0.1:49807/c5/c5-3ds.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/c5/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-dynamics.mjs": [
+          "http://127.0.0.1:49807/c5/c5-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-materials.mjs": [
+          "http://127.0.0.1:49807/c5/c5-materials.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-joint-ui.mjs": [
+          "http://127.0.0.1:49807/c5/c5-joint-ui.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-workcell.mjs": [
+          "http://127.0.0.1:49807/c5/c5-workcell.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-dynamics.mjs": [
+          "http://127.0.0.1:49807/g1/g1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-workcell.mjs": [
+          "http://127.0.0.1:49807/g1/g1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "multi/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/r1-simulator/",
+      "modules": 83,
+      "edges": 169,
+      "workerEntries": [
+        "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "multi/app.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/app.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/coordinator.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/coordinator.mjs?v=20261018-perf-4"
+        ],
+        "multi/workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/workcell.mjs?v=20261018-perf-4"
+        ],
+        "multi/presentation.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/presentation.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/theme-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/visuals/theme-controller.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/camera-feeds.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/visuals/camera-feeds.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/camera-feed-queue.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/visuals/camera-feed-queue.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/frame-scheduler.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/visuals/frame-scheduler.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "multi/r1-safe-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-materials.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-materials.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-materials.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-materials.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-materials.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-materials.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-3ds.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-3ds.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "multi/pipe-layout.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/pipe-layout.mjs?v=20261018-perf-4"
+        ],
+        "multi/pipe-model.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/pipe-model.mjs?v=20261018-perf-4"
+        ],
+        "multi/pipe-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/pipe-controller.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/visuals/scene-environment.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/visuals/scene-environment.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "r1/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/r1-simulator/",
+      "modules": 63,
+      "edges": 117,
+      "workerEntries": [
+        "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "r1/r1-app.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-app.mjs?v=20261018-perf-4"
+        ],
+        "multi/standalone-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/standalone-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-materials.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-materials.mjs?v=20261018-perf-4"
+        ],
+        "multi/r1-safe-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/r1-safe-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-joint-ui.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-joint-ui.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "g1/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/r1-simulator/",
+      "modules": 64,
+      "edges": 126,
+      "workerEntries": [
+        "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "g1/g1-app.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-app.mjs?v=20261018-perf-4"
+        ],
+        "multi/standalone-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/standalone-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "g1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-materials.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-materials.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-joint-ui.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-joint-ui.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    },
+    {
+      "page": "c5/index.html",
+      "release": "20261018-perf-4",
+      "base": "http://127.0.0.1:49807/r1-simulator/",
+      "modules": 67,
+      "edges": 133,
+      "workerEntries": [
+        "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+      ],
+      "workerModules": [
+        "c5/c5-3ds.mjs",
+        "c5/c5-dynamics.mjs",
+        "c5/c5-materials.mjs",
+        "c5/c5-profile.mjs",
+        "c5/grasp-controller.mjs",
+        "c5/grasp-kinematics.mjs",
+        "g1/g1-dynamics.mjs",
+        "g1/g1-materials.mjs",
+        "g1/g1-profile.mjs",
+        "g1/grasp-controller.mjs",
+        "g1/grasp-kinematics.mjs",
+        "multi/background-planning.mjs",
+        "multi/mesh-cache.mjs",
+        "multi/pipe-controller.mjs",
+        "multi/pipe-layout.mjs",
+        "multi/pipe-model.mjs",
+        "multi/planning-budget.mjs",
+        "multi/planning-check-cache.mjs",
+        "multi/planning-ik-context.mjs",
+        "multi/planning-robot.mjs",
+        "multi/planning-serialization.mjs",
+        "multi/planning-worker-core.mjs",
+        "multi/planning-worker-protocol.mjs",
+        "multi/planning-worker-transport.mjs",
+        "multi/planning-worker.mjs",
+        "multi/planning.mjs",
+        "multi/r1-safe-dynamics.mjs",
+        "multi/robot-runtime.mjs",
+        "r1/grasp-controller.mjs",
+        "r1/grasp-kinematics.mjs",
+        "r1/mujoco-runtime.mjs",
+        "r1/r1-dynamics.mjs",
+        "r1/r1-materials.mjs",
+        "vendor/three.core.min.js",
+        "vendor/three.module.min.js"
+      ],
+      "protectedIdentities": {
+        "c5/c5-app.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-app.mjs?v=20261018-perf-4"
+        ],
+        "multi/standalone-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/standalone-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/mesh-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/mesh-cache.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-3ds.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-3ds.mjs?v=20261018-perf-4"
+        ],
+        "r1/mujoco-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/mujoco-runtime.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "c5/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-materials.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-materials.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-joint-ui.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-joint-ui.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-workcell.mjs?v=20261018-perf-4"
+        ],
+        "c5/c5-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/c5/c5-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/background-planning.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/background-planning.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-transport.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-transport.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-serialization.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-serialization.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-dynamics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-dynamics.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-workcell.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-workcell.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-controller.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-controller.mjs?v=20261018-perf-4"
+        ],
+        "g1/g1-profile.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/g1/g1-profile.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-budget.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-budget.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-protocol.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-protocol.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker.mjs?v=20261018-perf-4"
+        ],
+        "r1/r1-area-light-textures.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/r1-area-light-textures.mjs?v=20261018-perf-4"
+        ],
+        "r1/grasp-kinematics.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/r1/grasp-kinematics.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-worker-core.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-worker-core.mjs?v=20261018-perf-4"
+        ],
+        "multi/robot-runtime.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/robot-runtime.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-robot.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-robot.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-check-cache.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-check-cache.mjs?v=20261018-perf-4"
+        ],
+        "multi/planning-ik-context.mjs": [
+          "http://127.0.0.1:49807/r1-simulator/multi/planning-ik-context.mjs?v=20261018-perf-4"
+        ]
+      }
+    }
+  ],
+  "exclusions": [
+    {
+      "from": "multi/robot-runtime.mjs",
+      "specifier": "../vendor/URDFLoader.js",
+      "realm": "worker",
+      "reason": "Visual-only dynamic mesh loader is not called by the Worker source-joint-tree factory."
+    }
+  ],
+  "sourceHashes": {
+    "dist/multi/index.html": "2d117dd6b213c1cb13e03afb4a1c1e2989e9c2e22bd078d964ea4e2182cac626",
+    "dist/r1/index.html": "a10f79c7a4d0f94e1eccd36cf43b23f43fb55dd9f4fe37f19b894cfd6cd45b4c",
+    "dist/g1/index.html": "b41ba7aa00f5e45b24457f881dc929539e3ba856cf7c6a39ee0f33373516ed24",
+    "dist/c5/index.html": "61c9aebb657e3818f1a1892f52a69856274f2c80494a28a5303dfd5b815acaa1",
+    "dist/multi/app.mjs": "fc8fa670f49f235b913ac0fccfaa4668eb877d75060d8b07136bc44accbc3664",
+    "dist/vendor/three.module.min.js": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+    "dist/multi/shadow-state.mjs": "971669f1ebf262ae07b6d286137668a0d0eaedecd2b2d0c984dd32678ac590da",
+    "dist/vendor/OrbitControls.js": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+    "dist/r1/r1-workcell.mjs": "2b7f89b21b5eba4f2da817f89ac3714cc752694688b7cb136b0474b9974a8b11",
+    "dist/g1/g1-workcell.mjs": "d2db6390ada1178ad8a58eaad479947486013361ac8bc08f6bdc8bfd7fc93b8f",
+    "dist/multi/robot-runtime.mjs": "5d20ad4dac924e26860908ed00d055a1e96de30edb5533895ed77628d3e1c123",
+    "dist/multi/coordinator.mjs": "46caf2ab191e4022cdca81a19632db6a332a5e60c78a3d6e7ea40a1da1efc6d0",
+    "dist/multi/workcell.mjs": "8eb10cb28c101a38f0d29026f9520c1c10afa41a2ec3973a44df149a69864841",
+    "dist/multi/presentation.mjs": "d9f5a3c5899bfae03384c02b0aca213c7144fe7ca824e6023480846d4ddc422f",
+    "dist/multi/visuals/theme-controller.mjs": "4997079281985ebe6b73f46fcf6ac1454958d84bc73e4f9d783dad0fd9aac5dc",
+    "dist/multi/visuals/camera-feeds.mjs": "1c951e410878eed8d8a77fe38532d8028ac6f85dc47d6ba374ac071be477b4d2",
+    "dist/multi/visuals/camera-feed-queue.mjs": "495ee01fa35bd7570f2c6908ae2c9c0ed369e95e7c0b31c2e0c2a1e2f19d60b4",
+    "dist/multi/visuals/frame-scheduler.mjs": "bd37f98aa1e1806dbfacc664a34e6f6f9407eaee0a3fbde7ff6351d1b31a956f",
+    "dist/vendor/three.core.min.js": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+    "dist/r1/r1-area-light-textures.mjs": "b7de1b481e8247ff3fa30e44477ec338a90e3f79a921c8affd3c421e88538ce1",
+    "dist/g1/g1-profile.mjs": "6a7b4023c8c3e6e9df69d6e463b6f72bd73523f1f3a967f90b60a4c63a17de08",
+    "dist/r1/mujoco-runtime.mjs": "a41290291fa28a3f18e7169679c9fc25bc03a0a2fb4eb7b770e054c11ae771f1",
+    "dist/r1/grasp-controller.mjs": "311088731ed10d5033c717acf29637514230de69579c372235b0d57ba1c299ca",
+    "dist/g1/grasp-controller.mjs": "68c147b966a9c138e98ae0e1fdad0cabb816684d2422ee2fa459feeea2bb198d",
+    "dist/c5/grasp-controller.mjs": "ef8dc027097c030da9cdca61c0bccc296248f29c31d88ca26be666b151a169db",
+    "dist/multi/r1-safe-dynamics.mjs": "db700be940eeafed45b357c0264fc46c821bc3eaec38baf2cf512f1f78f69805",
+    "dist/g1/g1-dynamics.mjs": "ab861980cf95a4dc786537d1c5d715da4456a9344fea4a36ded86b9cf85dd9d7",
+    "dist/c5/c5-dynamics.mjs": "6e9aaf903f02107c2af7a3a9b5aee25ce79522730085d9f5937297c5b06adf48",
+    "dist/r1/r1-materials.mjs": "c1a830b2b8fd4f75f8580918fc2c1d1d5eb5cdd02fff660d3c81079b8796befd",
+    "dist/g1/g1-materials.mjs": "b9f5cc2a982574979536cd56f706704162708b25901e16a358294bc39e5420f3",
+    "dist/c5/c5-materials.mjs": "6270d2a0bbbef2af24f210cfbf6333cee72db8a0ae302737eda2a379471f272e",
+    "dist/c5/c5-3ds.mjs": "ba2c44f32fd032bc1e8a4b708101bb66da6441b10259c4c69683440e444fbd02",
+    "dist/c5/c5-profile.mjs": "92df2c020dfae9fb4a4b72e909e23e5ea3a13af385a21097afcb2fd46c698bff",
+    "dist/r1/grasp-kinematics.mjs": "806811345db1cdf43567542d943984c2f5a1557c537d1c65c44240612d563778",
+    "dist/g1/grasp-kinematics.mjs": "9e3ebf66e4a865a2f8e95500d4df44c80433cdd2100e28e7769873b57ea379a1",
+    "dist/c5/grasp-kinematics.mjs": "afcb166c8a3468465a0377c6cd6d841cd580acfd64c0bbb917d1cc5fbec3cc4b",
+    "dist/multi/pipe-layout.mjs": "b96f05460ba4801433d4745a1ea5b683b65421bf28b05fc6734678ec0b6bbf1d",
+    "dist/multi/pipe-model.mjs": "18ade76767bc3099fb189eaa801bd2c392d2948c8009c9f3394e3db276987645",
+    "dist/multi/pipe-controller.mjs": "601601b09493e9fd953c981132d1863f481344590503ba3585ed0cce5b4e56b7",
+    "dist/multi/planning.mjs": "3ffa270e91c358ee9e5ccda87bccc3ef8f41770d994776ad592a67ab889ff620",
+    "dist/multi/background-planning.mjs": "b633eda06c56960a11a05503f774f4cdcf74c7ef7afbe23e63a6714efdd4e6aa",
+    "dist/multi/planning-worker-transport.mjs": "027b0b47ffee96ad875e523d153328695efb52271dc3552b959cfc11c182bf79",
+    "dist/multi/planning-serialization.mjs": "d8a460c02d3695df6116fe7c8c5d0b0d15b5bf6c02376a71f3844100b667e1a5",
+    "dist/multi/mesh-cache.mjs": "f8a3749c2c15ca97441dd7d25e55458f6e4b914de95bb315ff5e084d0bf79c0f",
+    "dist/vendor/URDFLoader.js": "46f09a13c310c8c9ec4d19e4f0413ef580c6b5136690f5dc8710eae766dd6181",
+    "dist/multi/visuals/scene-environment.mjs": "14caa71e66f185602b657ab2716c5dfe0e08ec0044c1e308133fa2f88415ed29",
+    "dist/r1/r1-dynamics.mjs": "2b6ce993b293b7d0b05f51355903b044dc51e53fdd4395d831b00a9bcd704366",
+    "dist/multi/planning-budget.mjs": "d7a038982c7ebbd1c2542bc8c1088d7baaecf01b0636c9178474adae0667d183",
+    "dist/multi/planning-worker-protocol.mjs": "74d98a5ccbbc599bb140f5540e95738e1e479eedf296a41dfb8c0ca2d0e97a49",
+    "dist/multi/planning-worker.mjs": "5eba78c86d6d1a8fa8335d04b8c5f64b7d35626cf9cacea71fe7403ef5225a5b",
+    "dist/vendor/STLLoader.js": "023ed97f848b633d8bcd53d4db3b996d29d0c644088700691297c552257d480b",
+    "dist/vendor/URDFClasses.js": "791a4cc6e9eb35bfe26ea9b37e422c375a0d75302c594badd78815ff24032680",
+    "dist/multi/planning-worker-core.mjs": "1ed40b90355d456c421ed06068b2401f2007d57ff50a391fe42c735a8eaf1d48",
+    "dist/multi/planning-robot.mjs": "40a8e554b38f39f4d328b932d895028c789c0b3fb2e4adc7b98ff32906ec9d70",
+    "dist/multi/planning-check-cache.mjs": "8a83abae4e6c7be94be51ce43210fbbe034fc82950c4ddafdefc9477b76c7938",
+    "dist/multi/planning-ik-context.mjs": "25231848f7890df97c8c359f20a5b0a0b8dc94425f85984eac97ed6d711b225c",
+    "dist/r1/r1-app.mjs": "3b7edac36df8c3ccc1cc3421dc06db4203fa39d88edbed0e00bcdee4eef5ecd2",
+    "dist/multi/standalone-planning.mjs": "774524ec22a3d8609c26dcb3844cdfa3b6f2698eea6ecb82e20333f3a5766d97",
+    "dist/r1/r1-joint-ui.mjs": "995b7ee0a0c9e8615e833d0ba8e1f1e71c4f62d76475b56397168ab9f55d644c",
+    "dist/g1/g1-app.mjs": "5d4ced573bcfeec15abe7a7ff16cf921be869abe62ba1f8e514d159bb72cea9f",
+    "dist/g1/g1-joint-ui.mjs": "a874539c07f451d3efba728a808e3d374af6a8de3e413563bd0583638b8568d2",
+    "dist/c5/c5-app.mjs": "b8fe757c00e36f733e079a02a3e93b368bcbb783efac4141468d6dceded59247",
+    "dist/c5/c5-joint-ui.mjs": "fad5bf0f08b122e3c6f0a220e317680f197daafc3ed7fc7f4003b571d99f7315",
+    "dist/c5/c5-workcell.mjs": "cdf17185ec30ade459e870d2580db9a8bf8af3edbc056cbaf30ca9275aab4bca",
+    "work/test-release-cache.mjs": "64002449b70dbbd762d23a77ab66ec2bea71e7a8d8b711401d4ad8ccd193f406"
+  },
+  "sourceFrozen": true,
+  "httpCacheSimulation": {
+    "actualLoopbackHTTP": true,
+    "bodyCacheEmulated": true,
+    "pageCohortSessions": true,
+    "oldCanonicalAndQueryAliasesRemainStale": true,
+    "cacheHits": 2280,
+    "cacheMisses": 708,
+    "httpRequests": 708,
+    "staleHTTPRequests": 526
+  },
+  "scope": "Standard exact-URL/import-map normalization at local and GitHub subpath bases, literal source module-graph traversal including the separate import-map-free module Worker realm, plus actual loopback HTTP responses and an explicitly emulated immutable body cache. Worker release protection covers its new/changed modules; unchanged legacy model/controller/physics dependencies retain canonical URLs. The emulated worker/document cache realms are declared fixture isolation, not an assertion that browser HTTP caches are realm-separated. Not a browser module loader, browser HTTP-cache inspection, executed app, rendered-pixel or physical test."
+}

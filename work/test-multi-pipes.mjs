@@ -23,6 +23,8 @@ const args = process.argv.slice(2);
 const quick = args.includes('--quick');
 const staticOnly = args.includes('--static-only');
 const backgroundPlanning=args.includes('--background-planning');
+const independentPlanning=args.includes('--independent-planning');
+const independentProgress={activeWorldTicksDuringPeerPlanning:0,pausedWorldTicks:0,pausedStateChecks:0};
 const filter = args.find(arg => arg.startsWith('--case='))?.slice(7);
 const mode=staticOnly?'static-only':quick?'quick':filter?'filtered':'full';
 const selectedSeed = Number(args.find(arg => arg.startsWith('--seed='))?.slice(7) ?? 521);
@@ -292,6 +294,7 @@ async function drainPlanning() {
       assert.deepEqual([...runtime.data.ctrl],before.get(id).ctrl,`${id}: a planning candidate edited physical controls`);
     }
     if(result.ok===false)return result;
+    if(independentPlanning&&!coordinator.blockingPlanning)return result;
     if(backgroundPlanning&&coordinator.planning)await wait(10);
   }
   return result;
@@ -299,10 +302,19 @@ async function drainPlanning() {
 async function tick(count=1,{stableIds=[]}={}) {
   for(let n=0;n<count;n++) {
     const preparation=await drainPlanning();assert.equal(preparation.ok,true,`${preparation.reason}; ${JSON.stringify([...stations.values()].map(robotSummary))}`);
+    const paused=new Map([...stations].filter(([,s])=>s.planning).map(([id,s])=>[id,{time:s.data.time,qpos:[...s.data.qpos],qvel:[...s.data.qvel],ctrl:[...s.data.ctrl]}]));
+    const beforeTimes=new Map([...stations].map(([id,s])=>[id,s.data.time]));
     coordinator.step(.001);
     const times=[...stations.values()].map(runtime=>runtime.data.time);
-    assert(Math.max(...times)-Math.min(...times)<1e-10,'Selected/hidden physical worlds diverged from the shared 1 ms clock');
+    if(!independentPlanning)assert(Math.max(...times)-Math.min(...times)<1e-10,'Selected/hidden physical worlds diverged from the shared 1 ms clock');
     for(const [id,runtime]of stations) {
+      if(paused.has(id)){
+        const prior=paused.get(id);assert.equal(runtime.data.time,prior.time);assert.deepEqual([...runtime.data.qpos],prior.qpos);
+        assert.deepEqual([...runtime.data.qvel],prior.qvel);assert.deepEqual([...runtime.data.ctrl],prior.ctrl);
+        independentProgress.pausedWorldTicks++;independentProgress.pausedStateChecks++;continue;
+      }
+      assert(Math.abs(runtime.data.time-beforeTimes.get(id)-.001)<1e-10,`${id}: active world did not advance exactly 1 ms`);
+      if(paused.size)independentProgress.activeWorldTicksDuringPeerPlanning++;
       const s=stats[id];s.millisecondSamples++;
       for(const object of tracked.get(id)) {
         const p=runtime.data.qpos.subarray(object.q,object.q+3),v=runtime.data.qvel.subarray(object.d,object.d+3),speed=Math.hypot(...v);
@@ -356,6 +368,7 @@ async function tick(count=1,{stableIds=[]}={}) {
       if(s.millisecondSamples%10===0)scanContacts(runtime,{requireStable:stableIds.includes(id)});
     }
     if(coordinator.tick%100===0)for(const runtime of stations.values())runtime.syncVisuals();
+    if(independentPlanning&&coordinator.planning&&coordinator.tick%16===0)await wait(1);
   }
 }
 
@@ -410,7 +423,7 @@ async function configure(seed) {
     assert.equal([...runtime.model.jnt_type].filter(type=>type===api.mjtJoint.mjJNT_FREE.value).length,8,
       `${runtime.id}: pipe scene must contain exactly eight independent free bodies, not hidden legacy objects`);
   }
-  coordinator=new MultiRobotCoordinator({stations,selectedIds:robotIds});
+  coordinator=new MultiRobotCoordinator({stations,selectedIds:robotIds,independentPlanning});
   stats=Object.fromEntries([...stations].map(([id,runtime])=>[id,freshStats(runtime)]));
   tracked=new Map([...stations].map(([id,runtime])=>[id,objectState(runtime)]));
   const g1=stations.get('g1');stance={pelvis:g1.controller.id('mjOBJ_BODY','pelvis'),
@@ -635,7 +648,7 @@ const report={pass,startedAt,wallSeconds:(performance.now()-wallStart)/1000,mode
   clockStepSeconds:.001,fingerToleranceM:fingerTolerance,layout:layoutResult,results,initializationError,sourceFrozen,sourceHashes,
   scope:'Actual original-source URDF dynamics, production pipe task and independent MjModel/MjData per station. No mocap/equality attachments. Every pipe monitored at 1 ms for finite motion/integration; actual contacts monitored at 10 ms. Original R1 finger-contact model only; G1/C5 full robot collisions. Independent stations do not physically collide across worlds.',
   releaseScope:'All eight pipes, not only the last selected pipe, must have actual dual-finger forces >0.015 N per side, actual lift >35 mm, correct color/slot, actual table normal >0.005 N, released fingers and speed <0.025 m/s for a further 3 seconds.'};
-report.planningExecution={cooperative:!backgroundPlanning,worker:backgroundPlanning,productionBudgetOverride:false,
+report.planningExecution={cooperative:!backgroundPlanning,worker:backgroundPlanning,independentPlanning,independentProgress,productionBudgetOverride:false,
   ordinarySegmentBudgetMs:PLANNING_SEGMENT_BUDGET_MS,g1PipeSegmentBudgetMs:G1_PIPE_PLANNING_SEGMENT_BUDGET_MS,
   scope:backgroundPlanning?'Production background controller, real worker_threads transport and shipped worker service/parser/serialization. Only browser file fetch is adapted to Node readFile. All pending workers are polled asynchronously between complete shared 1 ms ticks; actual qpos/qvel/ctrl/time stay unchanged while planning. Worker computation uses the unchanged cooperative candidate iterator and original gates. No task motion executes in a worker.':'Production cooperative candidate iterator; all pending planning is drained between complete shared 1 ms ticks. Every candidate is checked for unchanged shared clock and physical qpos/qvel/ctrl. 累计计算片段耗时 includes elapsed candidate/runtime synchronization time and can include OS preemption; waiting between segments is excluded.'};
 report.carryObservationScope='Actual lift/transfer dual-finger retention, longest contact-loss span and object-to-TCP relative pose are aggregated every 10 ms. Saved keyframes are every 100 ms plus every phase/contact change. Retention/drift values are observational, not silently thresholded or inferred from successful endpoints; materially ballistic transport requires explicit review and cannot be advertised as a grasp.';

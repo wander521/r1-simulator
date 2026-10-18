@@ -417,10 +417,10 @@ async function main(){
 
   await bind(releaseCache,'release cache',['work/test-release-cache.mjs','dist/multi/index.html','dist/multi/app.mjs',
     ...workerSources,'dist/multi/coordinator.mjs','dist/multi/robot-runtime.mjs','dist/multi/planning.mjs','dist/multi/visuals/frame-scheduler.mjs','dist/multi/visuals/camera-feed-queue.mjs']);
-  check(releaseCache.checks===13&&releaseCache.results?.length===13&&releaseCache.results.every(row=>row.pass===true)
-    &&releaseCache.graphs?.length===6&&releaseCache.negativeFixtures?.length===10&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
+  check(releaseCache.checks===17&&releaseCache.results?.length===17&&releaseCache.results.every(row=>row.pass===true)
+    &&releaseCache.graphs?.length===8&&releaseCache.negativeFixtures?.length===10&&releaseCache.negativeFixtures.every(row=>row.rejected===true),
     'release cache: exact aliases, complete graph and negative stale-cache fixtures absent');
-  check(equal(releaseCache.releases,{'multi/index.html':'20261018-perf-3','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'}),
+  check(equal(releaseCache.releases,{'multi/index.html':'20261018-perf-4','r1/index.html':'20261018-perf-4','g1/index.html':'20261018-perf-4','c5/index.html':'20261018-perf-4'}),
     'release cache: multi worker cohort or independent native cohorts changed');
   const workerNegatives=['unversioned-worker-entry-is-rejected','unversioned-worker-transitive-module-is-rejected','worker-cannot-inherit-document-import-map'];
   for(const prefix of ['/','/r1-simulator/'])for(const name of workerNegatives)check(releaseCache.negativeFixtures?.some(row=>row.prefix===prefix&&row.name===name&&row.rejected),'release cache: worker stale-cache/import-map negative fixtures absent');

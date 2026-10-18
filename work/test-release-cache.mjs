@@ -7,16 +7,17 @@ import {createServer} from 'node:http';
 // This is not a browser engine, native cache inspection or rendered-pixel QA.
 const root=new URL('../dist/',import.meta.url);
 const reportPath=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9)??'../work/validation/release-cache/final.json';
-const releases={'multi/index.html':'20261018-perf-3','r1/index.html':'20261016-native-camera-3','c5/index.html':'20261016-native-camera-3'};
+const releases={'multi/index.html':'20261018-perf-4','r1/index.html':'20261018-perf-4','g1/index.html':'20261018-perf-4','c5/index.html':'20261018-perf-4'};
 const visualPaths=['multi/visuals/theme-controller.mjs','multi/visuals/scene-environment.mjs','multi/visuals/camera-feeds.mjs','multi/visuals/camera-feed-queue.mjs','multi/visuals/frame-scheduler.mjs'];
 const responsivePaths=['multi/coordinator.mjs','multi/planning.mjs','multi/pipe-controller.mjs','multi/pipe-layout.mjs','multi/pipe-model.mjs','multi/r1-safe-dynamics.mjs'];
-const workerPaths=['multi/background-planning.mjs','multi/planning-worker.mjs','multi/planning-worker-core.mjs','multi/planning-worker-transport.mjs','multi/planning-serialization.mjs','multi/planning-robot.mjs','multi/planning-check-cache.mjs','multi/planning-worker-protocol.mjs','multi/planning-ik-context.mjs','multi/planning-budget.mjs'];
-const workerProtectedSet=new Set([...workerPaths,'multi/robot-runtime.mjs','multi/planning.mjs']);
+const workerPaths=['multi/background-planning.mjs','multi/planning-worker.mjs','multi/planning-worker-core.mjs','multi/planning-worker-transport.mjs','multi/planning-serialization.mjs','multi/planning-robot.mjs','multi/planning-check-cache.mjs','multi/planning-worker-protocol.mjs','multi/planning-ik-context.mjs','multi/planning-budget.mjs','multi/standalone-planning.mjs','multi/mesh-cache.mjs'];
+const workerProtectedSet=new Set([...workerPaths.filter(path=>!path.endsWith('/standalone-planning.mjs')),'multi/robot-runtime.mjs','multi/planning.mjs']);
 const protectedPaths=['multi/app.mjs','multi/robot-runtime.mjs','multi/presentation.mjs','multi/workcell.mjs',
   'r1/r1-app.mjs','r1/grasp-controller.mjs','r1/grasp-kinematics.mjs','r1/r1-workcell.mjs',
-  'c5/c5-app.mjs','c5/grasp-controller.mjs','c5/c5-profile.mjs'];
+  'c5/c5-app.mjs','c5/grasp-controller.mjs','c5/c5-profile.mjs',
+  'g1/g1-app.mjs','g1/grasp-controller.mjs','g1/grasp-kinematics.mjs','g1/g1-profile.mjs'];
 const protectedSet=new Set([...protectedPaths,...visualPaths,...responsivePaths,...workerPaths]),pages=Object.keys(releases);
-const protectedFor=page=>page.startsWith('multi/')?[...protectedPaths,...visualPaths,...responsivePaths,...workerPaths]:protectedPaths;
+const protectedFor=page=>[...protectedPaths,...visualPaths,...responsivePaths,...workerPaths];
 const bytesByPath=new Map(),sourceHashes={},checks=[],graphs=[],negativeFixtures=[],requests=[],exclusions=[];
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 async function bytes(path){
@@ -73,6 +74,8 @@ check('Reference scanner excludes prose/comments and covers literal static/dynam
   assert.deepEqual(executableURLs(`// new URL('./wrong.mjs',import.meta.url)\nconst text="new URL('./wrong2.mjs',import.meta.url)";new URL('./planning-worker.mjs?v=current',import.meta.url);new URL('./texture.png',import.meta.url);`),['./planning-worker.mjs?v=current']);
 });
 const htmlByPage=new Map();for(const page of pages)htmlByPage.set(page,(await bytes(page)).toString('utf8'));
+for(const html of htmlByPage.values())for(const target of Object.values(JSON.parse(html.match(/<script type="importmap">([\s\S]*?)<\/script>/)[1]).imports))
+  if(target.startsWith('../')&&target.includes('.mjs'))protectedSet.add(target.slice(3).split('?')[0]);
 for(const base of ['http://127.0.0.1:4173/','https://wander521.github.io/r1-simulator/'])for(const page of pages)check(`${base}${page}: exact aliases share one release identity`,()=>{
   const release=releases[page],pageURL=new URL(page,base),html=htmlByPage.get(page),map=mapFor(html,pageURL),entries=[...html.matchAll(/<script\b[^>]*type=['"]module['"][^>]*src=['"]([^'"]+)['"][^>]*>/gi)];assert.equal(entries.length,1);assert.equal(new URL(entries[0][1],pageURL).searchParams.get('v'),release);
   for(const path of protectedFor(page)){const canonical=new URL(path,base).href,target=new URL(`${path}?v=${release}`,base).href;assert.equal(map.get(canonical),target);assert.equal(map.get(target),target);}
@@ -82,7 +85,7 @@ for(const base of ['http://127.0.0.1:4173/','https://wander521.github.io/r1-simu
       // only for actually shipped modules, and canonical/self aliases above
       // for both newly introduced modules.
       const priorPaths=[...protectedPaths,...visualPaths.filter(path=>!path.endsWith('/camera-feed-queue.mjs')),...responsivePaths,
-        ...(['20261016-worker-1','20261018-perf-2'].includes(prior)?workerPaths.filter(path=>!['planning-worker-protocol','planning-ik-context','planning-budget'].some(name=>path.endsWith(`/${name}.mjs`))&&(prior!=='20261016-worker-1'||!path.endsWith('/planning-check-cache.mjs'))):[])];
+        ...(['20261016-worker-1','20261018-perf-2'].includes(prior)?workerPaths.filter(path=>!['planning-worker-protocol','planning-ik-context','planning-budget','standalone-planning','mesh-cache'].some(name=>path.endsWith(`/${name}.mjs`))&&(prior!=='20261016-worker-1'||!path.endsWith('/planning-check-cache.mjs'))):[])].filter(path=>!path.startsWith('g1/'));
       for(const path of priorPaths)assert.equal(map.get(new URL(`${path}?v=${prior}`,base).href),new URL(`${path}?v=${release}`,base).href,`Previously opened ${prior} module aliases must advance to the new multi cohort`);
     }
     const stylesheet=html.match(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"/)?.[1];assert(stylesheet);
@@ -90,7 +93,7 @@ for(const base of ['http://127.0.0.1:4173/','https://wander521.github.io/r1-simu
   }
   assert.equal(map.get('three'),new URL('vendor/three.module.min.js',base).href);
   assert.equal(map.get('three/examples/jsm/loaders/STLLoader.js'),new URL('vendor/STLLoader.js',base).href);
-  for(const[key,target]of map){assert(!target.includes('/g1/')&&!/[.]wasm(?:[?]|$)|[.]urdf(?:[?]|$)|[.]STL(?:[?]|$)/.test(target),'Do not bust unchanged G1/source assets');if(key.startsWith('http')){assert.equal(new URL(target).searchParams.get('v'),release);assert.equal(new URL(target).pathname,new URL(key).pathname);}}
+  for(const[key,target]of map){assert(!/[.]wasm(?:[?]|$)|[.]urdf(?:[?]|$)|[.]STL(?:[?]|$)/.test(target),'Do not bust unchanged source assets');if(key.startsWith('http')){assert.equal(new URL(target).searchParams.get('v'),release);assert.equal(new URL(target).pathname,new URL(key).pathname);}}
 });
 const server=createServer(async(request,response)=>{try{
   const url=new URL(request.url,'http://test.invalid'),path=decodeURIComponent(url.pathname.replace(/^\/r1-simulator\//,'').replace(/^\//,''));
