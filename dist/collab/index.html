@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1b2e3d">
+  <title>工业分拣协作 · R1 / G1 / C5</title>
+  <link rel="stylesheet" href="./style.css?v=20261023-collab-2">
+  <script type="importmap">{"imports":{"three":"../vendor/three.module.min.js","three/examples/jsm/loaders/STLLoader.js":"../vendor/STLLoader.js"}}</script>
+  <link rel="modulepreload" href="./view.mjs?v=20261026-load-2">
+  <link rel="modulepreload" href="./engine.mjs?v=20261026-load-2">
+</head>
+<body>
+  <header class="app-header">
+    <h1>工业分拣协作<span class="header-subtitle">R1 / G1 / C5</span></h1>
+    <nav aria-label="场景导航"><a href="../multi/">独立工作台</a><span class="header-mode">料架取盒 · 移动配送 · 四类分拣</span></nav>
+  </header>
+  <main class="workspace">
+    <section class="viewport" id="viewport" aria-label="三机共享工业工作站">
+      <canvas id="main-view" tabindex="0" aria-label="一脑多型具身训练场，三维共享工作站，可用键盘调整镜头。" aria-describedby="camera-help"></canvas>
+      <p class="sr-only" id="camera-help">方向键旋转镜头，加号或减号缩放，Home 键恢复全景。也可拖动旋转、滚轮缩放。Tab 键离开场景，浏览器快捷键保持可用。</p>
+      <div class="scene-toolbar"><span class="cell-label">三机独立流水作业 · 2.4× 速度</span><button type="button" id="fit-view">全景视角</button></div>
+      <div class="scene-legend"><span>红圆柱 / 黄圆柱 / 蓝方块 / 绿方块分区</span><span><i class="legend-dot tray"></i>交接位与运输通道</span></div>
+      <div class="scene-note" id="scene-note">拖动 / 方向键旋转 · 滚轮 / +/- 缩放 · Home 全景</div>
+      <div class="load-notice" id="load-notice" role="status" aria-live="polite">
+        <strong id="load-title">正在准备共享工作站</strong>
+        <p id="load-message">加载机器人模型与物理环境，准备完成后开始计时。</p>
+        <progress id="load-progress" max="1" aria-label="工作站加载进度"></progress>
+        <button type="button" id="retry" hidden>重新加载工作站</button>
+      </div>
+    </section>
+    <aside class="control-panel" aria-label="协作任务控制">
+      <section class="run-section" aria-labelledby="task-title">
+        <div class="section-heading"><h2 id="task-title">料盒配送与分类</h2><span class="status-badge" id="run-state">加载中</span></div>
+        <div class="shift-time"><span>本次作业</span><strong id="elapsed">00:00</strong><span class="duration">/ 05:00</span></div>
+        <progress class="shift-progress" id="shift-progress" value="0" max="300" aria-label="五分钟真实时间作业进度"></progress>
+        <p class="run-message" id="run-message" role="status" aria-live="polite">加载不计入作业时间，规划等待计入。</p>
+        <div class="run-actions"><button type="button" class="primary" id="start" disabled>开始 5 分钟作业</button><button type="button" id="stop" disabled>停止</button><button type="button" id="reset" aria-label="复位工作站" disabled>复位</button></div>
+        <div class="shift-result"><span>已清盒 <strong id="completed-orders">0</strong></span><span>已分类 <strong id="completed-parts">0</strong></span><span>回收盒 <strong id="returned-bins">0</strong></span></div>
+      </section>
+      <section aria-labelledby="robots-title">
+        <div class="section-heading"><h2 id="robots-title">独立工位</h2><span class="section-detail">并行作业 · 局部交接</span></div>
+        <div class="robot-list" id="robot-list">
+          <div class="robot-row" data-robot-row="g1"><span class="robot-copy"><strong>宇树 G1</strong><small>物料墙取满盒</small></span><span class="robot-state" data-robot-state="g1">加载中</span></div>
+          <div class="robot-row" data-robot-row="r1"><span class="robot-copy"><strong>星海图 R1</strong><small>运输满盒 · 回收空盒</small></span><span class="robot-state" data-robot-state="r1">加载中</span></div>
+          <div class="robot-row" data-robot-row="c5"><span class="robot-copy"><strong>遨博 C5</strong><small>取出零件 · 四类分区放置</small></span><span class="robot-state" data-robot-state="c5">加载中</span></div>
+        </div>
+      </section>
+      <section aria-labelledby="order-title">
+        <div class="section-heading"><h2 id="order-title">实物料盒</h2><span class="section-detail">每盒 1 圆柱 + 1 方块</span></div>
+        <p class="material-key"><span><i class="cylinder red"></i>红圆柱</span><span><i class="cylinder yellow"></i>黄圆柱</span><span><i class="blue"></i>蓝方块</span><span><i class="green"></i>绿方块</span></p>
+        <table class="bom"><caption class="sr-only">四个料盒的实际流转位置和已分类零件数量</caption><thead><tr><th scope="col">料盒</th><th scope="col">所在工位</th><th scope="col">已分类</th></tr></thead><tbody id="bin-stock"><tr><td colspan="3">物料加载中</td></tr></tbody></table>
+        <details class="task-notes">
+          <summary>作业方式与限制</summary>
+          <p class="helper">G1 从料架取满盒，R1 送往 C5 并回收空盒；C5 将红圆柱、黄圆柱、蓝方块、绿方块分别放入对应区域，每区两个独立落点。三机各自调度，只在交接空间互相等待。</p>
+          <p class="helper">一次取放后回准备位；R1 持盒时保持运输位。五分钟后不再接收新批次，完成在途任务后才回初始位。</p>
+          <p class="helper">共四个预装料盒，不隐形补料或复制物体。分类数量以实际释放、支撑和库存核验为准。</p>
+          <p class="helper">R1 低速移动，停稳后取放。采用理想平面驱动，不包含任意导航或学习策略。</p>
+          <p class="helper">加载和暂停不计时，后台规划等待计时。此版本 R1 非完整整臂碰撞模型，不作为硬件避碰或安全认证依据。</p>
+          <p class="helper">动作与物理世界按 2.4× 时间推进（较之前提高 20%），五分钟作业窗口仍按真实时间计时；低性能设备可能达不到目标倍速。</p>
+        </details>
+      </section>
+      <section class="event-section" aria-labelledby="events-title">
+        <div class="section-heading"><h2 id="events-title">协作记录</h2><span class="section-detail">本次作业</span></div>
+        <ol class="event-log" id="event-log"><li class="empty-event">工作站准备好后，可开始连续作业。</li></ol>
+      </section>
+      <p class="simulation-note">共享物理仿真 · G1 / C5 固定站位 · 非真实设备控制</p>
+    </aside>
+  </main>
+  <script type="module" src="./app.mjs?v=20261026-load-2"></script>
+</body>
+</html>

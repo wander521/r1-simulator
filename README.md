@@ -42,6 +42,8 @@ npm start
 
 Open **http://127.0.0.1:4173/multi/**. No `npm install`, app build or external inference service is needed; runtime libraries and models are included in `dist/`.
 
+The industrial training cell is available [online](https://wander521.github.io/r1-simulator/collab/) and at **http://127.0.0.1:4173/collab/**. G1 retrieves full bins from a material wall, R1 transports those same bins and returns empties, and C5 sorts red/yellow cylinders and blue/green blocks into four dedicated regions. The stations progress independently in one physical world. The industrial hall includes overhead task lighting and losslessly compressed visual assets. See the [cell guide](work/COLLABORATION.md) and [loading measurements](work/COLLAB-LOAD-PERFORMANCE.md).
+
 Without npm: `python3 -m http.server 4173 --bind 127.0.0.1 --directory dist`. Serve over HTTP rather than opening HTML from disk.
 
 ## Try a task

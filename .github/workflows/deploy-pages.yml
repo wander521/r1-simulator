@@ -26,6 +26,17 @@ jobs:
           node-version: '22'
       - name: Validate static deployment paths
         run: npm run test:pages
+      - name: Validate collaboration assets, project paths and task contracts
+        run: |
+          npm run test:collab:pages
+          npm run verify:collab:visuals
+          npm run test:collab:bins
+      - name: Exercise the shared-world collaboration workflow
+        env:
+          BIN_COUNT: '4'
+          TIMEOUT_MS: '900000'
+          REPORT: work/validation/collab/release-bin-physical.json
+        run: npm run test:collab:bin-core
       - name: Run physical grasping regressions
         run: npm test
       - name: Verify saved acceptance evidence
@@ -43,6 +54,7 @@ jobs:
             work/validation/performance-v4/*-final.json
             work/validation/performance-v4/*-contracts.json
             work/validation/performance-v4/planning-ik-paired.json
+            work/validation/collab/release-bin-physical.json
           if-no-files-found: warn
           retention-days: 7
 

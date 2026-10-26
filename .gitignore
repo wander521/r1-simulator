@@ -9,6 +9,13 @@ __pycache__/
 !.env.example
 coverage/
 outputs/*
+/output/
+/.playwright-cli/
+# Intermediate collaboration experiments stay local. CI produces fresh release
+# evidence and publishes its selected report as an Actions artifact.
+/work/validation/collab/*
+!/work/validation/collab/README.md
+!/work/validation/collab/release-bin-physical.json
 # Local design-direction calibration cache is not part of the release evidence.
 /.impeccable/questions/
 # Keep final source-bound G1 evidence; intermediate probes are reproducible

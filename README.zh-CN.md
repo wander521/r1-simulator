@@ -42,6 +42,8 @@ npm start
 
 打开 **http://127.0.0.1:4173/multi/**。不需要 `npm install`、应用构建或外部推理服务；运行库和模型已包含在 `dist/`。
 
+新增的工业训练场可[在线打开](https://wander521.github.io/r1-simulator/collab/)，本地位于 **http://127.0.0.1:4173/collab/**：G1 从物料墙取满盒，R1 运输同一料盒并回收空盒，C5 将红/黄圆柱、蓝/绿方块放到四个独立分类区。三台在同一个物理世界独立推进，场景包含工业背景、机器人顶光和无损压缩模型。详见[协作场景说明](work/COLLABORATION.md)及[加载性能记录](work/COLLAB-LOAD-PERFORMANCE.md)。
+
 没有 npm 时运行：`python3 -m http.server 4173 --bind 127.0.0.1 --directory dist`。使用 HTTP 访问，不直接双击 HTML。
 
 ## 试一个任务
